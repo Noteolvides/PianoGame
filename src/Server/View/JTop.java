@@ -5,7 +5,7 @@ import javax.swing.*;
 public class JTop {
     public JList songTop;
 
-    void jTop(){
+    void jTop(JList songTop){
         this.songTop = songTop;
 
 

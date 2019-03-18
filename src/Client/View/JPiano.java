@@ -21,7 +21,7 @@ public class JPiano extends JFrame {
         add(piano,BorderLayout.CENTER);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(ViewPiano.sizeKeyX *(ViewPiano.numberOfKeys+1),500);
+        setSize(ViewPiano.sizeKeyWhiteX *(ViewPiano.numberOfKeys+2),500);
         setVisible(true);
     }
 }

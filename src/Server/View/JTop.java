@@ -16,8 +16,10 @@ public class JTop {
         topList.add("love");
         topList.add("!");
 
+
         Border border = BorderFactory.createLineBorder(Color.GREEN);
         this.songTop = new JList(topList.toArray());
+        songTop.setFont(songTop.getFont().deriveFont(22.0f));
 
         JPanel panelTop = new JPanel();
         panelTop.add(songTop);

@@ -16,10 +16,12 @@ public class JPiano extends JFrame {
     public JPiano() {
         super("Piano");
         setLayout(new BorderLayout());
+        piano = new ViewPiano();
 
+        add(piano,BorderLayout.CENTER);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500,500);
+        setSize(ViewPiano.sizeKeyX *(ViewPiano.numberOfKeys+1),500);
         setVisible(true);
     }
 }

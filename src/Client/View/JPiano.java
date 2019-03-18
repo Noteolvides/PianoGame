@@ -13,7 +13,7 @@ public class JPiano extends JFrame {
         super("Piano");
         setLayout(new BorderLayout());
 
-        
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500,500);
         setVisible(true);

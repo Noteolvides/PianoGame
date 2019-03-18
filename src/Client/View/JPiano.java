@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class JPiano extends JFrame {
+    public static void main(String[] args) {
+        JPiano jp = new JPiano();
+    }
+
     private JPanel topOption;
     private JPanel botOption;
     private JPanel leftOption;

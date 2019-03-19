@@ -13,6 +13,8 @@ public class TopPanel extends JMenuBar {
     private JMenuItem playSongInSystem;
     private JMenuItem selectSongInSystem;
     private JMenuItem restartSongInSystem;
+    private JMenu more;
+    private JButton exitToMenu;
 
 
     public TopPanel(){
@@ -38,7 +40,13 @@ public class TopPanel extends JMenuBar {
         restartSongInSystem = new JMenuItem("Restart Song");
         playSong.add(restartSongInSystem);
 
+        more = new JMenu("More");
+        exitToMenu = new JMenuItem("Exit to Menu");
+        more.add(exitToMenu);
+
         add(recordSong);
         add(playSong);
+        add(more);
+
     }
 }

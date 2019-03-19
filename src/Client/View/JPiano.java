@@ -1,5 +1,7 @@
 package Client.View;
 
+import Client.View.Piano.ViewPiano;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -17,11 +19,10 @@ public class JPiano extends JFrame {
         super("Piano");
         setLayout(new BorderLayout());
         piano = new ViewPiano();
-
         add(piano,BorderLayout.CENTER);
-
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(ViewPiano.sizeKeyWhiteX *(ViewPiano.numberOfKeys+2),500);
+        setSize(50*(ViewPiano.numberOfKeys+2),500);
         setVisible(true);
     }
 }

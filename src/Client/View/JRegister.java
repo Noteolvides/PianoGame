@@ -21,12 +21,20 @@ public class JRegister extends JPanel {
 
     public JRegister() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        JLabel usernameLabel = new JLabel("Input your UserName:");
+        add(usernameLabel);
         usernameRegister = new JTextField();
         add(usernameRegister);
+        JLabel emailLabel = new JLabel("Input your Email:");
+        add(emailLabel);
         emailRegister = new JTextField();
         add(emailRegister);
+        JLabel passwordLabel = new JLabel("Input your password:");
+        add(passwordLabel);
         passwordRegister = new JPasswordField();
         add(passwordRegister);
+        JLabel confirmpasswordLabel = new JLabel("Confirm your password:");
+        add(confirmpasswordLabel);
         passwordRegisterVerify = new JPasswordField();
         add(passwordRegisterVerify);
         buttonRegister = new JButton("Confirm");

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class JTop {
     public JList songTop;
 
-    void JTop(){
+    void JTop(){                            //Pass ArrayList<Song> to the constructor and for each one add Number 1-5
         ArrayList<String> topList = new ArrayList<>();
         topList.add("Watanabe Mayuuuuuu");
         topList.add("Mayu");
@@ -23,7 +23,7 @@ public class JTop {
         songTop.setFont(songTop.getFont().deriveFont(22.0f));
         songTop.setBorder(border);
         songTop.setFixedCellWidth(300);
-
+        songTop.setBackground(new Color(238, 238, 238));
         JPanel panelTop = new JPanel();
         panelTop.add(songTop);
 
@@ -36,7 +36,7 @@ public class JTop {
         //Adds up both raised and lowered
         compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
 
-        //Adds the outer red line
+        //Adds the outer yellow line
         compound = BorderFactory.createCompoundBorder(redLine, compound);
 
         compound = BorderFactory.createTitledBorder(compound, "\uD83D\uDC51 TOP 5 - Popular Songs \uD83D\uDC51", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);

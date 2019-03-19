@@ -14,7 +14,7 @@ public class TopPanel extends JMenuBar {
     private JMenuItem selectSongInSystem;
     private JMenuItem restartSongInSystem;
     private JMenu more;
-    private JButton exitToMenu;
+    private JMenuItem exitToMenu;
 
 
     public TopPanel(){

@@ -12,5 +12,8 @@ public class SongView extends JPanel {
     public SongView () {
         playButton = new JButton ();
         add(playButton);
+        musicIcon = new ImageIcon("View/Images/music_1.jpg");
+        informationIcon = new ImageIcon("View/Images/info_1.jpg");
+
     }
 }

@@ -11,7 +11,7 @@ public class WhiteKey extends Key {
         String keyName = Character.toString(keylevel);
         setLabel(Color.BLACK, keyName + levelKey);
         setBackground(Color.white);
-        setLocation(i * sizeKeyWhiteX, 0);
+        setLocation(i * sizeKeyWhiteX, 50);
         setSize(sizeKeyWhiteX, sizeKeyWhiteY);
         setBorder(new BevelBorder(BevelBorder.RAISED));
     }

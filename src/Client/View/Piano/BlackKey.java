@@ -10,7 +10,7 @@ public class BlackKey extends Key {
         String keyName = Character.toString(keylevel);
         setLabel(Color.white, keyName + "#" + levelKey);
         setBackground(Color.BLACK);
-        setLocation(37 + i * sizeKeyWhiteX, 0);
+        setLocation(37 + i * sizeKeyWhiteX, 50);
         setSize(sizeKeyBlackX, sizeKeyBlackY);
     }
 }

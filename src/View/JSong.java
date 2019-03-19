@@ -1,13 +1,12 @@
 package View;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class JSong extends JPanel{
     //Basic elements of the JSongs Class
     //This is the View where we are going to show the songs
-    private JList songsList;
-    //This is the View that allows us to play a concrete song
-    private JButton playButton;
+    private ArrayList<SongView> songsList;
     private JButton backButton;
     //This is the text element where we are going to show the different songs
     private JTextArea titlePanel;
@@ -17,42 +16,44 @@ public class JSong extends JPanel{
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 
         //Inicialitation of the visual elements
-        songsList = new JList ();
-        playButton = new JButton ();
+        songsList = new ArrayList<SongView>();
         backButton = new JButton ();
         titlePanel = new JTextArea();
 
         //We put all this elements in the JPanel
-        add(songsList);
-        add(playButton);
+        //We include all the songs to the panel
+        for (int i = 0; i < songsList.size();i++) {
+            add(songsList.get(i));
+        }
         add(backButton);
-
+        add(titlePanel);
     }
 
     public void makePanelVisible () {
         setVisible(true);
     }
 
-    public JList getSongsList() {
-        return songsList;
-    }
-
-    public void setSongsList(JList songsList) {
-        this.songsList = songsList;
-    }
-
-    public JButton getPlayButton() {
-        return playButton;
-    }
-
-    public void setPlayButton(JButton playButton) {
-        this.playButton = playButton;
-    }
 
     public JButton getBackButton() {
         return backButton;
     }
     public void setBackButton(JButton backButton) {
         this.backButton = backButton;
+    }
+
+    public ArrayList<SongView> getSongsList() {
+        return songsList;
+    }
+
+    public void setSongsList(ArrayList<SongView> songsList) {
+        this.songsList = songsList;
+    }
+
+    public JTextArea getTitlePanel() {
+        return titlePanel;
+    }
+
+    public void setTitlePanel(JTextArea titlePanel) {
+        this.titlePanel = titlePanel;
     }
 }

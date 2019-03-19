@@ -15,17 +15,21 @@ public class JStart extends JPanel {
 
     private JTextField emailLogin;
     private JPasswordField passwordField;
-    private JButton buttonSignUp;
+    private JButton buttonSignIn;
     private JButton buttonRegister;
 
     public JStart (){
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        JLabel emailLabel = new JLabel("Input your UserName or Email:");
+        add(emailLabel);
         emailLogin = new JTextField();
         add(emailLogin);
+        JLabel passwordLabel = new JLabel("Input your password:");
+        add(passwordLabel);
         passwordField = new JPasswordField();
         add(passwordField);
-        buttonSignUp = new JButton("Sign Up");
-        add(buttonSignUp);
+        buttonSignIn = new JButton("Sign In");
+        add(buttonSignIn);
         buttonRegister = new JButton("Register");
         add(buttonRegister);
     }

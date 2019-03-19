@@ -20,6 +20,8 @@ public class JSong extends JPanel{
         backButton = new JButton ();
         titlePanel = new JTextArea();
 
+        songsList.add(new SongView());
+
         //We put all this elements in the JPanel
         //We include all the songs to the panel
         for (int i = 0; i < songsList.size();i++) {

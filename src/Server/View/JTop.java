@@ -22,22 +22,30 @@ public class JTop {
         this.songTop = new JList(topList.toArray());
         songTop.setFont(songTop.getFont().deriveFont(22.0f));
         songTop.setBorder(border);
+        songTop.setFixedCellWidth(300);
 
         JPanel panelTop = new JPanel();
         panelTop.add(songTop);
 
-        Border compound, raisedbevel, loweredbevel;
+        //Compound border for Visual Effects
+        Border compound, raisedbevel, loweredbevel, redLine;
         raisedbevel = BorderFactory.createRaisedBevelBorder();
         loweredbevel = BorderFactory.createLoweredBevelBorder();
+        redLine = BorderFactory.createLineBorder(Color.YELLOW);
 
-        compound = BorderFactory.createCompoundBorder(
-                raisedbevel, loweredbevel);
+        //Adds up both raised and lowered
+        compound = BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
+
+        //Adds the outer red line
+        compound = BorderFactory.createCompoundBorder(redLine, compound);
+
         compound = BorderFactory.createTitledBorder(compound, "\uD83D\uDC51 TOP 5 - Popular Songs \uD83D\uDC51", TitledBorder.CENTER, TitledBorder.DEFAULT_POSITION);
-        ((TitledBorder) compound).setTitleFont(((TitledBorder) compound).getTitleFont().deriveFont(25.00f));
         panelTop.setBorder(compound);
+
+        ((TitledBorder) compound).setTitleFont(((TitledBorder) compound).getTitleFont().deriveFont(25.00f));
         JFrame frameTop = new JFrame("TOP 5 - Popular Songs"); //Prova
 
-        frameTop.setSize(325, 500);
+        frameTop.setSize(390, 275);
         frameTop.setVisible(true);
         frameTop.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameTop.add(panelTop);

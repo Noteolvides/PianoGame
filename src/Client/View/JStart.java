@@ -1,7 +1,6 @@
 package Client.View;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class JStart extends JPanel {
     public static void main(String[] args) {
@@ -18,11 +17,9 @@ public class JStart extends JPanel {
     private JPasswordField passwordField;
     private JButton buttonSignUp;
     private JButton buttonRegister;
-    private JPanel registerPanel;
 
     public JStart (){
-        BoxLayout boxLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
-        setLayout(boxLayout);
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         emailLogin = new JTextField();
         add(emailLogin);
         passwordField = new JPasswordField();

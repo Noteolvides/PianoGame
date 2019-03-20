@@ -15,6 +15,7 @@ public class Prueba extends JFrame {
         add(pantalla);
         setSize(400,1000);
         setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     }
     public ArrayList <SongPrueba> simulationOfController () {

@@ -33,7 +33,10 @@ public class JSong extends JPanel{
         titlePanel = new JLabel();
         songsGroup = new JPanel();
 
-
+        titlePanel.setText("SONGS LIST ♫");
+        titlePanel.setFont(new Font("Alegreya Sans",Font.PLAIN,25));
+        //We align the title to the center point
+        titlePanel.setAlignmentX(0.5f);
         //Initialitation of the button to go the previous menu
         //Localizing the image in the project
         ImageIcon backImage = new ImageIcon(getClass().getResource("Images/back.png"));
@@ -51,6 +54,9 @@ public class JSong extends JPanel{
         songsGroup.setLayout(new BoxLayout(songsGroup,BoxLayout.Y_AXIS));
 
 
+        //Adding the title of the JSong panel
+        add(titlePanel);
+
         includeSongs (songs);
         //Adding all the songs generated to the panel
         addAllTheSongs(songsList);
@@ -61,11 +67,16 @@ public class JSong extends JPanel{
         add(scrollBar);
 
         //Definition of the Bottom's panel layout
-        bottomPanel.setLayout(new BoxLayout(bottomPanel,BoxLayout.X_AXIS));
+        bottomPanel.setLayout(new GridLayout());
+        backButton.setHorizontalAlignment(JLabel.LEFT);
         bottomPanel.add(backButton);
-        //We put an invisible border un the backbutton to separete it from the refresh button
+        //We put an invisible border un the backbutton to separete it form the left margin
         backButton.setBorder(new EmptyBorder(5,5,5,5));
+
         bottomPanel.add(refreshButton);
+        refreshButton.setHorizontalAlignment(JLabel.RIGHT);
+        //We put an invisible border un the backbutton to separete it form the right margin
+        refreshButton.setBorder(new EmptyBorder(5,5,5,5));
         add(bottomPanel);
 
     }

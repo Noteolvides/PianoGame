@@ -16,23 +16,24 @@ public class JEvolution {
 
     void JEvolution() throws IOException {
         JFrame evoPanel = new JFrame("Active Users Countage");
+        evoPanel.setLayout(new GridBagLayout());
 
-        //Generation Active User per Hour
-        DefaultXYDataset dataset = new DefaultXYDataset();
-        dataset.addSeries("JPiano users", new double[][] {{ 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017 }, { 25, 29.1, 32.1, 32.9, 31.9, 25.5, 20.1, 18.4, 15.3, 11.4, 9.5 }});
-        dataset.addSeries("Likes", new double[][] {{ 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017 }, { 67.7, 63.1, 60.2, 50.6, 41.1, 31.8, 27.6, 20.4, 17.3, 12.3, 8.1 }});
-        dataset.addSeries("Dislikes", new double[][] {{ 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017 }, { 0.2, 6.4, 14.6, 25.3, 30.1, 34.3, 43.2, 47.3, 58.4 }});
+        ImageIcon icon = new ImageIcon("C:/Users/Jiahu/Downloads/jewels.png");
+        evoPanel.setIconImage(icon.getImage());
 
 
-        renderer.setSeriesStroke(0, new BasicStroke(2));
+        //Frame title
+        JLabel graphTitle = new JLabel("Active Users Countage");
 
-        JFreeChart chart = ChartFactory.createXYLineChart("Active Users Countage", "Hour", "Active Users", dataset);
-        chart.getXYPlot().getRangeAxis().setRange(0, 100);
-        ((NumberAxis) chart.getXYPlot().getRangeAxis()).setNumberFormatOverride(new DecimalFormat("#'%'"));
-        chart.getXYPlot().setRenderer(renderer);
+        //Time Selection
+        JPanel timeSelect = new JPanel();
+        JButton week = new JButton("Week");
+        JButton month = new JButton("Month");
+        JButton year = new JButton("Year");
 
-        BufferedImage image = chart.createBufferedImage(600, 400);
-        ImageIO.write(image, "png", new File("xy-chart.png"));
+        timeSelect.add(week);
+        timeSelect.add(month);
+        timeSelect.add(year);
 
         /*JPanel graphicPanel = new JPanel();
         graphicPanel.setSize(600, 400);

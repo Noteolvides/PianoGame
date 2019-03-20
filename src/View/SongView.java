@@ -13,7 +13,7 @@ public class SongView extends JPanel {
     private JLabel titleSong;
     private JLabel description;
     private JLabel musicIcon;
-    private JButton playButton;
+    private JLabel playButton;
     private JLabel infoIcon;
     public SongView () {
         setLayout(new BorderLayout());
@@ -38,8 +38,12 @@ public class SongView extends JPanel {
 
 
         //We make a button to Play the song
-        playButton = new JButton ();
-        playButton.setText("Play");
+        playButton = new JLabel ();
+        ImageIcon playImage = new ImageIcon(getClass().getResource("Images/play_button.png"));
+        //We scale the image because it's too big
+        ImageIcon play_scaled = new ImageIcon(playImage.getImage().getScaledInstance(playImage.getIconWidth() / 28, playImage.getIconHeight() / 28, Image.SCALE_SMOOTH));
+        playButton.setIcon(play_scaled);
+        playButton.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 
         //We create a panel to add the play button and the info button
         panelPlayInfo = new JPanel();
@@ -58,7 +62,7 @@ public class SongView extends JPanel {
         groupTitleDescription.add(titleSong);
         groupTitleDescription.add(description);
         //We make an empty border to down the group of elements
-        groupTitleDescription.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+        groupTitleDescription.setBorder(BorderFactory.createEmptyBorder(7,7,7,7));
 
 
         //Adding the elements to the JPanel

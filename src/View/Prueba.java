@@ -13,7 +13,7 @@ public class Prueba extends JFrame {
 
         pantalla = new JSong(simulationOfController());
         add(pantalla);
-        setSize(300,1000);
+        setSize(400,1000);
         setVisible(true);
 
     }
@@ -29,6 +29,12 @@ public class Prueba extends JFrame {
         SongPrueba s6 = new SongPrueba(7,"Las Zanahorias estan rebien","Pepe");
         SongPrueba s7 = new SongPrueba(8,"Javadabadooh","El papu picapiedra");
         SongPrueba s8 = new SongPrueba(9,"Intel y gentes: Musica tite'","Dani y los otros");
+        SongPrueba s9 = new SongPrueba(10,"Hola bon dia","El SinMerk3000");
+        SongPrueba s10 = new SongPrueba(11,"Bella Ciao Remix","Martin Garrix");
+        SongPrueba s11 = new SongPrueba(12,"Urss Anthem Techno Remix","DJ Marx");
+        SongPrueba s12 = new SongPrueba(13,"El baile del TCP/IP","TimoTronic");
+        SongPrueba s13 = new SongPrueba(14,"TimoTronic","Yahoo");
+        SongPrueba s14 = new SongPrueba(15,"Illo eso ka' sido","Pingu");
         array.add(s);
         array.add(s1);
         array.add(s2);
@@ -38,6 +44,12 @@ public class Prueba extends JFrame {
         array.add(s6);
         array.add(s7);
         array.add(s8);
+        array.add(s9);
+        array.add(s10);
+        array.add(s11);
+        array.add(s12);
+        array.add(s13);
+        array.add(s14);
         return array;
     }
 }

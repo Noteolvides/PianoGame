@@ -47,8 +47,10 @@ public class SongView extends JPanel {
         panelPlayInfo.add(playButton);
         panelPlayInfo.add(infoIcon);
 
-        titleSong = new JLabel("hola");
-        description = new JLabel ("patata");
+        titleSong = new JLabel("Himno URSS");
+        titleSong.setFont(new Font("Sans Serif",Font.BOLD,14));
+        description = new JLabel ("Stallin");
+        description.setFont(new Font("Sans Serif",Font.PLAIN,10));
 
         //We create a panel to add the title and her description
         groupTitleDescription = new JPanel();

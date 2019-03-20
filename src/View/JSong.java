@@ -3,6 +3,7 @@ package View;
 import View.Images.SongPrueba;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -10,9 +11,12 @@ public class JSong extends JPanel{
     //Basic elements of the JSongs Class
     //This is the View where we are going to show the songs
     private ArrayList<SongView> songsList;
-    private JButton backButton;
+    private JLabel backButton;
+    private JLabel refreshButton;
+    //This is the panel where we are going to add the back and refresh button
+    private JPanel bottomPanel;
     //This is the text element where we are going to show the different songs
-    private JTextArea titlePanel;
+    private JLabel titlePanel;
 
     private JPanel songsGroup;
 
@@ -23,10 +27,25 @@ public class JSong extends JPanel{
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 
         //Inicialitation of the visual elements
-        backButton = new JButton ();
-        titlePanel = new JTextArea();
+        backButton = new JLabel ();
+        refreshButton = new JLabel ();
+        bottomPanel = new JPanel ();
+        titlePanel = new JLabel();
         songsGroup = new JPanel();
 
+
+        //Initialitation of the button to go the previous menu
+        //Localizing the image in the project
+        ImageIcon backImage = new ImageIcon(getClass().getResource("Images/back.png"));
+        //We scale the image because it's too big
+        ImageIcon backImage_scaled = new ImageIcon(backImage.getImage().getScaledInstance(backImage.getIconWidth() / 20, backImage.getIconHeight() / 20, Image.SCALE_SMOOTH));
+        backButton.setIcon(backImage_scaled);
+
+
+        ImageIcon refreshImage = new ImageIcon(getClass().getResource("Images/refresh.png"));
+        //We scale the image because it's too big
+        ImageIcon refreshImage_scaled = new ImageIcon(refreshImage.getImage().getScaledInstance(refreshImage.getIconWidth() / 20, refreshImage.getIconHeight() / 20, Image.SCALE_SMOOTH));
+        refreshButton.setIcon(refreshImage_scaled);
 
         //We define the group of songs as a BoxLayout
         songsGroup.setLayout(new BoxLayout(songsGroup,BoxLayout.Y_AXIS));
@@ -40,8 +59,15 @@ public class JSong extends JPanel{
         scrollBar = new JScrollPane(songsGroup);
 
         add(scrollBar);
-        add(backButton);
-        add(titlePanel);
+
+        //Definition of the Bottom's panel layout
+        bottomPanel.setLayout(new BoxLayout(bottomPanel,BoxLayout.X_AXIS));
+        bottomPanel.add(backButton);
+        //We put an invisible border un the backbutton to separete it from the refresh button
+        backButton.setBorder(new EmptyBorder(5,5,5,5));
+        bottomPanel.add(refreshButton);
+        add(bottomPanel);
+
     }
 
     public void makePanelVisible () {
@@ -65,12 +91,7 @@ public class JSong extends JPanel{
         }
     }
 
-    public JButton getBackButton() {
-        return backButton;
-    }
-    public void setBackButton(JButton backButton) {
-        this.backButton = backButton;
-    }
+
 
     public ArrayList<SongView> getSongsList() {
         return songsList;
@@ -80,11 +101,4 @@ public class JSong extends JPanel{
         this.songsList = songsList;
     }
 
-    public JTextArea getTitlePanel() {
-        return titlePanel;
-    }
-
-    public void setTitlePanel(JTextArea titlePanel) {
-        this.titlePanel = titlePanel;
-    }
 }

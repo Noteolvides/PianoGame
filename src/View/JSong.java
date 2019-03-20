@@ -1,5 +1,7 @@
 package View;
 
+import View.Images.SongPrueba;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -12,7 +14,7 @@ public class JSong extends JPanel{
     //This is the text element where we are going to show the different songs
     private JTextArea titlePanel;
 
-    public JSong () {
+    public JSong (ArrayList <SongPrueba> songs) {
         //Inicialization of Layout
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 
@@ -21,15 +23,8 @@ public class JSong extends JPanel{
         backButton = new JButton ();
         titlePanel = new JTextArea();
 
-        songsList.add(new SongView());
+        includeSongs (songs);
 
-        //We put all this elements in the JPanel
-        //We include all the songs to the panel
-        for (int i = 0; i < songsList.size();i++) {
-            add(songsList.get(i));
-            //We put a maximmum size of a song
-            songsList.get(i).setMaximumSize(new Dimension(1000,50));
-        }
         add(backButton);
         add(titlePanel);
     }
@@ -38,6 +33,21 @@ public class JSong extends JPanel{
         setVisible(true);
     }
 
+    public void includeSongs (ArrayList <SongPrueba> songs) {
+        //We take the songs that we are going to show and we add them to our view
+        for (int i = 0;i < songs.size();i++) {
+            songsList.add(new SongView(songs.get(i).getTitle(),songs.get(i).getDescription()));
+            //We put a maximmum size of a song
+            songsList.get(i).setMaximumSize(new Dimension(1000,50));
+        }
+        //Adding all the songs generated to the panel
+        addAllTheSongs(songsList);
+    }
+    private void addAllTheSongs (ArrayList <SongView> songsViews) {
+        for (int i = 0; i < songsViews.size();i++) {
+            add(songsViews.get(i));
+        }
+    }
 
     public JButton getBackButton() {
         return backButton;

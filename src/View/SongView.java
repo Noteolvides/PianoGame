@@ -2,9 +2,7 @@ package View;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.net.URL;
-import java.text.AttributedCharacterIterator;
+
 
 public class SongView extends JPanel {
     //Atributes of the SongView class
@@ -15,7 +13,7 @@ public class SongView extends JPanel {
     private JLabel musicIcon;
     private JLabel playButton;
     private JLabel infoIcon;
-    public SongView () {
+    public SongView (String title, String description) {
         setLayout(new BorderLayout());
 
         //To obtain the resource directly without the full path
@@ -51,16 +49,16 @@ public class SongView extends JPanel {
         panelPlayInfo.add(playButton);
         panelPlayInfo.add(infoIcon);
 
-        titleSong = new JLabel("Himno URSS");
+        titleSong = new JLabel(title);
         titleSong.setFont(new Font("Sans Serif",Font.BOLD,14));
-        description = new JLabel ("Stallin");
-        description.setFont(new Font("Sans Serif",Font.PLAIN,10));
+        this.description = new JLabel (description);
+        this.description.setFont(new Font("Sans Serif",Font.PLAIN,10));
 
         //We create a panel to add the title and her description
         groupTitleDescription = new JPanel();
         groupTitleDescription.setLayout(new BoxLayout(groupTitleDescription,BoxLayout.Y_AXIS));
         groupTitleDescription.add(titleSong);
-        groupTitleDescription.add(description);
+        groupTitleDescription.add(this.description);
         //We make an empty border to down the group of elements
         groupTitleDescription.setBorder(BorderFactory.createEmptyBorder(7,7,7,7));
 

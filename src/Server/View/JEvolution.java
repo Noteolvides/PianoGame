@@ -2,7 +2,6 @@ package Server.View;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.xy.DefaultXYDataset;
 
@@ -12,7 +11,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
 
 public class JEvolution {
 
@@ -25,8 +23,6 @@ public class JEvolution {
         dataset.addSeries("Likes", new double[][] {{ 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017 }, { 67.7, 63.1, 60.2, 50.6, 41.1, 31.8, 27.6, 20.4, 17.3, 12.3, 8.1 }});
         dataset.addSeries("Dislikes", new double[][] {{ 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017 }, { 0.2, 6.4, 14.6, 25.3, 30.1, 34.3, 43.2, 47.3, 58.4 }});
 
-        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
-        renderer.setSeriesPaint(0, Color.ORANGE);
 
         renderer.setSeriesStroke(0, new BasicStroke(2));
 
@@ -38,12 +34,15 @@ public class JEvolution {
         BufferedImage image = chart.createBufferedImage(600, 400);
         ImageIO.write(image, "png", new File("xy-chart.png"));
 
-        JPanel graphicPanel = new JPanel();
-        JLabel graphic = new JLabel(new ImageIcon(image));
-        graphicPanel.add(graphic);
+        /*JPanel graphicPanel = new JPanel();
+        graphicPanel.setSize(600, 400);
+        JLabel graphic = new JLabel(new ImageIcon(image.getScaledInstance(graphicPanel.getWidth(), graphicPanel.getHeight(), image.SCALE_FAST)));
+        graphicPanel.add(graphic);*/
 
-        evoPanel.add(graphic);
+
+        evoPanel.add(timeSelect);
         evoPanel.setSize(700, 500);
+        //evoPanel.add(graphicPanel);
         evoPanel.setVisible(true);
         evoPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

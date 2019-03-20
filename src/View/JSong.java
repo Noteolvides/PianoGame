@@ -1,6 +1,7 @@
 package View;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class JSong extends JPanel{
@@ -26,6 +27,8 @@ public class JSong extends JPanel{
         //We include all the songs to the panel
         for (int i = 0; i < songsList.size();i++) {
             add(songsList.get(i));
+            //We put a maximmum size of a song
+            songsList.get(i).setMaximumSize(new Dimension(1000,50));
         }
         add(backButton);
         add(titlePanel);

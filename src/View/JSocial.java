@@ -21,7 +21,7 @@ public class JSocial extends JPanel {
 
     public JSocial () {
         //Initialization of the Layout
-        setLayout(new BorderLayout());
+        setLayout(new FlowLayout());
         panelTitle = new JLabel();
         searchPanel = new JPanel();
         squareSeachFriend = new JTextField();
@@ -61,14 +61,14 @@ public class JSocial extends JPanel {
         searchAndAnswerPanel.setLayout(new BorderLayout());
         searchAndAnswerPanel.add(searchPanel,BorderLayout.PAGE_START);
         panelFriend.setVisible(false);
-        searchAndAnswerPanel.add(panelFriend,BorderLayout.CENTER);
 
+
+        showUserSearch("Hola","mayu.jpg");
 
         //Added the image title
-        add(panelTitle,BorderLayout.PAGE_START);
+        add(panelTitle);
         //Added the panel to search persons
-        add(searchAndAnswerPanel,BorderLayout.CENTER);
-
+        add(searchAndAnswerPanel);
 
 
 
@@ -76,6 +76,7 @@ public class JSocial extends JPanel {
     public void showUserSearch (String name, String photoFilename) {
         panelFriend = new JPanel();
         panelFriend = new JFriend (photoFilename,name);
+        searchAndAnswerPanel.add(panelFriend,BorderLayout.CENTER);
         panelFriend.setVisible(true);
     }
     public void showUserNotFound () {
@@ -93,9 +94,15 @@ public class JSocial extends JPanel {
         //We make a text to indicate the error
         text.setText("ERROR π, IMAGE NOT FOUND");
 
+
+
         //Adding to the panel the image and the text
+
         panelFriend.add(notFoundIm);
+
         panelFriend.add(text);
+
+        searchAndAnswerPanel.add(panelFriend,BorderLayout.CENTER);
         panelFriend.setVisible(true);
     }
 }

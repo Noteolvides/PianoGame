@@ -25,7 +25,29 @@ public class Graphic extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+        double xScale = ((double) getWidth() - (3) / (users.size() - 1);
+        double yScale = ((double) getHeight() - 2) / (getMaxUsers() - getMinUsers());
 
+    }
+
+    /**Obtenir mínim usauris**/
+    public double getMinUsers() {
+        Integer minUser = Integer.MAX_VALUE;
+        for (Integer user : users) {
+            minUser = Math.min(minUser, user);
+        }
+        return minUser;
+    }
+
+    /**Obtenir pic usuaris**/
+    public double getMaxUsers() {
+        Integer maxUser = Integer.MIN_VALUE;
+        for (Integer user : users) {
+            maxUser = Math.min(maxUser, user);
+        }
+        return maxUser;
     }
 }

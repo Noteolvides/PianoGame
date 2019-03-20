@@ -51,17 +51,17 @@ public class JEvolution {
         evoPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void showGraphic(){
-        ArrayList<Integer> scores = new ArrayList<>();
+    public void showGraphic(){                                      //Quan cridem aquesta funció li passarem una llista de quantitat d'usuaris
+        ArrayList<Integer> users = new ArrayList<>();
         Random random = new Random();
         int maxDataPoints = 10;
         int maxScore = 100;
         for (int i = 0; i < maxDataPoints; i++) {
-            scores.add((Integer) random.nextInt() * maxScore);
+            users.add((Integer) random.nextInt() * maxScore);
         }
 
 
-        Graph
+        Graphic graphic = new Graphic(users);
     }
 
 

@@ -22,12 +22,21 @@ public class JEvolution {
         JButton week = new JButton("Week");
         JButton month = new JButton("Month");
         JButton year = new JButton("Year");
+        evoPanel.setSize(1920, 1080);
 
 
-        evoPanel.setLayout(new GridBagLayout());
+        evoPanel.setLayout(new GridLayout(3, 1));
+        /*JPanel aux = showGraphic();
+        aux.setSize(400, 300);
+        evoPanel.add(aux);*/
         constraints.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel graphTitle = new JLabel("Active Users Countage");
+        /*evoPanel.add(graphTitle);
+        JPanel aux = showGraphic();
+        aux.setPreferredSize(new Dimension(400, 300));
+        evoPanel.add(aux);
+        evoPanel.add(new JButton("Hello"));*/
         constraints.gridx = 1;
         constraints.gridy = 0;
         evoPanel.add(graphTitle, constraints);
@@ -41,35 +50,40 @@ public class JEvolution {
         constraints.gridx = 2;
         constraints.gridy = 2;
         evoPanel.add(year, constraints);
+        constraints.gridx = 1;
+        constraints.gridy = 1;
 
-
+        evoPanel.add(showGraphic(), constraints);
 
         //evoPanel.add(timeSelect);
-        evoPanel.setSize(700, 500);
         //evoPanel.add(graphicPanel);
         evoPanel.setVisible(true);
         evoPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void showGraphic(){                                      //Quan cridem aquesta funció li passarem una llista de quantitat d'usuaris
-        ArrayList<Integer> users = new ArrayList<>();
+    public JPanel showGraphic() {                                      //Quan cridem aquesta funció li passarem una llista de quantitat d'usuaris
+        ArrayList<Double> users = new ArrayList<>();
         Random random = new Random();
         int maxDataPoints = 10;
         int maxScore = 100;
         for (int i = 0; i < maxDataPoints; i++) {
-            users.add((Integer) random.nextInt() * maxScore);
+            users.add(random.nextDouble() * maxScore);
         }
 
 
         Graphic graphic = new Graphic(users);
+        graphic.setPreferredSize(new Dimension(1280, 720));
+        JPanel graphics = new JPanel();
+        graphics.add(graphic);
+        return graphics;
     }
 
 
     public static void main(String[] args) throws IOException {
         JEvolution evo = new JEvolution();
         evo.JEvolution();
-    }
 
+    }
     /*void registerController(Controller controller){
 
     }*/

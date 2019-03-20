@@ -15,6 +15,7 @@ public class Prueba extends JFrame {
         add(pantalla);
         setSize(400,1000);
         setVisible(true);
+        setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     }

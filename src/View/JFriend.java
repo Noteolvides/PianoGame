@@ -11,7 +11,7 @@ public class JFriend extends JPanel {
     //With this button we can add this friend or not
     private JLabel buttonAddFriend;
 
-    public JFriend (String nombreImagen, String name,int edad) {
+    public JFriend (String nombreImagen, String name) {
         //Initialization of the Layout
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();

@@ -73,4 +73,29 @@ public class JSocial extends JPanel {
 
 
     }
+    public void showUserSearch (String name, String photoFilename) {
+        panelFriend = new JPanel();
+        panelFriend = new JFriend (photoFilename,name);
+        panelFriend.setVisible(true);
+    }
+    public void showUserNotFound () {
+        panelFriend = new JPanel();
+        panelFriend.setLayout(new BoxLayout(panelFriend,BoxLayout.Y_AXIS));
+        JLabel notFoundIm = new JLabel();
+        JLabel text = new JLabel();
+
+        //We make an image that shows us that it was an error
+        ImageIcon notFoundImage = new ImageIcon(getClass().getResource("Images_JSocial/notFound.png"));
+        //We scale the image because it's too big
+        ImageIcon notFound_scaled = new ImageIcon(notFoundImage.getImage().getScaledInstance(notFoundImage.getIconWidth() / 18, notFoundImage.getIconHeight() / 18, Image.SCALE_SMOOTH));
+        notFoundIm.setIcon(notFound_scaled);
+
+        //We make a text to indicate the error
+        text.setText("ERROR π, IMAGE NOT FOUND");
+
+        //Adding to the panel the image and the text
+        panelFriend.add(notFoundIm);
+        panelFriend.add(text);
+        panelFriend.setVisible(true);
+    }
 }

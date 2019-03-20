@@ -16,24 +16,41 @@ public class JEvolution {
 
     void JEvolution() throws IOException {
         JFrame evoPanel = new JFrame("Active Users Countage");
-        evoPanel.setLayout(new GridBagLayout());
 
         ImageIcon icon = new ImageIcon("C:/Users/Jiahu/Downloads/jewels.png");
         evoPanel.setIconImage(icon.getImage());
 
 
         //Frame title
-        JLabel graphTitle = new JLabel("Active Users Countage");
+        GridBagConstraints constraints = new GridBagConstraints();
 
         //Time Selection
-        JPanel timeSelect = new JPanel();
+        //JPanel timeSelect = new JPanel();
         JButton week = new JButton("Week");
         JButton month = new JButton("Month");
         JButton year = new JButton("Year");
 
-        timeSelect.add(week);
+        /*timeSelect.add(week);
         timeSelect.add(month);
-        timeSelect.add(year);
+        timeSelect.add(year);*/
+        evoPanel.setLayout(new GridBagLayout());
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+
+        JLabel graphTitle = new JLabel("Active Users Countage");
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        evoPanel.add(graphTitle, constraints);
+
+        //constraints.weightx = 0.5;
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        evoPanel.add(week, constraints);
+        constraints.gridx = 1;
+        constraints.gridy = 2;
+        evoPanel.add(month, constraints);
+        constraints.gridx = 2;
+        constraints.gridy = 2;
+        evoPanel.add(year, constraints);
 
         /*JPanel graphicPanel = new JPanel();
         graphicPanel.setSize(600, 400);
@@ -41,7 +58,7 @@ public class JEvolution {
         graphicPanel.add(graphic);*/
 
 
-        evoPanel.add(timeSelect);
+        //evoPanel.add(timeSelect);
         evoPanel.setSize(700, 500);
         //evoPanel.add(graphicPanel);
         evoPanel.setVisible(true);

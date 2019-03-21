@@ -21,11 +21,12 @@ public class JSocial extends JPanel {
 
     public JSocial () {
         //Initialization of the Layout
-        setLayout(new FlowLayout());
+        setLayout(new FlowLayout(FlowLayout.LEFT));
         panelTitle = new JLabel();
         searchPanel = new JPanel();
         squareSeachFriend = new JTextField();
         panelFriend = new JPanel();
+        backButton = new JLabel ();
         //We define a maximum size for the textfield
         squareSeachFriend.setMaximumSize(new Dimension(400,28));
         //Definition of the title
@@ -43,6 +44,7 @@ public class JSocial extends JPanel {
         //Make the square rounded to become more attractive
         squareSeachFriend.setBorder(new RoundedBorder(8));
 
+        //Initialization of search button
         searchButton = new JLabel ();
         ImageIcon searchImage = new ImageIcon(getClass().getResource("Images_JSocial/search.png"));
         //We scale the image because it's too big
@@ -64,10 +66,18 @@ public class JSocial extends JPanel {
         showUserSearch("Anonymous","mayu.jpg");
 
 
+        searchButton = new JLabel ();
+        ImageIcon backButton = new ImageIcon(getClass().getResource("Images_JSocial/back.png"));
+        //We scale the image because it's too big
+        ImageIcon backButton_scaled = new ImageIcon(backButton.getImage().getScaledInstance(backButton.getIconWidth() / 18, backButton.getIconHeight() / 18, Image.SCALE_SMOOTH));
+        this.backButton.setIcon(backButton_scaled);
+        this.backButton.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         //Added the image title
         add(panelTitle);
         //Added the panel to search persons
         add(searchAndAnswerPanel);
+        add(this.backButton);
+
 
 
 

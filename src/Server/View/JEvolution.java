@@ -40,20 +40,19 @@ public class JEvolution {
         constraints.gridy = 0;
         evoPanel.add(graphTitle, constraints);
 
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        evoPanel.add(week, constraints);
-        constraints.gridx = 1;
-        constraints.gridy = 2;
-        evoPanel.add(month, constraints);
-        constraints.gridx = 2;
-        constraints.gridy = 2;
-        evoPanel.add(year, constraints);
+
         constraints.gridx = 1;
         constraints.gridy = 1;
 
         evoPanel.add(showGraphic(), constraints);
+
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.add(week);
+        buttonsPanel.add(month);
+        buttonsPanel.add(year);
+        constraints.gridx = 1;
+        constraints.gridy = 2;
+        evoPanel.add(buttonsPanel, constraints);
 
         //evoPanel.add(timeSelect);
         //evoPanel.add(graphicPanel);

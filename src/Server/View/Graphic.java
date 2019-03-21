@@ -17,16 +17,12 @@ public class Graphic extends JPanel {
     private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
     private static int pointWidth = 10;
     private int numberYDivisions = 20;
-    private List<Double> scores;
-    private int padding = 20;
+    private List<Double> users;
+    private int padding = 30;                       //Quantitat de farcida esquerra i dreta
 
 
-    /**
-     * Math_Graph is a constructor method
-     * @returns List scores;
-     */
-    public Graphic(ArrayList<Double> scores) {
-        this.scores = scores;
+    public Graphic(ArrayList<Double> users) {
+        this.users = users;
     }
 
     @Override
@@ -35,35 +31,30 @@ public class Graphic extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        double xScale = ((double) getWidth() - (3 * padding) - labelPadding) / (scores.size() - 1);
-        double yScale = ((double) getHeight() - 2 * padding - labelPadding) / (getMaxScore() - getMinScore());
+        double xScale = ((double) getWidth() - (3 * padding) - labelPadding) / (users.size() - 1);
+        double yScale = ((double) getHeight() - 2 * padding - labelPadding) / (getMaxUsers() - getMinUsers());
 
         List<Point> graphPoints = new ArrayList<>();
-        for (int i = 0; i < scores.size(); i++) {
+        for (int i = 0; i < users.size(); i++) {
             int x1 = (int) (i * xScale + padding + labelPadding);
-            int y1 = (int) ((getMaxScore() - scores.get(i)) * yScale + padding);
+            int y1 = (int) ((getMaxUsers() - users.get(i)) * yScale + padding);
             graphPoints.add(new Point(x1, y1));
         }
 
         g2.setColor(Color.WHITE);
 
-        //fill the rect
-        g2.fillRect(padding + labelPadding, padding, getWidth() - (2 * padding) -
-                labelPadding, getHeight() - 2 * padding - labelPadding);
-        g2.setColor(Color.GREEN);
 
         //Secciona l'eix Y i introdueix valors
         for (int i = 0; i < numberYDivisions + 1; i++) {
             int x0 = padding + labelPadding;
             int x1 = pointWidth + padding + labelPadding;
-            int y0 = getHeight() - ((i * (getHeight() - padding * 2 -
-                    labelPadding)) / numberYDivisions + padding + labelPadding);
+            int y0 = getHeight() - ((i * (getHeight() - padding * 2 - labelPadding)) / numberYDivisions + padding + labelPadding);
             int y1 = y0;
-            if (scores.size() > 0) {
+            if (users.size() > 0) {
                 g2.setColor(gridColor);
                 g2.drawLine(padding + labelPadding + 1 + pointWidth, y0, getWidth() - padding, y1);
                 g2.setColor(Color.BLACK);
-                String yLabel = ((int) ((getMinScore() + (getMaxScore() - getMinScore()) *
+                String yLabel = ((int) ((getMinUsers() + (getMaxUsers() - getMinUsers()) *
                         ((i * 8.0) / numberYDivisions)) * 100)) / 100.0 + "";
                 FontMetrics metrics = g2.getFontMetrics();
                 int labelWidth = metrics.stringWidth(yLabel);
@@ -73,13 +64,13 @@ public class Graphic extends JPanel {
         }
 
         //Secciona l'eix X i introdueix valors
-        for (int i = 0; i < scores.size(); i++) {
-            if (scores.size() > 1) {
-                int x0 = i * (getWidth() - padding * 2 - labelPadding) / (scores.size() - 1) + padding + labelPadding;
+        for (int i = 0; i < users.size(); i++) {
+            if (users.size() > 1) {
+                int x0 = i * (getWidth() - padding * 2 - labelPadding) / (users.size() - 1) + padding + labelPadding;
                 int x1 = x0;
                 int y0 = getHeight() - padding - labelPadding;
                 int y1 = y0 - pointWidth;
-                if ((i % ((int) ((scores.size() / 8.0)) + 3)) == 0) {
+                if ((i % ((int) ((users.size() / 8.0)) + 3)) == 0) {
                     g2.setColor(gridColor);
                     g2.drawLine(x0, getHeight() - padding - labelPadding - 1 - pointWidth, x1, padding);
                     g2.setColor(Color.BLACK);
@@ -95,8 +86,7 @@ public class Graphic extends JPanel {
 
         //Dibuixa els dos eixos de la gràfica
         g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, padding + labelPadding, padding);
-        g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, getWidth() -
-                padding, getHeight() - padding - labelPadding);
+        g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, getWidth() - padding, getHeight() - padding - labelPadding);
 
         Stroke oldStroke = g2.getStroke();
         g2.setColor(lineColor);
@@ -125,32 +115,24 @@ public class Graphic extends JPanel {
     }
 
     /*
-     *  getting the min score using Math();
-     * getMinScore is an accessor method
-     * @Return the minScore
+     *Gets the lowest peak of users
      */
-
-
-    private double getMinScore() {
-        double minScore = Double.MAX_VALUE;
-        for (Double score : scores) {
-            minScore = Math.min(minScore, score);
+    private double getMinUsers() {
+        double minUsers = Double.MAX_VALUE;
+        for (Double Users : users) {
+            minUsers = Math.min(minUsers, Users);
         }
-        System.out.println(minScore);
-        return minScore;
+        return minUsers;
     }
-    /*
-     *  getting the max score using Math();
-     * getMaxScore is an accessor method
-     * @Return the maxScore;
-     */
 
-    private double getMaxScore() {
-        double maxScore = Double.MIN_VALUE;
-        for (Double score : scores) {
-            maxScore = Math.max(maxScore, score);
+    /*
+     *Gets the peak number of users
+     */
+    private double getMaxUsers() {
+        double maxUsers = Double.MIN_VALUE;
+        for (Double Users : users) {
+            maxUsers = Math.max(maxUsers, Users);
         }
-        System.out.println(maxScore);
-        return maxScore;
+        return maxUsers;
     }
 }

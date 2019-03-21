@@ -8,11 +8,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class JEvolution {
+    private ArrayList<Double> users;
 
     void JEvolution() throws IOException {
         JFrame evoPanel = new JFrame("Active Users Countage");
 
-        ImageIcon icon = new ImageIcon("C:/Users/Jiahu/Downloads/jewels.png");
+        ImageIcon icon = new ImageIcon("./graphicicon.png");
         evoPanel.setIconImage(icon.getImage());
 
         //Frame title
@@ -22,30 +23,25 @@ public class JEvolution {
         JButton week = new JButton("Week");
         JButton month = new JButton("Month");
         JButton year = new JButton("Year");
-        evoPanel.setSize(1920, 1080);
+        evoPanel.setSize(1400, 1000);
 
 
         evoPanel.setLayout(new GridBagLayout());
-        /*JPanel aux = showGraphic();
-        aux.setSize(400, 300);
-        evoPanel.add(aux);*/
 
+        //Títol al Top
         JLabel graphTitle = new JLabel("Active Users Countage");
-        /*evoPanel.add(graphTitle);
-        JPanel aux = showGraphic();
-        aux.setPreferredSize(new Dimension(400, 300));
-        evoPanel.add(aux);
-        evoPanel.add(new JButton("Hello"));*/
+        graphTitle.setFont(graphTitle.getFont().deriveFont(22.0f));
         constraints.gridx = 1;
         constraints.gridy = 0;
         evoPanel.add(graphTitle, constraints);
 
 
+        //Grafica al mig
         constraints.gridx = 1;
         constraints.gridy = 1;
-
         evoPanel.add(showGraphic(), constraints);
 
+        //Botons al Peu
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.add(week);
         buttonsPanel.add(month);
@@ -54,14 +50,12 @@ public class JEvolution {
         constraints.gridy = 2;
         evoPanel.add(buttonsPanel, constraints);
 
-        //evoPanel.add(timeSelect);
-        //evoPanel.add(graphicPanel);
         evoPanel.setVisible(true);
         evoPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public JPanel showGraphic() {                                      //Quan cridem aquesta funció li passarem una llista de quantitat d'usuaris
-        ArrayList<Double> users = new ArrayList<>();
+        users = new ArrayList<>();
         Random random = new Random();
         int maxDataPoints = 10;
         int maxScore = 100;

@@ -36,8 +36,6 @@ public class JSocial extends JPanel {
         panelTitle.setHorizontalAlignment(JLabel.LEFT);
 
 
-
-
         //Initialization of the searchPanel
         searchPanel.setLayout(new BoxLayout(searchPanel,BoxLayout.X_AXIS));
         //We define the maximmum length of the text field
@@ -63,7 +61,8 @@ public class JSocial extends JPanel {
         panelFriend.setVisible(false);
 
 
-        showUserSearch("Hola","mayu.jpg");
+        showUserSearch("Anonymous","mayu.jpg");
+
 
         //Added the image title
         add(panelTitle);
@@ -81,9 +80,11 @@ public class JSocial extends JPanel {
     }
     public void showUserNotFound () {
         panelFriend = new JPanel();
-        panelFriend.setLayout(new BoxLayout(panelFriend,BoxLayout.Y_AXIS));
+        panelFriend.setLayout(new FlowLayout());
+        panelFriend.setPreferredSize(new Dimension(400,200));
         JLabel notFoundIm = new JLabel();
         JLabel text = new JLabel();
+        text.setFont(new Font ("Sans Serif",Font.BOLD,18));
 
         //We make an image that shows us that it was an error
         ImageIcon notFoundImage = new ImageIcon(getClass().getResource("Images_JSocial/notFound.png"));
@@ -92,7 +93,7 @@ public class JSocial extends JPanel {
         notFoundIm.setIcon(notFound_scaled);
 
         //We make a text to indicate the error
-        text.setText("ERROR π, IMAGE NOT FOUND");
+        text.setText("ERROR π, USER NOT FOUND");
 
 
 

@@ -12,20 +12,18 @@ public class JFriend extends JPanel {
     //With this button we can add this friend or not
     private JLabel buttonAddFriend;
 
-    //This attribute includes the information of the user and the button to add it
-    private JPanel informationUser;
+
 
     public JFriend (String nombreImagen, String name) {
         //Initialization of the Layout
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         //We put a size to always have the same
-        setSize(400,200);
+        setPreferredSize(new Dimension(400,150));
         //Initialization of the attributes
         profileImageFriend = new JLabel();
         groupCharacteristics = new JPanel();
         buttonAddFriend = new JLabel();
-        informationUser = new JPanel();
 
         groupCharacteristics.setLayout(new BorderLayout());
 

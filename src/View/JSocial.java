@@ -63,7 +63,7 @@ public class JSocial extends JPanel {
         panelFriend.setVisible(false);
 
 
-        showUserSearch("Anonymous","mayu.jpg");
+        showUserSearch("Anonymous","mayu.jpg",true);
 
 
         searchButton = new JLabel ();
@@ -82,9 +82,9 @@ public class JSocial extends JPanel {
 
 
     }
-    public void showUserSearch (String name, String photoFilename) {
+    public void showUserSearch (String name, String photoFilename,Boolean isFriend) {
         panelFriend = new JPanel();
-        panelFriend = new JFriend (photoFilename,name);
+        panelFriend = new JFriend (photoFilename,name,isFriend);
         searchAndAnswerPanel.add(panelFriend,BorderLayout.CENTER);
         panelFriend.setVisible(true);
     }

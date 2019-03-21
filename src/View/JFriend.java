@@ -14,12 +14,12 @@ public class JFriend extends JPanel {
 
 
 
-    public JFriend (String nombreImagen, String name) {
+    public JFriend (String nombreImagen, String name, Boolean isFriend) {
         //Initialization of the Layout
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         //We put a size to always have the same
-        setPreferredSize(new Dimension(400,150));
+        setPreferredSize(new Dimension(390,125));
         //Initialization of the attributes
         profileImageFriend = new JLabel();
         groupCharacteristics = new JPanel();
@@ -48,10 +48,9 @@ public class JFriend extends JPanel {
         //Later we put the name of the user, with a random phrase
         JLabel j = new JLabel(name);
         j.setFont(new Font("Gotham",Font.BOLD,20));
-        JLabel j2 = generateRandomPhrase(name);
-        j2.setFont(new Font ("Sans Serif",Font.PLAIN,10));
+        JPanel jp = adquirirJPanel(isFriend);
         groupCharacteristics.add(j,BorderLayout.PAGE_START);
-        groupCharacteristics.add(j2,BorderLayout.CENTER);
+        groupCharacteristics.add(jp,BorderLayout.CENTER);
         groupCharacteristics.add(buttonAddFriend,BorderLayout.PAGE_END);
         groupCharacteristics.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         gbc.fill = GridBagConstraints.VERTICAL;
@@ -60,32 +59,39 @@ public class JFriend extends JPanel {
         gbc.gridy = 0;
         add(profileImageFriend,gbc);
 
-
+        //We put the description of the user in the right of the image
         gbc.gridx = 1;
         add(groupCharacteristics,gbc);
 
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 
     }
-    private JLabel generateRandomPhrase (String name) {
-        double randomNumber = Math.random();
+    private JPanel adquirirJPanel (boolean isFriend) {
+        JPanel panel = new JPanel ();
+        panel.setLayout(new FlowLayout());
         JLabel j2 = new JLabel();
-        if (randomNumber <= 0.2) {
-            j2.setText (name + " parece una persona simpatica!!");
+        JLabel j3 = new JLabel();
+        if (isFriend) {
+            j2.setText("You are already friends");
+            ImageIcon boton_verde  = new ImageIcon(getClass().getResource("Images_JSocial/green.png"));
+            //We scale the image because it's too big
+            ImageIcon boton_verde_scaled = new ImageIcon(boton_verde.getImage().getScaledInstance(boton_verde.getIconWidth()/80, boton_verde.getIconHeight() / 80, Image.SCALE_SMOOTH));
+            j3.setIcon(boton_verde_scaled);
+            panel.add(j3);
+            panel.add(j2);
+
         }
         else {
-            if (randomNumber <= 0.4) {
-                j2.setText (name + " parece ser una persona con un gran talento!!");
-            }
-            else {
-                if (randomNumber <= 0.6) {
-                    j2.setText(name + " parece ser un futuro profesional del piano!");
-                }
-                else {
-                    j2.setText(name + " parece ser una persona con un gran gusto musical!!");
-                }
-            }
+            j2.setText("You are not friends");
+            ImageIcon boton_rojo  = new ImageIcon(getClass().getResource("Images_JSocial/red.png"));
+            //We scale the image because it's too big
+            ImageIcon boton_rojo_scaled = new ImageIcon(boton_rojo.getImage().getScaledInstance(boton_rojo.getIconWidth()/50, boton_rojo.getIconHeight() / 50, Image.SCALE_SMOOTH));
+            j3.setIcon(boton_rojo_scaled);
+            panel.add(j3);
+            panel.add(j2);
         }
-        return j2;
+        return panel;
     }
+
 }

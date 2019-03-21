@@ -85,11 +85,11 @@ public class Graphic extends JPanel {
 
 
         //Dibuixa els dos eixos de la gràfica
-        g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, padding + labelPadding, padding);
-        g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, getWidth() - padding, getHeight() - padding - labelPadding);
+        g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, padding + labelPadding, padding);             //Eix Y
+        g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, getWidth() - padding, getHeight() - padding - labelPadding);      //Eix X
 
         Stroke oldStroke = g2.getStroke();
-        g2.setColor(lineColor);
+        g2.setColor(lineColor);             //Color de la unió dels punts
         g2.setStroke(GRAPH_STROKE);
 
         //Uneix els punts de la gràfica
@@ -108,9 +108,9 @@ public class Graphic extends JPanel {
         for (int i = 0; i < graphPoints.size(); i++) {
             int x = graphPoints.get(i).x - pointWidth / 2;
             int y = graphPoints.get(i).y - pointWidth / 2;
-            int ovalW = pointWidth;
-            int ovalH = pointWidth;
-            g2.fillOval(x, y, ovalW, ovalH);
+            int circleW = pointWidth;
+            int circleH = pointWidth;
+            g2.fillOval(x, y, circleW, circleH);
         }
     }
 

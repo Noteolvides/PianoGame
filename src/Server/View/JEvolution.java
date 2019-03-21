@@ -25,11 +25,10 @@ public class JEvolution {
         evoPanel.setSize(1920, 1080);
 
 
-        evoPanel.setLayout(new GridLayout(3, 1));
+        evoPanel.setLayout(new GridBagLayout());
         /*JPanel aux = showGraphic();
         aux.setSize(400, 300);
         evoPanel.add(aux);*/
-        constraints.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel graphTitle = new JLabel("Active Users Countage");
         /*evoPanel.add(graphTitle);
@@ -41,6 +40,7 @@ public class JEvolution {
         constraints.gridy = 0;
         evoPanel.add(graphTitle, constraints);
 
+        constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.gridx = 0;
         constraints.gridy = 2;
         evoPanel.add(week, constraints);

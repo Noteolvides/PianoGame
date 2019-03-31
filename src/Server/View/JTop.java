@@ -57,7 +57,7 @@ public class JTop {
         ImageIcon icon = new ImageIcon("./topicon.png");
         frameTop.setIconImage(icon.getImage());
 
-        frameTop.setSize(390, 275);
+        frameTop.setSize(390, 450);
         frameTop.setVisible(true);
         frameTop.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameTop.add(panelTop);

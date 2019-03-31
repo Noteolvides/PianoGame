@@ -7,25 +7,35 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class JTop {
-    public JList songTop;
+    //public JList songTop;
+    private JPanel songTop = new JPanel();
+    private ArrayList<SongView> songsList;
+    private JPanel songsGroup = new JPanel();
 
     void JTop(){                            //Pass ArrayList<Song> to the constructor and for each one add Number 1-5
-        ArrayList<String> topList = new ArrayList<>();
-        topList.add("Watanabe Mayuuuuuu");
-        topList.add("Mayu");
-        topList.add("is");
-        topList.add("love");
-        topList.add("!");
+
+        ArrayList<SongPrueba> songs = new ArrayList<>();
+        songs.add(new SongPrueba(1, "Watanabe Mayu", "She's so cute ❤"));
+        songs.add(new SongPrueba(2, "Okada Nana", "Elegance and Prestige"));
+        songs.add(new SongPrueba(3, "Yabuki Nako", "Mayu's daughter"));
+        songs.add(new SongPrueba(4, "Tanaka Miku", "Mayu's daughter"));
+        songs.add(new SongPrueba(5, "Yamamoto Sayaka", "Let's rock it!"));
 
 
-        Border border = BorderFactory.createLineBorder(Color.RED);
-        this.songTop = new JList(topList.toArray());
-        songTop.setFont(songTop.getFont().deriveFont(22.0f));
-        songTop.setBorder(border);
-        songTop.setFixedCellWidth(300);
-        songTop.setBackground(new Color(238, 238, 238));
+        songTop.setLayout(new BoxLayout(songTop, BoxLayout.Y_AXIS));
+
+        songsGroup.setLayout(new BoxLayout(songsGroup,BoxLayout.Y_AXIS));
+
+
+        includeSongs(songs);
+        addAllTheSongs(songsList);
+
+        songTop.add(songsGroup);
+        //songTop.add()
         JPanel panelTop = new JPanel();
         panelTop.add(songTop);
+
+
 
         //Compound border for Visual Effects
         Border compound, raisedbevel, loweredbevel, redLine;
@@ -58,6 +68,22 @@ public class JTop {
         h.JTop();
     }
 
+    public void includeSongs (ArrayList <SongPrueba> songs) {
+        //Adding a new array to not repeat different times the same songs, if we decide to refresh the window
+        songsList = new ArrayList<>();
+        //We take the songs that we are going to show and we add them to our view
+        for (int i = 0;i < songs.size();i++) {
+            songsList.add(new SongView(songs.get(i).getIdSong(), songs.get(i).getTitle(),songs.get(i).getDescription()));
+            //We put a maximmum size of a song
+            songsList.get(i).setMaximumSize(new Dimension(1000,1000));
+        }
+
+    }
+    private void addAllTheSongs (ArrayList <SongView> songsViews) {
+        for (int i = 0; i < songsViews.size();i++) {
+            songsGroup.add(songsViews.get(i));
+        }
+    }
     /*void registerController(Controller controller){
 
     }*/

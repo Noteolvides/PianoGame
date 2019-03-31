@@ -44,6 +44,9 @@ public class TopPanel extends JMenuBar {
         exitToMenu = new JMenuItem("Exit to Menu");
         more.add(exitToMenu);
 
+        setBackground(Color.WHITE);
+        setForeground(Color.BLACK);
+
         add(recordSong);
         add(playSong);
         add(more);

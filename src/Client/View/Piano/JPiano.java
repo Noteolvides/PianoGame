@@ -27,13 +27,13 @@ public class JPiano extends JFrame {
         add(topOption,BorderLayout.NORTH);
 
         leftOption = new LeftPanel();
-        leftOption.setSize(50,100);
-        leftOption.setLocation(50*(ViewPiano.numberOfKeys+2)-50,120);
-        add(leftOption,BorderLayout.EAST);
+        leftOption.setSize(150,100);
+        leftOption.setLocation(50*(ViewPiano.numberOfKeys+2)/2-70,220);
+        add(leftOption);
 
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(50*(ViewPiano.numberOfKeys+2),300);
+        setSize(50*(ViewPiano.numberOfKeys+2),330);
         setVisible(true);
     }
 }

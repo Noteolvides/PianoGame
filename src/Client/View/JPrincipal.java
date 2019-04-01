@@ -33,9 +33,7 @@ public class JPrincipal extends JFrame {
 
         } catch (IOException ex) {
             ex.printStackTrace();
-            System.out.println("Error, no 'sha pogut accdedir a la iamtge interna");
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            System.out.println("Error, no 'sha pogut accedir a la imatge interna");
         }
 
         JPanel vButtons = new JPanel();

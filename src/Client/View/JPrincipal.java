@@ -57,6 +57,8 @@ public class JPrincipal extends JFrame {
         buttonDeleteAccount = new JButton("Delete Account");
         vOut.add(buttonDeleteAccount);
 
+        vButtons.add(vOut);
+        add(vButtons, BorderLayout.CENTER);
 
         this.getContentPane().add(vButtons, BorderLayout.CENTER);
         this.getContentPane().add(vOut, BorderLayout.PAGE_END);

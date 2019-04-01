@@ -1,15 +1,17 @@
 package Client.View;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class JRegister extends JPanel {
     public static void main(String[] args) {
         JFrame test = new JFrame();
         test.getContentPane().add(new JRegister());
-        test.setSize(200, 200);
-        test.setTitle("JRegister Test");
+        test.setSize(250, 300);
+        test.setTitle("Register");
         test.setLocationRelativeTo(null);
         test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        test.setResizable(false);
         test.setVisible(true);
     }
 
@@ -20,24 +22,40 @@ public class JRegister extends JPanel {
     private JButton buttonRegister;
 
     public JRegister() {
+        setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        JLabel usernameLabel = new JLabel("Input your UserName:");
-        add(usernameLabel);
+        JPanel fields = new JPanel();
+        fields.setLayout(new BoxLayout(fields, BoxLayout.PAGE_AXIS));
+        JLabel usernameLabel = new JLabel("Your Username:");
+        fields.add(usernameLabel);
+        fields.add(Box.createVerticalStrut(8));
         usernameRegister = new JTextField();
-        add(usernameRegister);
-        JLabel emailLabel = new JLabel("Input your Email:");
-        add(emailLabel);
+        fields.add(usernameRegister);
+        fields.add(Box.createVerticalStrut(8));
+        JLabel emailLabel = new JLabel("Your email:");
+        fields.add(emailLabel);
+        fields.add(Box.createVerticalStrut(8));
         emailRegister = new JTextField();
-        add(emailRegister);
-        JLabel passwordLabel = new JLabel("Input your password:");
-        add(passwordLabel);
+        fields.add(emailRegister);
+        fields.add(Box.createVerticalStrut(8));
+        JLabel passwordLabel = new JLabel("Your password:");
+        fields.add(passwordLabel);
+        fields.add(Box.createVerticalStrut(8));
         passwordRegister = new JPasswordField();
-        add(passwordRegister);
-        JLabel confirmpasswordLabel = new JLabel("Confirm your password:");
-        add(confirmpasswordLabel);
+        fields.add(passwordRegister);
+        fields.add(Box.createVerticalStrut(8));
+        JLabel confirmationLabel = new JLabel("Confirm your password:");
+        fields.add(confirmationLabel);
+        fields.add(Box.createVerticalStrut(8));
         passwordRegisterVerify = new JPasswordField();
-        add(passwordRegisterVerify);
-        buttonRegister = new JButton("Confirm");
-        add(buttonRegister);
+        fields.add(passwordRegisterVerify);
+        fields.add(Box.createVerticalStrut(4));
+        add(fields);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+        buttonRegister = new JButton("Register");
+        buttonPanel.add(buttonRegister);
+        add(buttonPanel);
     }
 }

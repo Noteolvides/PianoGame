@@ -60,15 +60,15 @@ public class JPrincipal extends JFrame {
         vButtons.add(vOut);
         add(vButtons, BorderLayout.CENTER);
 
-        this.getContentPane().add(vButtons, BorderLayout.CENTER);
-        this.getContentPane().add(vOut, BorderLayout.PAGE_END);
-        pack();
+        vApp.setBackground(Color.WHITE);
+        vOut.setBackground(Color.WHITE);
+        vButtons.setBackground(Color.WHITE);
 
         //Definim propietats de la finestra
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        //setSize(600,600);
-        //setMinimumSize(getSize());
+        setSize(500,400);
+        setMaximumSize(new Dimension(500, 400));
         setTitle("Smart Piano");
         setVisible(true);
     }

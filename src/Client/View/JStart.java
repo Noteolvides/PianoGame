@@ -4,17 +4,18 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 public class JStart extends JPanel {
     public static void main(String[] args) {
         JFrame test = new JFrame();
         test.getContentPane().add(new JStart());
         test.setSize(300, 300);
-        test.setTitle("JStart Test");
+        test.setTitle("Smart Piano");
         test.setLocationRelativeTo(null);
         test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        test.setResizable(false);
         test.setVisible(true);
     }
 
@@ -24,35 +25,36 @@ public class JStart extends JPanel {
     private JButton buttonRegister;
 
     public JStart (){
+        setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
+        setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.PAGE_AXIS));
-        JLabel title = new JLabel("SMART PIANO");
-        title.setHorizontalAlignment(SwingConstants.CENTER);
-        title.setVerticalAlignment(JLabel.CENTER);
-        title.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
-        titlePanel.add(title);
-        add(titlePanel);
-
         JPanel fields = new JPanel();
         fields.setLayout(new BoxLayout(fields, BoxLayout.PAGE_AXIS));
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new URL(
-                    "https://tse2.mm.bing.net/th?id=OIP.AalzUDPdSRN0Oo5wZZKgngHaCl&pid=Api&P=0&w=300&h=300"));
+            img = ImageIO.read(new File("img/SmartPiano.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ImageIcon icon = new ImageIcon(img);
+        ImageIcon icon = null;
+        if (img != null) {
+            icon = new ImageIcon(img);
+            icon = new ImageIcon(icon.getImage().getScaledInstance(304,112, Image.SCALE_SMOOTH));
+        }
         JLabel imagen = new JLabel();
         imagen.setIcon(icon);
         fields.add(imagen);
 
         JLabel emailLabel = new JLabel("Input your UserName or Email:");
         fields.add(emailLabel);
+        fields.add(Box.createVerticalStrut(8));
         emailLogin = new JTextField();
         fields.add(emailLogin);
+        fields.add(Box.createVerticalStrut(8));
         JLabel passwordLabel = new JLabel("Input your password:");
         fields.add(passwordLabel);
+        fields.add(Box.createVerticalStrut(8));
         passwordField = new JPasswordField();
         fields.add(passwordField);
         add(fields);

@@ -39,10 +39,15 @@ public class JPrincipal extends JFrame {
         JPanel vButtons = new JPanel();
         vButtons.setLayout(new BoxLayout(vButtons, BoxLayout.Y_AXIS));
 
+        JPanel vApp = new JPanel();
+        vApp.setLayout(new BoxLayout(vApp, BoxLayout.Y_AXIS));
+
         buttonPiano = new JButton("Piano");
-        vButtons.add(buttonPiano);
+        vApp.add(buttonPiano);
         buttonAmics = new JButton("Social");
-        vButtons.add(buttonAmics);
+        vApp.add(buttonAmics);
+
+        vButtons.add(vApp);
 
         JPanel vOut = new JPanel();
         vOut.setLayout(new FlowLayout());

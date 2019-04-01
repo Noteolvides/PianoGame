@@ -10,12 +10,12 @@ import java.io.IOException;
 public class JPrincipal extends JFrame {
     private BufferedImage iTitle;
 
-    private JLabel jGameTitle;
-
     private JButton buttonPiano;
     private JButton buttonAmics;
     private JButton buttonSignOut;
     private JButton buttonDeleteAccount;
+
+    private JPanel imagePanel;
 
     /**
      * Constructor encarregat de mostrar la finestra principal deicada a l'accés a les funcionalitats principals
@@ -23,10 +23,14 @@ public class JPrincipal extends JFrame {
      */
     public JPrincipal() {
         try {
-            iTitle = ImageIO.read(new File("Project_IMG/Piano_Test.png"));
+            iTitle = ImageIO.read(new File("Project_IMG/SmartPianoTitle.png"));
             ImageIcon imageicon=new ImageIcon(iTitle);
-            JLabel label=new JLabel(imageicon);
-            this.getContentPane().add(label, BorderLayout.PAGE_START);
+            JLabel label= new JLabel(imageicon);
+            imagePanel = new JPanel();
+            imagePanel.add(label);
+            imagePanel.setBackground(Color.WHITE);
+            add(imagePanel, BorderLayout.NORTH);
+
         } catch (IOException ex) {
             ex.printStackTrace();
             System.out.println("Error, no 'sha pogut accdedir a la iamtge interna");

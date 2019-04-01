@@ -25,6 +25,7 @@ public class JPrincipal extends JFrame {
         try {
             iTitle = ImageIO.read(new File("Project_IMG/SmartPianoTitle.png"));
             ImageIcon imageicon=new ImageIcon(iTitle);
+            imageicon = new ImageIcon(imageicon.getImage().getScaledInstance(300,110, Image.SCALE_SMOOTH));
             JLabel label= new JLabel(imageicon);
             imagePanel = new JPanel();
             imagePanel.add(label);
@@ -40,22 +41,31 @@ public class JPrincipal extends JFrame {
         vButtons.setLayout(new BoxLayout(vButtons, BoxLayout.Y_AXIS));
 
         JPanel vApp = new JPanel();
-        vApp.setLayout(new BoxLayout(vApp, BoxLayout.Y_AXIS));
+        //vApp.setLayout(new BoxLayout(vApp, BoxLayout.Y_AXIS));
+        vApp.setLayout(new GridLayout(2,0));
+
 
         buttonPiano = new JButton("Piano");
+        buttonPiano.setPreferredSize(new Dimension(250, 40));
         vApp.add(buttonPiano);
+
         buttonAmics = new JButton("Social");
+        buttonAmics.setPreferredSize(new Dimension(250, 40));
         vApp.add(buttonAmics);
 
+        vApp.setBorder(BorderFactory.createEmptyBorder(0,70,0,70));
         vButtons.add(vApp);
 
         JPanel vOut = new JPanel();
         vOut.setLayout(new FlowLayout());
 
         buttonSignOut = new JButton("Sign Out");
+        buttonSignOut.setPreferredSize(new Dimension(125, 40));
         vOut.add(buttonSignOut);
         buttonDeleteAccount = new JButton("Delete Account");
+        buttonDeleteAccount.setPreferredSize(new Dimension(125, 40));
         vOut.add(buttonDeleteAccount);
+        vOut.setBorder(BorderFactory.createEmptyBorder(10,0,0,0));
 
         vButtons.add(vOut);
         add(vButtons, BorderLayout.CENTER);
@@ -67,8 +77,8 @@ public class JPrincipal extends JFrame {
         //Definim propietats de la finestra
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(500,400);
-        setMaximumSize(new Dimension(500, 400));
+        setSize(400,300);
+        setMaximumSize(new Dimension(400, 300));
         setTitle("Smart Piano");
         setVisible(true);
     }

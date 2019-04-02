@@ -13,12 +13,13 @@ public class SongView extends JPanel {
     private JLabel musicIcon;
     private JLabel deleteButton;
     private JLabel infoIcon;
+    private JLabel privacity;
 
-    public SongView (String title, String description) {
+    public SongView (String title, String description, String privactiy) {
         setLayout(new BorderLayout());
 
         //To obtain the resource directly without the full path
-        ImageIcon musicImage = new ImageIcon(getClass().getResource("Images/music_1.png"));
+        ImageIcon musicImage = new ImageIcon(getClass().getResource("Images/musicFile_icon.png"));
         //We scale the image because it's too big
         ImageIcon musicImage_scaled = new ImageIcon(musicImage.getImage().getScaledInstance(musicImage.getIconWidth() / 8, musicImage.getIconHeight() / 8, Image.SCALE_SMOOTH));
         //Initializing the JLabel of music
@@ -51,15 +52,19 @@ public class SongView extends JPanel {
         panelPlayInfo.add(infoIcon);
 
         titleSong = new JLabel(title);
-        titleSong.setFont(new Font("Sans Serif",Font.BOLD,14));
+        titleSong.setFont(new Font("Sans Serif", Font.BOLD,14));
         this.description = new JLabel (description);
-        this.description.setFont(new Font("Sans Serif",Font.PLAIN,10));
+        this.description.setFont(new Font("Sans Serif", Font.PLAIN,10));
+        this.privacity = new JLabel("[" + privactiy + "]");
+        this.privacity.setFont(new Font("Sans Serif", Font.PLAIN,10));
+
 
         //We create a panel to add the title and her description
         groupTitleDescription = new JPanel();
-        groupTitleDescription.setLayout(new BoxLayout(groupTitleDescription,BoxLayout.Y_AXIS));
+        groupTitleDescription.setLayout(new BoxLayout(groupTitleDescription, BoxLayout.Y_AXIS));
         groupTitleDescription.add(titleSong);
         groupTitleDescription.add(this.description);
+        groupTitleDescription.add(this.privacity);
         //We make an empty border to down the group of elements
         groupTitleDescription.setBorder(BorderFactory.createEmptyBorder(7,7,7,7));
 

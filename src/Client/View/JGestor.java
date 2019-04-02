@@ -36,7 +36,7 @@ public class JGestor extends JFrame {
             titlePanel = new JLabel();
             songsGroup = new JPanel();
 
-            titlePanel.setText("SONGS LIST ♫");
+            titlePanel.setText("SONGS MANAGER ♫");
             titlePanel.setFont(new Font("Alegreya Sans", Font.PLAIN,25));
             //We align the title to the center point
             titlePanel.setAlignmentX(0.5f);

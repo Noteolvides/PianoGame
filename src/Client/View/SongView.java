@@ -11,7 +11,7 @@ public class SongView extends JPanel {
     private JLabel titleSong;
     private JLabel description;
     private JLabel musicIcon;
-    private JLabel playButton;
+    private JLabel deleteButton;
     private JLabel infoIcon;
 
     public SongView (String title, String description) {
@@ -36,18 +36,18 @@ public class SongView extends JPanel {
         infoIcon.setIcon(infoImage_scaled);
 
 
-        //We make a button to Play the song
-        playButton = new JLabel ();
-        ImageIcon playImage = new ImageIcon(getClass().getResource("Images/play_button.png"));
+        //We make a button to Delete the song
+        deleteButton = new JLabel ();
+        ImageIcon deleteImage = new ImageIcon(getClass().getResource("Images/delete_button.png"));
         //We scale the image because it's too big
-        ImageIcon play_scaled = new ImageIcon(playImage.getImage().getScaledInstance(playImage.getIconWidth() / 28, playImage.getIconHeight() / 28, Image.SCALE_SMOOTH));
-        playButton.setIcon(play_scaled);
-        playButton.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+        ImageIcon delete_scaled = new ImageIcon(deleteImage.getImage().getScaledInstance(deleteImage.getIconWidth() / 28, deleteImage.getIconHeight() / 28, Image.SCALE_SMOOTH));
+        deleteButton.setIcon(delete_scaled);
+        deleteButton.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 
         //We create a panel to add the play button and the info button
         panelPlayInfo = new JPanel();
         panelPlayInfo.setLayout(new BoxLayout(panelPlayInfo,BoxLayout.X_AXIS));
-        panelPlayInfo.add(playButton);
+        panelPlayInfo.add(deleteButton);
         panelPlayInfo.add(infoIcon);
 
         titleSong = new JLabel(title);

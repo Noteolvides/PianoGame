@@ -13,23 +13,25 @@ public class JGestor extends JFrame {
         private ArrayList<SongView> songsList;
         private JLabel backButton;
         private JLabel refreshButton;
+        private JLabel addButton;
         //This is the panel where we are going to add the back and refresh button
         private JPanel bottomPanel;
         //This is the text element where we are going to show the different songs
         private JLabel titlePanel;
-
+        private JPanel topPanel;
         private JPanel songsGroup;
-
         private JScrollPane scrollBar;
 
 
     public JGestor (ArrayList<SongPrueba> songs){
             //Inicialization of Layout
-            setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+            setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 
             //Inicialitation of the visual elements
             backButton = new JLabel ();
             refreshButton = new JLabel ();
+            addButton = new JLabel();
+            topPanel = new JPanel();
             bottomPanel = new JPanel ();
             titlePanel = new JLabel();
             songsGroup = new JPanel();
@@ -45,18 +47,25 @@ public class JGestor extends JFrame {
             ImageIcon backImage_scaled = new ImageIcon(backImage.getImage().getScaledInstance(backImage.getIconWidth() / 20, backImage.getIconHeight() / 20, Image.SCALE_SMOOTH));
             backButton.setIcon(backImage_scaled);
 
-
             ImageIcon refreshImage = new ImageIcon(getClass().getResource("Images/refresh.png"));
             //We scale the image because it's too big
             ImageIcon refreshImage_scaled = new ImageIcon(refreshImage.getImage().getScaledInstance(refreshImage.getIconWidth() / 20, refreshImage.getIconHeight() / 20, Image.SCALE_SMOOTH));
             refreshButton.setIcon(refreshImage_scaled);
 
+            ImageIcon addImage = new ImageIcon(getClass().getResource("Images/add_button.png"));
+            ImageIcon addImage_scaled = new ImageIcon(addImage.getImage().getScaledInstance(addImage.getIconWidth() / 20, refreshImage.getIconHeight() / 20, Image.SCALE_SMOOTH));
+            addButton.setIcon(addImage_scaled);
+
             //We define the group of songs as a BoxLayout
             songsGroup.setLayout(new BoxLayout(songsGroup,BoxLayout.Y_AXIS));
 
-
             //Adding the title of the JSong panel
-            add(titlePanel);
+            topPanel.setLayout(new BorderLayout());
+            titlePanel.setBorder(new EmptyBorder(0,80,0,0));
+            topPanel.add(titlePanel, BorderLayout.CENTER);
+            addButton.setBorder(new EmptyBorder(5,0,5,5));
+            topPanel.add(addButton, BorderLayout.LINE_END);
+            add(topPanel);
 
             includeSongs (songs);
             //Adding all the songs generated to the panel
@@ -91,7 +100,7 @@ public class JGestor extends JFrame {
         songsList = new ArrayList<>();
         //We take the songs that we are going to show and we add them to our view
         for (int i = 0;i < songs.size();i++) {
-            songsList.add(new SongView(songs.get(i).getTitle(),songs.get(i).getDescription()));
+            songsList.add(new SongView(songs.get(i).getTitle(),songs.get(i).getDescription(), songs.get(i).getPrivacity()));
             //We put a maximmum size of a song
             songsList.get(i).setMaximumSize(new Dimension(1000,70));
         }

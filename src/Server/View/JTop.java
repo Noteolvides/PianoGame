@@ -58,6 +58,7 @@ public class JTop {
         frameTop.setIconImage(icon.getImage());
 
         frameTop.setSize(390, 450);
+        frameTop.setResizable(false);
         frameTop.setVisible(true);
         frameTop.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameTop.add(panelTop);

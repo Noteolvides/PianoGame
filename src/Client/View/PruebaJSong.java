@@ -1,14 +1,13 @@
-package View;
+package Client.View;
 
-import View.Images.SongPrueba;
+import Client.View.Images.SongPrueba;
 
 import javax.swing.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Prueba extends JFrame {
+public class PruebaJSong extends JFrame {
     private JSong pantalla;
-    public Prueba () {
+    public PruebaJSong() {
 
 
         pantalla = new JSong(simulationOfController());

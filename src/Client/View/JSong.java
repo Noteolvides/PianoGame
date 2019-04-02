@@ -1,6 +1,6 @@
-package View;
+package Client.View;
 
-import View.Images.SongPrueba;
+import Client.View.Images.SongPrueba;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

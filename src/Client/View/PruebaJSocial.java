@@ -1,10 +1,10 @@
-package View;
+package Client.View;
 
 import javax.swing.*;
 
-public class Prueba extends JFrame {
+public class PruebaJSocial extends JFrame {
     private JSocial jsocial;
-    public Prueba () {
+    public PruebaJSocial() {
         setSize(400,405);
         jsocial = new JSocial();
         add(jsocial);

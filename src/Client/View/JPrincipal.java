@@ -23,7 +23,7 @@ public class JPrincipal extends JFrame {
      */
     public JPrincipal() {
         try {
-            iTitle = ImageIO.read(new File("Project_IMG/SmartPianoTitle.png"));
+            iTitle = ImageIO.read(new File("img/SmartPiano.png"));
             ImageIcon imageicon=new ImageIcon(iTitle);
             imageicon = new ImageIcon(imageicon.getImage().getScaledInstance(300,110, Image.SCALE_SMOOTH));
             JLabel label= new JLabel(imageicon);

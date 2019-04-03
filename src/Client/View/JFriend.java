@@ -29,7 +29,7 @@ public class JFriend extends JPanel {
 
         //Initialization of the image
         //Definition of the title
-        ImageIcon foto_perfil = new ImageIcon(getClass().getResource("Images_JSocial/" + nombreImagen));
+        ImageIcon foto_perfil = new ImageIcon("img/" + nombreImagen);
         //We scale the image because it's too big
         ImageIcon foto_perfil_scaled = new ImageIcon(foto_perfil.getImage().getScaledInstance(foto_perfil.getIconWidth()/5, foto_perfil.getIconHeight() / 5, Image.SCALE_SMOOTH));
         profileImageFriend.setIcon(foto_perfil_scaled);
@@ -40,7 +40,7 @@ public class JFriend extends JPanel {
         //Then, we put the button to add this friend
         //Initialization of the image
         //Definition of the title
-        ImageIcon addFriend = new ImageIcon(getClass().getResource("Images_JSocial/addFriend.png"));
+        ImageIcon addFriend = new ImageIcon("img/addFriend.png");
         //We scale the image because it's too big
         ImageIcon addFriend_scaled = new ImageIcon(addFriend.getImage().getScaledInstance(addFriend.getIconWidth()/28, addFriend.getIconHeight() / 28, Image.SCALE_SMOOTH));
         buttonAddFriend.setIcon(addFriend_scaled);
@@ -74,7 +74,7 @@ public class JFriend extends JPanel {
         JLabel j3 = new JLabel();
         if (isFriend) {
             j2.setText("You are already friends");
-            ImageIcon boton_verde  = new ImageIcon(getClass().getResource("Images_JSocial/green.png"));
+            ImageIcon boton_verde  = new ImageIcon("img/green.png");
             //We scale the image because it's too big
             ImageIcon boton_verde_scaled = new ImageIcon(boton_verde.getImage().getScaledInstance(boton_verde.getIconWidth()/80, boton_verde.getIconHeight() / 80, Image.SCALE_SMOOTH));
             j3.setIcon(boton_verde_scaled);
@@ -84,7 +84,7 @@ public class JFriend extends JPanel {
         }
         else {
             j2.setText("You are not friends");
-            ImageIcon boton_rojo  = new ImageIcon(getClass().getResource("Images_JSocial/red.png"));
+            ImageIcon boton_rojo  = new ImageIcon("img/red.png");
             //We scale the image because it's too big
             ImageIcon boton_rojo_scaled = new ImageIcon(boton_rojo.getImage().getScaledInstance(boton_rojo.getIconWidth()/50, boton_rojo.getIconHeight() / 50, Image.SCALE_SMOOTH));
             j3.setIcon(boton_rojo_scaled);

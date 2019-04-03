@@ -38,7 +38,7 @@ public class JSocial extends JPanel {
         //We define a maximum size for the textfield
         squareSeachFriend.setMaximumSize(new Dimension(400,28));
         //Definition of the title
-        ImageIcon titleImage = new ImageIcon(getClass().getResource("Images_JSocial/facebus.jpg"));
+        ImageIcon titleImage = new ImageIcon("img/facebus.jpg");
         //We scale the image because it's too big
         ImageIcon title_scaled = new ImageIcon(titleImage.getImage().getScaledInstance(400, titleImage.getIconHeight() / 5, Image.SCALE_SMOOTH));
         panelTitle.setIcon(title_scaled);
@@ -54,7 +54,7 @@ public class JSocial extends JPanel {
 
         //Initialization of search button
         searchButton = new JLabel ();
-        ImageIcon searchImage = new ImageIcon(getClass().getResource("Images_JSocial/search.png"));
+        ImageIcon searchImage = new ImageIcon("img/refresh.png");
         //We scale the image because it's too big
         ImageIcon search_scaled = new ImageIcon(searchImage.getImage().getScaledInstance(searchImage.getIconWidth() / 18, searchImage.getIconHeight() / 18, Image.SCALE_SMOOTH));
         searchButton.setIcon(search_scaled);
@@ -71,11 +71,11 @@ public class JSocial extends JPanel {
         panelFriend.setVisible(false);
 
 
-        showUserSearch("Anonymous","mayu.jpg",true);
+        showUserSearch("Anonymous","usuarioRandom.png",true);
 
 
         searchButton = new JLabel ();
-        ImageIcon backButton = new ImageIcon(getClass().getResource("Images_JSocial/back.png"));
+        ImageIcon backButton = new ImageIcon("img/back.png");
         //We scale the image because it's too big
         ImageIcon backButton_scaled = new ImageIcon(backButton.getImage().getScaledInstance(backButton.getIconWidth() / 18, backButton.getIconHeight() / 18, Image.SCALE_SMOOTH));
         this.backButton.setIcon(backButton_scaled);
@@ -105,7 +105,7 @@ public class JSocial extends JPanel {
         text.setFont(new Font ("Sans Serif",Font.BOLD,18));
 
         //We make an image that shows us that it was an error
-        ImageIcon notFoundImage = new ImageIcon(getClass().getResource("Images_JSocial/notFound.png"));
+        ImageIcon notFoundImage = new ImageIcon("img/notFound.png");
         //We scale the image because it's too big
         ImageIcon notFound_scaled = new ImageIcon(notFoundImage.getImage().getScaledInstance(notFoundImage.getIconWidth() / 18, notFoundImage.getIconHeight() / 18, Image.SCALE_SMOOTH));
         notFoundIm.setIcon(notFound_scaled);

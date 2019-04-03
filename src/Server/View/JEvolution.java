@@ -13,7 +13,7 @@ public class JEvolution {
     void JEvolution() throws IOException {
         JFrame evoPanel = new JFrame("Active Users Countage");
 
-        ImageIcon icon = new ImageIcon("./graphicicon.png");
+        ImageIcon icon = new ImageIcon("img/graphicicon.png");
         evoPanel.setIconImage(icon.getImage());
 
         //Frame title

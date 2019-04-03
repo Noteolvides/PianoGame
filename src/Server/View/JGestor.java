@@ -88,17 +88,17 @@ public class JGestor extends JFrame {
             titlePanel.setAlignmentX(0.5f);
             //Initialitation of the button to go the previous menu
             //Localizing the image in the project
-            ImageIcon backImage = new ImageIcon(getClass().getResource("Images/back.png"));
+            ImageIcon backImage = new ImageIcon("img/back.png");
             //We scale the image because it's too big
             ImageIcon backImage_scaled = new ImageIcon(backImage.getImage().getScaledInstance(backImage.getIconWidth() / 20, backImage.getIconHeight() / 20, Image.SCALE_SMOOTH));
             backButton.setIcon(backImage_scaled);
 
-            ImageIcon refreshImage = new ImageIcon(getClass().getResource("Images/refresh.png"));
+            ImageIcon refreshImage = new ImageIcon("img/refresh.png");
             //We scale the image because it's too big
             ImageIcon refreshImage_scaled = new ImageIcon(refreshImage.getImage().getScaledInstance(refreshImage.getIconWidth() / 20, refreshImage.getIconHeight() / 20, Image.SCALE_SMOOTH));
             refreshButton.setIcon(refreshImage_scaled);
 
-            ImageIcon addImage = new ImageIcon(getClass().getResource("Images/add_button.png"));
+            ImageIcon addImage = new ImageIcon("img/add_button.png");
             ImageIcon addImage_scaled = new ImageIcon(addImage.getImage().getScaledInstance(addImage.getIconWidth() / 20, refreshImage.getIconHeight() / 20, Image.SCALE_SMOOTH));
             addButton.setIcon(addImage_scaled);
 

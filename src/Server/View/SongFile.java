@@ -19,7 +19,7 @@ public class SongFile extends JPanel {
         setLayout(new BorderLayout());
 
         //To obtain the resource directly without the full path
-        ImageIcon musicImage = new ImageIcon(getClass().getResource("Images/musicFile_icon.png"));
+        ImageIcon musicImage = new ImageIcon("img/musicFile_icon.png");
         //We scale the image because it's too big
         ImageIcon musicImage_scaled = new ImageIcon(musicImage.getImage().getScaledInstance(musicImage.getIconWidth() / 8, musicImage.getIconHeight() / 8, Image.SCALE_SMOOTH));
         //Initializing the JLabel of music
@@ -29,7 +29,7 @@ public class SongFile extends JPanel {
 
 
         //Localizing the image in the project
-        ImageIcon infoImage = new ImageIcon(getClass().getResource("Images/info_1.png"));
+        ImageIcon infoImage = new ImageIcon("img/info_1.png");
         //We scale the image because it's too big
         ImageIcon infoImage_scaled = new ImageIcon(infoImage.getImage().getScaledInstance(infoImage.getIconWidth() / 24, infoImage.getIconHeight() / 24, Image.SCALE_SMOOTH));
         //Initializing the JLabel of info
@@ -39,7 +39,7 @@ public class SongFile extends JPanel {
 
         //We make a button to Delete the song
         deleteButton = new JLabel ();
-        ImageIcon deleteImage = new ImageIcon(getClass().getResource("Images/delete_button.png"));
+        ImageIcon deleteImage = new ImageIcon("img/delete_button.png");
         //We scale the image because it's too big
         ImageIcon delete_scaled = new ImageIcon(deleteImage.getImage().getScaledInstance(deleteImage.getIconWidth() / 28, deleteImage.getIconHeight() / 28, Image.SCALE_SMOOTH));
         deleteButton.setIcon(delete_scaled);

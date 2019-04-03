@@ -54,7 +54,7 @@ public class JTop {
 
         ((TitledBorder) compound).setTitleFont(((TitledBorder) compound).getTitleFont().deriveFont(25.00f));
         JFrame frameTop = new JFrame("TOP 5 - Popular Songs"); //Prova
-        ImageIcon icon = new ImageIcon("./topicon.png");
+        ImageIcon icon = new ImageIcon("img/topicon.png");
         frameTop.setIconImage(icon.getImage());
 
         frameTop.setSize(390, 450);

@@ -17,7 +17,7 @@ public class SongView extends JPanel {
         setLayout(new BorderLayout());
 
         //To obtain the resource directly without the full path
-        ImageIcon musicImage = new ImageIcon(getClass().getResource("Images/music_1.png"));
+        ImageIcon musicImage = new ImageIcon("img/music_1.png");
         //We scale the image because it's too big
         ImageIcon musicImage_scaled = new ImageIcon(musicImage.getImage().getScaledInstance(musicImage.getIconWidth() / 8, musicImage.getIconHeight() / 8, Image.SCALE_SMOOTH));
         //Initializing the JLabel of music
@@ -27,7 +27,7 @@ public class SongView extends JPanel {
 
 
         //Localizing the image in the project
-        ImageIcon infoImage = new ImageIcon(getClass().getResource("Images/info_1.png"));
+        ImageIcon infoImage = new ImageIcon("img/info_1.png");
         //We scale the image because it's too big
         ImageIcon infoImage_scaled = new ImageIcon(infoImage.getImage().getScaledInstance(infoImage.getIconWidth() / 24, infoImage.getIconHeight() / 24, Image.SCALE_SMOOTH));
         //Initializing the JLabel of info
@@ -37,7 +37,7 @@ public class SongView extends JPanel {
 
         //We make a button to Play the song
         playButton = new JLabel ();
-        ImageIcon playImage = new ImageIcon(getClass().getResource("Images/play_button.png"));
+        ImageIcon playImage = new ImageIcon("img/play_button.png");
         //We scale the image because it's too big
         ImageIcon play_scaled = new ImageIcon(playImage.getImage().getScaledInstance(playImage.getIconWidth() / 28, playImage.getIconHeight() / 28, Image.SCALE_SMOOTH));
         playButton.setIcon(play_scaled);

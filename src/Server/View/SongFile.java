@@ -1,11 +1,11 @@
-package Client.View;
+package Server.View;
 
 import javax.swing.*;
 import java.awt.*;
 
 
-public class SongServerView extends JPanel {
-    //Atributes of the SongServerView class
+public class SongFile extends JPanel {
+    //Atributes of the SongFile class
     private JPanel panelPlayInfo;
     private JPanel groupTitleDescription;
     private JLabel titleSong;
@@ -15,7 +15,7 @@ public class SongServerView extends JPanel {
     private JLabel infoIcon;
     private JLabel privacity;
 
-    public SongServerView (String title, String description, String privactiy) {
+    public SongFile(String title, String description, String privactiy) {
         setLayout(new BorderLayout());
 
         //To obtain the resource directly without the full path

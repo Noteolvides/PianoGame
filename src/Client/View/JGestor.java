@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class JGestor extends JFrame {
         //Basic elements of the JSongs Class
         //This is the View where we are going to show the songs
-        private ArrayList<SongView> songsList;
+        private ArrayList<SongServerView> songsList;
         private JLabel backButton;
         private JLabel refreshButton;
         private JLabel addButton;
@@ -100,24 +100,24 @@ public class JGestor extends JFrame {
         songsList = new ArrayList<>();
         //We take the songs that we are going to show and we add them to our view
         for (int i = 0;i < songs.size();i++) {
-            songsList.add(new SongView(songs.get(i).getTitle(),songs.get(i).getDescription(), songs.get(i).getPrivacity()));
+            songsList.add(new SongServerView(songs.get(i).getTitle(),songs.get(i).getDescription(), songs.get(i).getPrivacity()));
             //We put a maximmum size of a song
             songsList.get(i).setMaximumSize(new Dimension(1000,70));
         }
 
     }
 
-    private void addAllTheSongs (ArrayList <SongView> songsViews) {
+    private void addAllTheSongs (ArrayList <SongServerView> songsViews) {
         for (int i = 0; i < songsViews.size();i++) {
             songsGroup.add(songsViews.get(i));
         }
     }
 
-    public ArrayList<SongView> getSongsList() {
+    public ArrayList<SongServerView> getSongsList() {
         return songsList;
     }
 
-    public void setSongsList(ArrayList<SongView> songsList) {
+    public void setSongsList(ArrayList<SongServerView> songsList) {
         this.songsList = songsList;
     }
 

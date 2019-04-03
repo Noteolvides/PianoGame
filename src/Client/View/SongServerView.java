@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class SongView extends JPanel {
-    //Atributes of the SongView class
+public class SongServerView extends JPanel {
+    //Atributes of the SongServerView class
     private JPanel panelPlayInfo;
     private JPanel groupTitleDescription;
     private JLabel titleSong;
@@ -15,7 +15,7 @@ public class SongView extends JPanel {
     private JLabel infoIcon;
     private JLabel privacity;
 
-    public SongView (String title, String description, String privactiy) {
+    public SongServerView (String title, String description, String privactiy) {
         setLayout(new BorderLayout());
 
         //To obtain the resource directly without the full path

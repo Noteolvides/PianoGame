@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class LeftPanel extends JPanel {
-    public JButton prevOctave;
+    private JButton prevOctave;
     private JButton nextOctave;
 
     public LeftPanel(){
@@ -18,5 +18,13 @@ public class LeftPanel extends JPanel {
         add(prevOctave);
         add(Box.createRigidArea(new Dimension(50,0)));
         add(nextOctave);
+    }
+
+    public JButton getPrevOctave() {
+        return prevOctave;
+    }
+
+    public JButton getNextOctave() {
+        return nextOctave;
     }
 }

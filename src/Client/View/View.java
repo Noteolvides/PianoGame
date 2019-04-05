@@ -34,4 +34,8 @@ public class View {
     public JStart getStartView() {
         return startView;
     }
+
+    public void initPianoView() {
+        pianoView = new JPiano();
+    }
 }

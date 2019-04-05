@@ -1,6 +1,7 @@
-package Client.View.Piano;
+package Client.View;
 
 import Client.View.*;
+import Client.View.Piano.JPiano;
 
 public class View {
     private JPiano pianoView;

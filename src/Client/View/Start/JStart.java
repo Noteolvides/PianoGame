@@ -1,4 +1,4 @@
-package Client.View;
+package Client.View.Start;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

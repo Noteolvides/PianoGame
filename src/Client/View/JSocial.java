@@ -78,8 +78,6 @@ public class JSocial extends JPanel {
         add(this.backButton);
 
 
-
-
     }
     public void showStartUserSearch() {
         //Text to display when the screen is first run
@@ -158,6 +156,9 @@ public class JSocial extends JPanel {
     public void deleteText() {
         //We don't put anything in the textfield text
         squareSeachFriend.setText("");
+    }
+    public void closePanel () {
+        setVisible(false);
     }
 
 }

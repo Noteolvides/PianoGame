@@ -7,11 +7,10 @@ public class FinestraJSocial extends JFrame {
     private JSocial jSocial;
     public FinestraJSocial () {
         jSocial = new JSocial();
-        JFrame test = new JFrame();
-        test.setSize(400,405);
-        test.add(jSocial);
-        test.setVisible(true);
-        test.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setSize(400,405);
+        add(jSocial);
+        setVisible(true);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
     public JSocial getjSocial() {
         return jSocial;
@@ -36,4 +35,5 @@ public class FinestraJSocial extends JFrame {
     public void showUserNotFound () {
         jSocial.showUserNotFound();
     }
+
 }

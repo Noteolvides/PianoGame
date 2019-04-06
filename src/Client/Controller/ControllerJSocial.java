@@ -1,6 +1,7 @@
 package Client.Controller;
 
 import Client.View.FinestraJSocial;
+import Client.View.FinestraJStart;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,6 +11,9 @@ import java.awt.event.MouseListener;
 
 public class ControllerJSocial implements MouseListener {
     private FinestraJSocial finestraJSocial;
+
+    //TODO:I don't know if we could have this here but i think it's needed
+    private FinestraJStart finestraJStart;
 
     public ControllerJSocial (FinestraJSocial finestraJSocial) {
         this.finestraJSocial = finestraJSocial;
@@ -36,7 +40,10 @@ public class ControllerJSocial implements MouseListener {
             }
             else {
                 if (e.getSource() == finestraJSocial.getjSocial().getBackButton()) {
+                    finestraJStart = new FinestraJStart();
                     System.out.println("Going back to the previous menu...");
+                    finestraJSocial.dispose();
+                    finestraJSocial.repaint();
                 }
                 else {
                     System.out.println("You have tried to add a new friend");

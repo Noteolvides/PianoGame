@@ -1,5 +1,6 @@
 package Client.View;
 
+import Client.Controller.ControllerJSong;
 import Client.View.Images.SongPrueba;
 
 import javax.swing.*;
@@ -120,6 +121,26 @@ public class JSong extends JPanel{
 
     public JLabel getRefreshButton() {
         return refreshButton;
+    }
+
+    public void registerControllers (ControllerJSong controllerJSong) {
+        backButton.addMouseListener(controllerJSong);
+        refreshButton.addMouseListener(controllerJSong);
+        //The controller of the songs is put when the songs are updated
+    }
+
+    public String searchNameSong(JLabel botoPlay) {
+        String title = "";
+        int j = 0;
+        boolean found = false;
+        while (j < songsList.size() && !found) {
+            if(songsList.get(j).getPlayButton() == botoPlay) {
+                found = true;
+                songsList.get(j).getTitleSong().getText();
+            }
+            j++;
+        }
+        return title;
     }
 
 }

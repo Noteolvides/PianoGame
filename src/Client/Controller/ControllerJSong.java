@@ -3,6 +3,7 @@ package Client.Controller;
 import Client.View.FinestraJSong;
 import Client.View.Images.SongPrueba;
 
+import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class ControllerJSong implements MouseListener {
 
     public ControllerJSong (FinestraJSong finestraJSong) {
         this.finestraJSong = finestraJSong;
+
     }
 
     @Override
@@ -21,7 +23,18 @@ public class ControllerJSong implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        if (e.getSource() == finestraJSong.getjSong().getBackButton()) {
+            System.out.println("Going to the previous frame...");
+        }
+        else {
+            if(e.getSource() == finestraJSong.getjSong().getRefreshButton()) {
+                System.out.println("Updating songs...");
+            }
+            else {
+                String s = finestraJSong.getjSong().searchNameSong((JLabel)e.getSource());
+                System.out.println("Playing " + s);
+            }
+        }
     }
 
     @Override

@@ -1,5 +1,7 @@
 package Server.View;
 
+import Server.Controller.JTopController;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
@@ -67,6 +69,8 @@ public class JTop {
     public static void main(String[] args) {
         JTop h = new JTop();
         h.JTop();
+        JTopController controller = new JTopController(h);
+        h.registerController(controller);
     }
 
     public void includeSongs (ArrayList <SongPrueba> songs) {
@@ -85,7 +89,16 @@ public class JTop {
             songsGroup.add(songsViews.get(i));
         }
     }
-    /*void registerController(Controller controller){
 
-    }*/
+    public ArrayList<SongView> getSongsList() {
+        return songsList;
+    }
+
+    void registerController(JTopController controller){
+        for(int i = 0; i < songsList.size(); i++){
+            songsList.get(i).getPlayButton().addMouseListener(controller);
+            songsList.get(i).getInfoIcon().addMouseListener(controller);
+            songsList.get(i).getMusicIcon().addMouseListener(controller);
+        }
+    }
 }

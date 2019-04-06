@@ -2,6 +2,7 @@ package Client.Controller;
 
 import Client.View.FinestraJSocial;
 import Client.View.FinestraJStart;
+import Client.View.JPrincipal;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -13,7 +14,7 @@ public class ControllerJSocial implements MouseListener {
     private FinestraJSocial finestraJSocial;
 
     //TODO:I don't know if we could have this here but i think it's needed
-    private FinestraJStart finestraJStart;
+    private JPrincipal jPrincipal;
 
     public ControllerJSocial (FinestraJSocial finestraJSocial) {
         this.finestraJSocial = finestraJSocial;
@@ -40,7 +41,7 @@ public class ControllerJSocial implements MouseListener {
             }
             else {
                 if (e.getSource() == finestraJSocial.getjSocial().getBackButton()) {
-                    finestraJStart = new FinestraJStart();
+                    jPrincipal = new JPrincipal();
                     System.out.println("Going back to the previous menu...");
                     finestraJSocial.dispose();
                     finestraJSocial.repaint();

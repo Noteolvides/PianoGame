@@ -101,4 +101,8 @@ public class JTop {
             songsList.get(i).getMusicIcon().addMouseListener(controller);
         }
     }
+
+    public JPanel getSongTop() {
+        return songTop;
+    }
 }

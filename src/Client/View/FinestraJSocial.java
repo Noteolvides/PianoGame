@@ -1,4 +1,6 @@
 package Client.View;
+import Client.Controller.ControllerJSocial;
+
 import javax.swing.*;
 
 public class FinestraJSocial extends JFrame {
@@ -17,5 +19,14 @@ public class FinestraJSocial extends JFrame {
 
     public void setjSocial(JSocial jSocial) {
         this.jSocial = jSocial;
+    }
+    public void registerController (ControllerJSocial controllerJSocial) {
+        jSocial.registerController(controllerJSocial);
+    }
+
+    public static void main(String[] args) {
+        FinestraJSocial fj = new FinestraJSocial();
+        ControllerJSocial controllerJSocial = new ControllerJSocial(fj);
+        fj.registerController(controllerJSocial);
     }
 }

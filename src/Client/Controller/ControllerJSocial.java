@@ -23,7 +23,7 @@ public class ControllerJSocial implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (e.getSource() instanceof JButton) {
+        if (e.getSource() instanceof JLabel) {
             if (e.getSource() == finestraJSocial.getjSocial().getSearchButton()) {
                 System.out.println("You are trying to find someone...");
             }

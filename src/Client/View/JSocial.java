@@ -47,7 +47,7 @@ public class JSocial extends JPanel {
 
         //Initialization of search button
         searchButton = new JLabel ();
-        ImageIcon searchImage = new ImageIcon("img/refresh.png");
+        ImageIcon searchImage = new ImageIcon("img/search.png");
         //We scale the image because it's too big
         ImageIcon search_scaled = new ImageIcon(searchImage.getImage().getScaledInstance(searchImage.getIconWidth() / 18, searchImage.getIconHeight() / 18, Image.SCALE_SMOOTH));
         searchButton.setIcon(search_scaled);
@@ -61,13 +61,12 @@ public class JSocial extends JPanel {
         searchAndAnswerPanel = new JPanel();
         searchAndAnswerPanel.setLayout(new BorderLayout());
         searchAndAnswerPanel.add(searchPanel,BorderLayout.PAGE_START);
-        panelFriend.setVisible(false);
 
 
         showUserSearch("Anonymous","usuarioRandom.png",true);
 
 
-        searchButton = new JLabel ();
+
         ImageIcon backButton = new ImageIcon("img/back.png");
         //We scale the image because it's too big
         ImageIcon backButton_scaled = new ImageIcon(backButton.getImage().getScaledInstance(backButton.getIconWidth() / 18, backButton.getIconHeight() / 18, Image.SCALE_SMOOTH));

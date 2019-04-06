@@ -30,4 +30,7 @@ public class FinestraJSong extends JFrame{
         jSong.includeSongs(arrayList);
         jSong.addAllTheSongs(jSong.getSongsList());
     }
+    public void updatePlayControllers (ControllerJSong controllerJSong) {
+        jSong.updatePlayControllers(controllerJSong);
+    }
 }

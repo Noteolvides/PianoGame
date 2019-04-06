@@ -105,7 +105,6 @@ public class JSong extends JPanel{
         }
         revalidate();
         repaint();
-
     }
 
 
@@ -137,14 +136,23 @@ public class JSong extends JPanel{
         String title = "";
         int j = 0;
         boolean found = false;
+        //We try to discover what song comes from the play touched
         while (j < songsList.size() && !found) {
             if(songsList.get(j).getPlayButton() == botoPlay) {
                 found = true;
-                songsList.get(j).getTitleSong().getText();
+                title = songsList.get(j).getTitleSong().getText();
             }
             j++;
         }
         return title;
+    }
+    public void updatePlayControllers (ControllerJSong controllerJSong) {
+        int i = 0;
+        //We put our controller in all the songs avaiable
+        while (i < songsList.size()) {
+            songsList.get(i).registerButtonController(controllerJSong);
+            i++;
+        }
     }
 
 }

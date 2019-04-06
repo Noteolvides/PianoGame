@@ -1,5 +1,7 @@
 package Client.View;
 
+import Client.Controller.ControllerJSong;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -91,5 +93,8 @@ public class SongView extends JPanel {
 
     public JLabel getInfoIcon() {
         return infoIcon;
+    }
+    public void registerButtonController (ControllerJSong controllerJSong) {
+        playButton.addMouseListener(controllerJSong);
     }
 }

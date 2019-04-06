@@ -100,4 +100,21 @@ public class JSocial extends JPanel {
         panelFriend.registerController(controllerJSocial);
         backButton.addMouseListener(controllerJSocial);
     }
+
+    public JLabel getSearchButton() {
+        return searchButton;
+    }
+
+    public JTextField getSquareSeachFriend() {
+        return squareSeachFriend;
+    }
+
+    public JLabel getBackButton() {
+        return backButton;
+    }
+
+    public void deleteText() {
+        squareSeachFriend.setText("");
+    }
+
 }

@@ -122,7 +122,12 @@ public class JFriend extends JPanel {
         return panel;
     }
     public void registerController (ControllerJSocial controllerJSocial) {
-        buttonAddFriend.addMouseListener(controllerJSocial);
+        if (buttonAddFriend != null) {
+            buttonAddFriend.addMouseListener(controllerJSocial);
+        }
     }
 
+    public JLabel getButtonAddFriend() {
+        return buttonAddFriend;
+    }
 }

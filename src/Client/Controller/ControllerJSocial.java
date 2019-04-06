@@ -2,6 +2,7 @@ package Client.Controller;
 
 import Client.View.FinestraJSocial;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -11,7 +12,7 @@ public class ControllerJSocial implements MouseListener {
     private FinestraJSocial finestraJSocial;
 
     public ControllerJSocial (FinestraJSocial finestraJSocial) {
-        finestraJSocial = new FinestraJSocial();
+        this.finestraJSocial = finestraJSocial;
     }
 
 
@@ -22,7 +23,22 @@ public class ControllerJSocial implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        if (e.getSource() instanceof JButton) {
+            if (e.getSource() == finestraJSocial.getjSocial().getSearchButton()) {
+                System.out.println("You are trying to find someone...");
+            }
+            else {
+                if (e.getSource() == finestraJSocial.getjSocial().getBackButton()) {
+                    System.out.println("Going back to the previous menu...");
+                }
+                else {
+                    System.out.println("You have tried to add a new friend");
+                }
+            }
+        }
+        else {
+            finestraJSocial.getjSocial().deleteText();
+        }
     }
 
     @Override

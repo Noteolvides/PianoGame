@@ -4,6 +4,7 @@ import Client.View.FinestraJSong;
 import Client.View.FinestraJStart;
 import Client.View.Images.SongPrueba;
 import Client.View.JPrincipal;
+import Client.View.Piano.JPiano;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -12,7 +13,8 @@ import java.util.ArrayList;
 
 public class ControllerJSong implements MouseListener {
     private FinestraJSong finestraJSong;
-
+    //TODO: I'm not sure that this variable can be here
+    private JPiano jPiano;
     public ControllerJSong (FinestraJSong finestraJSong) {
         this.finestraJSong = finestraJSong;
         finestraJSong.updateSongs(simulationOfArray());
@@ -42,6 +44,9 @@ public class ControllerJSong implements MouseListener {
                 //We search the name of the song and then we print playing with it
                 String s = finestraJSong.getjSong().searchNameSong((JLabel)e.getSource());
                 System.out.println("Playing " + s);
+                //TODO:En piano se podria crear una string y entonces, pasarle el nombre de la cancion (No esta hecho porque pienso que es mejor hacerlo despues del merge)
+                jPiano = new JPiano();
+                finestraJSong.dispose();
             }
         }
     }

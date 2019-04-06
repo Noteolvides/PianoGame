@@ -1,7 +1,9 @@
 package Client.Controller;
 
 import Client.View.FinestraJSong;
+import Client.View.FinestraJStart;
 import Client.View.Images.SongPrueba;
+import Client.View.JPrincipal;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -26,6 +28,8 @@ public class ControllerJSong implements MouseListener {
     public void mousePressed(MouseEvent e) {
         if (e.getSource() == finestraJSong.getjSong().getBackButton()) {
             System.out.println("Going to the previous frame...");
+            JPrincipal jPrincipal = new JPrincipal();
+            finestraJSong.dispose();
         }
         else {
             if(e.getSource() == finestraJSong.getjSong().getRefreshButton()) {

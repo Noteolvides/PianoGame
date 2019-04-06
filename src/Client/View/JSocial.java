@@ -95,6 +95,9 @@ public class JSocial extends JPanel {
     }
 
     public void registerController(ControllerJSocial controllerJSocial) {
+        squareSeachFriend.addMouseListener(controllerJSocial);
         searchButton.addMouseListener(controllerJSocial);
+        panelFriend.registerController(controllerJSocial);
+        backButton.addMouseListener(controllerJSocial);
     }
 }

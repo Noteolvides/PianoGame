@@ -19,13 +19,6 @@ public class JSocial extends JPanel {
     //This is the button to go back to another frame
     private JLabel backButton;
 
-    public static void main(String[] args) {
-        JFrame test = new JFrame();
-        test.setSize(400,405);
-        test.add(new JSocial());
-        test.setVisible(true);
-        test.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    }
 
     public JSocial () {
         //Initialization of the Layout

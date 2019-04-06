@@ -82,27 +82,64 @@ public class JSocial extends JPanel {
 
     }
     public void showStartUserSearch() {
+        //Text to display when the screen is first run
         panelFriend = new JFriend("Bienvenido al panel Social!! Introduce un usuario a buscar :)");
-        searchAndAnswerPanel.add(panelFriend);
+        searchAndAnswerPanel.add(panelFriend,BorderLayout.CENTER);
     }
 
     public void showUserSearch (String name, String photoFilename,Boolean isFriend) {
-        panelFriend = new JFriend (photoFilename,name,isFriend);
-        searchAndAnswerPanel.add(panelFriend,BorderLayout.CENTER);
+        //We have to reinitialize the panel to display the new information (the information of the user)
+        panelFriend = new JFriend (name,photoFilename,isFriend);
         panelFriend.setVisible(true);
+        //We have to remove all the old information and to add the information that didn't change
+        createAndRemoveSearchAndAnswer();
+        //We repaint the panel with the new information
+        repaintPanelFriend();
     }
     public void showUserNotFound () {
+        //We have to reinitialize the panel to display the new information, in this case we only show the error message
         panelFriend = new JFriend();
-        searchAndAnswerPanel.add(panelFriend,BorderLayout.CENTER);
         panelFriend.setVisible(true);
+        //We have to remove all the old information and to add the information that didn't change
+        createAndRemoveSearchAndAnswer();
+        //We repaint the panel with the new information
+        repaintPanelFriend();
+    }
+
+    public void repaintPanelFriend () {
+        searchAndAnswerPanel.add(panelFriend,BorderLayout.CENTER);
+        add(searchAndAnswerPanel);
+        add(backButton);
+        //We remove the first back button, because otherwise it is higher than what we are interested in
+        remove(1);
+        revalidate();
+        repaint();
+    }
+
+    public void createAndRemoveSearchAndAnswer () {
+        //We remove the search bar and the JFriedn's panel
+        searchAndAnswerPanel.removeAll();
+        //So, we have to recolocate the old seacrh bar
+        searchAndAnswerPanel = new JPanel();
+        searchAndAnswerPanel.setLayout(new BorderLayout());
+        searchAndAnswerPanel.add(searchPanel,BorderLayout.PAGE_START);
     }
 
     public void registerController(ControllerJSocial controllerJSocial) {
+        //We have to register all the controllers in  our buttons
         squareSeachFriend.addMouseListener(controllerJSocial);
         searchButton.addMouseListener(controllerJSocial);
+        //We make this conditional to know if this button exists (because if it doesn't exists it will occur an exception)
         if (panelFriend != null) {
-            panelFriend.registerController(controllerJSocial);
+            registerControllerAddFriend(controllerJSocial);
         }
+        registerControllerBackButton (controllerJSocial);
+    }
+    public void registerControllerAddFriend (ControllerJSocial controllerJSocial) {
+        panelFriend.registerController(controllerJSocial);
+    }
+
+    public void registerControllerBackButton (ControllerJSocial controllerJSocial) {
         backButton.addMouseListener(controllerJSocial);
     }
 
@@ -119,6 +156,7 @@ public class JSocial extends JPanel {
     }
 
     public void deleteText() {
+        //We don't put anything in the textfield text
         squareSeachFriend.setText("");
     }
 

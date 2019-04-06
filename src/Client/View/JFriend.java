@@ -23,7 +23,7 @@ public class JFriend extends JPanel {
         add(text);
     }
 
-    public JFriend (String nombreImagen, String name, Boolean isFriend) {
+    public JFriend (String name, String nombreImagen, Boolean isFriend) {
         //Initialization of the Layout
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -79,7 +79,7 @@ public class JFriend extends JPanel {
     //Controller that is called when the user doesn't find anyone
     public  JFriend () {
         setLayout(new FlowLayout());
-        setPreferredSize(new Dimension(400,200));
+        setPreferredSize(new Dimension(390,125));
         notFoundIm = new JLabel();
         text = new JLabel();
         text.setFont(new Font ("Sans Serif",Font.BOLD,18));

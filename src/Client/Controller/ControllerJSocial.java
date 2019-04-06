@@ -26,6 +26,13 @@ public class ControllerJSocial implements MouseListener {
         if (e.getSource() instanceof JLabel) {
             if (e.getSource() == finestraJSocial.getjSocial().getSearchButton()) {
                 System.out.println("You are trying to find someone...");
+                if (Math.random()> 0.5) {
+                    finestraJSocial.showUserNotFound();
+                }
+                else {
+                    finestraJSocial.showUserSearch( "Anonymous", "usuarioRandom.png",Math.random()>0.5);
+                    finestraJSocial.getjSocial().registerControllerAddFriend(this);
+                }
             }
             else {
                 if (e.getSource() == finestraJSocial.getjSocial().getBackButton()) {

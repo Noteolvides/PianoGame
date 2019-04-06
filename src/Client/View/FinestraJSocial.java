@@ -29,4 +29,11 @@ public class FinestraJSocial extends JFrame {
         ControllerJSocial controllerJSocial = new ControllerJSocial(fj);
         fj.registerController(controllerJSocial);
     }
+
+    public void showUserSearch (String name, String imageFile,boolean isFriend) {
+        jSocial.showUserSearch(name,imageFile,isFriend);
+    }
+    public void showUserNotFound () {
+        jSocial.showUserNotFound();
+    }
 }

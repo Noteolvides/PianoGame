@@ -1,5 +1,7 @@
 package Server.View;
 
+import Server.Controller.JEvolutionController;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,6 +11,9 @@ import java.util.Random;
 
 public class JEvolution {
     private ArrayList<Double> users;
+    private JButton year;
+    private JButton month;
+    private JButton week;
 
     void JEvolution() throws IOException {
         JFrame evoPanel = new JFrame("Active Users Countage");
@@ -20,9 +25,9 @@ public class JEvolution {
         GridBagConstraints constraints = new GridBagConstraints();
 
         //Time Selection
-        JButton week = new JButton("Week");
-        JButton month = new JButton("Month");
-        JButton year = new JButton("Year");
+        week = new JButton("Week");
+        month = new JButton("Month");
+        year = new JButton("Year");
         evoPanel.setSize(1400, 1000);
 
 
@@ -76,8 +81,13 @@ public class JEvolution {
         JEvolution evo = new JEvolution();
         evo.JEvolution();
 
+        JEvolutionController controller = new JEvolutionController(evo);
+        evo.registerController(controller);
     }
-    /*void registerController(Controller controller){
 
-    }*/
+    void registerController(JEvolutionController controller){
+        year.addActionListener(controller);
+        week.addActionListener(controller);
+        month.addActionListener(controller);
+    }
 }

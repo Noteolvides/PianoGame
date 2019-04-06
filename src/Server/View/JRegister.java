@@ -4,18 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class JRegister extends JPanel {
-    public static void main(String[] args) {
-        JFrame test = new JFrame();
-        test.getContentPane().add(new JRegister());
-        test.setSize(250, 300);
-        test.setTitle("Register");
-        test.setLocationRelativeTo(null);
-        test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        test.setResizable(false);
-        test.setVisible(true);
-    }
-
+public class JRegister extends JFrame {
     private JTextField usernameRegister;
     private JTextField emailRegister;
     private JPasswordField passwordRegister;
@@ -23,8 +12,10 @@ public class JRegister extends JPanel {
     private JButton buttonRegister;
 
     public JRegister() {
-        setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        JPanel register = new JPanel();
+        register.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        register.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+
         JPanel fields = new JPanel();
         fields.setLayout(new BoxLayout(fields, BoxLayout.PAGE_AXIS));
         JLabel usernameLabel = new JLabel("Username:");
@@ -51,12 +42,20 @@ public class JRegister extends JPanel {
         passwordRegisterVerify = new JPasswordField();
         fields.add(passwordRegisterVerify);
         fields.add(Box.createVerticalStrut(4));
-        add(fields);
+        register.add(fields);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         buttonRegister = new JButton("Register");
         buttonPanel.add(buttonRegister);
-        add(buttonPanel);
+        register.add(buttonPanel);
+
+        getContentPane().add(register);
+        setSize(250, 300);
+        setTitle("Register");
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setVisible(true);
     }
 }

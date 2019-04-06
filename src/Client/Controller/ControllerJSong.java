@@ -13,7 +13,7 @@ public class ControllerJSong implements MouseListener {
 
     public ControllerJSong (FinestraJSong finestraJSong) {
         this.finestraJSong = finestraJSong;
-
+        finestraJSong.updateSongs(simulationOfArray());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package Client.View;
 
+import Client.Controller.ControllerJSong;
 import Client.View.Images.SongPrueba;
 
 import javax.swing.*;
@@ -18,5 +19,15 @@ public class FinestraJSong extends JFrame{
 
     public JSong getjSong() {
         return jSong;
+    }
+
+    public static void main(String[] args) {
+        FinestraJSong finestraJSong = new FinestraJSong();
+        ControllerJSong controllerJSong = new ControllerJSong(finestraJSong);
+        finestraJSong.getjSong().registerControllers(controllerJSong);
+    }
+    public void updateSongs (ArrayList <SongPrueba> arrayList) {
+        jSong.includeSongs(arrayList);
+        jSong.addAllTheSongs(jSong.getSongsList());
     }
 }

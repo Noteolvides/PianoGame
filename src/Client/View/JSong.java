@@ -59,7 +59,7 @@ public class JSong extends JPanel{
         //Adding the title of the JSong panel
         add(titlePanel);
 
-
+        songsList = new ArrayList<>();
         //Adding all the songs generated to the panel
         addAllTheSongs(songsList);
 
@@ -89,7 +89,6 @@ public class JSong extends JPanel{
 
     public void includeSongs (ArrayList <SongPrueba> songs) {
         //Adding a new array to not repeat different times the same songs, if we decide to refresh the window
-        songsList = new ArrayList<>();
         //We take the songs that we are going to show and we add them to our view
         for (int i = 0;i < songs.size();i++) {
             songsList.add(new SongView(songs.get(i).getTitle(),songs.get(i).getDescription()));
@@ -98,10 +97,15 @@ public class JSong extends JPanel{
         }
 
     }
-    private void addAllTheSongs (ArrayList <SongView> songsViews) {
+    public void addAllTheSongs (ArrayList <SongView> songsViews) {
+        //We delete all the songs that we have
+        songsGroup.removeAll();
         for (int i = 0; i < songsViews.size();i++) {
             songsGroup.add(songsViews.get(i));
         }
+        revalidate();
+        repaint();
+
     }
 
 

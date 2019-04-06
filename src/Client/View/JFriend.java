@@ -1,5 +1,7 @@
 package Client.View;
 
+import Client.Controller.ControllerJSocial;
+
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
@@ -11,8 +13,8 @@ public class JFriend extends JPanel {
     private JPanel groupCharacteristics;
     //With this button we can add this friend or not
     private JLabel buttonAddFriend;
-
-
+    private JLabel notFoundIm;
+    private JLabel text;
 
     public JFriend (String nombreImagen, String name, Boolean isFriend) {
         //Initialization of the Layout
@@ -67,6 +69,32 @@ public class JFriend extends JPanel {
 
 
     }
+    //Controller that is called when the user doesn't find anyone
+    public  JFriend () {
+        setLayout(new FlowLayout());
+        setPreferredSize(new Dimension(400,200));
+        notFoundIm = new JLabel();
+        text = new JLabel();
+        text.setFont(new Font ("Sans Serif",Font.BOLD,18));
+
+        //We make an image that shows us that it was an error
+        ImageIcon notFoundImage = new ImageIcon("img/notFound.png");
+        //We scale the image because it's too big
+        ImageIcon notFound_scaled = new ImageIcon(notFoundImage.getImage().getScaledInstance(notFoundImage.getIconWidth() / 18, notFoundImage.getIconHeight() / 18, Image.SCALE_SMOOTH));
+        notFoundIm.setIcon(notFound_scaled);
+
+        //We make a text to indicate the error
+        text.setText("ERROR π, USER NOT FOUND");
+
+
+
+        //Adding to the panel the image and the text
+        add(notFoundIm);
+
+        add(text);
+
+    }
+
     private JPanel adquirirJPanel (boolean isFriend) {
         JPanel panel = new JPanel ();
         panel.setLayout(new FlowLayout());
@@ -92,6 +120,9 @@ public class JFriend extends JPanel {
             panel.add(j2);
         }
         return panel;
+    }
+    public void registerController (ControllerJSocial controllerJSocial) {
+        buttonAddFriend.addMouseListener(controllerJSocial);
     }
 
 }

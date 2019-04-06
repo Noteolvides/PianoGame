@@ -1,5 +1,7 @@
 package Client.View;
 
+import Client.Controller.ControllerJSocial;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -11,7 +13,7 @@ public class JSocial extends JPanel {
     //This is the square t¡where we would search someone by her code
     private JTextField squareSeachFriend;
     //This is attribute would be visible when the user fins someone or when you don't find anyone (it would appear a mesaage)
-    private JPanel panelFriend;
+    private JFriend panelFriend;
     //This is the button to search new friends
     private JLabel searchButton;
     //This is the attribute that contains the search button and the reuslt of the search
@@ -19,14 +21,12 @@ public class JSocial extends JPanel {
     //This is the button to go back to another frame
     private JLabel backButton;
 
-
     public JSocial () {
         //Initialization of the Layout
         setLayout(new FlowLayout(FlowLayout.LEFT));
         panelTitle = new JLabel();
         searchPanel = new JPanel();
         squareSeachFriend = new JTextField();
-        panelFriend = new JPanel();
         backButton = new JLabel ();
         //We define a maximum size for the textfield
         squareSeachFriend.setMaximumSize(new Dimension(400,28));
@@ -84,37 +84,17 @@ public class JSocial extends JPanel {
 
     }
     public void showUserSearch (String name, String photoFilename,Boolean isFriend) {
-        panelFriend = new JPanel();
         panelFriend = new JFriend (photoFilename,name,isFriend);
         searchAndAnswerPanel.add(panelFriend,BorderLayout.CENTER);
         panelFriend.setVisible(true);
     }
     public void showUserNotFound () {
-        panelFriend = new JPanel();
-        panelFriend.setLayout(new FlowLayout());
-        panelFriend.setPreferredSize(new Dimension(400,200));
-        JLabel notFoundIm = new JLabel();
-        JLabel text = new JLabel();
-        text.setFont(new Font ("Sans Serif",Font.BOLD,18));
-
-        //We make an image that shows us that it was an error
-        ImageIcon notFoundImage = new ImageIcon("img/notFound.png");
-        //We scale the image because it's too big
-        ImageIcon notFound_scaled = new ImageIcon(notFoundImage.getImage().getScaledInstance(notFoundImage.getIconWidth() / 18, notFoundImage.getIconHeight() / 18, Image.SCALE_SMOOTH));
-        notFoundIm.setIcon(notFound_scaled);
-
-        //We make a text to indicate the error
-        text.setText("ERROR π, USER NOT FOUND");
-
-
-
-        //Adding to the panel the image and the text
-
-        panelFriend.add(notFoundIm);
-
-        panelFriend.add(text);
-
+        panelFriend = new JFriend();
         searchAndAnswerPanel.add(panelFriend,BorderLayout.CENTER);
         panelFriend.setVisible(true);
+    }
+
+    public void registerController(ControllerJSocial controllerJSocial) {
+        searchButton.addMouseListener(controllerJSocial);
     }
 }

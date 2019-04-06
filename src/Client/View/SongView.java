@@ -1,4 +1,4 @@
-package Server.View;
+package Client.View;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,43 +13,16 @@ public class SongView extends JPanel {
     private JLabel musicIcon;
     private JLabel playButton;
     private JLabel infoIcon;
-    public SongView (int idSong, String title, String description) {
+    public SongView (String title, String description) {
         setLayout(new BorderLayout());
 
         //To obtain the resource directly without the full path
-        switch (idSong){
-            case 1:
-                ImageIcon musicImage = new ImageIcon("img/1.png");
-                ImageIcon musicImage_scaled = new ImageIcon(musicImage.getImage().getScaledInstance(musicImage.getIconWidth() / 8, musicImage.getIconHeight() / 8, Image.SCALE_SMOOTH));
-                musicIcon = new JLabel();
-                musicIcon.setIcon(musicImage_scaled);
-                break;
-            case 2:
-                ImageIcon musicImage2 = new ImageIcon("img/2.png");
-                ImageIcon musicImage_scaled2 = new ImageIcon(musicImage2.getImage().getScaledInstance(musicImage2.getIconWidth() / 8, musicImage2.getIconHeight() / 8, Image.SCALE_SMOOTH));
-                musicIcon = new JLabel();
-                musicIcon.setIcon(musicImage_scaled2);
-                break;
-            case 3:
-                ImageIcon musicImage3 = new ImageIcon("img/3.png");
-                ImageIcon musicImage_scaled3 = new ImageIcon(musicImage3.getImage().getScaledInstance(musicImage3.getIconWidth() / 8, musicImage3.getIconHeight() / 8, Image.SCALE_SMOOTH));
-                musicIcon = new JLabel();
-                musicIcon.setIcon(musicImage_scaled3);
-                break;
-            case 4:
-                ImageIcon musicImage4 = new ImageIcon("img/4.png");
-                ImageIcon musicImage_scaled4 = new ImageIcon(musicImage4.getImage().getScaledInstance(musicImage4.getIconWidth() / 8, musicImage4.getIconHeight() / 8, Image.SCALE_SMOOTH));
-                musicIcon = new JLabel();
-                musicIcon.setIcon(musicImage_scaled4);
-                break;
-            case 5:
-                ImageIcon musicImage5 = new ImageIcon("img/5.png");
-                ImageIcon musicImage_scaled5 = new ImageIcon(musicImage5.getImage().getScaledInstance(musicImage5.getIconWidth() / 8, musicImage5.getIconHeight() / 8, Image.SCALE_SMOOTH));
-                musicIcon = new JLabel();
-                musicIcon.setIcon(musicImage_scaled5);
-                break;
-        }
-
+        ImageIcon musicImage = new ImageIcon("img/music_1.png");
+        //We scale the image because it's too big
+        ImageIcon musicImage_scaled = new ImageIcon(musicImage.getImage().getScaledInstance(musicImage.getIconWidth() / 8, musicImage.getIconHeight() / 8, Image.SCALE_SMOOTH));
+        //Initializing the JLabel of music
+        musicIcon = new JLabel();
+        musicIcon.setIcon(musicImage_scaled);
 
 
 

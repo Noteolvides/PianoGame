@@ -111,4 +111,12 @@ public class SongView extends JPanel {
     public JLabel getPlayButton() {
         return playButton;
     }
+
+    public JLabel getTitleSong() {
+        return titleSong;
+    }
+
+    public JLabel getDescription() {
+        return description;
+    }
 }

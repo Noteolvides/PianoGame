@@ -3,6 +3,7 @@ package Client.View.Start;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -66,5 +67,12 @@ public class JStart extends JPanel {
         buttonRegister = new JButton("Register");
         buttons.add(buttonRegister);
         add(buttons);
+    }
+
+    public void registerController(ActionListener c) {
+        buttonSignIn.setActionCommand("SIGN-IN");
+        buttonSignIn.addActionListener(c);
+        buttonRegister.setActionCommand("GO-REGISTER");
+        buttonRegister.addActionListener(c);
     }
 }

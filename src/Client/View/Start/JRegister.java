@@ -2,6 +2,7 @@ package Client.View.Start;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class JRegister extends JPanel {
     public static void main(String[] args) {
@@ -57,5 +58,10 @@ public class JRegister extends JPanel {
         buttonRegister = new JButton("Register");
         buttonPanel.add(buttonRegister);
         add(buttonPanel);
+    }
+
+    public void registerController(ActionListener c) {
+        buttonRegister.setActionCommand("REGISTER");
+        buttonRegister.addActionListener(c);
     }
 }

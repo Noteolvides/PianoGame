@@ -15,6 +15,13 @@ public class JFriend extends JPanel {
     private JLabel buttonAddFriend;
     private JLabel notFoundIm;
     private JLabel text;
+    public JFriend (String inicializacion) {
+        text = new JLabel();
+        setLayout(new FlowLayout());
+        text.setText(inicializacion);
+        setPreferredSize(new Dimension(390,125));
+        add(text);
+    }
 
     public JFriend (String nombreImagen, String name, Boolean isFriend) {
         //Initialization of the Layout

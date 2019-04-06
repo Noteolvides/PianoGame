@@ -63,9 +63,8 @@ public class JSocial extends JPanel {
         searchAndAnswerPanel.add(searchPanel,BorderLayout.PAGE_START);
 
 
-        showUserSearch("Anonymous","usuarioRandom.png",true);
 
-
+        showStartUserSearch();
 
         ImageIcon backButton = new ImageIcon("img/back.png");
         //We scale the image because it's too big
@@ -82,6 +81,11 @@ public class JSocial extends JPanel {
 
 
     }
+    public void showStartUserSearch() {
+        panelFriend = new JFriend("Bienvenido al panel Social!! Introduce un usuario a buscar :)");
+        searchAndAnswerPanel.add(panelFriend);
+    }
+
     public void showUserSearch (String name, String photoFilename,Boolean isFriend) {
         panelFriend = new JFriend (photoFilename,name,isFriend);
         searchAndAnswerPanel.add(panelFriend,BorderLayout.CENTER);
@@ -96,7 +100,9 @@ public class JSocial extends JPanel {
     public void registerController(ControllerJSocial controllerJSocial) {
         squareSeachFriend.addMouseListener(controllerJSocial);
         searchButton.addMouseListener(controllerJSocial);
-        panelFriend.registerController(controllerJSocial);
+        if (panelFriend != null) {
+            panelFriend.registerController(controllerJSocial);
+        }
         backButton.addMouseListener(controllerJSocial);
     }
 

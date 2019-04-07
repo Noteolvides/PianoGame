@@ -8,9 +8,10 @@ import java.util.ArrayList;
 
 public class FinestraJSong extends JFrame{
     private JSong jSong;
+    private JLabel jLabel;
     public FinestraJSong () {
         jSong = new JSong();
-        add(jSong);
+        add(new ComboSongView(jSong,new JLabel()));
         setSize(400,1000);
         setVisible(true);
         setResizable(false);

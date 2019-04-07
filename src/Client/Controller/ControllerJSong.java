@@ -7,6 +7,7 @@ import Client.View.JPrincipal;
 import Client.View.Piano.JPiano;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -38,6 +39,8 @@ public class ControllerJSong implements MouseListener {
                 System.out.println("Updating songs...");
                 //We try to put a similar array (with one new song), to see what happens when touch the refresh
                 finestraJSong.updateSongs(simulationOfArray_2());
+
+
                 //We update the controllers, because if we update the list we remove all the information of the old songs
                 finestraJSong.updatePlayControllers(this);
             }

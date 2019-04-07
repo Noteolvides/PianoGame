@@ -1,5 +1,7 @@
 package Server.View;
 
+import Server.Controller.RegisterController;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -57,5 +59,10 @@ public class JRegister extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
+    }
+
+    public void registerController(RegisterController controller) {
+        buttonRegister.setActionCommand("REGISTER");
+        buttonRegister.addActionListener(controller);
     }
 }

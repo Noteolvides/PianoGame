@@ -8,6 +8,11 @@ import java.io.File;
 import java.io.IOException;
 
 public class JPrincipal extends JFrame {
+    public static final String JPIANO= "Piano";
+    public static final String JSOCIAL = "Social";
+    public static final String SIGN_OUT = "Sign Out";
+    public static final String DELETE_ACCOUNT = "Delete Account";
+
     private BufferedImage iTitle;
 
     private JButton buttonPiano;

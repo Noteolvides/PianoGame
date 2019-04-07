@@ -32,6 +32,7 @@ public class FinestraJSong extends JFrame{
     public void updatePlayControllers (ControllerJSong controllerJSong) {
         comboSongView.updatePlayControllers(controllerJSong);
     }
+
     public void hideLoading () {
         comboSongView.hideGif();
     }

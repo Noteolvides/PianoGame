@@ -23,6 +23,7 @@ public class ComboSongView extends JLayeredPane {
 
         setVisible(true);
     }
+
     public void showGif() {
         add(this.loading,new Integer(2));
     }

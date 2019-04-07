@@ -146,7 +146,7 @@ public class JSong extends JPanel{
         }
         return title;
     }
-    public void updatePlayControllers (ControllerJSong controllerJSong) {
+    public void updateControllersSongs (ControllerJSong controllerJSong) {
         int i = 0;
         //We put our controller in all the songs avaiable
         while (i < songsList.size()) {

@@ -35,8 +35,8 @@ public class ComboSongView extends JLayeredPane {
         jSong.includeSongs(arrayList);
         jSong.addAllTheSongs(jSong.getSongsList());
     }
-    public void updatePlayControllers (ControllerJSong controllerJSong) {
-        jSong.updatePlayControllers(controllerJSong);
+    public void updateControllersSongs (ControllerJSong controllerJSong) {
+        jSong.updateControllersSongs(controllerJSong);
     }
 
     public JSong getjSong() {

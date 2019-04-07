@@ -21,7 +21,7 @@ public class LoadingThread extends Thread{
 
 
             //We update the controllers, because if we update the list we remove all the information of the old songs
-            finestraJSong.updatePlayControllers(controllerJSong);
+            finestraJSong.updateControllersSongs(controllerJSong);
             //Then, we hide the loading bar
             finestraJSong.hideLoading();
         } catch (InterruptedException e) {

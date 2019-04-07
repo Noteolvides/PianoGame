@@ -29,8 +29,8 @@ public class FinestraJSong extends JFrame{
     public void updateSongs (ArrayList <SongPrueba> arrayList) {
         comboSongView.updateSongs(arrayList);
     }
-    public void updatePlayControllers (ControllerJSong controllerJSong) {
-        comboSongView.updatePlayControllers(controllerJSong);
+    public void updateControllersSongs (ControllerJSong controllerJSong) {
+        comboSongView.updateControllersSongs(controllerJSong);
     }
 
     public void hideLoading () {

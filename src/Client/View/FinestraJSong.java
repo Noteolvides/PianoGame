@@ -9,9 +9,11 @@ import java.util.ArrayList;
 public class FinestraJSong extends JFrame{
     private JSong jSong;
     private JLabel jLabel;
+    private ComboSongView comboSongView;
     public FinestraJSong () {
         jSong = new JSong();
-        add(new ComboSongView(jSong,new JLabel()));
+        comboSongView = new ComboSongView(jSong,new JLabel());
+        add(comboSongView);
         setSize(400,1000);
         setVisible(true);
         setResizable(false);
@@ -33,5 +35,11 @@ public class FinestraJSong extends JFrame{
     }
     public void updatePlayControllers (ControllerJSong controllerJSong) {
         jSong.updatePlayControllers(controllerJSong);
+    }
+    public void hideLoading () {
+        comboSongView.hideGif();
+    }
+    public void showLoading () {
+        comboSongView.showGif();
     }
 }

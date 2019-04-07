@@ -12,14 +12,19 @@ public class ComboSongView extends JLayeredPane {
         this.jSong.setBounds(0,0,400,780);
         this.loading = loading;
         ImageIcon loadingImage = new ImageIcon("img/loading.gif");
-        ImageIcon loadingImage_scaled = new ImageIcon(loadingImage.getImage().getScaledInstance(loadingImage.getIconWidth() / 2, loadingImage.getIconHeight() / 2, Image.SCALE_SMOOTH));
         //We scale the image because it's too big
         this.loading.setIcon(loadingImage);
         this.loading.setBounds(125,200,250,250);
-        this.loading.setVisible(true);
-        add(this.loading,new Integer(2));
         add(this.jSong,new Integer(1));
+
         setVisible(true);
+    }
+    public void showGif() {
+        add(this.loading,new Integer(2));
+    }
+
+    public void hideGif () {
+        remove(loading);
     }
 
 }

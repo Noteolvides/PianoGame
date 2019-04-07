@@ -7,12 +7,9 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class FinestraJSong extends JFrame{
-    private JSong jSong;
-    private JLabel jLabel;
     private ComboSongView comboSongView;
     public FinestraJSong () {
-        jSong = new JSong();
-        comboSongView = new ComboSongView(jSong,new JLabel());
+        comboSongView = new ComboSongView(new JSong(),new JLabel());
         add(comboSongView);
         setSize(400,1000);
         setVisible(true);
@@ -21,7 +18,7 @@ public class FinestraJSong extends JFrame{
     }
 
     public JSong getjSong() {
-        return jSong;
+        return comboSongView.getjSong();
     }
 
     public static void main(String[] args) {
@@ -30,11 +27,10 @@ public class FinestraJSong extends JFrame{
         finestraJSong.getjSong().registerControllers(controllerJSong);
     }
     public void updateSongs (ArrayList <SongPrueba> arrayList) {
-        jSong.includeSongs(arrayList);
-        jSong.addAllTheSongs(jSong.getSongsList());
+        comboSongView.updateSongs(arrayList);
     }
     public void updatePlayControllers (ControllerJSong controllerJSong) {
-        jSong.updatePlayControllers(controllerJSong);
+        comboSongView.updatePlayControllers(controllerJSong);
     }
     public void hideLoading () {
         comboSongView.hideGif();

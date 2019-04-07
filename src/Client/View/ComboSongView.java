@@ -1,7 +1,11 @@
 package Client.View;
 
+import Client.Controller.ControllerJSong;
+import Client.View.Images.SongPrueba;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ComboSongView extends JLayeredPane {
     private JSong jSong;
@@ -26,5 +30,15 @@ public class ComboSongView extends JLayeredPane {
     public void hideGif () {
         remove(loading);
     }
+    public void updateSongs(ArrayList<SongPrueba> arrayList) {
+        jSong.includeSongs(arrayList);
+        jSong.addAllTheSongs(jSong.getSongsList());
+    }
+    public void updatePlayControllers (ControllerJSong controllerJSong) {
+        jSong.updatePlayControllers(controllerJSong);
+    }
 
+    public JSong getjSong() {
+        return jSong;
+    }
 }

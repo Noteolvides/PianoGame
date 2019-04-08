@@ -3,6 +3,7 @@ package Client.View.Start;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class JRegister extends JFrame {
     private JTextField usernameRegister;
@@ -56,6 +57,22 @@ public class JRegister extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
+    }
+
+    public String getUsername() {
+        return usernameRegister.getText();
+    }
+
+    public String getEmail() {
+        return emailRegister.getText();
+    }
+
+    public char[] getPassword() {
+        return passwordRegister.getPassword();
+    }
+
+    public char[] getPasswordVerify() {
+        return passwordRegisterVerify.getPassword();
     }
 
     public void registerController(ActionListener c) {

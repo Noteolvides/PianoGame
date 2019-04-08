@@ -1,5 +1,6 @@
 package Server.Model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity

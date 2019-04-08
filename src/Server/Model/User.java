@@ -1,8 +1,10 @@
 package Server.Model;
 
+import javax.persistence.*;
+
 @Entity
 @Table(name="User")
-@OneToMany(mappedBy="name", cascade=CascadeType.All)
+@OneToMany(mappedBy="name", cascade= CascadeType.ALL)
 public class User {
     @Column(name="name")
     @Id

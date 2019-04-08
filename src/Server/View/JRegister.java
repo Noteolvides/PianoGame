@@ -73,7 +73,7 @@ public class JRegister extends JFrame {
         return passwordRegister.getPassword();
     }
 
-    public char[] gtePasswordVerify() {
+    public char[] getPasswordVerify() {
         return passwordRegisterVerify.getPassword();
     }
 

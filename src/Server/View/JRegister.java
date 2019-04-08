@@ -61,6 +61,22 @@ public class JRegister extends JFrame {
         setVisible(true);
     }
 
+    public String getUsername() {
+        return usernameRegister.getText();
+    }
+
+    public String getEmail() {
+        return emailRegister.getText();
+    }
+
+    public char[] getPassword() {
+        return passwordRegister.getPassword();
+    }
+
+    public char[] gtePasswordVerify() {
+        return passwordRegisterVerify.getPassword();
+    }
+
     public void registerController(RegisterController controller) {
         buttonRegister.setActionCommand("REGISTER");
         buttonRegister.addActionListener(controller);

@@ -67,6 +67,14 @@ public class JStart extends JFrame {
         setVisible(true);
     }
 
+    public String getLogin() {
+        return emailLogin.getText();
+    }
+
+    public char[] getPassword() {
+        return passwordField.getPassword();
+    }
+
     public void registerController(ActionListener c) {
         buttonSignIn.setActionCommand("SIGN-IN");
         buttonSignIn.addActionListener(c);

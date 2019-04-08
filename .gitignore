@@ -21,6 +21,7 @@ markdown.xml
 # Maven
 log/
 target/
+test/
 
 # User-specific stuff
 .idea/**/workspace.xml

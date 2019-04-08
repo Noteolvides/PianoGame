@@ -2,9 +2,15 @@ package Server.Model;
 
 import java.util.Date;
 
+@Enitity
+@Table(name="System")
 public class System {
+    @Column(name="name")
+    @Id
     private String name;
+    @Column(name="date")
     private Date date;
+    @Column(name="totalofusers")
     private int totalUsers;
 
     public System(String name, Date date, int totalUsers) {

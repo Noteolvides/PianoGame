@@ -1,9 +1,16 @@
 package Server.Model;
 
+@Entity
+@Table(name="User")
 public class User {
+    @Column(name="name")
+    @Id
     private String name;
+    @Column(name="url")
     private String url;
+    @Column(name="password")
     private String password;
+    @Column(name="email")
     private String email;
 
     public User(String name, String url, String password, String email) {

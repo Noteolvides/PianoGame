@@ -1,12 +1,24 @@
 package Server.Model;
 
-public class Song {
+import java.io.Serializable;
+
+@Entity
+@Table(name="Song")
+public class Song implements Serializable {
+    @Column(name="SongId")
+    @Id
     private int SongID;
+    @Column(name="name")
     private String name;
+    @Column(name="duration")
     private int duration;
+    @Column(name="description")
     private String description;
+    @Column(name="author")
     private User author;
+    @Column(name="plays")
     private int plays;
+    @Column(name="filepath")
     private String filePath;
 
     public Song(int songID, String name, int duration, String description, User author, int plays, String filePath) {

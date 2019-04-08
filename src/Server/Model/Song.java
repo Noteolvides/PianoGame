@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="Song")
+@ManyToOne
+@JoinColumn(name="author")
 public class Song implements Serializable {
     @Column(name="SongId")
     @Id

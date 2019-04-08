@@ -2,6 +2,7 @@ package Server.Model;
 
 @Entity
 @Table(name="User")
+@OneToMany(mappedBy="name", cascade=CascadeType.All)
 public class User {
     @Column(name="name")
     @Id

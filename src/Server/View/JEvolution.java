@@ -60,7 +60,7 @@ public class JEvolution {
     }
 
     public JPanel showGraphic() {                                      //Quan cridem aquesta funció li passarem una llista de quantitat d'usuaris
-        users = new ArrayList<>();
+        users = new ArrayList<Double>();
         Random random = new Random();
         int maxDataPoints = 10;
         int maxScore = 100;

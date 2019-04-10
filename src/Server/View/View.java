@@ -1,5 +1,8 @@
 package Server.View;
 
+import Server.View.SongPrueba;
+import java.util.ArrayList;
+
 public class View {
     private Graphic graficView;
     private JEvolution evolutionView;
@@ -39,6 +42,6 @@ public class View {
 
     public void initRegisterView() {
             registerView = new JRegister();
-        }
+    }
 
 }

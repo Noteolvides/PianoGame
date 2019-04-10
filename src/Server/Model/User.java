@@ -1,8 +1,10 @@
 package Server.Model;
 
+import javax.persistence.*;
+import java.util.List;
+
 @Entity
 @Table(name="User")
-@OneToMany(mappedBy="name", cascade=CascadeType.All)
 public class User {
     @Column(name="name")
     @Id
@@ -13,6 +15,8 @@ public class User {
     private String password;
     @Column(name="email")
     private String email;
+    @OneToMany(mappedBy="name", cascade= CascadeType.ALL)
+    private List<Song> songs;
 
     public User(String name, String url, String password, String email) {
         this.name = name;
@@ -51,5 +55,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
+    }
+
+    public List<Song> getSongs() {
+        return songs;
     }
 }

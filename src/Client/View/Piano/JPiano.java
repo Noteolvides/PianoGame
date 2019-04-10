@@ -4,15 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class JPiano extends JFrame {
-    public static void main(String[] args) {
-        JPiano jp = new JPiano();
-    }
 
     private TopPanel topOption;
     private JPanel botOption;
     private LeftPanel leftOption;
     private JPanel rightOption;
     private ViewPiano piano;
+
+
     public JPiano() {
         super("Piano");
 
@@ -35,5 +34,17 @@ public class JPiano extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(50*(ViewPiano.numberOfKeys+2),330);
         setVisible(true);
+    }
+
+    public TopPanel getTopOption() {
+        return topOption;
+    }
+
+    public ViewPiano getPiano() {
+        return piano;
+    }
+
+    public LeftPanel getLeftOption() {
+        return leftOption;
     }
 }

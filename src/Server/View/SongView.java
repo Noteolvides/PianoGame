@@ -99,4 +99,24 @@ public class SongView extends JPanel {
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
     }
+
+    public JLabel getMusicIcon() {
+        return musicIcon;
+    }
+
+    public JLabel getInfoIcon() {
+        return infoIcon;
+    }
+
+    public JLabel getPlayButton() {
+        return playButton;
+    }
+
+    public JLabel getTitleSong() {
+        return titleSong;
+    }
+
+    public JLabel getDescription() {
+        return description;
+    }
 }

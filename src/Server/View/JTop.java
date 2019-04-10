@@ -1,5 +1,7 @@
 package Server.View;
 
+import Server.Controller.JTopController;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
@@ -15,11 +17,11 @@ public class JTop {
     void JTop(){                            //Pass ArrayList<Song> to the constructor and for each one add Number 1-5
 
         ArrayList<SongPrueba> songs = new ArrayList<>();
-        songs.add(new SongPrueba(1, "Watanabe Mayu", "She's so cute ❤"));
-        songs.add(new SongPrueba(2, "Okada Nana", "Elegance and Prestige"));
-        songs.add(new SongPrueba(3, "Yabuki Nako", "Mayu's daughter"));
-        songs.add(new SongPrueba(4, "Tanaka Miku", "Mayu's daughter"));
-        songs.add(new SongPrueba(5, "Yamamoto Sayaka", "Let's rock it!"));
+        songs.add(new SongPrueba(1, "渡辺麻友", "She's so cute ❤"));
+        songs.add(new SongPrueba(2, "岡田奈々", "Elegance and Prestige"));
+        songs.add(new SongPrueba(3, "矢吹奈子", "Mayu's daughter"));
+        songs.add(new SongPrueba(4, "田中美久", "Mayu's daughter"));
+        songs.add(new SongPrueba(5, "山本彩", "Let's rock it!"));
 
 
         songTop.setLayout(new BoxLayout(songTop, BoxLayout.Y_AXIS));
@@ -67,6 +69,8 @@ public class JTop {
     public static void main(String[] args) {
         JTop h = new JTop();
         h.JTop();
+        JTopController controller = new JTopController(h);
+        h.registerController(controller);
     }
 
     public void includeSongs (ArrayList <SongPrueba> songs) {
@@ -85,7 +89,20 @@ public class JTop {
             songsGroup.add(songsViews.get(i));
         }
     }
-    /*void registerController(Controller controller){
 
-    }*/
+    public ArrayList<SongView> getSongsList() {
+        return songsList;
+    }
+
+    void registerController(JTopController controller){
+        for(int i = 0; i < songsList.size(); i++){
+            songsList.get(i).getPlayButton().addMouseListener(controller);
+            songsList.get(i).getInfoIcon().addMouseListener(controller);
+            songsList.get(i).getMusicIcon().addMouseListener(controller);
+        }
+    }
+
+    public JPanel getSongTop() {
+        return songTop;
+    }
 }

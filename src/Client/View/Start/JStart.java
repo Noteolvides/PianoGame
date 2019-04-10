@@ -1,32 +1,23 @@
-package Client.View;
+package Client.View.Start;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class JStart extends JPanel {
-    public static void main(String[] args) {
-        JFrame test = new JFrame();
-        test.getContentPane().add(new JStart());
-        test.setSize(300, 300);
-        test.setTitle("Smart Piano");
-        test.setLocationRelativeTo(null);
-        test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        test.setResizable(false);
-        test.setVisible(true);
-    }
-
+public class JStart extends JFrame {
     private JTextField emailLogin;
     private JPasswordField passwordField;
     private JButton buttonSignIn;
     private JButton buttonRegister;
 
     public JStart (){
-        setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
-        setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
+        JPanel start = new JPanel();
+        start.setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
+        start.setLayout(new BoxLayout(start,BoxLayout.PAGE_AXIS));
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.PAGE_AXIS));
         JPanel fields = new JPanel();
@@ -57,7 +48,7 @@ public class JStart extends JPanel {
         fields.add(Box.createVerticalStrut(8));
         passwordField = new JPasswordField();
         fields.add(passwordField);
-        add(fields);
+        start.add(fields);
 
         JPanel buttons = new JPanel();
         buttons.setLayout(new FlowLayout());
@@ -65,6 +56,29 @@ public class JStart extends JPanel {
         buttons.add(buttonSignIn);
         buttonRegister = new JButton("Register");
         buttons.add(buttonRegister);
-        add(buttons);
+        start.add(buttons);
+
+        getContentPane().add(start);
+        setSize(300, 300);
+        setTitle("Smart Piano");
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setVisible(true);
+    }
+
+    public String getLogin() {
+        return emailLogin.getText();
+    }
+
+    public char[] getPassword() {
+        return passwordField.getPassword();
+    }
+
+    public void registerController(ActionListener c) {
+        buttonSignIn.setActionCommand("SIGN-IN");
+        buttonSignIn.addActionListener(c);
+        buttonRegister.setActionCommand("GO-REGISTER");
+        buttonRegister.addActionListener(c);
     }
 }

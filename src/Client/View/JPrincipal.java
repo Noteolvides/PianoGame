@@ -1,5 +1,7 @@
 package Client.View;
 
+import Client.Controller.MenuPrincipal.JPrincipalController;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +10,11 @@ import java.io.File;
 import java.io.IOException;
 
 public class JPrincipal extends JFrame {
+    public static final String JPIANO= "Piano";
+    public static final String JSOCIAL = "Social";
+    public static final String SIGN_OUT = "Sign Out";
+    public static final String DELETE_ACCOUNT = "Delete Account";
+
     private BufferedImage iTitle;
 
     private JButton buttonPiano;
@@ -82,4 +89,19 @@ public class JPrincipal extends JFrame {
         setTitle("Smart Piano");
         setVisible(true);
     }
+
+    public void registerController(JPrincipalController pc) {
+        buttonPiano.setActionCommand(JPIANO);
+        buttonPiano.addActionListener(pc);
+
+        buttonAmics.setActionCommand(JSOCIAL);
+        buttonAmics.addActionListener(pc);
+
+        buttonSignOut.setActionCommand(SIGN_OUT);
+        buttonSignOut.addActionListener(pc);
+
+        buttonDeleteAccount.setActionCommand(DELETE_ACCOUNT);
+        buttonDeleteAccount.addActionListener(pc);
+    }
+
 }

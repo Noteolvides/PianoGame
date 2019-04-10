@@ -1,11 +1,10 @@
 package Server.Model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name="Song")
-@ManyToOne
-@JoinColumn(name="author")
 public class Song implements Serializable {
     @Column(name="SongId")
     @Id
@@ -16,12 +15,14 @@ public class Song implements Serializable {
     private int duration;
     @Column(name="description")
     private String description;
-    @Column(name="author")
+    @ManyToOne
+    @JoinColumn(name="author")
     private User author;
     @Column(name="plays")
     private int plays;
     @Column(name="filepath")
     private String filePath;
+
 
     public Song(int songID, String name, int duration, String description, User author, int plays, String filePath) {
         SongID = songID;

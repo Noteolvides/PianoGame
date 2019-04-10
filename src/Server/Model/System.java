@@ -1,8 +1,12 @@
 package Server.Model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
-@Enitity
+@Entity
 @Table(name="System")
 public class System {
     @Column(name="name")

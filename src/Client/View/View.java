@@ -48,5 +48,8 @@ public class View {
 
     public void initRegisterView() {
         registerView = new JRegister();
+
+    public void initPrincipalView() {
+        principalView = new JPrincipal();
     }
 }

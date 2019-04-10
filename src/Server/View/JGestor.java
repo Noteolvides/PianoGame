@@ -129,6 +129,18 @@ public class JGestor extends JFrame {
         this.songsList = songsList;
     }
 
+    public JLabel getBackButton() {
+        return backButton;
+    }
+
+    public JLabel getRefreshButton() {
+        return refreshButton;
+    }
+
+    public JLabel getAddButton() {
+        return addButton;
+    }
+
 
 }
 

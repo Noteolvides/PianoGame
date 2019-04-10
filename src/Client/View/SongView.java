@@ -1,5 +1,7 @@
 package Client.View;
 
+import Client.Controller.ControllerJSong;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -71,5 +73,30 @@ public class SongView extends JPanel {
         //We make a border to separate the songs
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
+    }
+
+    public JLabel getTitleSong() {
+        return titleSong;
+    }
+
+    public JLabel getDescription() {
+        return description;
+    }
+
+    public JLabel getMusicIcon() {
+        return musicIcon;
+    }
+
+    public JLabel getPlayButton() {
+        return playButton;
+    }
+
+    public JLabel getInfoIcon() {
+        return infoIcon;
+    }
+    public void registerButtonController (ControllerJSong controllerJSong) {
+        playButton.addMouseListener(controllerJSong);
+        //Now, we add the tool tip text too
+        infoIcon.setToolTipText(titleSong.getText() + " a song created by " + description.getText());
     }
 }

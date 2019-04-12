@@ -1,5 +1,7 @@
 package Client.View;
 
+import Client.View.Start.JStart;
+
 import javax.swing.*;
 
 public class FinestraJStart extends JFrame {

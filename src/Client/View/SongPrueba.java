@@ -1,4 +1,4 @@
-package Client.View.Images;
+package Client.View;
 
 public class SongPrueba {
     private int idSong;

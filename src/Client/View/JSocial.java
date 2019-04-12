@@ -1,7 +1,6 @@
 package Client.View;
 
 import Client.Controller.ControllerJSocial;
-
 import javax.swing.*;
 import java.awt.*;
 

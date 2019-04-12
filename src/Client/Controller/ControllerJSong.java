@@ -1,13 +1,11 @@
 package Client.Controller;
 
 import Client.View.FinestraJSong;
-import Client.View.FinestraJStart;
-import Client.View.Images.SongPrueba;
+import Client.View.SongPrueba;
 import Client.View.JPrincipal;
 import Client.View.Piano.JPiano;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;

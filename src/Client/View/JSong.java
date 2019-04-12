@@ -1,8 +1,6 @@
 package Client.View;
 
 import Client.Controller.ControllerJSong;
-import Client.View.Images.SongPrueba;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;

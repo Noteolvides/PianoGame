@@ -1,7 +1,7 @@
 package Client.Controller;
 
 import Client.View.FinestraJSong;
-import Client.View.Images.SongPrueba;
+import Client.View.SongPrueba;
 
 import java.util.ArrayList;
 

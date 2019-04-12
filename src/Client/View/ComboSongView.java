@@ -1,10 +1,7 @@
 package Client.View;
 
 import Client.Controller.ControllerJSong;
-import Client.View.Images.SongPrueba;
-
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 public class ComboSongView extends JLayeredPane {

@@ -1,7 +1,6 @@
 package Client.View;
 
 import Client.Controller.ControllerJSong;
-
 import javax.swing.*;
 import java.awt.*;
 

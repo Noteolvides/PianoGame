@@ -1,6 +1,6 @@
 package Server.View;
 
-import Client.View.Images.SongPrueba;
+import Server.View.SongPrueba;
 import Server.Controller.Gestor.GestorController;
 
 import javax.swing.*;

@@ -44,4 +44,8 @@ public class View {
             registerView = new JRegister();
     }
 
+    public void initGestorView(ArrayList<SongPrueba> songs) {
+        gestorView = new JGestor(songs);
+    }
+
 }

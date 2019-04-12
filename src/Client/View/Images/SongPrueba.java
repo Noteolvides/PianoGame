@@ -4,7 +4,6 @@ public class SongPrueba {
     private int idSong;
     private String title;
     private String description;
-    private String privacity;
 
     public SongPrueba(int idSong, String title, String description) {
         this.idSong = idSong;
@@ -15,7 +14,6 @@ public class SongPrueba {
         this.idSong = idSong;
         this.title = title;
         this.description = description;
-        this.privacity = privacity;
     }
 
     public int getIdSong() {
@@ -42,11 +40,4 @@ public class SongPrueba {
         this.description = description;
     }
 
-    public String getPrivacity() {
-        return privacity;
-    }
-
-    public void setPrivacity(String privacity) {
-        this.privacity = privacity;
-    }
 }

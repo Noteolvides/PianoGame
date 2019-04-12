@@ -1,18 +1,18 @@
 package Server.Controller.Gestor;
 
-import Client.View.Images.SongPrueba;
-import Server.View.ViewServer;
+import Server.View.SongPrueba;
+import Server.View.View;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 
 public class GestorController implements MouseListener {
-    private ViewServer view;
+    private View view;
 
     //Temporal main
     public static void main(String[] args) {
-        ViewServer view = new ViewServer();
+        View view = new View();
         GestorController controller = new GestorController(view);
         view.getGestorView().registerController(controller);
     }
@@ -21,9 +21,9 @@ public class GestorController implements MouseListener {
      * Controller of JGestor
      * @param view
      */
-    public GestorController(ViewServer view) {
+    public GestorController(View view) {
         this.view = view;
-        view.initGestor(simulationOfController());
+        view.initGestorView(simulationOfController());
     }
 
     @Override
@@ -54,7 +54,7 @@ public class GestorController implements MouseListener {
         } else if (e.getSource() == view.getGestorView().getRefreshButton()) {
             view.getGestorView().setVisible(false);
             view.getGestorView().dispose();
-            view.initGestor(simulationOfController2());
+            view.initGestorView(simulationOfController2());
             view.getGestorView().registerController(this);
 
         }/* else if () {

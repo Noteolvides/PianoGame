@@ -1,5 +1,7 @@
 package Client.Controller.Network;
 
+import Client.Controller.Controller;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -12,6 +14,7 @@ public class ClientConnection {
     private static final int ERROR = -1;
 
     //Controller
+    Controller controller;
 
     //Connection elements
     Socket server;
@@ -23,8 +26,8 @@ public class ClientConnection {
     /**
      * Client sockets controller
      */
-    public ClientConnection() {
-
+    public ClientConnection(Controller controller) {
+        this.controller = controller;
     }
 
     /**

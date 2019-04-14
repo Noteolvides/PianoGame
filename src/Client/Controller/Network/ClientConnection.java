@@ -35,7 +35,11 @@ public class ClientConnection {
             server = new Socket(IP, PORT);
             System.out.println("[CLIENT] Connection established");
 
-            //Todo, establir camins de connexions
+            dOut = new DataOutputStream(server.getOutputStream());
+            dIn = new DataInputStream(server.getInputStream());
+
+            obOut = new ObjectOutputStream(server.getOutputStream());
+            obIn = new ObjectInputStream(server.getInputStream());
 
         } catch (IOException e) {
             System.out.println("Error to set up connection with the server.");

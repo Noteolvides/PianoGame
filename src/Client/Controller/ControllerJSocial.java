@@ -3,6 +3,7 @@ package Client.Controller;
 import Client.View.FinestraJSocial;
 import Client.View.FinestraJStart;
 import Client.View.JPrincipal;
+import Client.View.View;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,13 +12,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class ControllerJSocial implements MouseListener {
-    private FinestraJSocial finestraJSocial;
+    private View view;
+    private Controller controller;
 
     //TODO:I don't know if we could have this here but i think it's needed
     private JPrincipal jPrincipal;
 
-    public ControllerJSocial (FinestraJSocial finestraJSocial) {
-        this.finestraJSocial = finestraJSocial;
+    public ControllerJSocial (View view, Controller controller) {
+        this.view = view;
+        this.controller = controller;
     }
 
 
@@ -29,22 +32,22 @@ public class ControllerJSocial implements MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         if (e.getSource() instanceof JLabel) {
-            if (e.getSource() == finestraJSocial.getjSocial().getSearchButton()) {
+            if (e.getSource() == view.getSocialView().getjSocial().getSearchButton()) {
                 System.out.println("You are trying to find someone...");
                 if (Math.random()> 0.5) {
-                    finestraJSocial.showUserNotFound();
+                    view.getSocialView().showUserNotFound();
                 }
                 else {
-                    finestraJSocial.showUserSearch( "Anonymous", "usuarioRandom.png",Math.random()>0.5);
-                    finestraJSocial.getjSocial().registerControllerAddFriend(this);
+                    view.getSocialView().showUserSearch( "Anonymous", "usuarioRandom.png",Math.random()>0.5);
+                    view.getSocialView().getjSocial().registerControllerAddFriend(this);
                 }
             }
             else {
-                if (e.getSource() == finestraJSocial.getjSocial().getBackButton()) {
+                if (e.getSource() == view.getSocialView().getjSocial().getBackButton()) {
                     jPrincipal = new JPrincipal();
                     System.out.println("Going back to the previous menu...");
-                    finestraJSocial.dispose();
-                    finestraJSocial.repaint();
+                    controller.closeSocial();
+                    controller.openPrincipal();
                 }
                 else {
                     System.out.println("You have tried to add a new friend");
@@ -52,7 +55,7 @@ public class ControllerJSocial implements MouseListener {
             }
         }
         else {
-            finestraJSocial.getjSocial().deleteText();
+            view.getSocialView().getjSocial().deleteText();
         }
     }
 

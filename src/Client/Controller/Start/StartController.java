@@ -1,5 +1,6 @@
 package Client.Controller.Start;
 
+import Client.Controller.Controller;
 import Client.View.Start.JRegister;
 import Client.View.Start.JStart;
 import Client.View.View;
@@ -9,8 +10,10 @@ import java.awt.event.ActionListener;
 
 public class StartController implements ActionListener {
     private View view;
-    public StartController(View view) {
+    private Controller controller;
+    public StartController(View view, Controller controller) {
         this.view = view;
+        this.controller = controller;
     }
 
     @Override
@@ -19,11 +22,12 @@ public class StartController implements ActionListener {
             System.out.println(view.getStartView().getLogin());
             System.out.println(view.getStartView().getPassword());
             System.out.println("Sing in");
+            controller.openPrincipal();
+            controller.closeStart();
         }
         if (e.getActionCommand().equals("GO-REGISTER")){
             System.out.println("Register");
-            view.initRegisterView();
-            view.getRegisterView().registerController(this);
+            controller.openRegister();
         }
         if (e.getActionCommand().equals("REGISTER")) {
             System.out.println(view.getRegisterView().getEmail());
@@ -31,6 +35,7 @@ public class StartController implements ActionListener {
             System.out.println(view.getRegisterView().getPassword());
             System.out.println(view.getRegisterView().getPasswordVerify());
             System.out.println("Registered");
+            controller.closeRegister();
         }
     }
 }

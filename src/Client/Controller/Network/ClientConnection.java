@@ -1,6 +1,6 @@
 package Client.Controller.Network;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 public class ClientConnection {
@@ -15,6 +15,10 @@ public class ClientConnection {
 
     //Connection elements
     Socket server;
+    DataOutputStream dOut;
+    DataInputStream dIn;
+    ObjectOutputStream obOut;
+    ObjectInputStream obIn;
 
     /**
      * Client sockets controller

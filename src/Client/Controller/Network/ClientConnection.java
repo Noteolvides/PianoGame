@@ -14,14 +14,14 @@ public class ClientConnection {
     private static final int ERROR = -1;
 
     //Controller
-    Controller controller;
+    private Controller controller;
 
     //Connection elements
-    Socket server;
-    DataOutputStream dOut;
-    DataInputStream dIn;
-    ObjectOutputStream obOut;
-    ObjectInputStream obIn;
+    private Socket server;
+    private DataOutputStream dOut;
+    private DataInputStream dIn;
+    private ObjectOutputStream obOut;
+    private ObjectInputStream obIn;
 
     /**
      * Client sockets controller

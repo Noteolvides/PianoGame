@@ -29,6 +29,7 @@ public class Controller {
     public void openStart() {
         startController = new StartController(view, this);
         view.getStartView().registerController(startController);
+        view.getStartView().setVisible(true);
     }
 
     public void closeStart() {
@@ -39,6 +40,7 @@ public class Controller {
     public void openRegister() {
         view.initRegisterView();
         view.getRegisterView().registerController(startController);
+        view.getRegisterView().setVisible(true);
     }
 
     public void closeRegister() {
@@ -49,6 +51,7 @@ public class Controller {
     public void openPrincipal() {
         principalController = new JPrincipalController(view, this);
         view.getPrincipalView().registerController(principalController);
+        view.getPrincipalView().setVisible(true);
     }
 
     public void closePrincipal() {
@@ -58,10 +61,22 @@ public class Controller {
 
     public void openPiano() {
         pianoController = new PianoController(view,this);
+        view.getPianoView().setVisible(true);
     }
 
     public void closePiano() {
         view.getPianoView().setVisible(false);
         view.getPianoView().dispose();
+    }
+
+    public void openSocial() {
+        controllerJSocial = new ControllerJSocial(view, this);
+        view.getSocialView().registerController(controllerJSocial);
+        view.getSocialView().setVisible(true);
+    }
+
+    public void closeSocial() {
+        view.getSocialView().setVisible(false);
+        view.getSocialView().dispose();
     }
 }

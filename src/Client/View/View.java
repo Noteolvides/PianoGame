@@ -11,7 +11,7 @@ public class View {
     private JFriend friendsView;
     private JPrincipal principalView;
     private JRegister registerView;
-    private JSocial socialView;
+    private FinestraJSocial socialView;
     private JStart startView;
 
     public JPiano getPianoView() {
@@ -30,7 +30,7 @@ public class View {
         return registerView;
     }
 
-    public JSocial getSocialView() {
+    public FinestraJSocial getSocialView() {
         return socialView;
     }
 

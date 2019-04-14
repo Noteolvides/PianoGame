@@ -56,4 +56,12 @@ public class Controller {
         view.getPrincipalView().dispose();
     }
 
+    public void openPiano() {
+        pianoController = new PianoController(view,this);
+    }
+
+    public void closePiano() {
+        view.getPianoView().setVisible(false);
+        view.getPianoView().dispose();
+    }
 }

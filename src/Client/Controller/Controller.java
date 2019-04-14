@@ -46,4 +46,14 @@ public class Controller {
         view.getRegisterView().dispose();
     }
 
+    public void openPrincipal() {
+        principalController = new JPrincipalController(view, this);
+        view.getPrincipalView().registerController(principalController);
+    }
+
+    public void closePrincipal() {
+        view.getPrincipalView().setVisible(false);
+        view.getPrincipalView().dispose();
+    }
+
 }

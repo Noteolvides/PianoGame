@@ -8,6 +8,9 @@ public class ClientConnection {
     private static final int PORT = 5000;
     private static final String IP = "localhost";
 
+    private static final int RECEIVED = 0;
+    private static final int ERROR = -1;
+
     //Controller
 
     //Connection elements

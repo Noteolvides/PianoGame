@@ -5,7 +5,7 @@ import Client.Controller.Controller;
 import java.io.*;
 import java.net.Socket;
 
-public class ClientConnection {
+public class ClientConnection extends Thread{
     //Connection const.
     private static final int PORT = 5000;
     private static final String IP = "localhost";
@@ -63,6 +63,45 @@ public class ClientConnection {
         }
 
     }
+
+    /**
+     * Each user have his own connection Thread to communicate with the server while it uses the client SmartPiano
+     */
+    public void run() {
+        //TODO, aquí falta el bucle infinit que es pot tancar amd la opcio de log out
+        //TODO, tb falta un switch depenent de que fa l'usuari
+    }
+
+    // Login/Register functions
+    public void loginUser(/*User user*/) {
+        try{
+            //We sent to the server which
+            dOut.writeInt(1);
+            //obOut.writeObject(user);
+
+
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void registerUser() {
+
+    }
+
+    // Piano functions
+
+    // Social functions
+    public void searchUser() {
+
+    }
+
+    public void addUser() {
+
+    }
+
+    // Piano functions
 }
 
 

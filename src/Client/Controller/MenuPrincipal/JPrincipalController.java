@@ -19,7 +19,6 @@ public class JPrincipalController implements ActionListener {
     }
 
     public JPrincipalController(View view, Controller controller) {
-        view.initPrincipalView();
         this.view = view;
         this.controller = controller;
     }
@@ -30,6 +29,7 @@ public class JPrincipalController implements ActionListener {
 
         if (action.equals(JPIANO)) {
             controller.openPiano();
+            controller.closePrincipal();
 
         } else if (action.equals(JSOCIAL)) {
             /*
@@ -37,7 +37,9 @@ public class JPrincipalController implements ActionListener {
             ControllerJSocial controllerJSocial = new ControllerJSocial(fj);
             fj.registerController(controllerJSocial);
              */
+
             controller.openSocial();
+            controller.closePrincipal();
 
         } else if (action.equals(SIGN_OUT)) {
             /*
@@ -45,15 +47,14 @@ public class JPrincipalController implements ActionListener {
             StartController controller = new StartController(view);
             view.getStartView().registerController(controller);
             */
+
             controller.openStart();
+            controller.closePrincipal();
 
         } else if (action.equals(DELETE_ACCOUNT)) {
             System.out.println("SERAS RETRASADO");
 
         }
-
-        controller.closePrincipal();
-
     }
 
 }

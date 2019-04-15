@@ -19,16 +19,29 @@ public class Controller {
     }
 
     public void registerController() {
-        openStart();
-        //pianoController = new PianoController(view,this);
-        //controllerJSocial = new ControllerJSocial(view);
-        //view.getSocialView().registerController(controllerJSocial);
-        //view.getFriendsView().registerController(controllerJSocial);
+        startController = new StartController(view, this);
+        view.getStartView().registerController(startController);
+
+        view.initRegisterView();
+        view.getRegisterView().registerController(startController);
+        closeRegister();
+
+        view.initPrincipalView();
+        principalController = new JPrincipalController(view, this);
+        view.getPrincipalView().registerController(principalController);
+        closePrincipal();
+
+        view.initSocialView();
+        controllerJSocial = new ControllerJSocial(view,this);
+        view.getSocialView().registerController(controllerJSocial);
+        closeSocial();
+
+        pianoController = new PianoController(view,this);
+        closePiano();
+
     }
 
     public void openStart() {
-        startController = new StartController(view, this);
-        view.getStartView().registerController(startController);
         view.getStartView().setVisible(true);
     }
 
@@ -38,8 +51,6 @@ public class Controller {
     }
 
     public void openRegister() {
-        view.initRegisterView();
-        view.getRegisterView().registerController(startController);
         view.getRegisterView().setVisible(true);
     }
 
@@ -49,8 +60,6 @@ public class Controller {
     }
 
     public void openPrincipal() {
-        principalController = new JPrincipalController(view, this);
-        view.getPrincipalView().registerController(principalController);
         view.getPrincipalView().setVisible(true);
     }
 
@@ -60,7 +69,6 @@ public class Controller {
     }
 
     public void openPiano() {
-        pianoController = new PianoController(view,this);
         view.getPianoView().setVisible(true);
     }
 
@@ -70,8 +78,6 @@ public class Controller {
     }
 
     public void openSocial() {
-        controllerJSocial = new ControllerJSocial(view, this);
-        view.getSocialView().registerController(controllerJSocial);
         view.getSocialView().setVisible(true);
     }
 

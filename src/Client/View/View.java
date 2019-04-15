@@ -53,4 +53,8 @@ public class View {
     public void initPrincipalView() {
         principalView = new JPrincipal();
     }
+
+    public void initSocialView() {
+        socialView = new FinestraJSocial();
+    }
 }

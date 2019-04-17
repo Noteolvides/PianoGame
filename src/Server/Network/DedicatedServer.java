@@ -20,7 +20,7 @@ public class DedicatedServer extends Thread {
     private static final int GO_BACK = -1;
 
     private static final int REGISTER = 2;
-    private static final int SEND_REG_USER = 1;
+    private static final int CHECK_REGISTER = 1;
 
     private static final int PIANO = 3;
 
@@ -74,6 +74,8 @@ public class DedicatedServer extends Thread {
                 }
             } catch (IOException e) {
                 System.out.println(e.getMessage());
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -102,9 +104,47 @@ public class DedicatedServer extends Thread {
     private void pianoComunication() {
     }
 
-    private void registerComunication() {
+    private void registerComunication() throws IOException, ClassNotFoundException {
+        boolean goBack = false;
+        while (!goBack){
+            switch (dataInputStream.readInt()) {
+                case CHECK_REGISTER:
+                    //This will be the object to read and
+                    objectInputStream.readObject();
+                    //Then we want to check if the object The new User has been inserted
+
+                    //Here we make a  query to de databas
+                    //If the query return true
+                    dataOutputStream.writeInt(CONFIRMATION);
+                    //Else
+                    dataOutputStream.writeInt(ERROR);
+                    break;
+                case GO_BACK:
+                    goBack = true;
+            }
+        }
     }
 
-    private void socialComunication() {
+    private void socialComunication() throws IOException, ClassNotFoundException {
+        boolean goBack = false;
+        while (!goBack){
+            switch (dataInputStream.readInt()) {
+                case SEARCH_USER:
+                    //This will be the object to read and
+                    objectInputStream.readObject();
+                    //Then we want to check if the object Exist in the database
+
+                    //Here we make a  query to de databas that returns the user
+                    //If the query return true
+                    dataOutputStream.writeInt(CONFIRMATION);
+                    //Here we send the user;
+                    objectOutputStream.write((Integer) new Object());
+                    //Else
+                    dataOutputStream.writeInt(ERROR);
+                    break;
+                case GO_BACK:
+                    goBack = true;
+            }
+        }
     }
 }

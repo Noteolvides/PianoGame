@@ -23,7 +23,7 @@ public class DedicatedServer extends Thread{
         objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         dataInputStream = new DataInputStream(socket.getInputStream());
         dataOutputStream = new DataOutputStream(socket.getOutputStream());
-        
+
         running = true;
         start();
     }
@@ -36,7 +36,26 @@ public class DedicatedServer extends Thread{
     @Override
     public void run() {
         while (running && !isInterrupted()){
+            try {
+                int option = dataInputStream.readInt();
+                switch (option){
+                        //Login
+                    case 1:
 
+                        break;
+                        //Register
+                    case 2:
+                        break;
+                        //PlayPiano
+                    case 3:
+                        break;
+                        //Social
+                    case 4:
+                        break;
+                }
+            }catch (IOException e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 }

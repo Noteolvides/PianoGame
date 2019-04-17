@@ -12,7 +12,21 @@ public class DedicatedServer extends Thread{
     private DataInputStream dataInputStream;
     private boolean running;
 
-    
+    private static final int RECEIVED = 0;
+    private static final int ERROR = -1;
+
+    private static final int LOGIN = 1;
+    private static final int CHECK_USUARIO = 1;
+    private static final int GO_BACK = -1;
+
+    private static final int REGISTER = 2;
+    private static final int SEND_REG_USER = 1;
+
+    private static final int PIANO = 3;
+
+    private static final int SOCIAL = 4;
+    private static final int SEARCH_USER = 1;
+    private static final int ADD_USER = 2;
 
     public DedicatedServer(Socket socket, Server server) throws IOException {
         this.socket = socket;
@@ -42,19 +56,19 @@ public class DedicatedServer extends Thread{
             try {
                 switch (dataInputStream.readInt()){
                         //Login
-                    case 1:
+                    case LOGIN:
                         loginComunication();
                         break;
                         //Register
-                    case 2:
+                    case REGISTER:
                         registerComunication();
                         break;
                         //PlayPiano
-                    case 3:
+                    case PIANO:
                         pianoComunication();
                         break;
                         //Social
-                    case 4:
+                    case SOCIAL:
                         socialComunication();
                         break;
                 }
@@ -67,7 +81,11 @@ public class DedicatedServer extends Thread{
     private void socialComunication() throws IOException{
         boolean goBack = false;
         while (!goBack){
-            switch (dataInputStream.readFloat());
+            switch (dataInputStream.readInt()){
+                case CHECK_USUARIO :
+
+
+            }
         }
     }
 

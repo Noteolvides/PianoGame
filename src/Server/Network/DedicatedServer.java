@@ -3,7 +3,7 @@ package Server.Network;
 import java.io.*;
 import java.net.Socket;
 
-public class DedicatedServer extends Thread{
+public class DedicatedServer extends Thread {
     private Socket socket;
     private Server server;
     private ObjectOutputStream objectOutputStream;
@@ -12,7 +12,7 @@ public class DedicatedServer extends Thread{
     private DataInputStream dataInputStream;
     private boolean running;
 
-    private static final int RECEIVED = 0;
+    private static final int CONFIRMATION = 0;
     private static final int ERROR = -1;
 
     private static final int LOGIN = 1;
@@ -52,39 +52,49 @@ public class DedicatedServer extends Thread{
     @Override
     public void run() {
 
-        while (running && !isInterrupted()){
+        while (running && !isInterrupted()) {
             try {
-                switch (dataInputStream.readInt()){
-                        //Login
+                switch (dataInputStream.readInt()) {
+                    //Login
                     case LOGIN:
                         loginComunication();
                         break;
-                        //Register
+                    //Register
                     case REGISTER:
                         registerComunication();
                         break;
-                        //PlayPiano
+                    //PlayPiano
                     case PIANO:
                         pianoComunication();
                         break;
-                        //Social
+                    //Social
                     case SOCIAL:
                         socialComunication();
                         break;
                 }
-            }catch (IOException e){
+            } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    private void socialComunication() throws IOException{
+    private void loginComunication() throws IOException, ClassNotFoundException {
         boolean goBack = false;
-        while (!goBack){
-            switch (dataInputStream.readInt()){
-                case CHECK_USUARIO :
+        while (!goBack) {
+            switch (dataInputStream.readInt()) {
+                case CHECK_USUARIO:
+                    //This will be the object to read and
+                    objectInputStream.readObject();
+                    //Then we want to check if the object Exist in the database
 
-
+                    //Here we make a  query to de databas
+                    //If the query return true
+                    dataOutputStream.writeInt(CONFIRMATION);
+                    //Else
+                    dataOutputStream.writeInt(ERROR);
+                    break;
+                case GO_BACK:
+                    goBack = true;
             }
         }
     }
@@ -95,6 +105,6 @@ public class DedicatedServer extends Thread{
     private void registerComunication() {
     }
 
-    private void loginComunication() {
+    private void socialComunication() {
     }
 }

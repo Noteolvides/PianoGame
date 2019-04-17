@@ -1,4 +1,4 @@
-package Server.Controller.Network;
+package Server.Network;
 
 
 import java.io.IOException;

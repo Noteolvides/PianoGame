@@ -1,4 +1,6 @@
 package Server.Controller.Network;
 
-public class DedicatedServer {
+public class DedicatedServer extends Thread{
+
+
 }

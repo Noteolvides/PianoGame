@@ -12,6 +12,8 @@ public class DedicatedServer extends Thread{
     private DataInputStream dataInputStream;
     private boolean running;
 
+    
+
     public DedicatedServer(Socket socket, Server server) throws IOException {
         this.socket = socket;
         this.server = server;
@@ -35,27 +37,46 @@ public class DedicatedServer extends Thread{
 
     @Override
     public void run() {
+
         while (running && !isInterrupted()){
             try {
-                int option = dataInputStream.readInt();
-                switch (option){
+                switch (dataInputStream.readInt()){
                         //Login
                     case 1:
-
+                        loginComunication();
                         break;
                         //Register
                     case 2:
+                        registerComunication();
                         break;
                         //PlayPiano
                     case 3:
+                        pianoComunication();
                         break;
                         //Social
                     case 4:
+                        socialComunication();
                         break;
                 }
             }catch (IOException e){
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private void socialComunication() throws IOException{
+        boolean goBack = false;
+        while (!goBack){
+            switch (dataInputStream.readFloat());
+        }
+    }
+
+    private void pianoComunication() {
+    }
+
+    private void registerComunication() {
+    }
+
+    private void loginComunication() {
     }
 }

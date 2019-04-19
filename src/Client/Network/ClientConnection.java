@@ -73,6 +73,12 @@ public class ClientConnection extends Thread{
     public void run() {
         //TODO, aquí falta el bucle infinit que es pot tancar amd la opcio de log out
         //TODO, tb falta un switch depenent de que fa l'usuari
+
+        while (running && !isInterrupted()) {
+            /*try{
+
+            }catch ();*/
+        }
     }
 
     // Login/Register functions

@@ -1,5 +1,6 @@
 package Client.Controller.Piano;
 
+import Client.View.Piano.Key;
 import Client.View.View;
 
 import java.awt.event.ActionEvent;
@@ -34,6 +35,6 @@ public class PianoController {
             }
         });
 
-        
+
     }
 }

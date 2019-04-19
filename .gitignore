@@ -9,7 +9,6 @@ find.xml
 toStringTemplates.xml
 markdown.xml
 
-
 # Intellij
 .idea/
 *.iml

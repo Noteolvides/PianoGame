@@ -36,6 +36,8 @@ public class ClientConnection extends Thread{
     private ObjectOutputStream obOut;
     private ObjectInputStream obIn;
 
+    boolean running;
+
     /**
      * Client sockets controller
      */
@@ -51,11 +53,12 @@ public class ClientConnection extends Thread{
             server = new Socket(IP, PORT);
             System.out.println("[CLIENT] Connection established");
 
+            obOut = new ObjectOutputStream(server.getOutputStream());
+            obIn = new ObjectInputStream(server.getInputStream());
             dOut = new DataOutputStream(server.getOutputStream());
             dIn = new DataInputStream(server.getInputStream());
 
-            obOut = new ObjectOutputStream(server.getOutputStream());
-            obIn = new ObjectInputStream(server.getInputStream());
+            running = true;
 
         } catch (IOException e) {
             System.out.println("Error to set up connection with the server.");

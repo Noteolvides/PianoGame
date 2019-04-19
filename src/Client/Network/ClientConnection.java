@@ -79,12 +79,9 @@ public class ClientConnection extends Thread{
      * Each user have his own connection Thread to communicate with the server while it uses the client SmartPiano
      */
     public void run() {
-        //TODO, aquí falta el bucle infinit que es pot tancar amd la opcio de log out
-        //TODO, tb falta un switch depenent de que fa l'usuari
-
         while (running && !isInterrupted()) {
             /*try{
-
+                //Todo, aqui que cullons haig de ficar
             }catch ();*/
         }
     }
@@ -157,12 +154,20 @@ public class ClientConnection extends Thread{
 
     // Social functions
     public void searchUser() {
-
+        try {
+            //We sent to the server the current operation
+            dOut.writeInt(SOCIAL);
+            dOut.writeInt(SEARCH_USER);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void addUser() {
 
     }
+
+    //Todo, cada vegad a que surto d'una finestra haig d'enviar un goback per separat o com?
 
     // Piano functions
 }

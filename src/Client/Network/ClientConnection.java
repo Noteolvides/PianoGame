@@ -164,7 +164,13 @@ public class ClientConnection extends Thread{
     }
 
     public void addUser() {
-
+        try {
+            //We sent to the server the current operation
+            dOut.writeInt(SOCIAL);
+            dOut.writeInt(ADD_USER);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //Todo, cada vegad a que surto d'una finestra haig d'enviar un goback per separat o com?

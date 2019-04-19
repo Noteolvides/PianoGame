@@ -68,6 +68,14 @@ public class ClientConnection extends Thread{
     }
 
     /**
+     * Close connection with the server and interrupts the server Thread connection
+     */
+    public void closeConnection() {
+        running = false;
+        interrupt();
+    }
+
+    /**
      * Each user have his own connection Thread to communicate with the server while it uses the client SmartPiano
      */
     public void run() {

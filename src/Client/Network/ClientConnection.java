@@ -23,8 +23,8 @@ public class ClientConnection extends Thread{
     private static final int PIANO = 3;
 
     private static final int SOCIAL = 4;
-    private static final int SEARCH_USER = 4;
-    private static final int ADD_USER = 4;
+    private static final int SEARCH_USER = 1;
+    private static final int ADD_USER = 2;
 
     //Controller
     private Controller controller;
@@ -154,8 +154,6 @@ public class ClientConnection extends Thread{
             e.printStackTrace();
         }
     }
-
-    // Piano functions
 
     // Social functions
     public void searchUser() {

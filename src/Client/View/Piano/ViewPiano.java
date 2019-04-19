@@ -60,4 +60,8 @@ public class ViewPiano extends JLayeredPane {
         revalidate();
         repaint();
     }
+
+    public ArrayList<Key> getKeys() {
+        return keys;
+    }
 }

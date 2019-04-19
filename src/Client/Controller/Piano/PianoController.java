@@ -33,5 +33,7 @@ public class PianoController {
                 view.getPianoView().getPiano().goOctave(actualOctave);
             }
         });
+
+        
     }
 }

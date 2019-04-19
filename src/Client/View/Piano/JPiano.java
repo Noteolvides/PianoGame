@@ -47,4 +47,5 @@ public class JPiano extends JFrame {
     public LeftPanel getLeftOption() {
         return leftOption;
     }
+
 }

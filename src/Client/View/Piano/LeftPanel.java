@@ -2,6 +2,7 @@ package Client.View.Piano;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class LeftPanel extends JPanel {
     private JButton prevOctave;
@@ -15,6 +16,8 @@ public class LeftPanel extends JPanel {
         nextOctave.setBackground(Color.BLACK);
         prevOctave.setForeground(Color.WHITE);
         nextOctave.setForeground(Color.WHITE);
+        prevOctave.setMnemonic(KeyEvent.VK_SEMICOLON);
+        prevOctave.setMnemonic(KeyEvent.VK_COLON);
         add(prevOctave);
         add(Box.createRigidArea(new Dimension(50,0)));
         add(nextOctave);

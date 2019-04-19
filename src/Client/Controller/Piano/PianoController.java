@@ -2,9 +2,15 @@ package Client.Controller.Piano;
 
 import Client.View.Piano.Key;
 import Client.View.View;
+import com.sun.glass.events.KeyEvent;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PianoController {
     private View view;
@@ -35,6 +41,14 @@ public class PianoController {
             }
         });
 
+
+        view.getPianoView().getPiano().getKeys().get(0).getIm().put(KeyStroke.getKeyStroke((char) KeyEvent.VK_A),"a");
+        view.getPianoView().getPiano().getKeys().get(0).getAm().put("A", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("hi");
+            }
+        });
 
     }
 }

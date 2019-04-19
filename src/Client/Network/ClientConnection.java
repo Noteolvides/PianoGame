@@ -138,7 +138,12 @@ public class ClientConnection extends Thread{
     }
 
     public void logOut() {
-
+        try {
+            dOut.writeInt(GO_BACK);
+            closeConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void delecteUser() {

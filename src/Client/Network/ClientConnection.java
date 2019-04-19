@@ -18,7 +18,7 @@ public class ClientConnection extends Thread{
     private static final int GO_BACK = -1;
 
     private static final int REGISTER = 2;
-    private static final int SEND_REG_USER = 2;
+    private static final int SEND_REG_USER = 1;
 
     private static final int PIANO = 3;
 
@@ -114,7 +114,27 @@ public class ClientConnection extends Thread{
     }
 
     public void registerUser() {
+        int trans_estate = RECEIVED;
 
+        try{
+            //We sent to the server the current operation
+            dOut.writeInt(REGISTER);
+            dOut.writeInt(SEND_REG_USER);
+            //This will send the User Object that we want to log into our server
+            //obOut.writeObject(user);
+            //We wait for response if the information was correct
+            trans_estate = dIn.readInt();
+
+            if (trans_estate == ERROR) {
+                System.out.println("Error, you couldn't connect to server");
+                //TODO, QUE SALTI UN DIALOG
+            } else {
+                System.out.println("WELCOME, WELCOME!");
+            }
+
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void logOut() {

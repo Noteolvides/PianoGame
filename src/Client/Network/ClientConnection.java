@@ -1,4 +1,4 @@
-package Client.Controller.Network;
+package Client.Network;
 
 import Client.Controller.Controller;
 
@@ -14,17 +14,17 @@ public class ClientConnection extends Thread{
     private static final int ERROR = -1;
 
     private static final int LOGIN = 1;
-    private static final float SEND_LOG_USER = 1.1f;
-    private static final float GO_BACK = -1.1f;
+    private static final int SEND_LOG_USER = 1;
+    private static final int GO_BACK = -1;
 
     private static final int REGISTER = 2;
-    private static final float SEND_REG_USER = 2.1f;
+    private static final int SEND_REG_USER = 2;
 
     private static final int PIANO = 3;
 
     private static final int SOCIAL = 4;
-    private static final float SEARCH_USER = 4.1f;
-    private static final float ADD_USER = 4.2f;
+    private static final int SEARCH_USER = 4;
+    private static final int ADD_USER = 4;
 
     //Controller
     private Controller controller;

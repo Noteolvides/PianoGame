@@ -117,6 +117,14 @@ public class ClientConnection extends Thread{
 
     }
 
+    public void logOut() {
+
+    }
+
+    public void delecteUser() {
+
+    }
+
     // Piano functions
 
     // Social functions

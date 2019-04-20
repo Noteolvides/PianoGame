@@ -36,11 +36,11 @@ public class DataSourceConfiguration {
 
 
         //We create the previous class and we add the HashMap, to know when the connection is changed, what is the new one
-        AbstractRouting clientRoutingDatasource = new ClientDataSourceRouter();
+        AbstractRouting clientRoutingDatasource = new AbstractRouting();
         clientRoutingDatasource.setTargetDataSources(targetDataSources);
 
         //We define the connection with which it will start first
-        clientRoutingDatasource.setDefaultTargetDataSource(clientADatasource);
+        clientRoutingDatasource.setDefaultTargetDataSource(clientDatasource);
         return clientRoutingDatasource;
     }
 

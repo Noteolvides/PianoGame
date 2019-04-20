@@ -10,6 +10,6 @@ public class AbstractRouting extends AbstractRoutingDataSource {
 
     @Override
     protected Object determineCurrentLookupKey() {
-        return ClientContextHolder.getClientDatabase();
+        return ClientContextHolder.getAvaiableClients();
     }
 }

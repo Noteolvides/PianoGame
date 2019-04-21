@@ -113,7 +113,7 @@ public class ClientConnection extends Thread{
 
     }
 
-    public void registerUser() {
+    public void registerUser(User user) {
         int trans_estate = RECEIVED;
 
         try{
@@ -121,7 +121,7 @@ public class ClientConnection extends Thread{
             dOut.writeInt(REGISTER);
             dOut.writeInt(SEND_REG_USER);
             //This will send the User Object that we want to log into our server
-            //obOut.writeObject(user);
+            obOut.writeObject(user);
             //We wait for response if the information was correct
             trans_estate = dIn.readInt();
 
@@ -130,6 +130,8 @@ public class ClientConnection extends Thread{
                 //TODO, QUE SALTI UN DIALOG
             } else {
                 System.out.println("WELCOME, WELCOME!");
+                dOut.writeInt(GO_BACK);
+
             }
 
         }catch (IOException e) {

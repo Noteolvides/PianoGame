@@ -4,6 +4,8 @@ import Client.Controller.BBDD.ServiceBBDD.ServiceBBDDUser;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ControllerProva {
+
+    //The user can communicate with the service only (never with the damage)
     @Autowired
     private ServiceBBDDUser service;
 

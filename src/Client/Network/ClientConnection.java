@@ -202,7 +202,14 @@ public class ClientConnection extends Thread{
         }
     }
 
-    //Todo, cada vegad a que surto d'una finestra haig d'enviar un goback per separat o com?
+    public void exitSocial() throws IOException {
+        try {
+            //We sent to the server the current operation
+            dOut.writeInt(GO_BACK);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     // Piano functions
 }

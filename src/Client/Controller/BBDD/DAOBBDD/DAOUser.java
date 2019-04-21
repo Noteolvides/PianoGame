@@ -28,17 +28,18 @@ public class DAOUser extends HibernateDaoSupport {
     //This method is responsible for checking the existence of a specific user within the database
     @Transactional (readOnly = true)
     public boolean checkExistenceUserDatabase (String username, String password) {
-        String query = "SELECT COUNT(*) FROM User u WHERE u.name =? AND u.password =?";
-        Object [] queryParameters = {username,password};
-
-        List<?> num = getHibernateTemplate().find (query, queryParameters);
-        //TODO: Comprobar resultado, no me fio del String
-        if (num.get(0).equals("0")) {
-            return false;
-        }
-        else {
-            return true;
-        }
+        return (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("SELECT COUNT(*) FROM User AS u WHERE u.name ='" + username +"' AND u.password ='" + password + "'");
+                int numUsers = query.executeUpdate();
+                if (numUsers !=  0) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        });
     }
 
 

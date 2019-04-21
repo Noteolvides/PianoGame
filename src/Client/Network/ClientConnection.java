@@ -158,11 +158,23 @@ public class ClientConnection extends Thread{
     }
 
     // Social functions
-    public void searchUser() {
+    public void searchUser(User user) {
+        int trans_estate = RECEIVED;
+
         try {
             //We sent to the server the current operation
             dOut.writeInt(SOCIAL);
             dOut.writeInt(SEARCH_USER);
+            //This will send the User Object that we want to log into our server
+            obOut.writeObject(user);
+            //We wait for response if the operation is completed correctly
+            trans_estate = dIn.readInt();
+
+            if (trans_estate == ERROR) {
+                System.out.println("Error, this user doesn't exists");
+                //TODO, QUE SALTI UN DIALOG
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

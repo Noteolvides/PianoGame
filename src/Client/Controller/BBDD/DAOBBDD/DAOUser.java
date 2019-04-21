@@ -33,7 +33,7 @@ public class DAOUser extends HibernateDaoSupport {
             public Object doInHibernate(Session session) throws HibernateException {
                 Query query = session.createSQLQuery("SELECT COUNT(*) FROM User AS u WHERE u.name ='" + username +"' AND u.password ='" + password + "'");
                 int numUsers = query.executeUpdate();
-                if (numUsers !=  0) {
+                if (numUsers ==  0) {
                     return true;
                 }
                 else {
@@ -55,7 +55,7 @@ public class DAOUser extends HibernateDaoSupport {
             public Object doInHibernate(Session session) throws HibernateException {
                 Query query = session.createSQLQuery("SELECT COUNT(*) FROM mysql.user WHERE user = '" + username + "'");
                 int i = query.executeUpdate();
-                return (i != 0);
+                return (i == 0);
             }
         });
         if (!result) {

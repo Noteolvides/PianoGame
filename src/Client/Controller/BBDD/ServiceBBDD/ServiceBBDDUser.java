@@ -5,6 +5,7 @@ import Client.Controller.BBDD.MultiConnection.AvaiableClients;
 import Client.Controller.BBDD.MultiConnection.ClientContextHolder;
 import Client.Controller.BBDD.Resources.BBDDException;
 import Client.Controller.BBDD.Resources.FieldsNoValidException;
+import Client.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.sql.DataSource;
@@ -43,16 +44,12 @@ public class ServiceBBDDUser {
         }
     }
 
-    //If the user wants to change his information
-    public String modifyInformationUser (String username, String password, String photoPath, String email) {
+    //If the user wants to change his information (list of friends updated...)
+    public void modifyInformationUser (User user){
         ClientContextHolder.set(AvaiableClients.UserRegistered);
-        if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
-
-        }
-        //Username or password not correct
-        return "FieldsError";
+        dao.updateUserTable(user);
+        ClientContextHolder.clear();
     }
-
 
 
 

@@ -17,7 +17,7 @@ public class SongFile extends JPanel {
     private JLabel infoIcon;
     private JLabel privacity;
 
-    public SongFile(String title, String description, String privactiy) {
+    public SongFile(String title, String description, String privacity) {
         setLayout(new BorderLayout());
 
         //To obtain the resource directly without the full path
@@ -57,7 +57,7 @@ public class SongFile extends JPanel {
         titleSong.setFont(new Font("Sans Serif", Font.BOLD,14));
         this.description = new JLabel (description);
         this.description.setFont(new Font("Sans Serif", Font.PLAIN,10));
-        this.privacity = new JLabel("[" + privactiy + "]");
+        this.privacity = new JLabel("[" + privacity + "]");
         this.privacity.setFont(new Font("Sans Serif", Font.PLAIN,10));
 
 

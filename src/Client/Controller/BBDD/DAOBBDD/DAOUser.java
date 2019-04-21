@@ -1,5 +1,6 @@
 package Client.Controller.BBDD.DAOBBDD;
 
+import Client.Model.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -67,8 +68,11 @@ public class DAOUser extends HibernateDaoSupport {
         });
     }
 
-
-
+    @Transactional
+    public void insertUserTable (String username, String password, String photoPath, String email) {
+        User newUser = new User(username,photoPath,password,email);
+        getHibernateTemplate().save(newUser);
+    }
 
 
 

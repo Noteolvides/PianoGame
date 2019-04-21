@@ -1,6 +1,7 @@
 package Client.Controller.BBDD.DAOBBDD;
 
 import Client.Controller.BBDD.Resources.BBDDException;
+import Client.Model.Song;
 import Client.Model.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -85,6 +86,17 @@ public class DAOUser extends HibernateDaoSupport {
     public void updateUserTable (User userModified) {
         getHibernateTemplate().update(userModified);
     }
+
+    @Transactional
+    public void insertSong (Song song) throws BBDDException{
+        if (song != null) {
+            getHibernateTemplate().save(song);
+        }
+        else {
+            throw new BBDDException();
+        }
+    }
+
 
 
 }

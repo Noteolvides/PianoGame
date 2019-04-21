@@ -5,6 +5,7 @@ import Client.Controller.BBDD.MultiConnection.AvaiableClients;
 import Client.Controller.BBDD.MultiConnection.ClientContextHolder;
 import Client.Controller.BBDD.Resources.BBDDException;
 import Client.Controller.BBDD.Resources.FieldsNoValidException;
+import Client.Model.Song;
 import Client.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -44,11 +45,22 @@ public class ServiceBBDDUser {
         }
     }
 
-    //If the user wants to change his information (list of friends updated...)
+    //If the user wants to change his information (list of friends updated...), this method doesn't controll the change of username
     public void modifyInformationUser (User user){
         ClientContextHolder.set(AvaiableClients.UserRegistered);
         dao.updateUserTable(user);
         ClientContextHolder.clear();
+    }
+
+    //If the user wants to add a song (the id is assigned by the database because it's serial
+    public void insertSong (String name, int duration, String description, User author, int plays, String filePath) throws Exception {
+        Song song  = new Song(name,duration,description,author,plays,filePath);
+        if (duration == 0 || author == null || filePath.equals("") || filePath.contains(" ")) {
+            throw new FieldsNoValidException();
+        }
+        else {
+            dao.insertSong (song);
+        }
     }
 
 

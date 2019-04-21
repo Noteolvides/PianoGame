@@ -23,7 +23,7 @@ public class DAOUser extends HibernateDaoSupport {
         super.setSessionFactory(sessionFactory);
     }
 
-    //TODO: Conexion diferente
+    //TODO: Conexion diferente (porque la base de datos es diferente)
     //This method is responsible for checking the existence of a specific user within the database
     @Transactional
     public boolean checkExistenceUserDatabase (String username, String password) {
@@ -31,7 +31,7 @@ public class DAOUser extends HibernateDaoSupport {
         Object [] queryParameters = {username,password};
 
         List<?> num = getHibernateTemplate().find (query, queryParameters);
-        //TODO: Comprobar resultado
+        //TODO: Comprobar resultado, no me fio del String
         if (num.get(0).equals("0")) {
             return false;
         }
@@ -40,6 +40,8 @@ public class DAOUser extends HibernateDaoSupport {
         }
     }
 
+
+    //TODO: Conexion principal, mirar si se puede comprobar la contraseña
     //With this method we can now check the existence of the user in our mysql server
     @Transactional
     public boolean checkExistenceUserMysql (String username, String password) {
@@ -48,7 +50,7 @@ public class DAOUser extends HibernateDaoSupport {
                 public Object doInHibernate(Session session) throws HibernateException {
                     Query query = session.createSQLQuery("SELECT COUNT(*) FROM mysql.user WHERE user = " + username);
                     int i = query.executeUpdate();
-                    return i != 0;
+                    return (i != 0);
                 }
             });
             return result;

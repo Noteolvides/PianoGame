@@ -28,11 +28,13 @@ public class DataSourceConfiguration {
         //We define a hashmap where we will save the object together with its reference (her personal DNI that is an enumeration, so we can identify them)
         Map<Object, Object> targetDataSources = new HashMap<Object,Object>();
         //We create the datasource (connections) that there may be (At the moment you will only have one)
-        DataSource clientDatasource = DataSourceBuilder.create().username("noAlias").password("password").driverClassName("com.mysql.jdbc.Driver").url("jdbc:mysql://localhost/SmartPiano?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
-        DataSource clientDatasource_2 = DataSourceBuilder.create().username(username).password(password).driverClassName("com.mysql.jdbc.Driver").url("jdbc:mysql://localhost/SmartPiano?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
+        DataSource clientDatasource = DataSourceBuilder.create().username("noAlias").password("password").driverClassName("com.mysql.jdbc.Driver").url("jdbc:mysql://localhost/?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
+        DataSource clientDatasource_2 = DataSourceBuilder.create().username("noAlias").password("password").driverClassName("com.mysql.jdbc.Driver").url("jdbc:mysql://localhost/SmartPiano?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
+        DataSource clientDatasource_3 = DataSourceBuilder.create().username(username).password(password).driverClassName("com.mysql.jdbc.Driver").url("jdbc:mysql://localhost/SmartPiano?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
         //We add them to the hashMap
-        targetDataSources.put(AvaiableClients.noUser, clientDatasource);
-        targetDataSources.put(AvaiableClients.UserRegistered, clientDatasource_2);
+        targetDataSources.put(AvaiableClients.noUserGeneral, clientDatasource);
+        targetDataSources.put(AvaiableClients.noUserSmartPiano, clientDatasource_2);
+        targetDataSources.put(AvaiableClients.UserRegistered, clientDatasource_3);
 
 
         //We create the previous class and we add the HashMap, to know when the connection is changed, what is the new one

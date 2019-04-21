@@ -1,6 +1,7 @@
 package Client.Network;
 
 import Client.Controller.Controller;
+import Server.Model.User;
 
 import java.io.*;
 import java.net.Socket;

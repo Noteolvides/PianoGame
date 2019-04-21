@@ -1,7 +1,11 @@
 package Client.Controller.BBDD.ServiceBBDD;
 
 import Client.Controller.BBDD.DAOBBDD.DAOUser;
+import Client.Controller.BBDD.MultiConnection.AvaiableClients;
+import Client.Controller.BBDD.MultiConnection.ClientContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.sql.DataSource;
 
 public class ServiceBBDDUser {
 
@@ -12,22 +16,31 @@ public class ServiceBBDDUser {
 
     //Methods
 
-    public void createUser (String username, String password) {
-        //Pseudo -->
-        //Comprovacion de si existe
-        //Si existe:
-        //  añadir a mysql
-        //  añadir a la base de datos
+    public boolean createUser (String username, String password, String photoPath, String email) {
+        // Pseudo ->
+        // Check if the user exists (in mysql and in the database)
+        // If it does not exist:
+        // Add to mysql
+        // Add to the database
 
-        //Si no existe:
-        //  Mensaje de error
+        // If it exist:
+        // Error message with JDialog (Controller funciton)
+
+        if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
+            ClientContextHolder.set(AvaiableClients.noUserGeneral);
+            if (dao.checkExistenceUserMysql(username, password)) {
+                ClientContextHolder.clear();
+                ClientContextHolder.set(AvaiableClients.noUserSmartPiano);
+                if (dao.checkExistenceUserDatabase(username, password)) {
+                    dao.addUserIntoMysql(username, password);
+                    dao.insertUserTable(username, password, photoPath, email);
+                }
+                return true;
+            }
+            ClientContextHolder.clear();
+        }
+        return false;
     }
-
-
-
-
-
-
 
 
 

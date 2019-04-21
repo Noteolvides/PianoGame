@@ -80,4 +80,73 @@ public class SongFile extends JPanel {
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
     }
+
+    public void registerController(GestorController gc) {
+        deleteButton.addMouseListener(gc);
+        infoIcon.setToolTipText(titleSong.getText() + " a song created by " + description.getText());
+    }
+
+    public JPanel getPanelPlayInfo() {
+        return panelPlayInfo;
+    }
+
+    public void setPanelPlayInfo(JPanel panelPlayInfo) {
+        this.panelPlayInfo = panelPlayInfo;
+    }
+
+    public JPanel getGroupTitleDescription() {
+        return groupTitleDescription;
+    }
+
+    public void setGroupTitleDescription(JPanel groupTitleDescription) {
+        this.groupTitleDescription = groupTitleDescription;
+    }
+
+    public JLabel getTitleSong() {
+        return titleSong;
+    }
+
+    public void setTitleSong(JLabel titleSong) {
+        this.titleSong = titleSong;
+    }
+
+    public JLabel getDescription() {
+        return description;
+    }
+
+    public void setDescription(JLabel description) {
+        this.description = description;
+    }
+
+    public JLabel getMusicIcon() {
+        return musicIcon;
+    }
+
+    public void setMusicIcon(JLabel musicIcon) {
+        this.musicIcon = musicIcon;
+    }
+
+    public JLabel getDeleteButton() {
+        return deleteButton;
+    }
+
+    public void setDeleteButton(JLabel deleteButton) {
+        this.deleteButton = deleteButton;
+    }
+
+    public JLabel getInfoIcon() {
+        return infoIcon;
+    }
+
+    public void setInfoIcon(JLabel infoIcon) {
+        this.infoIcon = infoIcon;
+    }
+
+    public JLabel getPrivacity() {
+        return privacity;
+    }
+
+    public void setPrivacity(JLabel privacity) {
+        this.privacity = privacity;
+    }
 }

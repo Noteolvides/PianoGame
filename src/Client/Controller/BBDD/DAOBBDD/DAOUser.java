@@ -1,5 +1,6 @@
 package Client.Controller.BBDD.DAOBBDD;
 
+import Client.Controller.BBDD.Resources.BBDDException;
 import Client.Model.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -27,8 +28,8 @@ public class DAOUser extends HibernateDaoSupport {
     //TODO: Conexion diferente (porque la base de datos es diferente)
     //This method is responsible for checking the existence of a specific user within the database
     @Transactional (readOnly = true)
-    public boolean checkExistenceUserDatabase (String username, String password) {
-        return (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+    public void checkExistenceUserDatabase (String username, String password) throws BBDDException {
+        boolean result = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>(){
             public Object doInHibernate(Session session) throws HibernateException {
                 Query query = session.createSQLQuery("SELECT COUNT(*) FROM User AS u WHERE u.name ='" + username +"' AND u.password ='" + password + "'");
                 int numUsers = query.executeUpdate();
@@ -40,13 +41,16 @@ public class DAOUser extends HibernateDaoSupport {
                 }
             }
         });
+        if (!result) {
+            throw new BBDDException();
+        }
     }
 
 
     //TODO: Conexion principal, mirar si se puede comprobar la contraseña
     //With this method we can now check the existence of the user in our mysql server
     @Transactional(readOnly = true)
-    public boolean checkExistenceUserMysql (String username, String password) {
+    public void checkExistenceUserMysql (String username, String password) throws BBDDException {
         boolean result = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>() {
             public Object doInHibernate(Session session) throws HibernateException {
                 Query query = session.createSQLQuery("SELECT COUNT(*) FROM mysql.user WHERE user = '" + username + "'");
@@ -54,7 +58,9 @@ public class DAOUser extends HibernateDaoSupport {
                 return (i != 0);
             }
         });
-        return result;
+        if (!result) {
+            throw new BBDDException();
+        }
     }
 
 

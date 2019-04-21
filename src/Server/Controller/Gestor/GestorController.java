@@ -46,7 +46,6 @@ public class GestorController implements MouseListener {
             //Todo, esto no me gusta
             new java.awt.FileDialog((java.awt.Frame) null).setVisible(true);
 
-
         } else if (e.getSource() == view.getGestorView().getBackButton()) {
             view.getGestorView().setVisible(false);
             view.getGestorView().dispose();
@@ -57,11 +56,15 @@ public class GestorController implements MouseListener {
             view.initGestorView(simulationOfController2());
             view.getGestorView().registerController(this);
 
-        }/* else if () {
+        } else {
 
-        } else if (){
+            if (e.getSource() == view.getGestorView().getSongsList()){
+                System.out.println("Caca");
+            } else if (e.getSource() == view.getGestorView().getSongsList() ){
 
-        }*/
+            }
+
+        }
     }
 
     @Override

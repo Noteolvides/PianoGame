@@ -1,5 +1,7 @@
 package Server.View;
 
+import Server.Controller.Gestor.GestorController;
+
 import javax.swing.*;
 import java.awt.*;
 

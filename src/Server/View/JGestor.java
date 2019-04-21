@@ -1,6 +1,5 @@
 package Server.View;
 
-import Server.View.SongPrueba;
 import Server.Controller.Gestor.GestorController;
 
 import javax.swing.*;
@@ -101,6 +100,10 @@ public class JGestor extends JFrame {
         backButton.addMouseListener(gc);
         addButton.addMouseListener(gc);
         refreshButton.addMouseListener(gc);
+
+        for (int i = 0; i < songsList.size(); i++) {
+            songsList.get(i).registerController(gc);
+        }
     }
 
     public void includeSongs(ArrayList <SongPrueba> songs) {
@@ -108,7 +111,7 @@ public class JGestor extends JFrame {
         songsList = new ArrayList<>();
         //We take the songs that we are going to show and we add them to our view
         for (int i = 0;i < songs.size();i++) {
-            songsList.add(new SongFile(songs.get(i).getTitle(),songs.get(i).getDescription(), songs.get(i).getPrivacity()));
+            songsList.add(new SongFile(songs.get(i).getTitle(), songs.get(i).getDescription(), songs.get(i).getPrivacity()));
             //We put a maximmum size of a song
             songsList.get(i).setMaximumSize(new Dimension(1000,70));
         }

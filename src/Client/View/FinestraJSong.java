@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class FinestraJSong extends JFrame{
     private ComboSongView comboSongView;
+
     public FinestraJSong () {
         comboSongView = new ComboSongView(new JSong(),new JLabel());
         add(comboSongView);
@@ -24,6 +25,7 @@ public class FinestraJSong extends JFrame{
         ControllerJSong controllerJSong = new ControllerJSong(finestraJSong);
         finestraJSong.getjSong().registerControllers(controllerJSong);
     }
+
     public void updateSongs (ArrayList <SongPrueba> arrayList) {
         comboSongView.updateSongs(arrayList);
     }
@@ -34,6 +36,7 @@ public class FinestraJSong extends JFrame{
     public void hideLoading () {
         comboSongView.hideGif();
     }
+
     public void showLoading () {
         comboSongView.showGif();
     }

@@ -15,6 +15,7 @@ public class ControllerJSong implements MouseListener {
     //TODO: I'm not sure that this variable can be here
     private JPiano jPiano;
     private LoadingThread loadingThread;
+
     public ControllerJSong (FinestraJSong finestraJSong) {
         this.finestraJSong = finestraJSong;
         finestraJSong.updateSongs(simulationOfArray());
@@ -45,7 +46,7 @@ public class ControllerJSong implements MouseListener {
                 //We search the name of the song and then we print playing with it
                 String s = finestraJSong.getjSong().searchNameSong((JLabel)e.getSource());
                 System.out.println("Playing " + s);
-                //TODO:En piano se podria crear una string y entonces, pasarle el nombre de la cancion (No esta hecho porque pienso que es mejor hacerlo despues del merge)
+                //TODO: En piano se podria crear una string y entonces, pasarle el nombre de la cancion (No esta hecho porque pienso que es mejor hacerlo despues del merge)
                 jPiano = new JPiano();
                 finestraJSong.dispose();
             }

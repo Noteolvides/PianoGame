@@ -93,6 +93,7 @@ public class SongView extends JPanel {
     public JLabel getInfoIcon() {
         return infoIcon;
     }
+
     public void registerButtonController (ControllerJSong controllerJSong) {
         playButton.addMouseListener(controllerJSong);
         //Now, we add the tool tip text too

@@ -147,7 +147,7 @@ public class JSong extends JPanel{
     }
     public void updateControllersSongs (ControllerJSong controllerJSong) {
         int i = 0;
-        //We put our controller in all the songs avaiable
+        //We put our controller in all the songs available
         while (i < songsList.size()) {
             songsList.get(i).registerButtonController(controllerJSong);
             i++;

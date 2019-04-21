@@ -28,6 +28,7 @@ public class ComboSongView extends JLayeredPane {
     public void hideGif () {
         remove(loading);
     }
+
     public void updateSongs(ArrayList<SongPrueba> arrayList) {
         jSong.includeSongs(arrayList);
         jSong.addAllTheSongs(jSong.getSongsList());

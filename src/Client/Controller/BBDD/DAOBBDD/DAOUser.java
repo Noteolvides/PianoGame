@@ -45,20 +45,30 @@ public class DAOUser extends HibernateDaoSupport {
     //With this method we can now check the existence of the user in our mysql server
     @Transactional
     public boolean checkExistenceUserMysql (String username, String password) {
-        try {
-            boolean result = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>() {
-                public Object doInHibernate(Session session) throws HibernateException {
-                    Query query = session.createSQLQuery("SELECT COUNT(*) FROM mysql.user WHERE user = " + username);
-                    int i = query.executeUpdate();
-                    return (i != 0);
-                }
-            });
-            return result;
-        } catch (Throwable e) {
-            e.printStackTrace();
-            return false;
-        }
+        boolean result = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("SELECT COUNT(*) FROM mysql.user WHERE user = '" + username + "'");
+                int i = query.executeUpdate();
+                return (i != 0);
+            }
+        });
+        return result;
     }
+
+
+    @Transactional
+    public void addUserIntoMysql (String username, String password) {
+        getHibernateTemplate().execute(new HibernateCallback<Object>() {
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("CREATE USER '" + username + "' IDENTIFIED BY '" + password + "'");
+                query.executeUpdate();
+                return null;
+            }
+        });
+    }
+
+
+
 
 
 

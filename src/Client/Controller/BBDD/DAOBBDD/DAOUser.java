@@ -26,9 +26,9 @@ public class DAOUser extends HibernateDaoSupport {
 
     //TODO: Conexion diferente (porque la base de datos es diferente)
     //This method is responsible for checking the existence of a specific user within the database
-    @Transactional
+    @Transactional (readOnly = true)
     public boolean checkExistenceUserDatabase (String username, String password) {
-        String query = "SELECT COUNT(*) FROM User AS u WHERE u.name =? AND u.password =?";
+        String query = "SELECT COUNT(*) FROM User u WHERE u.name =? AND u.password =?";
         Object [] queryParameters = {username,password};
 
         List<?> num = getHibernateTemplate().find (query, queryParameters);
@@ -44,7 +44,7 @@ public class DAOUser extends HibernateDaoSupport {
 
     //TODO: Conexion principal, mirar si se puede comprobar la contraseña
     //With this method we can now check the existence of the user in our mysql server
-    @Transactional
+    @Transactional(readOnly = true)
     public boolean checkExistenceUserMysql (String username, String password) {
         boolean result = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>() {
             public Object doInHibernate(Session session) throws HibernateException {
@@ -74,6 +74,10 @@ public class DAOUser extends HibernateDaoSupport {
         getHibernateTemplate().save(newUser);
     }
 
+    @Transactional
+    public void updateUserTable (User userModified) {
+        getHibernateTemplate().update(userModified);
+    }
 
 
 }

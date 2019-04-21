@@ -87,7 +87,7 @@ public class ClientConnection extends Thread{
     }
 
     // Login/Register functions
-    public void loginUser(/*User user*/) {
+    public void loginUser(User user) {
         int trans_estate = RECEIVED;
 
         try{
@@ -95,13 +95,15 @@ public class ClientConnection extends Thread{
             dOut.writeInt(LOGIN);
             dOut.writeInt(SEND_LOG_USER);
             //This will send the User Object that we want to log into our server
-            //obOut.writeObject(user);
+            obOut.writeObject(user);
             //We wait for response if the information was correct
             trans_estate = dIn.readInt();
 
             if (trans_estate == ERROR) {
                 System.out.println("Error, you couldn't connect to server");
                 //TODO, QUE SALTI UN DIALOG
+            } else {
+                dOut.writeInt(GO_BACK);
             }
 
         }catch (IOException e) {

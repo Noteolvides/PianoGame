@@ -11,6 +11,9 @@ import Server.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
+
 @Service
 public class ServiceBBDDServer {
     @Autowired
@@ -68,6 +71,30 @@ public class ServiceBBDDServer {
             ServerContextHolder.clear();
         }
     }
+
+    //Method to obtain all the songs Regardless of whether they are private or public
+    public List<Song> getListSongs () {
+        ServerContextHolder.set(AvaiableClients.adminSmartPiano);
+        List <Song> result = dao.getAllTheSongs();
+        ServerContextHolder.clear();
+        return result;
+    }
+
+    public List <Song> getTop5Songs () {
+        ServerContextHolder.set(AvaiableClients.adminSmartPiano);
+        List <Song> result = dao.getTop5Songs();
+        ServerContextHolder.clear();
+        return result;
+    }
+
+    //It returns the number of connections that there were in different dates
+    public int getDayConnection (Date date) {
+       ServerContextHolder.set(AvaiableClients.adminSmartPiano);
+       int result = dao.getDayConnection(date);
+       ServerContextHolder.clear();
+       return result;
+    }
+
 
 
 

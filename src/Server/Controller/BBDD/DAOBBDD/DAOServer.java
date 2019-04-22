@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -108,4 +110,35 @@ public class DAOServer extends HibernateDaoSupport {
         getHibernateTemplate().delete(songToDelete);
     }
 
+    @Transactional (readOnly = true)
+    public List <Song> getAllTheSongs () {
+        List query = getHibernateTemplate().find("SELECT Server.Model.Song FROM Server.Model.Song");
+        List <Song> resultat = new ArrayList<>();
+        for (int i = 0; i < query.size(); i++) {
+            resultat.add((Song)query.get(i));
+        }
+        return resultat;
+    }
+
+    @Transactional (readOnly = true)
+    public List <Song> getTop5Songs () {
+        List <Song> resultat = (List<Song>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("SELECT * FROM Song AS s ORDER BY (s.plays) DESC LIMIT 5");
+                List <Song> resultat = ((NativeQuery) query).list();
+                return resultat;
+            }
+        });
+        return resultat;
+    }
+    public int getDayConnection (Date dateToSearch) {
+        int result = (int) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("SELECT * FROM System AS s WHERE s.date = dateToSearch");
+                List <Song> resultat = ((NativeQuery) query).list();
+                return resultat;
+            }
+        });
+        return result;
+    }
 }

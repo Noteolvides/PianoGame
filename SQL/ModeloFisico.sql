@@ -5,9 +5,9 @@ USE SmartPiano;
 DROP TABLE IF EXISTS System;
 CREATE TABLE IF NOT EXISTS System(
   Name VARCHAR(255),
-  DATE DATE,
+  Date DATE,
   TotalOfUser INT,
-  PRIMARY KEY (Name)   --No hauria de ser Date??
+  PRIMARY KEY (Name,Date)
 );
 
 

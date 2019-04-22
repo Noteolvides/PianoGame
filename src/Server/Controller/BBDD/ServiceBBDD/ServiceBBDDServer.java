@@ -2,6 +2,7 @@ package Server.Controller.BBDD.ServiceBBDD;
 
 import Server.Controller.BBDD.MultiConnection.AvaiableClients;
 import Server.Controller.BBDD.MultiConnection.ServerContextHolder;
+import Server.Controller.BBDD.Resources.BBDDException;
 import Server.Controller.BBDD.Resources.FieldsNoValidException;
 import Server.Controller.BBDD.DAOBBDD.DAOServer;
 import Server.Model.Song;
@@ -55,7 +56,18 @@ public class ServiceBBDDServer {
     }
 
 
+    public void deleteSong (String nameOfTheSong) throws FieldsNoValidException{
+        try {
+            ServerContextHolder.set(AvaiableClients.adminSmartPiano);
+            dao.checkSongExistence(nameOfTheSong);
+            ServerContextHolder.clear();
+            throw new FieldsNoValidException();
 
+        } catch (BBDDException e) {
+            dao.deleteSong (nameOfTheSong);
+            ServerContextHolder.clear();
+        }
+    }
 
 
 

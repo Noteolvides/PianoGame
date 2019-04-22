@@ -6,6 +6,7 @@ import Server.Controller.BBDD.Resources.BBDDException;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
+import java.util.List;
 
 @Repository
 public class DAOServer extends HibernateDaoSupport {
@@ -94,6 +96,16 @@ public class DAOServer extends HibernateDaoSupport {
         getHibernateTemplate().save(song);
     }
 
-
+    @Transactional
+    public void deleteSong (String songName) {
+        Song songToDelete = (Song) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("SELECT * FROM Song AS s WHERE s.name = '" + songName + "'");
+                List<Song> result = ((NativeQuery) query).list();
+                return  result.get(0);
+            }
+        });
+        getHibernateTemplate().delete(songToDelete);
+    }
 
 }

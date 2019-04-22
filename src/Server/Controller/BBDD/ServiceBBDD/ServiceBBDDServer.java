@@ -5,6 +5,7 @@ import Server.Controller.BBDD.MultiConnection.ServerContextHolder;
 import Server.Controller.BBDD.Resources.FieldsNoValidException;
 import Server.Controller.BBDD.DAOBBDD.DAOServer;
 import Server.Model.Song;
+import Server.Model.System;
 import Server.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,8 +41,8 @@ public class ServiceBBDDServer {
         }
     }
 
-    public void insertSong (String name, int duration, String description, int plays, String filePath) throws Exception {
-        Song song = new Song(name, duration,description,plays,filePath);
+    public void insertSong (String name, int duration, String description, int plays, String filePath, System system) throws Exception {
+        Song song = new Song(name, duration,description,plays,filePath,system);
         if (name.equals("") || name.contains(" ") || filePath.equals("") || filePath.contains(" ")) {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
             dao.checkSongExistence(name);
@@ -52,6 +53,10 @@ public class ServiceBBDDServer {
             throw new FieldsNoValidException();
         }
     }
+
+
+
+
 
 
     //Getters and setters

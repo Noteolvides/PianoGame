@@ -28,8 +28,8 @@ public class DAOServer extends HibernateDaoSupport {
         boolean result = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>(){
             public Object doInHibernate(Session session) throws HibernateException {
                 Query query = session.createSQLQuery("SELECT COUNT(*) FROM User AS u WHERE u.name ='" + username +"' AND u.password ='" + password + "'");
-                int numUsers = query.executeUpdate();
-                if (numUsers ==  0) {
+                List <Integer> resultat = ((NativeQuery) query).list();
+                if (resultat.get(0) ==  0) {
                     return true;
                 }
                 else {
@@ -50,8 +50,8 @@ public class DAOServer extends HibernateDaoSupport {
         boolean result = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>() {
             public Object doInHibernate(Session session) throws HibernateException {
                 Query query = session.createSQLQuery("SELECT COUNT(*) FROM mysql.user WHERE user = '" + username + "'");
-                int i = query.executeUpdate();
-                return (i == 0);
+                List <Integer> resultat = ((NativeQuery) query).list();
+                return (resultat.get(0) == 0);
             }
         });
         if (!result) {
@@ -82,8 +82,8 @@ public class DAOServer extends HibernateDaoSupport {
         boolean b = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>() {
             public Object doInHibernate(Session session) throws HibernateException {
                 Query query = session.createSQLQuery("SELECT COUNT(*) FROM Song AS s WHERE s.name = '" + songName + "'");
-                int i = query.executeUpdate();
-                return i == 0;
+                List <Integer> resultat = ((NativeQuery) query).list();
+                return resultat.get(0) == 0;
             }
         });
         if (!b) {

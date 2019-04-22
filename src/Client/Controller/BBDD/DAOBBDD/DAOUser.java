@@ -7,6 +7,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate5.HibernateCallback;
@@ -33,8 +34,8 @@ public class DAOUser extends HibernateDaoSupport {
         boolean result = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>(){
             public Object doInHibernate(Session session) throws HibernateException {
                 Query query = session.createSQLQuery("SELECT COUNT(*) FROM User AS u WHERE u.name ='" + username +"' AND u.password ='" + password + "'");
-                int numUsers = query.executeUpdate();
-                if (numUsers ==  0) {
+                List <Integer> resultat = ((NativeQuery) query).list();
+                if (resultat.get(0) ==  0) {
                     return true;
                 }
                 else {
@@ -55,8 +56,8 @@ public class DAOUser extends HibernateDaoSupport {
         boolean result = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>() {
             public Object doInHibernate(Session session) throws HibernateException {
                 Query query = session.createSQLQuery("SELECT COUNT(*) FROM mysql.user WHERE user = '" + username + "'");
-                int i = query.executeUpdate();
-                return (i == 0);
+                List <Integer> resultat = ((NativeQuery) query).list();
+                return (resultat.get(0) == 0);
             }
         });
         if (!result) {

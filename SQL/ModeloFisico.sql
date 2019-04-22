@@ -7,8 +7,9 @@ CREATE TABLE IF NOT EXISTS System(
   Name VARCHAR(255),
   DATE DATE,
   TotalOfUser INT,
-  PRIMARY KEY (Name)
+  PRIMARY KEY (Name)   --No hauria de ser Date??
 );
+
 
 DROP TABLE IF EXISTS User;
 CREATE TABLE IF NOT EXISTS User(

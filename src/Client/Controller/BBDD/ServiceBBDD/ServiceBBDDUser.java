@@ -10,6 +10,7 @@ import Client.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.sql.DataSource;
+import java.util.Date;
 
 public class ServiceBBDDUser {
 
@@ -64,6 +65,9 @@ public class ServiceBBDDUser {
     }
 
 
+    public void InsertOrUpdateSystemInformation (String name, Date date, int totalUsers) {
+
+    }
 
     //Getters and setters (you should not use it, it's only for the injection)
     public DAOUser getDao() {

@@ -8,10 +8,12 @@ import Client.Controller.BBDD.Resources.FieldsNoValidException;
 import Client.Model.Song;
 import Client.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.util.Date;
 
+@Service
 public class ServiceBBDDUser {
 
     //The service is in charge of communicating with the dao (it is like the traductor between controller and dao)

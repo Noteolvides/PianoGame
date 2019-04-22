@@ -134,11 +134,24 @@ public class DAOServer extends HibernateDaoSupport {
     public int getDayConnection (Date dateToSearch) {
         int result = (int) getHibernateTemplate().execute(new HibernateCallback<Object>() {
             public Object doInHibernate(Session session) throws HibernateException {
-                Query query = session.createSQLQuery("SELECT * FROM System AS s WHERE s.date = dateToSearch");
+                Query query = session.createSQLQuery("SELECT * FROM System AS s WHERE s.date =" + dateToSearch);
                 List <Song> resultat = ((NativeQuery) query).list();
                 return resultat;
             }
         });
         return result;
+    }
+
+    public void CheckDateExists (Date dateToCheck) throws BBDDException {
+        boolean result = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("SELECT COUNT(*) FROM System AS s WHERE s.date =" + dateToCheck);
+                List <Integer> resultat = ((NativeQuery) query).list();
+                return resultat.get(0) == 0;
+            }
+        });
+        if(result) {
+            throw new BBDDException();
+        }
     }
 }

@@ -11,6 +11,10 @@ import Server.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -88,15 +92,108 @@ public class ServiceBBDDServer {
     }
 
     //It returns the number of connections that there were in different dates
-    public int getDayConnection (Date date) {
+    private int getDayConnection (Date date) {
        ServerContextHolder.set(AvaiableClients.adminSmartPiano);
-       int result = dao.getDayConnection(date);
-       ServerContextHolder.clear();
+       int result;
+       try {
+            dao.CheckDateExists(date);
+            result = dao.getDayConnection(date);
+        } catch (BBDDException e) {
+            result = 0;
+        }
+        finally {
+            ServerContextHolder.clear();
+        }
        return result;
     }
 
 
+    public List <Integer> getLastYearConnections () {
+        Calendar calendar = Calendar.getInstance();
+        List<Integer> results = new ArrayList<>();
+        Date dateIterator = getLastYearFirstDay();
+        do {
+            results.add(getDayConnection(dateIterator));
+            dateIterator = incrementDay(dateIterator);
+        } while (!changeOfYear(dateIterator));
+        return results;
+    }
 
+    private boolean changeOfYear (Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.DAY_OF_YEAR) == 1;
+    }
+
+    private Date getLastYearFirstDay () {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR,1);
+        calendar.add(Calendar.YEAR,1);
+        return calendar.getTime();
+    }
+
+    public List<Integer> getLastMonthConnections () {
+        Calendar calendar = Calendar.getInstance();
+        Date dateIterator = getLastMonthFirstDay();
+        List<Integer> results = new ArrayList<>();
+        do {
+            results.add(getDayConnection(dateIterator));
+            dateIterator = incrementDay(dateIterator);
+        } while (!changeOfMonth(dateIterator));
+        return results;
+    }
+
+
+    private boolean changeOfMonth (Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.DAY_OF_MONTH) == 1;
+    }
+
+    public List <Integer> getLastWeekConnections () {
+        Date dateIterator = getLastWeekMonday();
+        List<Integer> results = new ArrayList<>();
+        for (int i = 1; i < 7; i++) {
+            results.add(getDayConnection(dateIterator));
+            dateIterator = incrementDay(dateIterator);
+        }
+        return results;
+    }
+
+    private Date incrementDay (Date dateToIncr) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateToIncr);
+        calendar.add(Calendar.DAY_OF_YEAR,1);
+        return calendar.getTime();
+    }
+
+    private Date getLastMonthFirstDay () {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.DAY_OF_MONTH,1);
+        c.add(Calendar.MONTH,-1);
+        SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
+        String convert = dt1.format(c.getTime());
+        try {
+            return dt1.parse(convert);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private Date getLastWeekMonday () {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        c.add(Calendar.WEEK_OF_YEAR, -1);
+        SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
+        String convert = dt1.format(c.getTime());
+        try {
+            return dt1.parse(convert);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     //Getters and setters
     public DAOServer getDao() {

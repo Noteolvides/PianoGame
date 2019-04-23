@@ -26,18 +26,14 @@ public class ServiceBBDDServer {
 
     public void createUser (String username, String password, String photoPath, String email) throws Exception {
         // Pseudo ->
-        // Check if the user exists (in mysql and in the database)
+        // Check if the user exists ( in the database)
         // If it does not exist:
-        // Add to mysql
         // Add to the database
 
         // If it exist:
         // Error message with JDialog (Controller funciton)
 
         if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
-            ServerContextHolder.set(AvaiableClients.adminGeneral);
-            dao.checkExistenceUserMysql(username, password);
-            ServerContextHolder.clear();
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
             dao.checkExistenceUserDatabase(username, password);
             dao.addUserIntoMysql(username, password);
@@ -91,22 +87,6 @@ public class ServiceBBDDServer {
         return result;
     }
 
-    //It returns the number of connections that there were in different dates
-    private int getDayConnection (Date date) {
-       ServerContextHolder.set(AvaiableClients.adminSmartPiano);
-       int result;
-       try {
-            dao.CheckDateExists(date);
-            result = dao.getDayConnection(date);
-        } catch (BBDDException e) {
-            result = 0;
-        }
-        finally {
-            ServerContextHolder.clear();
-        }
-       return result;
-    }
-
 
     public List <Integer> getLastYearConnections () {
         Calendar calendar = Calendar.getInstance();
@@ -119,18 +99,6 @@ public class ServiceBBDDServer {
         return results;
     }
 
-    private boolean changeOfYear (Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        return calendar.get(Calendar.DAY_OF_YEAR) == 1;
-    }
-
-    private Date getLastYearFirstDay () {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_YEAR,1);
-        calendar.add(Calendar.YEAR,1);
-        return calendar.getTime();
-    }
 
     public List<Integer> getLastMonthConnections () {
         Calendar calendar = Calendar.getInstance();
@@ -144,11 +112,6 @@ public class ServiceBBDDServer {
     }
 
 
-    private boolean changeOfMonth (Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        return calendar.get(Calendar.DAY_OF_MONTH) == 1;
-    }
 
     public List <Integer> getLastWeekConnections () {
         Date dateIterator = getLastWeekMonday();
@@ -160,12 +123,44 @@ public class ServiceBBDDServer {
         return results;
     }
 
-    private Date incrementDay (Date dateToIncr) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(dateToIncr);
-        calendar.add(Calendar.DAY_OF_YEAR,1);
-        return calendar.getTime();
+
+
+
+    //Private Methods (used only in internal methods)
+
+
+    //It returns the number of connections that there were in different dates
+    private int getDayConnection (Date date) {
+        ServerContextHolder.set(AvaiableClients.adminSmartPiano);
+        int result;
+        try {
+            dao.CheckDateExists(date);
+            result = dao.getDayConnection(date);
+        } catch (BBDDException e) {
+            result = 0;
+        }
+        finally {
+            ServerContextHolder.clear();
+        }
+        return result;
     }
+
+
+    private Date getLastWeekMonday () {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        c.add(Calendar.WEEK_OF_YEAR, -1);
+        SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
+        String convert = dt1.format(c.getTime());
+        try {
+            return dt1.parse(convert);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 
     private Date getLastMonthFirstDay () {
         Calendar c = Calendar.getInstance();
@@ -181,19 +176,36 @@ public class ServiceBBDDServer {
         }
     }
 
-    private Date getLastWeekMonday () {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        c.add(Calendar.WEEK_OF_YEAR, -1);
-        SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
-        String convert = dt1.format(c.getTime());
-        try {
-            return dt1.parse(convert);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
-        }
+
+    private Date getLastYearFirstDay () {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR,1);
+        calendar.add(Calendar.YEAR,1);
+        return calendar.getTime();
     }
+
+
+    private boolean changeOfMonth (Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.DAY_OF_MONTH) == 1;
+    }
+
+    //This method says if a change of year have been produced or not
+    private boolean changeOfYear (Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.DAY_OF_YEAR) == 1;
+    }
+
+    private Date incrementDay (Date dateToIncr) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dateToIncr);
+        calendar.add(Calendar.DAY_OF_YEAR,1);
+        return calendar.getTime();
+    }
+
+
 
     //Getters and setters
     public DAOServer getDao() {

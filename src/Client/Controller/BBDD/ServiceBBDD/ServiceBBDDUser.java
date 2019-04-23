@@ -34,14 +34,9 @@ public class ServiceBBDDUser {
         // Error message with JDialog (Controller funciton)
 
         if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
-            ClientContextHolder.set(AvaiableClients.noUserGeneral);
-            dao.checkExistenceUserMysql(username, password);
-            ClientContextHolder.clear();
             ClientContextHolder.set(AvaiableClients.noUserSmartPiano);
             dao.checkExistenceUserDatabase(username, password);
-            dao.addUserIntoMysql(username, password);
             dao.insertUserTable(username, password, photoPath, email);
-
         }
         else {
             throw new FieldsNoValidException();

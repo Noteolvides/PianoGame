@@ -27,7 +27,6 @@ public class DAOUser extends HibernateDaoSupport {
         super.setSessionFactory(sessionFactory);
     }
 
-    //TODO: Conexion diferente (porque la base de datos es diferente)
     //This method is responsible for checking the existence of a specific user within the database
     @Transactional (readOnly = true)
     public void checkExistenceUserDatabase (String username, String password) throws BBDDException {
@@ -49,10 +48,10 @@ public class DAOUser extends HibernateDaoSupport {
     }
 
 
-    //TODO: Conexion principal, mirar si se puede comprobar la contraseña
+
     //With this method we can now check the existence of the user in our mysql server
-    @Transactional(readOnly = true)
-    public void checkExistenceUserMysql (String username, String password) throws BBDDException {
+    //@Transactional(readOnly = true)
+    /*public void checkExistenceUserMysql (String username, String password) throws BBDDException {
         boolean result = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>() {
             public Object doInHibernate(Session session) throws HibernateException {
                 Query query = session.createSQLQuery("SELECT COUNT(*) FROM mysql.user WHERE user = '" + username + "'");
@@ -63,10 +62,10 @@ public class DAOUser extends HibernateDaoSupport {
         if (!result) {
             throw new BBDDException();
         }
-    }
+    }*/
 
 
-    @Transactional
+    /*@Transactional
     public void addUserIntoMysql (String username, String password) {
         getHibernateTemplate().execute(new HibernateCallback<Object>() {
             public Object doInHibernate(Session session) throws HibernateException {
@@ -75,7 +74,7 @@ public class DAOUser extends HibernateDaoSupport {
                 return null;
             }
         });
-    }
+    }*/
 
     @Transactional
     public void insertUserTable (String username, String password, String photoPath, String email) {

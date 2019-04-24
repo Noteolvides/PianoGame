@@ -109,8 +109,13 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
     @Transactional
-    public void insertSong (Song song) {
-        getHibernateTemplate().save(song);
+    public void insertSong (Song song) throws BBDDException {
+        if (song != null) {
+            getHibernateTemplate().save(song);
+        }
+        else {
+            throw new BBDDException();
+        }
     }
 
     @Transactional
@@ -169,4 +174,46 @@ public class DAOServer extends HibernateDaoSupport {
             throw new BBDDException();
         }
     }
+
+
+
+
+    @Transactional
+    public void updateUserTable (User userModified) {
+        getHibernateTemplate().update(userModified);
+    }
+
+
+
+    public List<Song> getSomeoneSongs (String username) {
+        return (List<Song>) getHibernateTemplate().execute(new HibernateCallback<Object>(){
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("SELECT * FROM Song AS s WHERE s.author ='" + username +"'");
+                List <Client.Model.Song> resultat = ((NativeQuery) query).list();
+                return resultat;
+            }
+        });
+    }
+
+    public List<Song> getSystemSongs () {
+        return (List<Song>) getHibernateTemplate().execute(new HibernateCallback<Object>(){
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query2 = session.createSQLQuery("SELECT * FROM Syst AS s");
+                Query query = session.createSQLQuery("SELECT * FROM Song AS s WHERE s.creator ='" + ((NativeQuery) query2).list().get(0) +"'");
+                List <Client.Model.Song> resultat = ((NativeQuery) query).list();
+                return resultat;
+            }
+        });
+    }
+
+    public List <String> getSomeoneFriends (String usernameToGetFriends) {
+        return (List<String>) getHibernateTemplate().execute(new HibernateCallback<Object>(){
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("SELECT f.Name2 FROM Friendship AS f WHERE (f.Name1 ='" + usernameToGetFriends + "') UNION  SELECT f.Name1 FROM Friendship AS f WHERE (f.Name2 ='" + usernameToGetFriends +"'");
+                List <String> resultat = ((NativeQuery) query).list();
+                return resultat;
+            }
+        });
+    }
+
 }

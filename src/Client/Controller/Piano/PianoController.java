@@ -36,5 +36,9 @@ public class PianoController {
                 view.getPianoView().getPiano().goOctave(actualOctave);
             }
         });
+        view.getPianoView().getTopOption().getExitToMenu().addActionListener(e -> {
+            controller.closePiano();
+            controller.openPrincipal();
+        });
     }
 }

@@ -44,7 +44,6 @@ public class ControllerJSocial implements MouseListener {
             }
             else {
                 if (e.getSource() == view.getSocialView().getjSocial().getBackButton()) {
-                    jPrincipal = new JPrincipal();
                     System.out.println("Going back to the previous menu...");
                     controller.closeSocial();
                     controller.openPrincipal();

@@ -47,9 +47,8 @@ public class JPrincipalController implements ActionListener {
             StartController controller = new StartController(view);
             view.getStartView().registerController(controller);
             */
-
-            controller.openStart();
             controller.closePrincipal();
+            controller.openStart();
 
         } else if (action.equals(DELETE_ACCOUNT)) {
             System.out.println("SERAS RETRASADO");

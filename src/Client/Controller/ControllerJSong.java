@@ -4,6 +4,7 @@ import Client.View.FinestraJSong;
 import Client.View.SongPrueba;
 import Client.View.JPrincipal;
 import Client.View.Piano.JPiano;
+import Client.View.View;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -11,15 +12,15 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 public class ControllerJSong implements MouseListener {
-    private FinestraJSong finestraJSong;
+    private View view;
+    private Controller controller;
     //TODO: I'm not sure that this variable can be here
-    private JPiano jPiano;
     private LoadingThread loadingThread;
-    public ControllerJSong (FinestraJSong finestraJSong) {
-        this.finestraJSong = finestraJSong;
-        finestraJSong.updateSongs(simulationOfArray());
-        finestraJSong.updateControllersSongs(this);
-        loadingThread = new LoadingThread(finestraJSong,this);
+    public ControllerJSong (View view, Controller controller) {
+        this.view = view;
+        view.getSongView().updateSongs(simulationOfArray());
+        view.getSongView().updateControllersSongs(this);
+        loadingThread = new LoadingThread(view.getSongView(),this);
     }
 
     @Override
@@ -29,25 +30,25 @@ public class ControllerJSong implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (e.getSource() == finestraJSong.getjSong().getBackButton()) {
+        if (e.getSource() == view.getSongView().getjSong().getBackButton()) {
             System.out.println("Going to the previous frame...");
-            JPrincipal jPrincipal = new JPrincipal();
-            finestraJSong.dispose();
+            controller.closeSong();
+            controller.openPrincipal();
         }
         else {
-            if(e.getSource() == finestraJSong.getjSong().getRefreshButton()) {
+            if(e.getSource() == view.getSongView().getjSong().getRefreshButton()) {
                 System.out.println("Updating songs...");
                 loadingThread.start();
                 //Then, we re-create the thread to call it the next time (you can't call the thread again)
-                loadingThread = new LoadingThread(finestraJSong,this);
+                loadingThread = new LoadingThread(view.getSongView(),this);
             }
             else {
                 //We search the name of the song and then we print playing with it
-                String s = finestraJSong.getjSong().searchNameSong((JLabel)e.getSource());
+                String s = view.getSongView().getjSong().searchNameSong((JLabel)e.getSource());
                 System.out.println("Playing " + s);
                 //TODO:En piano se podria crear una string y entonces, pasarle el nombre de la cancion (No esta hecho porque pienso que es mejor hacerlo despues del merge)
-                jPiano = new JPiano();
-                finestraJSong.dispose();
+                controller.openPiano();
+                controller.closeSong();
             }
         }
     }

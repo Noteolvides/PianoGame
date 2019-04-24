@@ -36,6 +36,11 @@ public class Controller {
         view.getSocialView().registerController(controllerJSocial);
         closeSocial();
 
+        view.initSongView();
+        controllerJSong = new ControllerJSong(view, this);
+        view.getSongView().updateControllersSongs(controllerJSong);
+        closeSong();
+
         pianoController = new PianoController(view,this);
         closePiano();
 
@@ -84,5 +89,14 @@ public class Controller {
     public void closeSocial() {
         view.getSocialView().setVisible(false);
         view.getSocialView().dispose();
+    }
+
+    public void openSong() {
+        view.getSongView().setVisible(true);
+    }
+
+    public void closeSong() {
+        view.getSongView().setVisible(false);
+        view.getSongView().dispose();
     }
 }

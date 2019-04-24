@@ -13,6 +13,7 @@ public class View {
     private JRegister registerView;
     private FinestraJSocial socialView;
     private JStart startView;
+    private FinestraJSong songView;
 
     public JPiano getPianoView() {
         return pianoView;
@@ -38,6 +39,10 @@ public class View {
         return startView;
     }
 
+    public FinestraJSong getSongView() {
+        return songView;
+    }
+
     public void initPianoView() {
         pianoView = new JPiano();
     }
@@ -56,5 +61,9 @@ public class View {
 
     public void initSocialView() {
         socialView = new FinestraJSocial();
+    }
+
+    public void initSongView() {
+        songView = new FinestraJSong();
     }
 }

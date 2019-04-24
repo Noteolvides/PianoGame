@@ -40,5 +40,9 @@ public class PianoController {
             controller.closePiano();
             controller.openPrincipal();
         });
+        view.getPianoView().getTopOption().getSelectSongInSystem().addActionListener(e -> {
+            controller.closePiano();
+            controller.openSong();
+        });
     }
 }

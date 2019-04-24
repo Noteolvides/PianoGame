@@ -23,16 +23,15 @@ public class ServiceBBDDUser {
 
     //Methods
 
+    // Pseudo ->
+    // Check if the user exists (in the database)
+    // If it does not exist:
+    // Add to the database
+
+    // If it exist:
+    // Error message with JDialog (Controller funciton)
+
     public void createUser (String username, String password, String photoPath, String email) throws Exception {
-        // Pseudo ->
-        // Check if the user exists (in mysql and in the database)
-        // If it does not exist:
-        // Add to mysql
-        // Add to the database
-
-        // If it exist:
-        // Error message with JDialog (Controller funciton)
-
         if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
             ClientContextHolder.set(AvaiableClients.noUserSmartPiano);
             dao.checkExistenceUserDatabase(username, password);
@@ -49,6 +48,8 @@ public class ServiceBBDDUser {
         dao.updateUserTable(user);
         ClientContextHolder.clear();
     }
+
+
 
     //If the user wants to add a song (the id is assigned by the database because it's serial
     public void insertSong (String name, int duration, String description, User author, int plays, String filePath) throws Exception {

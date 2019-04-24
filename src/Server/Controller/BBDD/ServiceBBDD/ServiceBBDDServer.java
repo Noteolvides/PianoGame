@@ -22,28 +22,53 @@ import java.util.List;
 public class ServiceBBDDServer {
     @Autowired
     private DAOServer dao;
+    //TODO: JUntar usuari i server en un de sol la database
 
+    // Pseudo ->
+    // Check if the user exists ( in the database)
+    // If it does not exist:
+    // Add to the database
 
+    // If it exist:
+    // Error message with JDialog (Controller funciton)
     public void createUser (String username, String password, String photoPath, String email) throws Exception {
-        // Pseudo ->
-        // Check if the user exists ( in the database)
-        // If it does not exist:
-        // Add to the database
-
-        // If it exist:
-        // Error message with JDialog (Controller funciton)
 
         if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
             dao.checkExistenceUserDatabase(username, password);
-            dao.addUserIntoMysql(username, password);
             dao.insertUserTable(username, password, photoPath, email);
+            ServerContextHolder.clear();
+        }
+        else {
+            ServerContextHolder.clear();
+            throw new FieldsNoValidException();
+        }
+    }
 
+    public void deleteUserByObject (User user) throws Exception {
+        if (user != null) {
+            ServerContextHolder.set(AvaiableClients.adminSmartPiano);
+            dao.checkExistenceUserDatabaseWithoutPassword(user.getName());
+            dao.deleteUserByObject(user);
+            ServerContextHolder.clear();
         }
         else {
             throw new FieldsNoValidException();
         }
     }
+
+    public void deleteUserByName (String username) throws Exception{
+        if (username.equals("") || username.contains(" ")) {
+            ServerContextHolder.set(AvaiableClients.adminSmartPiano);
+            dao.checkExistenceUserDatabaseWithoutPassword(username);
+            dao.deleteUser(username);
+            ServerContextHolder.clear();
+        }
+        else {
+            throw new FieldsNoValidException();
+        }
+    }
+
 
     public void insertSong (String name, int duration, String description, int plays, String filePath, System system) throws Exception {
         Song song = new Song(name, duration,description,plays,filePath,system);
@@ -126,8 +151,8 @@ public class ServiceBBDDServer {
 
 
 
-    //Private Methods (used only in internal methods)
 
+    //Private Methods (used only in internal methods)
 
     //It returns the number of connections that there were in different dates
     private int getDayConnection (Date date) {

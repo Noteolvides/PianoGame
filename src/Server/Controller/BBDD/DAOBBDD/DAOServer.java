@@ -45,15 +45,18 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
 
-    //TODO: Conexion principal, mirar si se puede comprobar la contraseña
-    //With this method we can now check the existence of the user in our mysql server
-    @Transactional(readOnly = true)
-    public void checkExistenceUserMysql (String username, String password) throws BBDDException {
-        boolean result = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+    @Transactional
+    public void checkExistenceUserDatabaseWithoutPassword (String username) throws BBDDException{
+        boolean result = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>(){
             public Object doInHibernate(Session session) throws HibernateException {
-                Query query = session.createSQLQuery("SELECT COUNT(*) FROM mysql.user WHERE user = '" + username + "'");
+                Query query = session.createSQLQuery("SELECT COUNT(*) FROM User AS u WHERE u.name ='" + username +"'");
                 List <Integer> resultat = ((NativeQuery) query).list();
-                return (resultat.get(0) == 0);
+                if (resultat.get(0) ==  0) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
         });
         if (!result) {
@@ -62,16 +65,28 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
 
+
+
+
     @Transactional
-    public void addUserIntoMysql (String username, String password) {
+    public void deleteUserByObject (User user) {
+        getHibernateTemplate().delete(user);
+    }
+
+    @Transactional
+    public void deleteUser (String username) {
         getHibernateTemplate().execute(new HibernateCallback<Object>() {
+            @Override
             public Object doInHibernate(Session session) throws HibernateException {
-                Query query = session.createSQLQuery("CREATE USER '" + username + "' IDENTIFIED BY '" + password + "'");
+                Query query = session.createSQLQuery("DELETE FROM User AS u WHERE u.name = '" + username + "'");
                 query.executeUpdate();
                 return null;
             }
         });
     }
+
+
+
 
     @Transactional
     public void insertUserTable (String username, String password, String photoPath, String email) {

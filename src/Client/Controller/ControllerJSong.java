@@ -18,6 +18,7 @@ public class ControllerJSong implements MouseListener {
     private LoadingThread loadingThread;
     public ControllerJSong (View view, Controller controller) {
         this.view = view;
+        this.controller = controller;
         view.getSongView().updateSongs(simulationOfArray());
         view.getSongView().updateControllersSongs(this);
         loadingThread = new LoadingThread(view.getSongView(),this);

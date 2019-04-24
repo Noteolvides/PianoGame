@@ -85,7 +85,7 @@ public class JEvolution {
         evo.registerController(controller);
     }
 
-    void registerController(JEvolutionController controller){
+    public void registerController(JEvolutionController controller){
         year.addActionListener(controller);
         week.addActionListener(controller);
         month.addActionListener(controller);

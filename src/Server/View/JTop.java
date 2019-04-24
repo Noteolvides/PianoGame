@@ -94,7 +94,7 @@ public class JTop {
         return songsList;
     }
 
-    void registerController(JTopController controller){
+    public void registerController(JTopController controller){
         for(int i = 0; i < songsList.size(); i++){
             songsList.get(i).getPlayButton().addMouseListener(controller);
             songsList.get(i).getInfoIcon().addMouseListener(controller);

@@ -48,39 +48,32 @@ public class DAOUser extends HibernateDaoSupport {
     }
 
 
-
-    //With this method we can now check the existence of the user in our mysql server
-    //@Transactional(readOnly = true)
-    /*public void checkExistenceUserMysql (String username, String password) throws BBDDException {
-        boolean result = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+    @Transactional
+    public void checkExistenceUserDatabaseWithoutPassword (String username) throws Server.Controller.BBDD.Resources.BBDDException {
+        boolean result = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>(){
             public Object doInHibernate(Session session) throws HibernateException {
-                Query query = session.createSQLQuery("SELECT COUNT(*) FROM mysql.user WHERE user = '" + username + "'");
+                Query query = session.createSQLQuery("SELECT COUNT(*) FROM User AS u WHERE u.name ='" + username +"'");
                 List <Integer> resultat = ((NativeQuery) query).list();
-                return (resultat.get(0) == 0);
+                if (resultat.get(0) ==  0) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
             }
         });
         if (!result) {
-            throw new BBDDException();
+            throw new Server.Controller.BBDD.Resources.BBDDException();
         }
-    }*/
+    }
 
-
-    /*@Transactional
-    public void addUserIntoMysql (String username, String password) {
-        getHibernateTemplate().execute(new HibernateCallback<Object>() {
-            public Object doInHibernate(Session session) throws HibernateException {
-                Query query = session.createSQLQuery("CREATE USER '" + username + "' IDENTIFIED BY '" + password + "'");
-                query.executeUpdate();
-                return null;
-            }
-        });
-    }*/
 
     @Transactional
     public void insertUserTable (String username, String password, String photoPath, String email) {
         User newUser = new User(username,photoPath,password,email);
         getHibernateTemplate().save(newUser);
     }
+
 
     @Transactional
     public void updateUserTable (User userModified) {
@@ -97,6 +90,36 @@ public class DAOUser extends HibernateDaoSupport {
         }
     }
 
+    public List<Song> getSomeoneSongs (String username) {
+        return (List<Song>) getHibernateTemplate().execute(new HibernateCallback<Object>(){
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("SELECT * FROM Song AS s WHERE s.author ='" + username +"'");
+                List <Song> resultat = ((NativeQuery) query).list();
+                return resultat;
+            }
+        });
+    }
+
+    public List<Song> getSystemSongs () {
+        return (List<Song>) getHibernateTemplate().execute(new HibernateCallback<Object>(){
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query2 = session.createSQLQuery("SELECT * FROM Syst AS s");
+                Query query = session.createSQLQuery("SELECT * FROM Song AS s WHERE s.creator ='" + ((NativeQuery) query2).list().get(0) +"'");
+                List <Song> resultat = ((NativeQuery) query).list();
+                return resultat;
+            }
+        });
+    }
+
+    public List <String> getSomeoneFriends (String usernameToGetFriends) {
+        return (List<String>) getHibernateTemplate().execute(new HibernateCallback<Object>(){
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("SELECT f.Name2 FROM Friendship AS f WHERE (f.Name1 ='" + usernameToGetFriends + "') UNION  SELECT f.Name1 FROM Friendship AS f WHERE (f.Name2 ='" + usernameToGetFriends +"'");
+                List <String> resultat = ((NativeQuery) query).list();
+                return resultat;
+            }
+        });
+    }
 
 
 }

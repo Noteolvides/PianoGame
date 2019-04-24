@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class ServiceBBDDUser {
@@ -59,6 +61,33 @@ public class ServiceBBDDUser {
         }
         else {
             dao.insertSong (song);
+        }
+    }
+
+
+
+    public List<Song> getSongsUser (String username) throws Exception{
+        if (username.equals("") || username.contains(" ")) {
+            ClientContextHolder.set(AvaiableClients.UserRegistered);
+            dao.checkExistenceUserDatabaseWithoutPassword(username);
+            List <Song> songs = new ArrayList<>();
+            List <Song> songsSystem  = dao.getSystemSongs();
+            for (int i = 0; i < songsSystem.size();i++) {
+                songs.add(songsSystem.get(i));
+            }
+            List <String> friends = dao.getSomeoneFriends(username);
+            for (int j = 0; j < friends.size(); j++) {
+                List <Song> songsFriend = dao.getSomeoneSongs(friends.get(j));
+                for (int u = 0; u < songsFriend.size();u++) {
+                    songs.add(songsFriend.get(u));
+                }
+            }
+            ClientContextHolder.clear();
+            return songs;
+        }
+        else {
+            throw new FieldsNoValidException();
+            return null;
         }
     }
 

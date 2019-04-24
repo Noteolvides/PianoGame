@@ -35,7 +35,10 @@ public class ServiceBBDDServer {
 
 
     //TODO: Sumar conexion al sistem cuando se conecta un usuario (User method)
-
+    //TODO: Buscar amigo (JSocial)
+    //TODO: Metodes Objecte / String
+    //TODO: ManyToMany
+    //TODO: Don't controll strings
 
     //:::::::::::::::::::CommonMethods::::::::::::::::::::::::::
     public void deleteSong (String nameOfTheSong) throws FieldsNoValidException{
@@ -157,11 +160,26 @@ public class ServiceBBDDServer {
 
     //:::::::::::::::::::USER BBDD METHODS::::::::::::::::::::
 
+    //Method to increase one connection to the system
+    public void addConnection () {
+        ServerContextHolder.set(AvaiableClients.UserRegistered);
+        try {
+            dao.checkDateExistenceInSystem ();
+            dao.addConnection();
+        } catch (BBDDException e) {
+            dao.createSystemToActualDate ();
+        }
+        finally {
+            ServerContextHolder.clear();
+        }
+    }
+
     public void createUserFromNoUser (String username, String password, String photoPath, String email) throws Exception {
         if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
             ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
             dao.checkExistenceUserDatabase(username, password);
             dao.insertUserTable(username, password, photoPath, email);
+            ServerContextHolder.clear();
         }
         else {
             throw new FieldsNoValidException();

@@ -151,10 +151,12 @@ public class DAOServer extends HibernateDaoSupport {
         });
         return resultat;
     }
+
+    @Transactional(readOnly = true)
     public int getDayConnection (Date dateToSearch) {
         int result = (int) getHibernateTemplate().execute(new HibernateCallback<Object>() {
             public Object doInHibernate(Session session) throws HibernateException {
-                Query query = session.createSQLQuery("SELECT * FROM System AS s WHERE s.date =" + dateToSearch);
+                Query query = session.createSQLQuery("SELECT * FROM Syst AS s WHERE s.date =" + dateToSearch);
                 List <Song> resultat = ((NativeQuery) query).list();
                 return resultat;
             }
@@ -162,10 +164,11 @@ public class DAOServer extends HibernateDaoSupport {
         return result;
     }
 
+    @Transactional(readOnly = true)
     public void CheckDateExists (Date dateToCheck) throws BBDDException {
         boolean result = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>() {
             public Object doInHibernate(Session session) throws HibernateException {
-                Query query = session.createSQLQuery("SELECT COUNT(*) FROM System AS s WHERE s.date =" + dateToCheck);
+                Query query = session.createSQLQuery("SELECT COUNT(*) FROM Syst AS s WHERE s.date =" + dateToCheck);
                 List <Integer> resultat = ((NativeQuery) query).list();
                 return resultat.get(0) == 0;
             }
@@ -175,7 +178,47 @@ public class DAOServer extends HibernateDaoSupport {
         }
     }
 
+    @Transactional
+    public void addConnection () {
+        int result = (int) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("SELECT TotalOfUser FROM Syst AS s WHERE s.date = DATE(NOW())");
+                List <Integer> resultat = ((NativeQuery) query).list();
+                return resultat.get(0);
+            }
+        });
+        getHibernateTemplate().execute(new HibernateCallback<Object>() {
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("UPDATE Syst SET TotalOfUsers ="+ result + " WHERE s.date = DATE(NOW())");
+                return null;
+            }
+        });
+    }
 
+    @Transactional
+    public void createSystemToActualDate () {
+        getHibernateTemplate().execute(new HibernateCallback<Object>() {
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("INSERT INTO Syst VALUES ('System',NOW(),1)");
+                query.executeUpdate();
+                return null;
+            }
+        });
+    }
+
+    @Transactional
+    public void checkDateExistenceInSystem () throws BBDDException{
+        boolean result = (boolean) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("SELECT COUNT(*) FROM System AS s WHERE s.date = DATE(NOW())");
+                List <Integer> resultat = ((NativeQuery) query).list();
+                return resultat.get(0) == 0;
+            }
+        });
+        if (result) {
+            throw new BBDDException();
+        }
+    }
 
 
     @Transactional

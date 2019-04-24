@@ -196,6 +196,19 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
     @Transactional
+    public User searchUser (String username) {
+        User user = (User) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("SELECT * FROM User AS u WHERE u.name = '" + username + "'");
+                List <User> resultat = ((NativeQuery) query).list();
+                return resultat.get(0);
+            }
+        });
+        return user;
+    }
+
+
+    @Transactional
     public void createSystemToActualDate () {
         getHibernateTemplate().execute(new HibernateCallback<Object>() {
             public Object doInHibernate(Session session) throws HibernateException {
@@ -227,7 +240,7 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
 
-
+    @Transactional (readOnly = true)
     public List<Song> getSomeoneSongs (String username) {
         return (List<Song>) getHibernateTemplate().execute(new HibernateCallback<Object>(){
             public Object doInHibernate(Session session) throws HibernateException {
@@ -238,6 +251,7 @@ public class DAOServer extends HibernateDaoSupport {
         });
     }
 
+    @Transactional (readOnly = true)
     public List<Song> getSystemSongs () {
         return (List<Song>) getHibernateTemplate().execute(new HibernateCallback<Object>(){
             public Object doInHibernate(Session session) throws HibernateException {
@@ -249,6 +263,7 @@ public class DAOServer extends HibernateDaoSupport {
         });
     }
 
+    @Transactional (readOnly = true)
     public List <String> getSomeoneFriends (String usernameToGetFriends) {
         return (List<String>) getHibernateTemplate().execute(new HibernateCallback<Object>(){
             public Object doInHibernate(Session session) throws HibernateException {

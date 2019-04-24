@@ -34,8 +34,7 @@ public class ServiceBBDDServer {
 
 
 
-    //TODO: Sumar conexion al sistem cuando se conecta un usuario (User method)
-    //TODO: Buscar amigo (JSocial)
+
     //TODO: Metodes Objecte / String
     //TODO: ManyToMany
     //TODO: Don't controll strings
@@ -159,6 +158,12 @@ public class ServiceBBDDServer {
     }
 
     //:::::::::::::::::::USER BBDD METHODS::::::::::::::::::::
+
+    //This is the method to search if a user exists, if exists we return it.
+    public User searchUser (String usernameToSearch) {
+        return dao.searchUser(usernameToSearch);
+    }
+
 
     //Method to increase one connection to the system
     public void addConnection () {

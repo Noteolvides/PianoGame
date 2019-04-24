@@ -87,7 +87,6 @@ public class ServiceBBDDUser {
         }
         else {
             throw new FieldsNoValidException();
-            return null;
         }
     }
 

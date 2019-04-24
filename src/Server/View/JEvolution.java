@@ -15,7 +15,7 @@ public class JEvolution {
     private JButton month;
     private JButton week;
 
-    void JEvolution() throws IOException {
+    public void JEvolution () throws IOException {
         JFrame evoPanel = new JFrame("Active Users Countage");
 
         ImageIcon icon = new ImageIcon("img/graphicicon.png");
@@ -28,7 +28,7 @@ public class JEvolution {
         week = new JButton("Week");
         month = new JButton("Month");
         year = new JButton("Year");
-        evoPanel.setSize(1400, 1000);
+        evoPanel.setSize(1400, 835);
 
 
         evoPanel.setLayout(new GridBagLayout());

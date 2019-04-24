@@ -14,7 +14,7 @@ public class JTop {
     private ArrayList<SongView> songsList;
     private JPanel songsGroup = new JPanel();
 
-    void JTop(){                            //Pass ArrayList<Song> to the constructor and for each one add Number 1-5
+    public void JTop(){                            //Pass ArrayList<Song> to the constructor and for each one add Number 1-5
 
         ArrayList<SongPrueba> songs = new ArrayList<>();
         songs.add(new SongPrueba(1, "渡辺麻友", "She's so cute ❤"));

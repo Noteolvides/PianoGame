@@ -6,6 +6,7 @@ import Server.Controller.JTopController;
 import Server.Controller.RegisterController;
 import Server.View.JEvolution;
 import Server.View.JTop;
+import Server.View.ServerViews;
 import Server.View.View;
 
 import javax.swing.*;
@@ -14,6 +15,8 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        ServerViews serverViews = new ServerViews();
+
         View view = new View();
         view.initRegisterView();
         RegisterController controller = new RegisterController(view);
@@ -26,7 +29,8 @@ public class Main {
         top.JTop();
         JTopController topController = new JTopController(top);
 
-        Controller control = new Controller(evoController, topController, controller);
+        Controller control = new Controller(evoController, topController, controller, top, evolution, view, serverViews);
+        serverViews.registerController(control);
         control.actionManager(evolution, top, view);
     }
 }

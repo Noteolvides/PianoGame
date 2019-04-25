@@ -23,6 +23,7 @@ public class JTopController implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent event){
         JLabel whichButton = (JLabel) event.getSource();
+
         for(int i = 0; i < jTop.getSongsList().size(); i++){
             if(jTop.getSongsList().get(i).getPlayButton().equals(whichButton)){
                 System.out.println("Playing: " + jTop.getSongsList().get(i).getTitleSong().getText());

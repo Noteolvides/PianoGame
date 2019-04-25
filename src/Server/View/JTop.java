@@ -61,8 +61,8 @@ public class JTop {
 
         frameTop.setSize(390, 450);
         frameTop.setResizable(false);
-        frameTop.setVisible(true);
-        frameTop.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameTop.setVisible(false);
+        //frameTop.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameTop.add(panelTop);
     }
 

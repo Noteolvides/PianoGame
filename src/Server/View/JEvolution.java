@@ -55,8 +55,8 @@ public class JEvolution {
         constraints.gridy = 2;
         evoPanel.add(buttonsPanel, constraints);
 
-        evoPanel.setVisible(true);
-        evoPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        evoPanel.setVisible(false);
+        //evoPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public JPanel showGraphic() {                                      //Quan cridem aquesta funció li passarem una llista de quantitat d'usuaris

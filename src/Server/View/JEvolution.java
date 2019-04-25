@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class JEvolution {
+    private JFrame evoPanel = new JFrame("Active Users Countage");
     private ArrayList<Double> users;
     private JButton year;
     private JButton month;
     private JButton week;
 
     public void JEvolution () throws IOException {
-        JFrame evoPanel = new JFrame("Active Users Countage");
 
         ImageIcon icon = new ImageIcon("img/graphicicon.png");
         evoPanel.setIconImage(icon.getImage());
@@ -89,5 +89,13 @@ public class JEvolution {
         year.addActionListener(controller);
         week.addActionListener(controller);
         month.addActionListener(controller);
+    }
+
+    public void setVisible(){
+        evoPanel.setVisible(true);
+    }
+
+    public void setInvisible(){
+        evoPanel.setVisible(false);
     }
 }

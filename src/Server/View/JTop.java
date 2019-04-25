@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class JTop {
     //public JList songTop;
+    private JFrame frameTop = new JFrame("TOP 5 - Popular Songs"); //Prova
     private JPanel songTop = new JPanel();
     private ArrayList<SongView> songsList;
     private JPanel songsGroup = new JPanel();
@@ -55,7 +56,6 @@ public class JTop {
         panelTop.setBorder(compound);
 
         ((TitledBorder) compound).setTitleFont(((TitledBorder) compound).getTitleFont().deriveFont(25.00f));
-        JFrame frameTop = new JFrame("TOP 5 - Popular Songs"); //Prova
         ImageIcon icon = new ImageIcon("img/topicon.png");
         frameTop.setIconImage(icon.getImage());
 
@@ -105,4 +105,12 @@ public class JTop {
     public JPanel getSongTop() {
         return songTop;
     }
+    public void setVisible(){
+        frameTop.setVisible(true);
+    }
+
+    public void setInvisible(){
+        frameTop.setVisible(false);
+    }
+
 }

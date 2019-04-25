@@ -81,4 +81,11 @@ public class JRegister extends JFrame {
         buttonRegister.setActionCommand("REGISTER");
         buttonRegister.addActionListener(controller);
     }
+
+    public void setVisible(){
+        setVisible(true);
+    }
+    public void setInvisible(){
+        setVisible(false);
+    }
 }

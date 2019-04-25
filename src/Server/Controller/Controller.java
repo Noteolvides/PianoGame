@@ -16,10 +16,6 @@ public class Controller {
     }
 
     public void actionManager(JEvolution jEvolution, JTop jTop, View view){
-        //jEvolutionController = new JEvolutionController(jEvolution);
-        //jTopController = new JTopController(jTop);
-        //registerController = new RegisterController(view);
-
         jEvolution.registerController(jEvolutionController);
         jTop.registerController(jTopController);
         view.getRegisterView().registerController(registerController);

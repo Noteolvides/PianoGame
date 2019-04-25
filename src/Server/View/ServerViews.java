@@ -1,14 +1,17 @@
 package Server.View;
 
+import Server.Controller.Controller;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class ServerViews {
+        private JButton serverGraph, topSongs, registerUser;
+
         public ServerViews(){
                 JFrame serverFrame = new JFrame("Server Functionalities");
                 serverFrame.setLayout(new GridLayout(3, 1));
 
-                JButton serverGraph, topSongs, registerUser;
                 registerUser = new JButton("Register User");
                 ImageIcon iconRegister = new ImageIcon("img/registerIcon.png");
                 registerUser.setIcon(resizeIcon(iconRegister, iconRegister.getIconWidth()/8, iconRegister.getIconHeight()/8));
@@ -32,4 +35,22 @@ public class ServerViews {
                 Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);
                 return new ImageIcon(resizedImage);
         }
+
+        public void registerController(Controller controller){
+            serverGraph.addMouseListener(controller);
+            topSongs.addMouseListener(controller);
+            registerUser.addMouseListener(controller);
+        }
+
+    public JButton getServerGraph() {
+        return serverGraph;
+    }
+
+    public JButton getTopSongs() {
+        return topSongs;
+    }
+
+    public JButton getRegisterUser() {
+        return registerUser;
+    }
 }

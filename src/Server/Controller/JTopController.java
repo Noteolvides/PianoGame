@@ -18,6 +18,7 @@ import java.util.Set;
 public class JTopController implements MouseListener {
     private JTop jTop;
     private Set<Thread> setOfThread;
+    private Clip clip;
 
     public JTopController(JTop jTop) {
         this.jTop = jTop;
@@ -41,18 +42,20 @@ public class JTopController implements MouseListener {
             if (jTop.getSongsList().get(i).getMusicIcon().equals(whichButton) && !jTop.getSongsList().get(i).isPlaying()) {
                 System.out.println(jTop.getSongsList().get(i).getTitleSong().getText() + ":   " + jTop.getSongsList().get(i).getDescription().getText());
                 jTop.getSongsList().get(i).pauseMusicIcon();
+                String songTitle = jTop.getSongsList().get(i).getTitleSong().getText();
 
                 //TODO: Add Thread to Play Music
                 jTop.getSongsList().get(i).setPlaying(true);
+
                 Runnable music = new Runnable() {
                     @Override
                     public void run() {
                         AudioInputStream audioInputStream;
-                        Clip clip;
                         try {
-                            audioInputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\Jiahu\\Music\\La vie en Rose IZONE.wav").getAbsoluteFile());
+                            audioInputStream = AudioSystem.getAudioInputStream(new File("D:\\" + songTitle + ".wav").getAbsoluteFile());
                             clip = AudioSystem.getClip();
                             clip.open(audioInputStream);
+                            clip.loop(Clip.LOOP_CONTINUOUSLY);
                             clip.start();
 
                             if(!Thread.currentThread().isAlive()){
@@ -79,6 +82,8 @@ public class JTopController implements MouseListener {
                     for(Thread thread : setOfThread){
                         if(thread.getName().equals(jTop.getSongsList().get(i).getTitleSong().getText())){
                             thread.stop();
+                            clip.stop();
+                            clip.close();
                             System.out.println("Thread stopped: " + thread + thread.isAlive());
                         }
                     }

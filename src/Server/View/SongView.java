@@ -13,6 +13,8 @@ public class SongView extends JPanel {
     private JLabel musicIcon;
     private JLabel playButton;
     private JLabel infoIcon;
+    private boolean playing = false;
+
     public SongView (int idSong, String title, String description) {
         setLayout(new BorderLayout());
 
@@ -118,5 +120,13 @@ public class SongView extends JPanel {
 
     public JLabel getDescription() {
         return description;
+    }
+
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
     }
 }

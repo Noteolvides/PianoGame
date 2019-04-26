@@ -40,8 +40,9 @@ public class JTopController implements MouseListener {
         for (int i = 0; i < jTop.getSongsList().size(); i++) {
             if (jTop.getSongsList().get(i).getMusicIcon().equals(whichButton) && !jTop.getSongsList().get(i).isPlaying()) {
                 System.out.println(jTop.getSongsList().get(i).getTitleSong().getText() + ":   " + jTop.getSongsList().get(i).getDescription().getText());
-                //TODO: Add Thread to Play Music
+                jTop.getSongsList().get(i).pauseMusicIcon();
 
+                //TODO: Add Thread to Play Music
                 jTop.getSongsList().get(i).setPlaying(true);
                 Runnable music = new Runnable() {
                     @Override
@@ -53,6 +54,10 @@ public class JTopController implements MouseListener {
                             clip = AudioSystem.getClip();
                             clip.open(audioInputStream);
                             clip.start();
+
+                            if(!Thread.currentThread().isAlive()){
+                               clip.stop();
+                            }
                         } catch (UnsupportedAudioFileException | LineUnavailableException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
@@ -60,7 +65,7 @@ public class JTopController implements MouseListener {
                         }
                     }
                 };
-                Thread playMusic = new Thread(music, "La Vie en Rose");
+                Thread playMusic = new Thread(music, jTop.getSongsList().get(i).getTitleSong().getText());
                 playMusic.start();
                 setOfThread = Thread.getAllStackTraces().keySet();
                 System.out.println("Thread created: " + playMusic.getName() +  "   " + playMusic.isAlive());
@@ -68,15 +73,13 @@ public class JTopController implements MouseListener {
                 if (jTop.getSongsList().get(i).getMusicIcon().equals(whichButton) && jTop.getSongsList().get(i).isPlaying()){
                     jTop.getSongsList().get(i).setPlaying(false);
 
+                    jTop.getSongsList().get(i).resetMusicIcon(i);
+
                     //Iterate over set to find yours
                     for(Thread thread : setOfThread){
-                        if(thread.getName().equals("La Vie en Rose")){
-                            thread.interrupt();
-                            SecurityManager manager = new SecurityManager();
-                            //manager.checkPermission(new RuntimePermission("stopThread"));
+                        if(thread.getName().equals(jTop.getSongsList().get(i).getTitleSong().getText())){
                             thread.stop();
                             System.out.println("Thread stopped: " + thread + thread.isAlive());
-                            return;
                         }
                     }
                 }

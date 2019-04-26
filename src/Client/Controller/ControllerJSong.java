@@ -34,7 +34,7 @@ public class ControllerJSong implements MouseListener {
         if (e.getSource() == view.getSongView().getjSong().getBackButton()) {
             System.out.println("Going to the previous frame...");
             controller.closeSong();
-            controller.openPrincipal();
+            controller.openPiano();
         }
         else {
             if(e.getSource() == view.getSongView().getjSong().getRefreshButton()) {

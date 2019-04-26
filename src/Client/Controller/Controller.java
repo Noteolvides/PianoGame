@@ -38,7 +38,7 @@ public class Controller {
 
         view.initSongView();
         controllerJSong = new ControllerJSong(view, this);
-        view.getSongView().updateControllersSongs(controllerJSong);
+        view.getSongView().getjSong().registerControllers(controllerJSong);
         closeSong();
 
         pianoController = new PianoController(view,this);

@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class JEvolution {
+    private JFrame evoPanel = new JFrame("Active Users Countage");
     private ArrayList<Double> users;
     private JButton year;
     private JButton month;
     private JButton week;
 
-    void JEvolution() throws IOException {
-        JFrame evoPanel = new JFrame("Active Users Countage");
+    public void JEvolution () throws IOException {
 
         ImageIcon icon = new ImageIcon("img/graphicicon.png");
         evoPanel.setIconImage(icon.getImage());
@@ -28,7 +28,7 @@ public class JEvolution {
         week = new JButton("Week");
         month = new JButton("Month");
         year = new JButton("Year");
-        evoPanel.setSize(1400, 1000);
+        evoPanel.setSize(1400, 835);
 
 
         evoPanel.setLayout(new GridBagLayout());
@@ -55,8 +55,8 @@ public class JEvolution {
         constraints.gridy = 2;
         evoPanel.add(buttonsPanel, constraints);
 
-        evoPanel.setVisible(true);
-        evoPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        evoPanel.setVisible(false);
+        //evoPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public JPanel showGraphic() {                                      //Quan cridem aquesta funció li passarem una llista de quantitat d'usuaris
@@ -85,9 +85,17 @@ public class JEvolution {
         evo.registerController(controller);
     }
 
-    void registerController(JEvolutionController controller){
+    public void registerController(JEvolutionController controller){
         year.addActionListener(controller);
         week.addActionListener(controller);
         month.addActionListener(controller);
+    }
+
+    public void setVisible(){
+        evoPanel.setVisible(true);
+    }
+
+    public void setInvisible(){
+        evoPanel.setVisible(false);
     }
 }

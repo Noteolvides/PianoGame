@@ -10,11 +10,12 @@ import java.util.ArrayList;
 
 public class JTop {
     //public JList songTop;
+    private JFrame frameTop = new JFrame("TOP 5 - Popular Songs"); //Prova
     private JPanel songTop = new JPanel();
     private ArrayList<SongView> songsList;
     private JPanel songsGroup = new JPanel();
 
-    void JTop(){                            //Pass ArrayList<Song> to the constructor and for each one add Number 1-5
+    public void JTop(){                            //Pass ArrayList<Song> to the constructor and for each one add Number 1-5
 
         ArrayList<SongPrueba> songs = new ArrayList<>();
         songs.add(new SongPrueba(1, "渡辺麻友", "She's so cute ❤"));
@@ -55,14 +56,13 @@ public class JTop {
         panelTop.setBorder(compound);
 
         ((TitledBorder) compound).setTitleFont(((TitledBorder) compound).getTitleFont().deriveFont(25.00f));
-        JFrame frameTop = new JFrame("TOP 5 - Popular Songs"); //Prova
         ImageIcon icon = new ImageIcon("img/topicon.png");
         frameTop.setIconImage(icon.getImage());
 
         frameTop.setSize(390, 450);
         frameTop.setResizable(false);
-        frameTop.setVisible(true);
-        frameTop.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameTop.setVisible(false);
+        //frameTop.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameTop.add(panelTop);
     }
 
@@ -94,7 +94,7 @@ public class JTop {
         return songsList;
     }
 
-    void registerController(JTopController controller){
+    public void registerController(JTopController controller){
         for(int i = 0; i < songsList.size(); i++){
             songsList.get(i).getPlayButton().addMouseListener(controller);
             songsList.get(i).getInfoIcon().addMouseListener(controller);
@@ -105,4 +105,12 @@ public class JTop {
     public JPanel getSongTop() {
         return songTop;
     }
+    public void setVisible(){
+        frameTop.setVisible(true);
+    }
+
+    public void setInvisible(){
+        frameTop.setVisible(false);
+    }
+
 }

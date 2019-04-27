@@ -19,6 +19,7 @@ public class PianoController {
     private View view;
     private Controller controller;
     private int actualOctave; //TODO : Revision of this atribute
+    private RealtimePlayer realtimePlayer;
 
     public static void main(String[] args) {
         //View view = new View();

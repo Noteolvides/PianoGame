@@ -11,21 +11,21 @@ public class ClientConnection extends Thread{
     private static final int PORT = 5000;
     private static final String IP = "localhost";
 
-    private static final int RECEIVED = 0;
-    private static final int ERROR = -1;
+    public static final int RECEIVED = 0;
+    public static final int ERROR = -1;
+    public static final String GO_BACK = "go_back";
 
-    private static final int LOGIN = 1;
-    private static final int SEND_LOG_USER = 1;
-    private static final int GO_BACK = -1;
+    public static final String LOGIN = "login";
+    public static final String SEND_LOG_USER = "log_user";
 
-    private static final int REGISTER = 2;
-    private static final int SEND_REG_USER = 1;
+    public static final String REGISTER = "register";
+    public static final String SEND_REG_USER = "reg_user";
 
-    private static final int PIANO = 3;
+    public static final String PIANO = "piano";
 
-    private static final int SOCIAL = 4;
-    private static final int SEARCH_USER = 1;
-    private static final int ADD_USER = 2;
+    public static final String SOCIAL = "social";
+    public static final String SEARCH_USER = "search_user";
+    public static final String ADD_USER = "add_user";
 
     //Controller
     private Controller controller;
@@ -93,8 +93,8 @@ public class ClientConnection extends Thread{
 
         try{
             //We sent to the server the current operation
-            dOut.writeInt(LOGIN);
-            dOut.writeInt(SEND_LOG_USER);
+            dOut.writeUTF(LOGIN);
+            dOut.writeUTF(SEND_LOG_USER);
             //This will send the User Object that we want to log into our server
             obOut.writeObject(user);
             //We wait for response if the information was correct
@@ -104,7 +104,7 @@ public class ClientConnection extends Thread{
                 System.out.println("Error, you couldn't connect to server");
                 //TODO, QUE SALTI UN DIALOG
             } else {
-                dOut.writeInt(GO_BACK);
+                dOut.writeUTF(GO_BACK);
             }
 
         }catch (IOException e) {
@@ -118,8 +118,8 @@ public class ClientConnection extends Thread{
 
         try{
             //We sent to the server the current operation
-            dOut.writeInt(REGISTER);
-            dOut.writeInt(SEND_REG_USER);
+            dOut.writeUTF(REGISTER);
+            dOut.writeUTF(SEND_REG_USER);
             //This will send the User Object that we want to log into our server
             obOut.writeObject(user);
             //We wait for response if the information was correct
@@ -130,7 +130,7 @@ public class ClientConnection extends Thread{
                 //TODO, QUE SALTI UN DIALOG
             } else {
                 System.out.println("WELCOME, WELCOME!");
-                dOut.writeInt(GO_BACK);
+                dOut.writeUTF(GO_BACK);
 
             }
 
@@ -141,7 +141,7 @@ public class ClientConnection extends Thread{
 
     public void logOut() {
         try {
-            dOut.writeInt(GO_BACK);
+            dOut.writeUTF(GO_BACK);
             closeConnection();
         } catch (IOException e) {
             e.printStackTrace();
@@ -150,7 +150,7 @@ public class ClientConnection extends Thread{
 
     public void deleteUser() {
         try {
-            dOut.writeInt(GO_BACK);
+            dOut.writeUTF(GO_BACK);
             closeConnection();
         } catch (IOException e) {
             e.printStackTrace();
@@ -163,8 +163,8 @@ public class ClientConnection extends Thread{
 
         try {
             //We sent to the server the current operation
-            dOut.writeInt(SOCIAL);
-            dOut.writeInt(SEARCH_USER);
+            dOut.writeUTF(SOCIAL);
+            dOut.writeUTF(SEARCH_USER);
             //This will send the User Object that we want to log into our server
             obOut.writeObject(user);
             //We wait for response if the operation is completed correctly
@@ -185,7 +185,7 @@ public class ClientConnection extends Thread{
 
         try {
             //We sent to the server the current operation
-            dOut.writeInt(ADD_USER);
+            dOut.writeUTF(ADD_USER);
             //This will send the User Object that we want to log into our server
             obOut.writeObject(user);
             //We wait for response if the operation is completed correctly
@@ -205,7 +205,7 @@ public class ClientConnection extends Thread{
     public void exitSocial() throws IOException {
         try {
             //We sent to the server the current operation
-            dOut.writeInt(GO_BACK);
+            dOut.writeUTF(GO_BACK);
         } catch (IOException e) {
             e.printStackTrace();
         }

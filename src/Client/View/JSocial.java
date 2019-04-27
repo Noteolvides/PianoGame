@@ -144,6 +144,10 @@ public class JSocial extends JPanel {
         return searchButton;
     }
 
+    public String getSearchUser() {
+        return squareSeachFriend.getText();
+    }
+
     public JTextField getSquareSeachFriend() {
         return squareSeachFriend;
     }
@@ -159,5 +163,4 @@ public class JSocial extends JPanel {
     public void closePanel () {
         setVisible(false);
     }
-
 }

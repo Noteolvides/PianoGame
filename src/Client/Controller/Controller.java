@@ -4,6 +4,9 @@ import Client.Controller.MenuPrincipal.JPrincipalController;
 import Client.Controller.Piano.PianoController;
 import Client.Controller.Start.StartController;
 import Client.View.View;
+import Model.User;
+
+import java.util.Arrays;
 
 public class Controller {
     private View view;
@@ -98,5 +101,24 @@ public class Controller {
     public void closeSong() {
         view.getSongView().setVisible(false);
         view.getSongView().dispose();
+    }
+
+    public User getLogin() {
+        return new User(view.getStartView().getLogin(),
+                Arrays.toString(view.getStartView().getPassword()));
+    }
+
+    public User getRegister() {
+        return new User(view.getRegisterView().getUsername(),
+                view.getRegisterView().getEmail(),
+                Arrays.toString(view.getRegisterView().getPassword()));
+    }
+
+    public User getSearchedUser() {
+        return new User(view.getSocialView().getjSocial().getSearchUser());
+    }
+
+    public User getAddedUser() {
+        return new User(view.getSocialView().getjSocial().getSearchUser()); //Not getting the one who has been added, getting the one who was searched.
     }
 }

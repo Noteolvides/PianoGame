@@ -1,24 +1,18 @@
 package Server.Controller;
 
+import Server.Model.playSong;
 import Server.View.JTop;
-import Server.View.SongPrueba;
-import Server.View.SongView;
-import javax.media.Player;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Set;
 
 public class JTopController implements MouseListener {
     private JTop jTop;
     private Set<Thread> setOfThread;
-    private Clip clip;
+    private playSong music;
 
     public JTopController(JTop jTop) {
         this.jTop = jTop;
@@ -46,30 +40,11 @@ public class JTopController implements MouseListener {
 
                 //TODO: Add Thread to Play Music
                 jTop.getSongsList().get(i).setPlaying(true);
-
-                Runnable music = new Runnable() {
-                    @Override
-                    public void run() {
-                        AudioInputStream audioInputStream;
-                        try {
-                            audioInputStream = AudioSystem.getAudioInputStream(new File("D:\\" + songTitle + ".wav").getAbsoluteFile());
-                            clip = AudioSystem.getClip();
-                            clip.open(audioInputStream);
-                            clip.loop(Clip.LOOP_CONTINUOUSLY);
-                            clip.start();
-
-                            if(!Thread.currentThread().isAlive()){
-                               clip.stop();
-                            }
-                        } catch (UnsupportedAudioFileException | LineUnavailableException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
+                music = new playSong(songTitle);
                 Thread playMusic = new Thread(music, jTop.getSongsList().get(i).getTitleSong().getText());
                 playMusic.start();
+
+
                 setOfThread = Thread.getAllStackTraces().keySet();
                 System.out.println("Thread created: " + playMusic.getName() +  "   " + playMusic.isAlive());
             }else{
@@ -81,9 +56,9 @@ public class JTopController implements MouseListener {
                     //Iterate over set to find yours
                     for(Thread thread : setOfThread){
                         if(thread.getName().equals(jTop.getSongsList().get(i).getTitleSong().getText())){
+                            System.out.println(music.getSongTitle());
+                            music.stopClip();
                             thread.stop();
-                            clip.stop();
-                            clip.close();
                             System.out.println("Thread stopped: " + thread + thread.isAlive());
                         }
                     }

@@ -9,6 +9,7 @@ import Server.Controller.BBDD.Resources.BBDDException;
 import Server.Controller.BBDD.Resources.FieldsNoValidException;
 import Model.Song;
 import Model.User;
+import Model.Syst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,21 +24,13 @@ import java.util.List;
 public class ServiceBBDDServer {
     @Autowired
     private DAOServer dao;
-    //TODO: JUntar usuari i server en un de sol la database
-
-    // Pseudo ->
-    // Check if the user exists ( in the database)
-    // If it does not exist:
-    // Add to the database
-
-    // If it exist:
-    // Error message with JDialog (Controller funciton)
 
 
 
 
-    //TODO: Metodes Objecte / String
-    //TODO: ManyToMany
+
+
+
     //TODO: Don't controll strings
 
     //:::::::::::::::::::CommonMethods::::::::::::::::::::::::::
@@ -164,7 +157,7 @@ public class ServiceBBDDServer {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         dao.checkExistenceUserDatabaseWithoutPassword(user.getNameUser(),false);
         dao.updateUserTable(user);
-        //dao.recyprocityFriendship();
+        dao.recyprocityFriendship();
         ServerContextHolder.clear();
     }
 

@@ -5,6 +5,7 @@ package Server.Controller.BBDD.DAOBBDD;
 import Server.Controller.BBDD.Resources.BBDDException;
 import Model.Song;
 import Model.User;
+import Model.Syst;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,17 +14,12 @@ import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.NamedNativeQueries;
-import javax.persistence.NamedNativeQuery;
-import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-@NamedNativeQueries({
-@NamedNativeQuery(name="updateFriends",
-        query="CALL updateFriends()")})
+
 @Repository
 public class DAOServer extends HibernateDaoSupport {
 
@@ -36,18 +32,7 @@ public class DAOServer extends HibernateDaoSupport {
     @Transactional(readOnly = true)
     public void checkExistenceUserDatabase ( String username, String password, boolean existException) throws BBDDException {
         List list = getHibernateTemplate().find("SELECT COUNT(*) FROM "+ User.class.getName() +" AS u WHERE u.nameUser ='"+ username +"' AND u.password ='" + password + "'");
-        /*Boolean result = (Boolean) getHibernateTemplate().execute(new HibernateCallback<Object>(){
-            public Object doInHibernate(Session session) throws HibernateException {
-                Query query = session.createSQLQuery("SELECT COUNT(*) FROM User AS u WHERE u.Name ='" + username +"' AND u.Password ='" + password + "'");
-                List <Integer> resultat = ((NativeQuery) query).list();
-                if (resultat.get(0) ==  0) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-        });*/
+
         if (existException) {
             if ((Long) list.get(0) != 0) {
                 throw new BBDDException();
@@ -61,21 +46,10 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
 
-    @Transactional(readOnly = true)
+    @Transactional (readOnly = true)
     public void checkExistenceUserDatabaseWithoutPassword (String username, boolean existException) throws BBDDException{
         List list = getHibernateTemplate().find ("SELECT COUNT(*) FROM " + User.class.getName() + " AS u WHERE u.nameUser = '" + username + "'");
-        /*Boolean result = (Boolean) getHibernateTemplate().execute(new HibernateCallback<Object>(){
-            public Object doInHibernate(Session session) throws HibernateException {
-                Query query = session.createSQLQuery("SELECT COUNT(*) FROM User AS u WHERE u.name ='" + username +"'");
-                List <Integer> resultat = ((NativeQuery) query).list();
-                if (resultat.get(0) ==  0) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-        });*/
+
         if (existException) {
             if ((Long) list.get(0) != 0) {
                 throw new BBDDException();
@@ -89,7 +63,7 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
 
-    @Transactional(readOnly = true)
+    @Transactional (readOnly = true)
     public User getUser (String username) {
         List list = getHibernateTemplate().find("FROM " + User.class.getName() + " AS u WHERE u.nameUser = '" + username +"'");
         return (User) list.get(0);
@@ -116,7 +90,7 @@ public class DAOServer extends HibernateDaoSupport {
         getHibernateTemplate().save(newUser);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional (readOnly = true)
     public void checkSongExistence (final String songName) throws BBDDException{
         List list = getHibernateTemplate().find("SELECT COUNT(*) FROM " + Song.class.getName() + " AS s WHERE s.title = '" + songName + "'");
         Boolean b = ((Long) list.get(0) == 0);
@@ -142,7 +116,7 @@ public class DAOServer extends HibernateDaoSupport {
         getHibernateTemplate().delete((Song) list.get(0));
     }
 
-    @Transactional(readOnly = true)
+    @Transactional (readOnly = true)
     public List <Song> getAllTheSongs () {
         List query = getHibernateTemplate().find("SELECT Model.Song FROM Model.Song");
         List <Song> resultat = new ArrayList<Song>();
@@ -152,16 +126,10 @@ public class DAOServer extends HibernateDaoSupport {
         return resultat;
     }
 
-    @Transactional(readOnly = true)
+    @Transactional (readOnly = true)
     public List <Song> getTop5Songs () {
         List list = getHibernateTemplate().find("SELECT s FROM " + Song.class.getName() + " AS s ORDER BY (s.plays) DESC");
-        /*ist <Song> resultat = (List<Song>) getHibernateTemplate().execute(new HibernateCallback<Object>() {
-            public Object doInHibernate(Session session) throws HibernateException {
-                Query query = session.createSQLQuery("SELECT * FROM Song AS s ORDER BY (s.plays) DESC LIMIT 5");
-                List <Song> resultat = ((NativeQuery) query).list();
-                return resultat;
-            }
-        });*/
+
         int max = 5;
         List <Song> result = new ArrayList<Song>();
         if (list.size () < 5) {
@@ -205,13 +173,9 @@ public class DAOServer extends HibernateDaoSupport {
 
     @Transactional
     public void createSystemToActualDate () {
-        getHibernateTemplate().execute(new HibernateCallback<Object>() {
-            public Object doInHibernate(Session session) throws HibernateException {
-                Query query = session.createSQLQuery("INSERT INTO Syst VALUES (Syst,NOW(),1)");
-                query.executeUpdate();
-                return null;
-            }
-        });
+        Calendar c = Calendar.getInstance();
+        Syst system = new Syst ("System",new Date(),1);
+        getHibernateTemplate().save(system);
     }
 
     @Transactional
@@ -230,7 +194,7 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
 
-    @Transactional(readOnly = true)
+    @Transactional (readOnly = true)
     public List<Song> getSomeoneSongs (final String username) {
         List list = getHibernateTemplate().find("FROM " + Song.class.getName() + " AS s WHERE s.author='" + username + "'");
         return (List<Song>) list;
@@ -238,7 +202,7 @@ public class DAOServer extends HibernateDaoSupport {
 
     }
 
-    @Transactional(readOnly = true)
+    @Transactional (readOnly = true)
     public List<Song> getSystemSongs () {
         List list = getHibernateTemplate().find ("SELECT s.nameSyst FROM "+ Syst.class.getName() +" AS s");
         if (list.size() != 0) {
@@ -250,19 +214,18 @@ public class DAOServer extends HibernateDaoSupport {
         }
     }
 
-    @Transactional(readOnly = true)
+    @Transactional (readOnly = true)
     public List <User> getSomeoneFriends (final String usernameToGetFriends) {
         List list = getHibernateTemplate().find("SELECT u.following FROM " + User.class.getName() + " AS u WHERE u.nameUser = '" + usernameToGetFriends + "'");
         return (List <User>) list;
 
     }
 
-    @Transactional
+
     public void recyprocityFriendship () {
         getHibernateTemplate().execute(new HibernateCallback<Object>() {
-            //TODO: Solucionar el tema para realizar el stored procedure
             public Object doInHibernate(Session session) throws HibernateException {
-                Query query = session.getNamedQuery(DAOServer.class.getName()+".updateFriends");
+                session.createSQLQuery("CALL updateFriends()");
                 return null;
             }
         });

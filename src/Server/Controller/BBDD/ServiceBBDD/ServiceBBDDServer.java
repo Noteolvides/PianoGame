@@ -1,12 +1,13 @@
 package Server.Controller.BBDD.ServiceBBDD;
 
+
+
+import Server.Controller.BBDD.DAOBBDD.DAOServer;
 import Server.Controller.BBDD.MultiConnection.AvaiableClients;
 import Server.Controller.BBDD.MultiConnection.ServerContextHolder;
 import Server.Controller.BBDD.Resources.BBDDException;
 import Server.Controller.BBDD.Resources.FieldsNoValidException;
-import Server.Controller.BBDD.DAOBBDD.DAOServer;
 import Server.Model.Song;
-import Server.Model.System;
 import Server.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,12 +41,11 @@ public class ServiceBBDDServer {
     //TODO: Don't controll strings
 
     //:::::::::::::::::::CommonMethods::::::::::::::::::::::::::
-    public void deleteSong (String nameOfTheSong) throws FieldsNoValidException{
+    public void deleteSong (String nameOfTheSong) throws FieldsNoValidException {
         try {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
             dao.checkSongExistence(nameOfTheSong);
             ServerContextHolder.clear();
-            throw new FieldsNoValidException();
 
         } catch (BBDDException e) {
             dao.deleteSong (nameOfTheSong);
@@ -55,7 +55,7 @@ public class ServiceBBDDServer {
     public void deleteUserByObject (User user) throws Exception {
         if (user != null) {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
-            dao.checkExistenceUserDatabaseWithoutPassword(user.getName());
+            dao.checkExistenceUserDatabaseWithoutPassword(user.getNameUser(),false);
             dao.deleteUserByObject(user);
             ServerContextHolder.clear();
         }
@@ -65,9 +65,9 @@ public class ServiceBBDDServer {
     }
 
     public void deleteUserByName (String username) throws Exception{
-        if (username.equals("") || username.contains(" ")) {
+        if (!(username.equals("") || username.contains(" "))) {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
-            dao.checkExistenceUserDatabaseWithoutPassword(username);
+            dao.checkExistenceUserDatabaseWithoutPassword(username,false);
             dao.deleteUser(username);
             ServerContextHolder.clear();
         }
@@ -81,7 +81,7 @@ public class ServiceBBDDServer {
 
         if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
-            dao.checkExistenceUserDatabase(username, password);
+            dao.checkExistenceUserDatabase(username, password,true);
             dao.insertUserTable(username, password, photoPath, email);
             ServerContextHolder.clear();
         }
@@ -92,8 +92,8 @@ public class ServiceBBDDServer {
     }
 
 
-    public void insertSongFromSystem (String name, int duration, String description, int plays, String filePath, System system) throws Exception {
-        Song song = new Song(name, duration,description,plays,filePath,system);
+    public void insertSongFromSystem (String name, int duration, String description, int plays, String filePath, Syst syst) throws Exception {
+        Song song = new Song(name, duration,description,plays,filePath, syst);
         if (name.equals("") || name.contains(" ") || filePath.equals("") || filePath.contains(" ")) {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
             dao.checkSongExistence(name);
@@ -124,7 +124,7 @@ public class ServiceBBDDServer {
 
     public List <Integer> getLastYearConnections () {
         Calendar calendar = Calendar.getInstance();
-        List<Integer> results = new ArrayList<>();
+        List<Integer> results = new ArrayList<Integer>();
         Date dateIterator = getLastYearFirstDay();
         do {
             results.add(getDayConnection(dateIterator));
@@ -137,7 +137,7 @@ public class ServiceBBDDServer {
     public List<Integer> getLastMonthConnections () {
         Calendar calendar = Calendar.getInstance();
         Date dateIterator = getLastMonthFirstDay();
-        List<Integer> results = new ArrayList<>();
+        List<Integer> results = new ArrayList<Integer>();
         do {
             results.add(getDayConnection(dateIterator));
             dateIterator = incrementDay(dateIterator);
@@ -149,7 +149,7 @@ public class ServiceBBDDServer {
 
     public List <Integer> getLastWeekConnections () {
         Date dateIterator = getLastWeekMonday();
-        List<Integer> results = new ArrayList<>();
+        List<Integer> results = new ArrayList<Integer>();
         for (int i = 1; i < 7; i++) {
             results.add(getDayConnection(dateIterator));
             dateIterator = incrementDay(dateIterator);
@@ -159,13 +159,23 @@ public class ServiceBBDDServer {
 
     //:::::::::::::::::::USER BBDD METHODS::::::::::::::::::::
 
+    //Method to update the information of a user (the username mopdify is not valid in not valid in this method)
+    public void updateInformationUser (User user) throws BBDDException {
+        ServerContextHolder.set(AvaiableClients.UserRegistered);
+        dao.checkExistenceUserDatabaseWithoutPassword(user.getNameUser(),false);
+        dao.updateUserTable(user);
+        //dao.recyprocityFriendship();
+        ServerContextHolder.clear();
+    }
+
+
     //This is the method to search if a user exists, if exists we return it.
     public User searchUser (String usernameToSearch) {
         return dao.searchUser(usernameToSearch);
     }
 
 
-    //Method to increase one connection to the system
+    //Method to increase one connection to the syst
     public void addConnection () {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         try {
@@ -182,7 +192,7 @@ public class ServiceBBDDServer {
     public void createUserFromNoUser (String username, String password, String photoPath, String email) throws Exception {
         if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
             ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
-            dao.checkExistenceUserDatabase(username, password);
+            dao.checkExistenceUserDatabaseWithoutPassword(username,true);
             dao.insertUserTable(username, password, photoPath, email);
             ServerContextHolder.clear();
         }
@@ -199,6 +209,14 @@ public class ServiceBBDDServer {
     }
 
 
+    public User getInstanceOfAUser (String username, String password) throws BBDDException {
+        ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
+        dao.checkExistenceUserDatabase(username,password,false);
+        User user = dao.getUser(username);
+        ServerContextHolder.clear();
+        return user;
+    }
+
 
     //If the user wants to add a song (the id is assigned by the database because it's serial
     public void insertSongFromUser (String name, int duration, String description, User author, int plays, String filePath) throws Exception {
@@ -207,22 +225,31 @@ public class ServiceBBDDServer {
             throw new FieldsNoValidException();
         }
         else {
+            dao.checkSongExistence(name);
             dao.insertSong (song);
         }
     }
 
+    public void insertSongFromUser(Song song) throws BBDDException {
+        dao.checkSongExistence(song.getTitle());
+        dao.insertSong(song);
+    }
 
 
     public List<Song> getSongsUser (String username) throws Exception{
-        if (username.equals("") || username.contains(" ")) {
+        if (!(username.equals("") || username.contains(" "))) {
             ServerContextHolder.set(AvaiableClients.UserRegistered);
-            dao.checkExistenceUserDatabaseWithoutPassword(username);
-            List <Song> songs = new ArrayList<>();
+            dao.checkExistenceUserDatabaseWithoutPassword(username,false);
+            List <Song> songs = new ArrayList<Song>();
             List <Song> songsSystem  = dao.getSystemSongs();
             for (int i = 0; i < songsSystem.size();i++) {
                 songs.add(songsSystem.get(i));
             }
-            List <String> friends = dao.getSomeoneFriends(username);
+            List <User> friendsUser = dao.getSomeoneFriends(username);
+            List <String> friends = new ArrayList<String>();
+            for (int y = 0; y < friendsUser.size(); y++) {
+                friends.add(friendsUser.get(y).getNameUser());
+            }
             for (int j = 0; j < friends.size(); j++) {
                 List <Song> songsFriend = dao.getSomeoneSongs(friends.get(j));
                 for (int u = 0; u < songsFriend.size();u++) {
@@ -237,7 +264,18 @@ public class ServiceBBDDServer {
         }
     }
 
-
+    //With this method you can check if two users are already friends
+    public boolean checkUserRelationship (String username1, String username2) {
+        List <User> friendsUser = dao.getSomeoneFriends(username1);
+        List <String> friends = new ArrayList<String>();
+        for (int u = 0; u < friendsUser.size(); u++) {
+            friends.add(friendsUser.get(u).getNameUser());
+        }
+        if (friends.contains(username2)) {
+            return true;
+        }
+        return false;
+    }
 
     //:::::::::::::::::::::::::::::::::Private Methods (used only in internal methods):::::::::::::::::
 
@@ -327,4 +365,8 @@ public class ServiceBBDDServer {
     public void setDao(DAOServer dao) {
         this.dao = dao;
     }
+
+
+
+
 }

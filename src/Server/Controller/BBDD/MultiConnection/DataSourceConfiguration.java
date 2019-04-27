@@ -17,14 +17,14 @@ import java.util.Map;
 public class DataSourceConfiguration {
 
 
-    @Bean (name = "dataSource")
+    @Bean(name = "dataSource")
     public DataSource clientDatasource() {
         //We define a hashmap where we will save the object together with its reference (her personal DNI that is an enumeration, so we can identify them)
         Map<Object, Object> targetDataSources = new HashMap<Object,Object>();
         //We create the datasource (connections) that there may be (At the moment you will only have one)
-        DataSource clientDatasource_2 = DataSourceBuilder.create().username("noAlias").password("password").driverClassName("com.mysql.jdbc.Driver").url("jdbc:mysql://localhost/SmartPiano?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
-        DataSource clientDatasource_3 = DataSourceBuilder.create().username("normalUser").password("normalUserPassword").driverClassName("com.mysql.jdbc.Driver").url("jdbc:mysql://localhost/SmartPiano?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
-        DataSource clientDatasource = DataSourceBuilder.create().username("admin").password("admin").driverClassName("com.mysql.jdbc.Driver").url("jdbc:mysql://localhost/SmartPiano?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
+        DataSource clientDatasource_2 = DataSourceBuilder.create().username("noAlias").password("password").driverClassName("com.mysql.cj.jdbc.Driver").url("jdbc:mysql://localhost/SmartPiano?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
+        DataSource clientDatasource_3 = DataSourceBuilder.create().username("normalUser").password("normalUserPassword").driverClassName("com.mysql.cj.jdbc.Driver").url("jdbc:mysql://localhost/SmartPiano?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
+        DataSource clientDatasource = DataSourceBuilder.create().username("admin").password("admin").driverClassName("com.mysql.cj.jdbc.Driver").url("jdbc:mysql://localhost/SmartPiano?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
         //We add them to the hashMap
         targetDataSources.put(AvaiableClients.adminSmartPiano, clientDatasource);
         targetDataSources.put(AvaiableClients.noUserSmartPiano, clientDatasource_2);

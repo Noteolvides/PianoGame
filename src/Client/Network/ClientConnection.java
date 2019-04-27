@@ -11,9 +11,9 @@ public class ClientConnection extends Thread{
     private static final int PORT = 5000;
     private static final String IP = "localhost";
 
-    public static final int RECEIVED = 0;
-    public static final int ERROR = -1;
-    public static final String GO_BACK = "go_back";
+    private static final int RECEIVED = 0;
+    private static final int ERROR = -1;
+    private static final String GO_BACK = "go_back";
 
     public static final String LOGIN = "login";
     public static final String SEND_LOG_USER = "log_user";
@@ -38,7 +38,7 @@ public class ClientConnection extends Thread{
     private ObjectInputStream obIn;
 
     boolean running;
-    String netFunc;
+    String nextFunc;
 
     /**
      * Client sockets controller
@@ -85,7 +85,7 @@ public class ClientConnection extends Thread{
 
         while (running && !isInterrupted()) {
             //TODO: falta que el controller faci un setter cada vegada que fa una de les funcions
-            switch (netFunc) {
+            switch (nextFunc) {
                 case LOGIN:
                     loginUser();
                     break;
@@ -237,6 +237,15 @@ public class ClientConnection extends Thread{
     }
 
     // Piano functions
+
+
+    public String getNextFunc() {
+        return nextFunc;
+    }
+
+    public void setNextFunc(String nextFunc) {
+        this.nextFunc = nextFunc;
+    }
 }
 
 

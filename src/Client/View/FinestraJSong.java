@@ -20,12 +20,6 @@ public class FinestraJSong extends JFrame{
         return comboSongView.getjSong();
     }
 
-    public static void main(String[] args) {
-        FinestraJSong finestraJSong = new FinestraJSong();
-        ControllerJSong controllerJSong = new ControllerJSong(finestraJSong);
-        finestraJSong.getjSong().registerControllers(controllerJSong);
-    }
-
     public void updateSongs (ArrayList <SongPrueba> arrayList) {
         comboSongView.updateSongs(arrayList);
     }

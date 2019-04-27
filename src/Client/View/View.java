@@ -11,8 +11,9 @@ public class View {
     private JFriend friendsView;
     private JPrincipal principalView;
     private JRegister registerView;
-    private JSocial socialView;
+    private FinestraJSocial socialView;
     private JStart startView;
+    private FinestraJSong songView;
 
     public JPiano getPianoView() {
         return pianoView;
@@ -30,12 +31,16 @@ public class View {
         return registerView;
     }
 
-    public JSocial getSocialView() {
+    public FinestraJSocial getSocialView() {
         return socialView;
     }
 
     public JStart getStartView() {
         return startView;
+    }
+
+    public FinestraJSong getSongView() {
+        return songView;
     }
 
     public void initPianoView() {
@@ -52,5 +57,13 @@ public class View {
 
     public void initPrincipalView() {
         principalView = new JPrincipal();
+    }
+
+    public void initSocialView() {
+        socialView = new FinestraJSocial();
+    }
+
+    public void initSongView() {
+        songView = new FinestraJSong();
     }
 }

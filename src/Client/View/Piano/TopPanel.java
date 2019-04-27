@@ -52,4 +52,36 @@ public class TopPanel extends JMenuBar {
         add(more);
 
     }
+
+    public JMenuItem getRecord() {
+        return record;
+    }
+
+    public JMenuItem getStop() {
+        return stop;
+    }
+
+    public JMenuItem getSave() {
+        return save;
+    }
+
+    public JMenuItem getPlay() {
+        return play;
+    }
+
+    public JMenuItem getPlaySongInSystem() {
+        return playSongInSystem;
+    }
+
+    public JMenuItem getSelectSongInSystem() {
+        return selectSongInSystem;
+    }
+
+    public JMenuItem getRestartSongInSystem() {
+        return restartSongInSystem;
+    }
+
+    public JMenuItem getExitToMenu() {
+        return exitToMenu;
+    }
 }

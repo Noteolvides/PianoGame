@@ -26,9 +26,9 @@ public class FinestraJSocial extends JFrame {
     }
 
     public static void main(String[] args) {
-        FinestraJSocial fj = new FinestraJSocial();
-        ControllerJSocial controllerJSocial = new ControllerJSocial(fj);
-        fj.registerController(controllerJSocial);
+        //FinestraJSocial fj = new FinestraJSocial();
+        //ControllerJSocial controllerJSocial = new ControllerJSocial(fj);
+        //fj.registerController(controllerJSocial);
     }
 
     public void showUserSearch (String name, String imageFile,boolean isFriend) {

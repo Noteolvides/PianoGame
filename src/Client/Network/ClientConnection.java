@@ -38,6 +38,7 @@ public class ClientConnection extends Thread{
     private ObjectInputStream obIn;
 
     boolean running;
+    String netFunc;
 
     /**
      * Client sockets controller
@@ -80,23 +81,44 @@ public class ClientConnection extends Thread{
      * Each user have his own connection Thread to communicate with the server while it uses the client SmartPiano
      */
     public void run() {
+        running = true;
+
         while (running && !isInterrupted()) {
-            /*try{
-                //Todo, aqui que cullons haig de ficar
-            }catch ();*/
+            //TODO: falta que el controller faci un setter cada vegada que fa una de les funcions
+            switch (netFunc) {
+                case LOGIN:
+                    loginUser();
+                    break;
+                case REGISTER:
+                    registerUser();
+                    break;
+                case PIANO:
+                    break;
+                case SOCIAL:
+                    searchUser();
+                    break;
+                case ADD_USER:
+                    addUser();
+                    break;
+                default:
+                    //Nothing
+                    break;
+            }
         }
+
     }
 
     // Login/Register functions
-    public void loginUser(User user) {
+    public void loginUser() {
         int trans_estate = RECEIVED;
+        //Todo: falta demanar l'usuari del controller
 
         try{
             //We sent to the server the current operation
             dOut.writeUTF(LOGIN);
             dOut.writeUTF(SEND_LOG_USER);
             //This will send the User Object that we want to log into our server
-            obOut.writeObject(user);
+            obOut.writeObject(controller.getLogin());
             //We wait for response if the information was correct
             trans_estate = dIn.readInt();
 
@@ -113,7 +135,7 @@ public class ClientConnection extends Thread{
 
     }
 
-    public void registerUser(User user) {
+    public void registerUser() {
         int trans_estate = RECEIVED;
 
         try{
@@ -121,7 +143,7 @@ public class ClientConnection extends Thread{
             dOut.writeUTF(REGISTER);
             dOut.writeUTF(SEND_REG_USER);
             //This will send the User Object that we want to log into our server
-            obOut.writeObject(user);
+            obOut.writeObject(controller.getRegister());
             //We wait for response if the information was correct
             trans_estate = dIn.readInt();
 
@@ -158,7 +180,7 @@ public class ClientConnection extends Thread{
     }
 
     // Social functions
-    public void searchUser(User user) {
+    public void searchUser() {
         int trans_estate = RECEIVED;
 
         try {
@@ -166,9 +188,10 @@ public class ClientConnection extends Thread{
             dOut.writeUTF(SOCIAL);
             dOut.writeUTF(SEARCH_USER);
             //This will send the User Object that we want to log into our server
-            obOut.writeObject(user);
+            obOut.writeObject(controller.getSearchedUser());
             //We wait for response if the operation is completed correctly
             trans_estate = dIn.readInt();
+            //Todo, potser no li hem d'enviar un usuari, sino un String amb el nom de l'usuari i rebre el usuari com objecte
 
             if (trans_estate == ERROR) {
                 System.out.println("Error, this user doesn't exists");
@@ -180,16 +203,18 @@ public class ClientConnection extends Thread{
         }
     }
 
-    public void addUser(User user) {
+    public void addUser() {
         int trans_estate = RECEIVED;
 
         try {
             //We sent to the server the current operation
             dOut.writeUTF(ADD_USER);
             //This will send the User Object that we want to log into our server
-            obOut.writeObject(user);
+            obOut.writeObject(controller.getAddedUser());
             //We wait for response if the operation is completed correctly
             trans_estate = dIn.readInt();
+            //Todo, potser no li hem d'enviar un usuari, sino un String amb el nom de l'usuari i rebre el usuari com
+            // objecte que es el que afegirem com amic del client
 
             if (trans_estate == ERROR) {
                 System.out.println("Error, you couldn't connect to server");

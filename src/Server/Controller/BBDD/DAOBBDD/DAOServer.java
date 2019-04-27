@@ -3,8 +3,8 @@ package Server.Controller.BBDD.DAOBBDD;
 
 
 import Server.Controller.BBDD.Resources.BBDDException;
-import Server.Model.Song;
-import Server.Model.User;
+import Model.Song;
+import Model.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

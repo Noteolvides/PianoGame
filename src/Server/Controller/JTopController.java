@@ -1,9 +1,8 @@
 package Server.Controller;
 
-import Server.Model.playSong;
+import Model.playSong;
 import Server.View.JTop;
 
-import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

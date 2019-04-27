@@ -7,8 +7,8 @@ import Server.Controller.BBDD.MultiConnection.AvaiableClients;
 import Server.Controller.BBDD.MultiConnection.ServerContextHolder;
 import Server.Controller.BBDD.Resources.BBDDException;
 import Server.Controller.BBDD.Resources.FieldsNoValidException;
-import Server.Model.Song;
-import Server.Model.User;
+import Model.Song;
+import Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

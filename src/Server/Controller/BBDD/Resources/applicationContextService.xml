@@ -16,7 +16,7 @@
           class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="packagesToScan">
             <list>
-                <value>Server.Model</value>
+                <value>Model</value>
             </list>
         </property>
         <property name="hibernateProperties">

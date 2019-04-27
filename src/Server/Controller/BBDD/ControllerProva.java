@@ -4,7 +4,7 @@ package Server.Controller.BBDD;
 
 
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
-import Server.Model.Song;
+import Model.Song;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

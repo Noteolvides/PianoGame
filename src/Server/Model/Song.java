@@ -1,4 +1,4 @@
-package Server.Model;
+package Model;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,29 +9,45 @@ public class Song implements Serializable {
     @Column(name="SongId")
     @Id
     private int SongID;
-    @Column(name="name")
-    private String name;
-    @Column(name="duration")
+    @Column(name="Name")
+    private String title;
+    @Column(name="Duration")
     private int duration;
-    @Column(name="description")
+    @Column(name="Description")
     private String description;
     @ManyToOne
-    @JoinColumn(name="author")
+    @JoinColumn(name="Author")
     private User author;
-    @Column(name="plays")
+    @Column(name="Plays")
     private int plays;
-    @Column(name="filepath")
+    @Column(name="File_Path")
     private String filePath;
+    @ManyToOne
+    @JoinColumn(name="SystemID")
+    private Syst system;
 
+    public Song () {
+        title = "default";
+        duration = 0;
+        description = "default";
+    }
 
-    public Song(int songID, String name, int duration, String description, User author, int plays, String filePath) {
-        SongID = songID;
-        this.name = name;
+    public Song(String name, int duration, String description,int plays, String filePath, Syst syst) {
+        this.title = name;
         this.duration = duration;
         this.description = description;
-        this.author = author;
         this.plays = plays;
         this.filePath = filePath;
+        this.system = syst;
+    }
+
+    public Song(String name, int duration, String description,int plays, String filePath, User autor) {
+        this.title = name;
+        this.duration = duration;
+        this.description = description;
+        this.plays = plays;
+        this.filePath = filePath;
+        this.author = autor;
     }
 
     public int getSongID() {
@@ -42,12 +58,12 @@ public class Song implements Serializable {
         SongID = songID;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String name) {
+        this.title = name;
     }
 
     public int getDuration() {
@@ -88,5 +104,13 @@ public class Song implements Serializable {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public Syst getSystem() {
+        return system;
+    }
+
+    public void setSystem(Syst syst) {
+        this.system = syst;
     }
 }

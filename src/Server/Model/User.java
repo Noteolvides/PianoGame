@@ -1,36 +1,53 @@
-package Server.Model;
+package Model;
+
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name="User")
 public class User {
-    @Column(name="name")
     @Id
-    private String name;
-    @Column(name="url")
+    @Column(name="Name")
+    private String nameUser;
+    @Column(name="Photo_Path")
     private String url;
-    @Column(name="password")
+    @Column(name="Password")
     private String password;
-    @Column(name="email")
+    @Column(name="Email")
     private String email;
-    @OneToMany(mappedBy="name", cascade= CascadeType.ALL)
+    @OneToMany(mappedBy="author", cascade= CascadeType.ALL)
     private List<Song> songs;
+    @ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+    @JoinTable(name="Friendship", joinColumns={@JoinColumn(name="Name1")}, inverseJoinColumns={@JoinColumn(name="Name2")})
+    private List <User> following;
+
+    //@ManyToMany(mappedBy="following")
+    //private List<User> followedBy = new ArrayList<User>();
+
+    public User () {
+        nameUser = "default";
+        password = "default";
+        email = "default";
+        following = new ArrayList<User>();
+        songs = new ArrayList<Song>();
+    }
+
 
     public User(String name, String url, String password, String email) {
-        this.name = name;
+        this.nameUser = name;
         this.url = url;
         this.password = password;
         this.email = email;
     }
 
-    public String getName() {
-        return name;
+    public String getNameUser() {
+        return nameUser;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNameUser(String name) {
+        this.nameUser = name;
     }
 
     public String getUrl() {
@@ -63,5 +80,18 @@ public class User {
 
     public List<Song> getSongs() {
         return songs;
+    }
+
+
+    public List<User> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(List<User> following) {
+        this.following = following;
+    }
+
+    public void addNewFriend (User user) {
+        following.add(user);
     }
 }

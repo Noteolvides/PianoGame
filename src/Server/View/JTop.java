@@ -20,7 +20,7 @@ public class JTop {
         ArrayList<SongPrueba> songs = new ArrayList<>();
         songs.add(new SongPrueba(1, "渡辺麻友", "She's so cute ❤"));
         songs.add(new SongPrueba(2, "岡田奈々", "Elegance and Prestige"));
-        songs.add(new SongPrueba(3, "矢吹奈子", "Mayu's daughter"));
+        songs.add(new SongPrueba(3, "柏木由紀", "Mayu's sister"));
         songs.add(new SongPrueba(4, "田中美久", "Mayu's daughter"));
         songs.add(new SongPrueba(5, "山本彩", "Let's rock it!"));
 

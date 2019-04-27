@@ -12,21 +12,22 @@ public class DedicatedServer extends Thread {
     private DataInputStream dataInputStream;
     private boolean running;
 
+    //TODO: cambiar valores constantes
     private static final int CONFIRMATION = 0;
     private static final int ERROR = -1;
+    private static final String GO_BACK = "go_back";
 
-    private static final int LOGIN = 1;
-    private static final int CHECK_USUARIO = 1;
-    private static final int GO_BACK = -1;
+    public static final String LOGIN = "login";
+    public static final String CHECK_USUARIO = "log_user";
 
-    private static final int REGISTER = 2;
-    private static final int CHECK_REGISTER = 1;
+    public static final String REGISTER = "register";
+    public static final String CHECK_REGISTER = "reg_user";
 
-    private static final int PIANO = 3;
+    public static final String PIANO = "piano";
 
-    private static final int SOCIAL = 4;
-    private static final int SEARCH_USER = 1;
-    private static final int ADD_USER = 2;
+    public static final String SOCIAL = "social";
+    public static final String SEARCH_USER = "search_user";
+    public static final String ADD_USER = "add_user";
 
     public DedicatedServer(Socket socket, Server server) throws IOException {
         this.socket = socket;
@@ -54,7 +55,7 @@ public class DedicatedServer extends Thread {
 
         while (running && !isInterrupted()) {
             try {
-                switch (dataInputStream.readInt()) {
+                switch (dataInputStream.readUTF()) {
                     //Login
                     case LOGIN:
                         loginComunication();
@@ -83,7 +84,7 @@ public class DedicatedServer extends Thread {
     private void loginComunication() throws IOException, ClassNotFoundException {
         boolean goBack = false;
         while (!goBack) {
-            switch (dataInputStream.readInt()) {
+            switch (dataInputStream.readUTF()) {
                 case CHECK_USUARIO:
                     //This will be the object to read and
                     objectInputStream.readObject();
@@ -107,7 +108,7 @@ public class DedicatedServer extends Thread {
     private void registerComunication() throws IOException, ClassNotFoundException {
         boolean goBack = false;
         while (!goBack){
-            switch (dataInputStream.readInt()) {
+            switch (dataInputStream.readUTF()) {
                 case CHECK_REGISTER:
                     //This will be the object to read and
                     objectInputStream.readObject();
@@ -128,7 +129,7 @@ public class DedicatedServer extends Thread {
     private void socialComunication() throws IOException, ClassNotFoundException {
         boolean goBack = false;
         while (!goBack){
-            switch (dataInputStream.readInt()) {
+            switch (dataInputStream.readUTF()) {
                 case SEARCH_USER:
                     //This will be the object to read and
                     objectInputStream.readObject();

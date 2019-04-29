@@ -34,6 +34,7 @@ public class ControllerJSocial implements MouseListener {
         if (e.getSource() instanceof JLabel) {
             if (e.getSource() == view.getSocialView().getjSocial().getSearchButton()) {
                 System.out.println("You are trying to find someone...");
+                controller.networkSearchSocial();
                 if (Math.random()> 0.5) {
                     view.getSocialView().showUserNotFound();
                 }
@@ -49,6 +50,7 @@ public class ControllerJSocial implements MouseListener {
                     controller.openPrincipal();
                 }
                 else {
+                    controller.networkAddSocial();
                     System.out.println("You have tried to add a new friend");
                 }
             }

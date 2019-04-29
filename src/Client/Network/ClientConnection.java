@@ -45,6 +45,7 @@ public class ClientConnection extends Thread{
      */
     public ClientConnection(Controller controller) {
         this.controller = controller;
+        nextFunc = "";
     }
 
     /**

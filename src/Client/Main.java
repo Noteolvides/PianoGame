@@ -11,7 +11,7 @@ public class Main {
         Controller controller = new Controller(view);
         controller.registerController();
         ClientConnection network = new ClientConnection(controller);
-        network.run();
         controller.registerNetwork(network);
+        network.run();
     }
 }

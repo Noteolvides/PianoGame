@@ -1,8 +1,6 @@
 package Client.Controller.Start;
 
 import Client.Controller.Controller;
-import Client.View.Start.JRegister;
-import Client.View.Start.JStart;
 import Client.View.View;
 
 import java.awt.event.ActionEvent;
@@ -22,6 +20,7 @@ public class StartController implements ActionListener {
             System.out.println(view.getStartView().getLogin());
             System.out.println(view.getStartView().getPassword());
             System.out.println("Sing in");
+            controller.networkLogIn();
             controller.openPrincipal();
             controller.closeStart();
         }

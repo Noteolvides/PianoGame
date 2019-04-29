@@ -1,5 +1,7 @@
 package Server.Network;
 
+import Model.User;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -72,6 +74,9 @@ public class DedicatedServer extends Thread {
                     case SOCIAL:
                         socialComunication();
                         break;
+                        default:
+                            //Nothing
+                            break;
                 }
             } catch (IOException e) {
                 System.out.println(e.getMessage());
@@ -87,14 +92,19 @@ public class DedicatedServer extends Thread {
             switch (dataInputStream.readUTF()) {
                 case CHECK_USUARIO:
                     //This will be the object to read and
-                    objectInputStream.readObject();
+                    User user = (User) objectInputStream.readObject();
+                    System.out.println(user.getNameUser());
+
                     //Then we want to check if the object Exist in the database
 
                     //Here we make a  query to de databas
                     //If the query return true
-                    dataOutputStream.writeInt(CONFIRMATION);
+                    if (true){
+                        dataOutputStream.writeInt(CONFIRMATION);
+                    }else {
+                        dataOutputStream.writeInt(ERROR);
+                    }
                     //Else
-                    dataOutputStream.writeInt(ERROR);
                     break;
                 case GO_BACK:
                     goBack = true;

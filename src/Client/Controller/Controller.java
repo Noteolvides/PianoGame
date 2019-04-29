@@ -139,7 +139,7 @@ public class Controller {
         network.setNextFunc(REGISTER);
     }
 
-    public void networkPaino() {
+    public void networkPiano() {
         network.setNextFunc(PIANO);
     }
 

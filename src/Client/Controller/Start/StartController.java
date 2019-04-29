@@ -34,6 +34,7 @@ public class StartController implements ActionListener {
             System.out.println(view.getRegisterView().getPassword());
             System.out.println(view.getRegisterView().getPasswordVerify());
             System.out.println("Registered");
+            controller.networkRegister();
             controller.closeRegister();
         }
     }

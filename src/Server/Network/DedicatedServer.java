@@ -1,8 +1,15 @@
 package Server.Network;
 
+import Model.User;
+import Server.Controller.BBDD.Resources.BBDDException;
+import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import java.io.*;
 import java.net.Socket;
 
+@Controller
 public class DedicatedServer extends Thread {
     private Socket socket;
     private Server server;
@@ -28,6 +35,9 @@ public class DedicatedServer extends Thread {
     public static final String SOCIAL = "social";
     public static final String SEARCH_USER = "search_user";
     public static final String ADD_USER = "add_user";
+
+    @Autowired
+    private ServiceBBDDServer serviceBBDDServer;
 
     public DedicatedServer(Socket socket, Server server) throws IOException {
         this.socket = socket;
@@ -72,6 +82,9 @@ public class DedicatedServer extends Thread {
                     case SOCIAL:
                         socialComunication();
                         break;
+                        default:
+                            //Nothing
+                            break;
                 }
             } catch (IOException e) {
                 System.out.println(e.getMessage());
@@ -87,14 +100,20 @@ public class DedicatedServer extends Thread {
             switch (dataInputStream.readUTF()) {
                 case CHECK_USUARIO:
                     //This will be the object to read and
-                    objectInputStream.readObject();
-                    //Then we want to check if the object Exist in the database
+                    User user = (User) objectInputStream.readObject();
+                    System.out.println(user.getNameUser());
 
+                    //Then we want to check if the object Exist in the database
+                    try {
+                        serviceBBDDServer.getInstanceOfAUser(user.getNameUser(),user.getPassword());
+                    } catch (BBDDException e) {
+                        dataOutputStream.writeInt(ERROR);
+                        e.printStackTrace();
+                    }
                     //Here we make a  query to de databas
                     //If the query return true
                     dataOutputStream.writeInt(CONFIRMATION);
                     //Else
-                    dataOutputStream.writeInt(ERROR);
                     break;
                 case GO_BACK:
                     goBack = true;
@@ -148,4 +167,13 @@ public class DedicatedServer extends Thread {
             }
         }
     }
+
+    public ServiceBBDDServer getServiceBBDDServer() {
+        return serviceBBDDServer;
+    }
+
+    public void setServiceBBDDServer(ServiceBBDDServer serviceBBDDServer) {
+        this.serviceBBDDServer = serviceBBDDServer;
+    }
+
 }

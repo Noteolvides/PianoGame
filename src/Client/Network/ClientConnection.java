@@ -85,7 +85,6 @@ public class ClientConnection extends Thread{
         running = true;
 
         while (running && !isInterrupted()) {
-            //TODO: falta que el controller faci un setter cada vegada que fa una de les funcions
             switch (nextFunc) {
                 case LOGIN:
                     loginUser();
@@ -95,7 +94,7 @@ public class ClientConnection extends Thread{
                     break;
                 case PIANO:
                     break;
-                case SOCIAL:
+                case SEARCH_USER:
                     searchUser();
                     break;
                 case ADD_USER:
@@ -105,6 +104,7 @@ public class ClientConnection extends Thread{
                     //Nothing
                     break;
             }
+            nextFunc = "Nothing";
         }
 
     }

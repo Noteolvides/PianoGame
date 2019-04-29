@@ -1,6 +1,9 @@
 package Server.View;
 
+import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import Server.Controller.JTopController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -8,15 +11,19 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
+@Controller
 public class JTop {
     //public JList songTop;
+    @Autowired
+    private ServiceBBDDServer service;
     private JFrame frameTop = new JFrame("TOP 5 - Popular Songs"); //Prova
     private JPanel songTop = new JPanel();
     private ArrayList<SongView> songsList;
     private JPanel songsGroup = new JPanel();
 
     public void JTop(){                            //Pass ArrayList<Song> to the constructor and for each one add Number 1-5
-
+        service.getTop5Songs();
+        //TODO: Map TOP5 Songs
         ArrayList<SongPrueba> songs = new ArrayList<>();
         songs.add(new SongPrueba(1, "渡辺麻友", "She's so cute ❤"));
         songs.add(new SongPrueba(2, "岡田奈々", "Elegance and Prestige"));

@@ -15,8 +15,7 @@ CREATE TABLE IF NOT EXISTS Syst(
 DROP TABLE IF EXISTS User;
 CREATE TABLE IF NOT EXISTS User(
   Name VARCHAR(255),
-  Photo BLOB,
-  #Photo_Path VARCHAR(255),
+  Photo_Path VARCHAR(255),
   Password char(32),
   Email CHAR(255),
   PRIMARY KEY (Name)
@@ -48,9 +47,9 @@ CREATE TABLE IF NOT EXISTS Song(
 );
 
 
-CREATE USER 'noAlias'@'localhost' IDENTIFIED BY 'password';
-CREATE USER 'normalUser'@'localhost' IDENTIFIED BY 'normalUserPassword';
-CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
+CREATE USER 'noAlias' IDENTIFIED BY 'Password_1999';
+CREATE USER 'normalUser' IDENTIFIED BY 'NormalUserPassword_1999';
+CREATE USER 'admin' IDENTIFIED BY 'Admin_1999';
 
 GRANT ALL PRIVILEGES ON * . * TO 'admin'@'localhost';
 GRANT SELECT  ON SmartPiano. * TO 'normalUser'@'localhost';
@@ -60,7 +59,6 @@ GRANT UPDATE ON SmartPiano. * TO 'normalUser'@'localhost';
 GRANT INSERT ON SmartPiano. * TO 'noAlias'@'localhost';
 GRANT SELECT ON SmartPiano. * TO 'noAlias'@'localhost';
 #Permission to allow to a user to execute a procedure
-GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser'@'localhost';
 
 SELECT * FROM Song;
 SELECT * FROM Friendship;
@@ -98,16 +96,9 @@ BEGIN
 END $$
 DELIMITER ;
 
-INSERT INTO Syst (Name, Date, TotalOfUsers) VALUES ('System',DATE(NOW()),99);
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path,SystemID) VALUES ('pepe',12,'pepe',120,'pepe.mp3',1);
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('todays class',12,'pepe',56,'pepe.mp3','pepe');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('josepsSong',12,'pepe',89,'pepe.mp3','pepe');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('classo',12,'pepe',91,'pepe.mp3','josep');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('pepeSong',12,'pepe',91,'pepe.mp3','josep');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('FlamencoGitano',12,'pepe',57,'pepe.mp3','pepe');
-
-INSERT INTO User (Name, Photo_Path, Password, Email) VALUES ('josep','hola.txt','roig','joseproig1999');
-INSERT INTO User (Name, Photo_Path, Password, Email) VALUES ('pepe','holas.txt','roig','peperoig1999');
+GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser'@'localhost';
 
 
 SELECT * FROM User;
+
+INSERT  into User(name, password) values ('pepe','nada');

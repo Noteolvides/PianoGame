@@ -4,6 +4,7 @@ import Server.Controller.Controller;
 import Server.Controller.JEvolutionController;
 import Server.Controller.JTopController;
 import Server.Controller.RegisterController;
+import Server.Network.Server;
 import Server.View.JEvolution;
 import Server.View.JTop;
 import Server.View.ServerViews;
@@ -15,6 +16,8 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        Server server = new Server();
+        server.startServer();
         ServerViews serverViews = new ServerViews();
 
         View view = new View();

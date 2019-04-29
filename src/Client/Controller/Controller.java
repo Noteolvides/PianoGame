@@ -3,13 +3,17 @@ package Client.Controller;
 import Client.Controller.MenuPrincipal.JPrincipalController;
 import Client.Controller.Piano.PianoController;
 import Client.Controller.Start.StartController;
+import Client.Network.ClientConnection;
 import Client.View.View;
 import Model.User;
 
 import java.util.Arrays;
 
+import static Client.Network.ClientConnection.*;
+
 public class Controller {
     private View view;
+    private ClientConnection network;
     private StartController startController;
     private JPrincipalController principalController;
     private PianoController pianoController;
@@ -19,6 +23,10 @@ public class Controller {
     public Controller(View view) {
         this.view = view;
         view.initStartView();
+    }
+
+    public void registerNetwork(ClientConnection network) {
+        this.network = network;
     }
 
     public void registerController() {
@@ -120,5 +128,25 @@ public class Controller {
 
     public User getAddedUser() {
         return new User(view.getSocialView().getjSocial().getSearchUser()); //Not getting the one who has been added, getting the one who was searched.
+    }
+
+    public void networkLogIn() {
+        network.setNextFunc(LOGIN);
+    }
+
+    public void networkRegister() {
+        network.setNextFunc(REGISTER);
+    }
+
+    public void networkPaino() {
+        network.setNextFunc(PIANO);
+    }
+
+    public void networkSearchSocial() {
+        network.setNextFunc(SEARCH_USER);
+    }
+
+    public void networkAddSocial() {
+        network.setNextFunc(ADD_USER);
     }
 }

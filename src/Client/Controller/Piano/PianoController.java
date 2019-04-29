@@ -2,7 +2,6 @@ package Client.Controller.Piano;
 
 import Client.Controller.Controller;
 import Client.View.View;
-import com.sun.glass.events.KeyEvent;
 import org.jfugue.realtime.RealtimePlayer;
 import org.jfugue.theory.Note;
 

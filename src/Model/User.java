@@ -2,12 +2,13 @@ package Model;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name="User")
-public class User {
+public class User implements Serializable {
     @Id
     @Column(name="Name")
     private String nameUser;

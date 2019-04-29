@@ -27,6 +27,7 @@ public class Controller {
 
     public void registerNetwork(ClientConnection network) {
         this.network = network;
+        network.establishConnection();
     }
 
     public void registerController() {

@@ -56,8 +56,9 @@ GRANT SELECT  ON SmartPiano. * TO 'normalUser'@'localhost';
 GRANT INSERT  ON SmartPiano. * TO 'normalUser'@'localhost';
 GRANT DELETE  ON SmartPiano. * TO 'normalUser'@'localhost';
 GRANT UPDATE ON SmartPiano. * TO 'normalUser'@'localhost';
-GRANT INSERT ON SmartPiano. * TO 'noAlias'@'localhost';
-GRANT SELECT ON SmartPiano. * TO 'noAlias'@'localhost';
+GRANT INSERT ON SmartPiano. * TO 'noAlias'@'localhost' WITH GRANT OPTION;
+GRANT SELECT ON SmartPiano. * TO 'noAlias'@'localhost' WITH GRANT OPTION;
+
 #Permission to allow to a user to execute a procedure
 
 SELECT * FROM Song;

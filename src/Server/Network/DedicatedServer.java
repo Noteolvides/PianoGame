@@ -103,7 +103,6 @@ public class DedicatedServer extends Thread {
                         service.getInstanceOfAUser(user.getNameUser(),user.getPassword());
                     } catch (BBDDException e) {
                         dataOutputStream.writeInt(ERROR);
-                        e.printStackTrace();
                     }
                     //Here we make a  query to de databas
                     //If the query return true
@@ -125,14 +124,17 @@ public class DedicatedServer extends Thread {
             switch (dataInputStream.readUTF()) {
                 case CHECK_REGISTER:
                     //This will be the object to read and
-                    objectInputStream.readObject();
+                    User user =  (User)objectInputStream.readObject();
                     //Then we want to check if the object The new User has been inserted
-
+                    try {
+                        service.createUserFromNoUser(user);
+                    } catch (BBDDException e) {
+                        dataOutputStream.writeInt(ERROR);
+                    }
                     //Here we make a  query to de databas
                     //If the query return true
                     dataOutputStream.writeInt(CONFIRMATION);
-                    //Else
-                    dataOutputStream.writeInt(ERROR);
+
                     break;
                 case GO_BACK:
                     goBack = true;

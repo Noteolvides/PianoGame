@@ -121,9 +121,12 @@ public class Controller {
     }
 
     public User getRegister() {
+        StringBuilder password = new StringBuilder();
+        for (int i = 0; i < view.getRegisterView().getPassword().length; i++) {
+            password.append(view.getRegisterView().getPassword()[i]);
+        }
         return new User(view.getRegisterView().getUsername(),
-                view.getRegisterView().getEmail(),
-                Arrays.toString(view.getRegisterView().getPassword()));
+                view.getRegisterView().getEmail(),password.toString());
     }
 
     public User getSearchedUser() {

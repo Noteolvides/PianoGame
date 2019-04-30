@@ -90,6 +90,12 @@ public class DAOServer extends HibernateDaoSupport {
         getHibernateTemplate().save(newUser);
     }
 
+    @Transactional
+    public void insertUserTable (User user) {
+        getHibernateTemplate().save(user);
+    }
+
+
     @Transactional (readOnly = true)
     public void checkSongExistence (final String songName) throws BBDDException{
         List list = getHibernateTemplate().find("SELECT COUNT(*) FROM " + Song.class.getName() + " AS s WHERE s.title = '" + songName + "'");

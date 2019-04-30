@@ -182,6 +182,12 @@ public class ServiceBBDDServer {
         }
     }
 
+    public void createUserFromNoUser (User user) throws BBDDException {
+        dao.checkExistenceUserDatabaseWithoutPassword(user.getNameUser(),true);
+        dao.insertUserTable(user);
+    }
+
+
     public void createUserFromNoUser (String username, String password, String photoPath, String email) throws Exception {
         if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
             ServerContextHolder.set(AvaiableClients.noUserSmartPiano);

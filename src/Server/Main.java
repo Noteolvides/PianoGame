@@ -9,6 +9,9 @@ import Server.View.JEvolution;
 import Server.View.JTop;
 import Server.View.ServerViews;
 import Server.View.View;
+import javafx.application.Application;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.swing.*;
 import java.awt.*;

@@ -40,7 +40,7 @@
     </bean>
 
     <bean id="controllerJ2" class="Server.Network.DedicatedServer">
-        <property name="serviceBBDDServer" ref="service2" />
+        <property name="service" ref="service2" />
     </bean>
 
     <bean id="dao2" class="Server.Controller.BBDD.DAOBBDD.DAOServer"/>

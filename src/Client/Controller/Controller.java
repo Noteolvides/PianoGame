@@ -113,8 +113,11 @@ public class Controller {
     }
 
     public User getLogin() {
-        return new User(view.getStartView().getLogin(),
-                Arrays.toString(view.getStartView().getPassword()));
+        StringBuilder password = new StringBuilder();
+        for (int i = 0; i < view.getStartView().getPassword().length; i++) {
+            password.append(view.getStartView().getPassword()[i]);
+        }
+        return new User(view.getStartView().getLogin(), password.toString());
     }
 
     public User getRegister() {

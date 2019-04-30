@@ -37,15 +37,10 @@ public class DedicatedServer extends Thread {
     public static final String ADD_USER = "add_user";
 
     @Autowired
-    private ServiceBBDDServer serviceBBDDServer;
+    private ServiceBBDDServer service;
 
-    public DedicatedServer(Socket socket, Server server) throws IOException {
-        this.socket = socket;
-        this.server = server;
-        startDedicatedServer();
-    }
 
-    private void startDedicatedServer() throws IOException {
+    public void startDedicatedServer() throws IOException {
         objectInputStream = new ObjectInputStream(socket.getInputStream());
         objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         dataInputStream = new DataInputStream(socket.getInputStream());
@@ -105,7 +100,7 @@ public class DedicatedServer extends Thread {
 
                     //Then we want to check if the object Exist in the database
                     try {
-                        serviceBBDDServer.getInstanceOfAUser(user.getNameUser(),user.getPassword());
+                        service.getInstanceOfAUser(user.getNameUser(),user.getPassword());
                     } catch (BBDDException e) {
                         dataOutputStream.writeInt(ERROR);
                         e.printStackTrace();
@@ -168,12 +163,20 @@ public class DedicatedServer extends Thread {
         }
     }
 
-    public ServiceBBDDServer getServiceBBDDServer() {
-        return serviceBBDDServer;
+    public ServiceBBDDServer getService() {
+        return service;
     }
 
-    public void setServiceBBDDServer(ServiceBBDDServer serviceBBDDServer) {
-        this.serviceBBDDServer = serviceBBDDServer;
+    public void setService(ServiceBBDDServer service) {
+        this.service = service;
     }
 
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
+
+    public void setServer(Server server) {
+        this.server = server;
+    }
 }

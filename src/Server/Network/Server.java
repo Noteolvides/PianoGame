@@ -1,6 +1,9 @@
 package Server.Network;
 
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,9 +15,13 @@ public class Server extends Thread{
     private ServerSocket serverSocket;
     private static final int PORT = 5000;
     private boolean running;
+    private final ApplicationContext context;
+
+
 
     public Server(){
         dedicatedServers = new LinkedList<>();
+        context =  new ClassPathXmlApplicationContext("Server/Controller/BBDD/Resources/applicationContextService.xml");
         running = false;
     }
 
@@ -43,7 +50,13 @@ public class Server extends Thread{
             try {
                 System.out.println("Waiting for a new Pianist..");
                 Socket socket = serverSocket.accept();
-                dedicatedServers.add(new DedicatedServer(socket,this));
+
+                DedicatedServer dedicatedServer = (DedicatedServer) context.getBean("controllerJ2");
+                dedicatedServer.setSocket(socket);
+                dedicatedServer.setServer(this);
+                dedicatedServer.startDedicatedServer();
+                dedicatedServers.add(dedicatedServer);
+
             }catch (IOException e){
                 e.printStackTrace();
             }

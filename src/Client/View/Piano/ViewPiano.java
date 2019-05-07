@@ -8,6 +8,9 @@ public class ViewPiano extends JLayeredPane {
     public static final int numberOfKeys = 14;
     private ArrayList<Key> keys = new ArrayList<>();
 
+    private InputMap im = getInputMap(WHEN_FOCUSED);
+    private ActionMap am = getActionMap();
+
     public ViewPiano() {
 
         setLayout(null);
@@ -59,6 +62,14 @@ public class ViewPiano extends JLayeredPane {
         creationOfPiano(level);
         revalidate();
         repaint();
+    }
+
+    public InputMap getIm() {
+        return im;
+    }
+
+    public ActionMap getAm() {
+        return am;
     }
 
     public ArrayList<Key> getKeys() {

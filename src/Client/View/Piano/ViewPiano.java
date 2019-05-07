@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class ViewPiano extends JLayeredPane {
 
-    static final int numberOfKeys = 14;
+    public static final int numberOfKeys = 14;
     private ArrayList<Key> keys = new ArrayList<>();
 
     private InputMap im = getInputMap(WHEN_FOCUSED);
@@ -55,6 +55,9 @@ public class ViewPiano extends JLayeredPane {
     }
 
     public void goOctave(int level) {
+        for (Key k : keys){
+            this.remove(k);
+        }
         keys.clear();
         creationOfPiano(level);
         revalidate();

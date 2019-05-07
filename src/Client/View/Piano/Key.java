@@ -38,4 +38,12 @@ public class Key extends JPanel {
         revalidate();
         repaint();
     }
+
+    public void goLevel(int level) {
+        String str = numberOfKey.getText();
+        str = str.substring(0, str.length() - 1) + level;
+        numberOfKey.setText(str);
+        revalidate();
+        repaint();
+    }
 }

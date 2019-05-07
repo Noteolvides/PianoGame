@@ -32,18 +32,17 @@ public class PianoController {
 
     private void initController() {
         view.initPianoView();
-        view.getPianoView().getLeftOption().getNextOctave().addActionListener(e -> {
-            if (actualOctave > 0) {
-                actualOctave--;
-                view.getPianoView().getPiano().goOctave(actualOctave);
-            }
-        });
-        view.getPianoView().getLeftOption().getPrevOctave().addActionListener(e -> {
-            if (actualOctave < 6) {
-                actualOctave++;
-                view.getPianoView().getPiano().goOctave(actualOctave);
-            }
-        });
+        for (int i = 0; i < 6; i++) {
+            view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(i+""), i+"");
+            int finalI = i;
+            view.getPianoView().getPiano().getAm().put(i+"", new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    view.getPianoView().getPiano().goOctave(finalI);
+                }
+            });
+        }
+        //TODO : No funcionan los botonoes
         view.getPianoView().getTopOption().getExitToMenu().addActionListener(e -> {
             controller.closePiano();
             controller.openPrincipal();
@@ -75,7 +74,10 @@ public class PianoController {
                 public void actionPerformed(ActionEvent e) {
                     if (!activado[finalI]) {
                         k.touch();
-                        realtimePlayer.startNote(new Note("A"));
+                        String str = k.getNumberOfKey().getText();
+                        int actualValue = Integer.valueOf(str.substring(str.length() -1 , str.length())) + 3;
+                        str = str.substring(0, str.length() - 1) + actualValue;
+                        realtimePlayer.startNote(new Note(str));
                         activado[finalI] = true;
                     }
                 }
@@ -85,7 +87,10 @@ public class PianoController {
                 public void actionPerformed(ActionEvent e) {
                     activado[finalI] = false;
                     k.unTouch();
-                    realtimePlayer.stopNote(new Note("A"));
+                    String str = k.getNumberOfKey().getText();
+                    int actualValue = Integer.valueOf(str.substring(str.length() -1 , str.length())) + 3;
+                    str = str.substring(0, str.length() - 1) + actualValue;
+                    realtimePlayer.stopNote(new Note(str));
                 }
             });
             i++;

@@ -1,11 +1,14 @@
 package Client.Controller.Piano;
 
 import Client.Controller.Controller;
+import Client.View.Piano.Key;
 import Client.View.View;
 import org.jfugue.realtime.RealtimePlayer;
 import org.jfugue.theory.Note;
 
+import javax.sound.midi.MidiUnavailableException;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class PianoController {
@@ -29,6 +32,7 @@ public class PianoController {
     private void initController() {
         view.initPianoView();
             view.getPianoView().getLeftOption().getNextOctave().addActionListener(e -> {
+                view.getPianoView().getPiano().getKeys().get(0).touch();
                 if (actualOctave > 0){
                     actualOctave--;
                     view.getPianoView().getPiano().goOctave(actualOctave);
@@ -49,23 +53,33 @@ public class PianoController {
             controller.openSong();
         });
 
-        final Boolean[] activado = {false};
-        view.getPianoView().getPiano().getKeys().get(0).getIm().put(KeyStroke.getKeyStroke("A"), "A");
-        view.getPianoView().getPiano().getKeys().get(0).getIm().put(KeyStroke.getKeyStroke("released A"), "A released");
-        view.getPianoView().getPiano().getKeys().get(0).getAm().put("A", new AbstractAction() {
+        try {
+            realtimePlayer = new RealtimePlayer();
+        } catch (MidiUnavailableException e) {
+            e.printStackTrace();
+        }
+
+        final boolean[] activado = new boolean[24];
+        
+        view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke("A"), "A");
+        view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke("released A"), "A released");
+        view.getPianoView().getPiano().getAm().put("A", new AbstractAction() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 					    if (!activado[0]){
-					        realtimePlayer.startNote(new Note("A"));
+                            view.getPianoView().getPiano().getKeys().get(0).touch();
+                            view.getPianoView().getPiano().rePaint();
+                            realtimePlayer.startNote(new Note("A"));
 					        activado[0] = true;
 						}
 					}
 				});
 
-        view.getPianoView().getPiano().getKeys().get(0).getAm().put("A released", new AbstractAction() {
+        view.getPianoView().getPiano().getAm().put("A released", new AbstractAction() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 					    activado[0] = false;
+                        view.getPianoView().getPiano().getKeys().get(0).unTouch();
 						realtimePlayer.stopNote(new Note("A"));
 					}
 				});

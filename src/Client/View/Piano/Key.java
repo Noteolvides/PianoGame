@@ -12,6 +12,7 @@ public class Key extends JPanel {
     public static final int sizeKeyBlackY = 120;
 
     private JLabel numberOfKey = new JLabel();
+    private Color colorKey;
 
     public void setLabel(Color colorLabel,String text){
         setLayout(new BorderLayout());
@@ -23,5 +24,18 @@ public class Key extends JPanel {
 
     public JLabel getNumberOfKey() {
         return numberOfKey;
+    }
+
+    public void touch() {
+        colorKey = getBackground();
+        setBackground(Color.gray);
+        revalidate();
+        repaint();
+    }
+
+    public void unTouch(){
+        setBackground(colorKey);
+        revalidate();
+        repaint();
     }
 }

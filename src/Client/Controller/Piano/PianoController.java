@@ -13,7 +13,8 @@ public class PianoController {
     private Controller controller;
     private int actualOctave; //TODO : Revision of this atribute
     private RealtimePlayer realtimePlayer;
-
+    private char[] keyBoardConfiguration = new char[]{'A','S','D','F','G','H','J','Z','X','C','V','B','N','M','Q','W','E','R','T','Y','U'};//TODO : OTRO ATRIBUTO QUE DEBERIA ESTAR EN MODEL
+    private boolean[] isPresed = new boolean[24];
     public static void main(String[] args) {
         //View view = new View();
         //PianoController pianoController = new PianoController(view, controller);

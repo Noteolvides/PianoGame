@@ -16,8 +16,9 @@ public class PianoController {
     private Controller controller;
     private int actualOctave; //TODO : Revision of this atribute
     private RealtimePlayer realtimePlayer;
-    private char[] keyBoardConfiguration = new char[]{'A','S','D','F','G','H','J','Z','X','C','V','B','N','M','Q','W','E','R','T','Y','U','I','O','P','L'};//TODO : OTRO ATRIBUTO QUE DEBERIA ESTAR EN MODEL
+    private char[] keyBoardConfiguration = new char[]{'A', 'S', 'D', 'F', 'G', 'H', 'J', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'L'};//TODO : OTRO ATRIBUTO QUE DEBERIA ESTAR EN MODEL
     private boolean[] isPresed = new boolean[24];
+
     public static void main(String[] args) {
         //View view = new View();
         //PianoController pianoController = new PianoController(view, controller);
@@ -31,18 +32,16 @@ public class PianoController {
 
     private void initController() {
         view.initPianoView();
-            view.getPianoView().getLeftOption().getNextOctave().addActionListener(e -> {
-                if (actualOctave > 0){
-                    actualOctave--;
-                    view.getPianoView().getPiano().goOctave(actualOctave);
-                    controlKeys();
-                }
+        view.getPianoView().getLeftOption().getNextOctave().addActionListener(e -> {
+            if (actualOctave > 0) {
+                actualOctave--;
+                view.getPianoView().getPiano().goOctave(actualOctave);
+            }
         });
         view.getPianoView().getLeftOption().getPrevOctave().addActionListener(e -> {
-            if (actualOctave < 6){
+            if (actualOctave < 6) {
                 actualOctave++;
                 view.getPianoView().getPiano().goOctave(actualOctave);
-                controlKeys();
             }
         });
         view.getPianoView().getTopOption().getExitToMenu().addActionListener(e -> {
@@ -67,26 +66,26 @@ public class PianoController {
     private void controlKeys() {
         final boolean[] activado = new boolean[24];
         int i = 0;
-        for (Key k:  view.getPianoView().getPiano().getKeys()){
+        for (Key k : view.getPianoView().getPiano().getKeys()) {
             view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(keyBoardConfiguration[i]), keyBoardConfiguration[i]);
-            view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke("released "+keyBoardConfiguration[i]), keyBoardConfiguration[i]+" released");
+            view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke("released " + keyBoardConfiguration[i]), keyBoardConfiguration[i] + " released");
             int finalI = i;
             view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i], new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (!activado[finalI]){
+                    if (!activado[finalI]) {
                         k.touch();
-                        realtimePlayer.startNote(new Note(k.getNumberOfKey().getText()));
+                        realtimePlayer.startNote(new Note("A"));
                         activado[finalI] = true;
                     }
                 }
             });
-            view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i]+" released", new AbstractAction() {
+            view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i] + " released", new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     activado[finalI] = false;
                     k.unTouch();
-                    realtimePlayer.stopNote(new Note(k.getNumberOfKey().getText()));
+                    realtimePlayer.stopNote(new Note("A"));
                 }
             });
             i++;

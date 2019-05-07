@@ -31,7 +31,7 @@ public class ViewPiano extends JLayeredPane {
             }
         }
 
-        for (int i = 1; i <= numberOfKeys; i++) {
+        for (int i = 8; i <= numberOfKeys; i++) {
             createWhiteKey(i,level+1);
         }
 

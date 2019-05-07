@@ -1,5 +1,7 @@
 package Client.View.Piano;
 
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+
 import javax.swing.*;
 import java.util.ArrayList;
 
@@ -55,13 +57,15 @@ public class ViewPiano extends JLayeredPane {
     }
 
     public void goOctave(int level) {
+        int i= 0;
         for (Key k : keys){
-            this.remove(k);
+            if (i > 8){
+                k.goLevel(level+1);
+            }else {
+                k.goLevel(level);
+            }
+            i++;
         }
-        keys.clear();
-        creationOfPiano(level);
-        revalidate();
-        repaint();
     }
 
     public InputMap getIm() {

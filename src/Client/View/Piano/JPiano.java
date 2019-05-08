@@ -33,7 +33,7 @@ public class JPiano extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(50*(ViewPiano.numberOfKeys+2),330);
-        setVisible(true);
+        setVisible(false);
     }
 
     public TopPanel getTopOption() {

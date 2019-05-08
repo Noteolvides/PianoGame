@@ -26,6 +26,7 @@ public class JFriend extends JPanel {
     public JFriend (String name, String nombreImagen, Boolean isFriend) {
         //Initialization of the Layout
         setLayout(new GridBagLayout());
+        setVisible(false);
         GridBagConstraints gbc = new GridBagConstraints();
         //We put a size to always have the same
         setPreferredSize(new Dimension(390,125));

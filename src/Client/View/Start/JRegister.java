@@ -56,7 +56,7 @@ public class JRegister extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setResizable(false);
-        setVisible(true);
+        setVisible(false);
     }
 
     public String getUsername() {

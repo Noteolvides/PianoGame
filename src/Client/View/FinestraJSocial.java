@@ -11,7 +11,7 @@ public class FinestraJSocial extends JFrame {
         add(jSocial);
         //We make the frame not resizable
         setResizable(false);
-        setVisible(true);
+        setVisible(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
     public JSocial getjSocial() {

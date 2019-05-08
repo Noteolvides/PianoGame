@@ -43,7 +43,6 @@ public class JPrincipal extends JFrame {
             ex.printStackTrace();
             System.out.println("Error, no 'sha pogut accedir a la imatge interna");
         }
-
         JPanel vButtons = new JPanel();
         vButtons.setLayout(new BoxLayout(vButtons, BoxLayout.Y_AXIS));
 
@@ -87,7 +86,7 @@ public class JPrincipal extends JFrame {
         setSize(400,300);
         setMaximumSize(new Dimension(400, 300));
         setTitle("Smart Piano");
-        setVisible(true);
+        setVisible(false);
     }
 
     public void registerController(JPrincipalController pc) {

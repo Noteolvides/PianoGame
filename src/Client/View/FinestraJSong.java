@@ -11,7 +11,7 @@ public class FinestraJSong extends JFrame{
         comboSongView = new ComboSongView(new JSong(),new JLabel());
         add(comboSongView);
         setSize(400,1000);
-        setVisible(true);
+        setVisible(false);
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }

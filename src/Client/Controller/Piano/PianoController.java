@@ -76,27 +76,30 @@ public class PianoController {
 
             view.getPianoView().getTopOption().getSave().addActionListener(e ->{
                 recordSong = false;
-                view.getPianoView().getTopOption().getRecord().setEnabled(false);
+                view.getPianoView().getTopOption().getRecord().setEnabled(true);
                 ArrayList<KeyRecord> temporalKeys = new ArrayList<KeyRecord>(keys.values());
                 Note rest = null;
                 Note note = null;
                 StringBuilder song = new StringBuilder();
-                temporalKeys.sort(new Comparator<KeyRecord>() {
-                    @Override
-                    public int compare(KeyRecord o1, KeyRecord o2) {
-                        return o1.getId()-o2.getId();
-                    }
-                });
+                temporalKeys.sort(Comparator.comparingInt(KeyRecord::getId));
+                KeyRecord lastKey = null;
                 for (KeyRecord k: temporalKeys) {
-                    song.append("@");
-                    song.append((double) k.getStart()/(double)1000);
-                    song.append(", ");
+                    if (lastKey != null){
+                        if (k.getStart()-lastKey.getEnd() > 0){
+                            rest = new Note("R");
+                            rest.setDuration((double)(k.getStart()-lastKey.getEnd())/(double)1000);
+                            song.append(rest.toString());
+                            song.append(", ");
+                        }
+                    }
                     note = new Note(k.getKey());
                     note.setDuration((double)(k.getEnd()-k.getStart())/(double)1000);
                     song.append(note.toString());
                     song.append(", ");
+                    lastKey = k;
                 }
                 try {
+                    System.out.println(song.toString());
                     MidiFileManager
                             .savePatternToMidi(new Pattern(song.toString()), new File("Song.mid"));
                 } catch (IOException ex) {

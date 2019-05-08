@@ -4,6 +4,8 @@ import Client.Controller.Controller;
 import Client.View.Piano.Key;
 import Client.View.View;
 import Model.KeyRecord;
+import org.jfugue.midi.MidiFileManager;
+import org.jfugue.pattern.Pattern;
 import org.jfugue.realtime.RealtimePlayer;
 import org.jfugue.theory.Note;
 
@@ -11,7 +13,10 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class PianoController {
@@ -72,7 +77,31 @@ public class PianoController {
             view.getPianoView().getTopOption().getSave().addActionListener(e ->{
                 recordSong = false;
                 view.getPianoView().getTopOption().getRecord().setEnabled(false);
-                
+                ArrayList<KeyRecord> temporalKeys = new ArrayList<KeyRecord>(keys.values());
+                Note rest = null;
+                Note note = null;
+                StringBuilder song = new StringBuilder();
+                temporalKeys.sort(new Comparator<KeyRecord>() {
+                    @Override
+                    public int compare(KeyRecord o1, KeyRecord o2) {
+                        return o1.getId()-o2.getId();
+                    }
+                });
+                for (KeyRecord k: temporalKeys) {
+                    song.append("@");
+                    song.append((double) k.getStart()/(double)1000);
+                    song.append(", ");
+                    note = new Note(k.getKey());
+                    note.setDuration((double)(k.getEnd()-k.getStart())/(double)1000);
+                    song.append(note.toString());
+                    song.append(", ");
+                }
+                try {
+                    MidiFileManager
+                            .savePatternToMidi(new Pattern(song.toString()), new File("Song.mid"));
+                } catch (IOException ex) {
+                    //TODO : SAY ERROR TO USER
+                }
             });
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
@@ -99,14 +128,14 @@ public class PianoController {
                             activado[finalI] = numberOFkeys+1;
                             numberOFkeys++;
                         }
-                        keys.put(numberOFkeys,new KeyRecord(str,System.currentTimeMillis()));
+                        keys.put(numberOFkeys,new KeyRecord(str,realtimePlayer.getCurrentTime(),numberOFkeys));
                     }
                 }
             });
             view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i] + " released", new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    keys.get(activado[finalI]).setEnd(System.currentTimeMillis());
+                    keys.get(activado[finalI]).setEnd(realtimePlayer.getCurrentTime());
                     activado[finalI] = 0;
                     k.unTouch();
                     String str = k.getNumberOfKey().getText();

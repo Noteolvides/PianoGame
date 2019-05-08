@@ -68,6 +68,12 @@ public class PianoController {
                 view.getPianoView().getTopOption().getRecord().setEnabled(false);
                 keys.clear();
             });
+
+            view.getPianoView().getTopOption().getSave().addActionListener(e ->{
+                recordSong = false;
+                view.getPianoView().getTopOption().getRecord().setEnabled(false);
+                
+            });
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
         }

@@ -157,7 +157,8 @@ public class ServiceBBDDServer {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         dao.checkExistenceUserDatabaseWithoutPassword(user.getNameUser(),false);
         dao.updateUserTable(user);
-        dao.recyprocityFriendship();
+        //this metodh is useles
+        //dao.recyprocityFriendship();
         ServerContextHolder.clear();
     }
 

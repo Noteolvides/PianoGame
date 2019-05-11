@@ -20,7 +20,7 @@ public class User implements Serializable {
     private String email;
     @OneToMany(mappedBy="author", cascade= CascadeType.ALL)
     private List<Song> songs;
-    @ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name="Friendship", joinColumns={@JoinColumn(name="Name1")}, inverseJoinColumns={@JoinColumn(name="Name2")})
     private List <User> following;
 

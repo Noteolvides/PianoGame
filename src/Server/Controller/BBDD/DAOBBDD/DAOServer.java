@@ -196,7 +196,7 @@ public class DAOServer extends HibernateDaoSupport {
 
     @Transactional
     public void updateUserTable (User userModified) {
-        getHibernateTemplate().update(userModified);
+        getHibernateTemplate().merge(userModified);
     }
 
 
@@ -236,7 +236,6 @@ public class DAOServer extends HibernateDaoSupport {
             }
         });
     }
-
 
 
 }

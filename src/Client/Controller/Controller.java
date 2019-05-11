@@ -12,6 +12,9 @@ import java.util.Arrays;
 import static Client.Network.ClientConnection.*;
 
 public class Controller {
+    private static String WAITING = "wait";
+    private static String OK = "ok";
+    private static String KO = "ko";
     private View view;
     private ClientConnection network;
     private StartController startController;
@@ -19,6 +22,7 @@ public class Controller {
     private PianoController pianoController;
     private ControllerJSocial controllerJSocial;
     private ControllerJSong controllerJSong;
+    private String petitionStatus;
 
     public Controller(View view) {
         this.view = view;
@@ -139,6 +143,15 @@ public class Controller {
 
     public void networkLogIn() {
         network.setNextFunc(LOGIN);
+        while(petitionStatus.equals(WAITING)) {
+            //wait
+        }
+        if (petitionStatus.equals(OK)) {
+            //continue
+        }
+        if (petitionStatus.equals(KO)) {
+            //error
+        }
     }
 
     public void networkRegister() {
@@ -155,5 +168,13 @@ public class Controller {
 
     public void networkAddSocial() {
         network.setNextFunc(ADD_USER);
+    }
+
+    public String getPetitionStatus() {
+        return petitionStatus;
+    }
+
+    public void setPetitionStatus(String petitionStatus) {
+        this.petitionStatus = petitionStatus;
     }
 }

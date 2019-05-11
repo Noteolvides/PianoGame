@@ -12,9 +12,9 @@ import java.util.Arrays;
 import static Client.Network.ClientConnection.*;
 
 public class Controller {
-    private static String WAITING = "wait";
-    private static String OK = "ok";
-    private static String KO = "ko";
+    public static String WAITING = "wait";
+    public static String OK = "ok";
+    public static String KO = "ko";
     private View view;
     private ClientConnection network;
     private StartController startController;

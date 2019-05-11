@@ -117,7 +117,6 @@ public class ClientConnection extends Thread{
         //Todo: falta demanar l'usuari del controller
 
         try{
-            controller.setPetitionStatus(WAITING);
             //We sent to the server the current operation
             dOut.writeUTF(LOGIN);
             dOut.writeUTF(SEND_LOG_USER);
@@ -129,9 +128,9 @@ public class ClientConnection extends Thread{
             if (trans_estate == ERROR) {
                 System.out.println("Error, you couldn't login to server");
                 //TODO, QUE SALTI UN DIALOG
-                controller.setPetitionStatus(KO);
+                controller.networkLogInResult(KO);
             } else {
-                controller.setPetitionStatus(OK);
+                controller.networkLogInResult(OK);
                 dOut.writeUTF(GO_BACK);
             }
 

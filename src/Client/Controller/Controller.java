@@ -22,7 +22,6 @@ public class Controller {
     private PianoController pianoController;
     private ControllerJSocial controllerJSocial;
     private ControllerJSong controllerJSong;
-    private String petitionStatus;
 
     public Controller(View view) {
         this.view = view;
@@ -143,14 +142,14 @@ public class Controller {
 
     public void networkLogIn() {
         network.setNextFunc(LOGIN);
-        while(petitionStatus.equals(WAITING)) {
-            //wait
-        }
-        if (petitionStatus.equals(OK)) {
+    }
+
+    public void networkLogInResult(String petitionResult) {
+        if (petitionResult.equals(OK)) {
             openPrincipal();
             closeStart();
         }
-        if (petitionStatus.equals(KO)) {
+        if (petitionResult.equals(KO)) {
             view.getStartView().errorPopUp("login");
         }
     }
@@ -169,13 +168,5 @@ public class Controller {
 
     public void networkAddSocial() {
         network.setNextFunc(ADD_USER);
-    }
-
-    public String getPetitionStatus() {
-        return petitionStatus;
-    }
-
-    public void setPetitionStatus(String petitionStatus) {
-        this.petitionStatus = petitionStatus;
     }
 }

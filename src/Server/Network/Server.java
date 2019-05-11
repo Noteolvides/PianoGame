@@ -1,6 +1,8 @@
 package Server.Network;
 
 
+import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -12,6 +14,8 @@ import java.util.List;
 
 public class Server extends Thread{
     private List<DedicatedServer> dedicatedServers;
+    @Autowired
+    private ServiceBBDDServer serverService;
     private ServerSocket serverSocket;
     private static final int PORT = 5000;
     private boolean running;
@@ -21,7 +25,7 @@ public class Server extends Thread{
 
     public Server(){
         dedicatedServers = new LinkedList<>();
-        context =  new ClassPathXmlApplicationContext("Server/Controller/BBDD/Resources/applicationContextService.xml");
+        context =  new ClassPathXmlApplicationContext("Server/Controller/BBDD/Resources/applicationContext_2.xml");
         running = false;
     }
 
@@ -61,5 +65,17 @@ public class Server extends Thread{
                 e.printStackTrace();
             }
         }
+    }
+
+    public List<DedicatedServer> getDedicatedServers() {
+        return dedicatedServers;
+    }
+
+    public ServiceBBDDServer getServerService() {
+        return serverService;
+    }
+
+    public void setServerService(ServiceBBDDServer serverService) {
+        this.serverService = serverService;
     }
 }

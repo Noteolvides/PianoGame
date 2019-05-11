@@ -1,5 +1,6 @@
 package Server;
 
+import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import Server.Controller.Controller;
 import Server.Controller.JEvolutionController;
 import Server.Controller.JTopController;
@@ -9,7 +10,7 @@ import Server.View.JEvolution;
 import Server.View.JTop;
 import Server.View.ServerViews;
 import Server.View.View;
-import javafx.application.Application;
+//import javafx.application.Application;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -31,7 +32,8 @@ public class Main {
         JEvolution evolution = new JEvolution();
         evolution.JEvolution();
         JEvolutionController evoController = new JEvolutionController(evolution);
-        JTop top = new JTop();
+
+        JTop top = new JTop(server.getServerService());
         top.JTop();
         JTopController topController = new JTopController(top);
 

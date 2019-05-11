@@ -6,6 +6,8 @@ import Server.Controller.BBDD.Resources.BBDDException;
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 
 import java.io.*;
@@ -25,6 +27,7 @@ public class DedicatedServer extends Thread {
     private String userSave;
     private String friendSave;
 
+    private ApplicationContext context;
     private static final int CONFIRMATION = 0;
     private static final int ERROR = -1;
     private static final String GO_BACK = "go_back";
@@ -50,6 +53,9 @@ public class DedicatedServer extends Thread {
     @Autowired
     private ServiceBBDDServer service;
 
+    public DedicatedServer(){
+        context = new ClassPathXmlApplicationContext("Server/Controller/BBDD/Resources/applicationContextService.xml");
+    }
 
     public void startDedicatedServer() throws IOException {
         objectInputStream = new ObjectInputStream(socket.getInputStream());

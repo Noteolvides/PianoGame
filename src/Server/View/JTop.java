@@ -14,15 +14,19 @@ import java.util.ArrayList;
 @Controller
 public class JTop {
     //public JList songTop;
-    @Autowired
     private ServiceBBDDServer service;
     private JFrame frameTop = new JFrame("TOP 5 - Popular Songs"); //Prova
     private JPanel songTop = new JPanel();
     private ArrayList<SongView> songsList;
     private JPanel songsGroup = new JPanel();
 
+    public JTop(ServiceBBDDServer service){
+        this.service = service;
+    }
+
     public void JTop(){                            //Pass ArrayList<Song> to the constructor and for each one add Number 1-5
-        //service.getTop5Songs();
+
+        System.out.println(service.getTop5Songs().get(0).getTitle());
         //TODO: Map TOP5 Songs
         ArrayList<SongPrueba> songs = new ArrayList<>();
         songs.add(new SongPrueba(1, "渡辺麻友", "She's so cute ❤"));
@@ -73,12 +77,12 @@ public class JTop {
         frameTop.add(panelTop);
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         JTop h = new JTop();
         h.JTop();
         JTopController controller = new JTopController(h);
         h.registerController(controller);
-    }
+    }*/
 
     public void includeSongs (ArrayList <SongPrueba> songs) {
         //Adding a new array to not repeat different times the same songs, if we decide to refresh the window

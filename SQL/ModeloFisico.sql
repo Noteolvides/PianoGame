@@ -97,6 +97,16 @@ BEGIN
 END $$
 DELIMITER ;
 
+DELIMITER  $$
+DROP    PROCEDURE    IF    EXISTS basicConfiguration $$
+CREATE PROCEDURE  basicConfiguration ()
+BEGIN
+  SET @@session.time_zone = '+00:00';
+  SET @@global.time_zone = '+00:00';
+END $$
+DELIMITER ;
+
+
 GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser'@'localhost';
 
 

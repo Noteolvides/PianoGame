@@ -1,14 +1,19 @@
 package Client.Network;
 
 import Client.Controller.Controller;
+import Model.Song;
 import Model.User;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 import static Client.Controller.Controller.*;
 
-public class ClientConnection extends Thread{
+public class ClientConnection extends Thread {
     //Connection const.
     private static final int PORT = 5000;
     private static final String IP = "localhost";
@@ -32,6 +37,9 @@ public class ClientConnection extends Thread{
 
     public static final String DELETE_ACCOUNT = "delete_account";
     public static final String LOG_OUT = "log_out";
+
+    public static final String SELECT_SONG = "select_song";
+    public static final String SAVE_SONG = "save_song";
 
     //Controller
     private Controller controller;
@@ -58,7 +66,7 @@ public class ClientConnection extends Thread{
      * As a user, we make a request to the server to establish connection
      */
     public void establishConnection() {
-        try{
+        try {
             server = new Socket(IP, PORT);
             System.out.println("[CLIENT] Connection established");
 
@@ -99,6 +107,7 @@ public class ClientConnection extends Thread{
                     registerUser();
                     break;
                 case PIANO:
+
                     break;
                 case SOCIAL:
                     openSocialWindow();
@@ -118,11 +127,47 @@ public class ClientConnection extends Thread{
                 case DELETE_ACCOUNT:
                     deleteUser();
                     break;
+                case SAVE_SONG:
+                    saveSong();
+                    break;
+                case SELECT_SONG:
+                    selectSongs();
+                    break;
                 default:
                     //Nothing
                     break;
             }
             nextFunc = "Nothing";
+        }
+    }
+
+    private void saveSong() {
+    }
+
+    private void selectSongs() {
+        int trans_estate = CORRECT;
+
+        try {
+            dOut.writeUTF(SELECT_SONG);
+
+            Gson gson = new Gson();
+            String songsString =  dIn.readUTF();
+            ArrayList<Song> songs = gson.fromJson(songsString,new TypeToken<ArrayList <Song>>(){}.getType());
+
+            trans_estate = dIn.readInt();
+
+            if (trans_estate != ERROR) {
+                //TODO : Call to controller to actulize de screen with songs
+                for (Song s: songs) {
+                    System.out.println(s.getTitle());
+                }
+            }else{
+                //TODO : Print Error
+            }
+
+
+            } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
@@ -131,7 +176,7 @@ public class ClientConnection extends Thread{
     public void loginUser() {
         int trans_estate = CORRECT;
 
-        try{
+        try {
             //We sent to the server the current operation
             dOut.writeUTF(LOGIN);
             dOut.writeUTF(SEND_LOG_USER);
@@ -147,8 +192,7 @@ public class ClientConnection extends Thread{
                 controller.networkLogInResult(OK);
                 dOut.writeUTF(GO_BACK);
             }
-
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -157,7 +201,7 @@ public class ClientConnection extends Thread{
     public void registerUser() {
         int trans_estate = CORRECT;
 
-        try{
+        try {
             //We sent to the server the current operation
             dOut.writeUTF(REGISTER);
             dOut.writeUTF(SEND_REG_USER);
@@ -174,7 +218,7 @@ public class ClientConnection extends Thread{
 
             }
 
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -200,7 +244,7 @@ public class ClientConnection extends Thread{
     // Social functions
     public void openSocialWindow() {
         //We sent to the server the current operation
-        try{
+        try {
             dOut.writeUTF(SOCIAL);
         } catch (IOException e) {
             e.printStackTrace();
@@ -212,7 +256,6 @@ public class ClientConnection extends Thread{
 
         try {
             dOut.writeUTF(SEARCH_USER);
-
             //This will send the User Object that we want to log into our server
             dOut.writeUTF(controller.getSearchedUser());
 
@@ -222,12 +265,12 @@ public class ClientConnection extends Thread{
             if (trans_estate == ERROR) {
                 System.out.println("Error, this user doesn't exists");
                 controller.networkSearchSocialResult(KO, null);
-            }else{
+            } else {
                 User userToController = (User) obIn.readObject();
 
-                if (userToController.getPassword().equals("YES")){
+                if (userToController.getPassword().equals("YES")) {
                     controller.networkSearchSocialResult(OK, userToController);
-                }else{
+                } else {
                     controller.networkSearchSocialResult(OK, userToController);
                     System.out.println("Pues nos hacemos friends");
                     nextFunc = ADD_USER;

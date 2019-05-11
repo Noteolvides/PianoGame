@@ -1,13 +1,17 @@
 package Server.Network;
 
+import Model.Song;
 import Model.User;
 import Server.Controller.BBDD.Resources.BBDDException;
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class DedicatedServer extends Thread {
@@ -38,6 +42,9 @@ public class DedicatedServer extends Thread {
     public static final String ADD_USER = "add_user";
 
     public static final String LOG_OUT = "log_out";
+
+    public static final String SELECT_SONG = "select_song";
+    public static final String SAVE_SONG = "save_song";
 
 
     @Autowired
@@ -121,7 +128,26 @@ public class DedicatedServer extends Thread {
         }
     }
 
-    private void pianoComunication() {
+    private void pianoComunication() throws IOException {
+        boolean goBack = false;
+        while (!goBack){
+            switch (dataInputStream.readUTF()){
+                case SELECT_SONG:
+                    try {
+                        Gson gson = new Gson();
+                        ArrayList<Song> songs = (ArrayList<Song>) service.getSongsUser(userSave);
+
+                        dataOutputStream.writeUTF(gson.toJson(songs));
+
+                        dataOutputStream.writeInt(CONFIRMATION);
+                    } catch (Exception e) {
+                        dataOutputStream.writeInt(ERROR);
+                    }
+                    break;
+                case SAVE_SONG:
+                    break;
+            }
+        }
     }
 
     private void registerComunication() throws IOException, ClassNotFoundException {

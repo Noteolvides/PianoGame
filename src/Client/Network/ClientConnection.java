@@ -107,7 +107,13 @@ public class ClientConnection extends Thread {
                     registerUser();
                     break;
                 case PIANO:
-
+                    openPiano();
+                    break;
+                case SELECT_SONG:
+                    selectSongs();
+                    break;
+                case SAVE_SONG:
+                    saveSong();
                     break;
                 case SOCIAL:
                     openSocialWindow();
@@ -127,49 +133,12 @@ public class ClientConnection extends Thread {
                 case DELETE_ACCOUNT:
                     deleteUser();
                     break;
-                case SAVE_SONG:
-                    saveSong();
-                    break;
-                case SELECT_SONG:
-                    selectSongs();
-                    break;
                 default:
                     //Nothing
                     break;
             }
             nextFunc = "Nothing";
         }
-    }
-
-    private void saveSong() {
-    }
-
-    private void selectSongs() {
-        int trans_estate = CORRECT;
-
-        try {
-            dOut.writeUTF(SELECT_SONG);
-
-            Gson gson = new Gson();
-            String songsString =  dIn.readUTF();
-            ArrayList<Song> songs = gson.fromJson(songsString,new TypeToken<ArrayList <Song>>(){}.getType());
-
-            trans_estate = dIn.readInt();
-
-            if (trans_estate != ERROR) {
-                //TODO : Call to controller to actulize de screen with songs
-                for (Song s: songs) {
-                    System.out.println(s.getTitle());
-                }
-            }else{
-                //TODO : Print Error
-            }
-
-
-            } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     // Login/Register functions
@@ -312,6 +281,47 @@ public class ClientConnection extends Thread {
     }
 
     // Piano functions
+    public void openPiano() {
+        //We sent to the server the current operation
+        try {
+            dOut.writeUTF(PIANO);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void selectSongs() {
+        int trans_estate = CORRECT;
+
+        try {
+            dOut.writeUTF(SELECT_SONG);
+
+            Gson gson = new Gson();
+            String songsString =  dIn.readUTF();
+            ArrayList<Song> songs = gson.fromJson(songsString, new TypeToken<ArrayList <Song>>(){}.getType());
+
+            trans_estate = dIn.readInt();
+
+            if (trans_estate != ERROR) {
+                //TODO : Call to controller to actualize the screen with songs
+                for (Song s: songs) {
+                    System.out.println(s.getTitle());
+                }
+
+            }else{
+                //TODO : Print Error
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void saveSong() {
+
+    }
+
 
 
     public String getNextFunc() {

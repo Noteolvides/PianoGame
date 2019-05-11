@@ -1,5 +1,5 @@
 SET @@session.time_zone = '+00:00';
-  SET @@global.time_zone = '+00:00';
+SET @@global.time_zone = '+00:00';
 
 DROP DATABASE IF EXISTS SmartPiano;
 CREATE DATABASE SmartPiano;
@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS Syst(
 DROP TABLE IF EXISTS User;
 CREATE TABLE IF NOT EXISTS User(
   Name VARCHAR(255),
-  Photo_Path VARCHAR(255),
+  Photo BLOB,
+  #Photo_Path VARCHAR(255),
   Password char(32),
   Email CHAR(255),
   PRIMARY KEY (Name)
@@ -49,20 +50,22 @@ CREATE TABLE IF NOT EXISTS Song(
   FOREIGN KEY (SystemID) REFERENCES Syst(ID)
 );
 
+DROP USER 'noAlias'@'localhost';
+DROP USER 'normalUser'@'localhost';
+DROP USER 'admin'@'localhost';
+CREATE USER 'noAlias'@'localhost' IDENTIFIED BY 'password';
+CREATE USER 'normalUser'@'localhost' IDENTIFIED BY 'normalUserPassword';
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
 
-CREATE USER 'noAlias' IDENTIFIED BY 'Password_1999';
-CREATE USER 'normalUser' IDENTIFIED BY 'NormalUserPassword_1999';
-CREATE USER 'admin' IDENTIFIED BY 'Admin_1999';
-
-GRANT ALL PRIVILEGES ON * . * TO 'admin'@'localhost';
-GRANT SELECT  ON SmartPiano. * TO 'normalUser'@'localhost';
-GRANT INSERT  ON SmartPiano. * TO 'normalUser'@'localhost';
-GRANT DELETE  ON SmartPiano. * TO 'normalUser'@'localhost';
-GRANT UPDATE ON SmartPiano. * TO 'normalUser'@'localhost';
-GRANT INSERT ON SmartPiano. * TO 'noAlias'@'localhost' WITH GRANT OPTION;
-GRANT SELECT ON SmartPiano. * TO 'noAlias'@'localhost' WITH GRANT OPTION;
-
+GRANT ALL PRIVILEGES ON * . * TO 'admin';
+GRANT SELECT  ON SmartPiano. * TO 'normalUser';
+GRANT INSERT  ON SmartPiano. * TO 'normalUser';
+GRANT DELETE  ON SmartPiano. * TO 'normalUser';
+GRANT UPDATE ON SmartPiano. * TO 'normalUser';
+GRANT INSERT ON SmartPiano. * TO 'noAlias';
+GRANT SELECT ON SmartPiano. * TO 'noAlias';
 #Permission to allow to a user to execute a procedure
+GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser'@'localhost';
 
 SELECT * FROM Song;
 SELECT * FROM Friendship;
@@ -102,9 +105,24 @@ DELIMITER ;
 
 
 
-GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser'@'localhost';
+
+INSERT INTO Syst (Name, Date, TotalOfUsers) VALUES ('System',DATE(NOW()),99);
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path,SystemID) VALUES ('pepe',12,'pepe',120,'pepe.mp3',1);
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('todays class',12,'pepe',56,'pepe.mp3','pepe');
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('josepsSong',12,'pepe',89,'pepe.mp3','pepe');
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('classo',12,'pepe',91,'pepe.mp3','josep');
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('pepeSong',12,'pepe',91,'pepe.mp3','josep');
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('FlamencoGitano',12,'pepe',57,'pepe.mp3','pepe');
+
+INSERT INTO User (Name, Photo_Path, Password, Email) VALUES ('josep','hola.txt','roig','joseproig1999');
+INSERT INTO User (Name, Photo_Path, Password, Email) VALUES ('pepe','holas.txt','roig','peperoig1999');
 
 
 SELECT * FROM User;
 
-INSERT  into User(name, password) values ('pepe','nada');
+
+
+
+
+
+

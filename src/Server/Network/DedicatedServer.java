@@ -180,7 +180,9 @@ public class DedicatedServer extends Thread {
                         User user1 = service.searchUser(userSave);
                         User user2 = service.searchUser(friendSave);
                         user1.getFollowing().add(user2);
+                        user2.getFollowing().add(user1);
                         service.updateInformationUser(user1);
+                        service.updateInformationUser(user2);
                         dataOutputStream.writeInt(CONFIRMATION);
                     }catch (BBDDException e){
                         dataOutputStream.writeInt(ERROR);

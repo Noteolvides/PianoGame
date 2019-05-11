@@ -178,6 +178,15 @@ public class Controller {
         network.setNextFunc(ADD_USER);
     }
 
+    public void networkAddSocialResult(String petitionResult) {
+        if (petitionResult.equals(OK)) {
+            view.getSocialView().friendPopUp("added");
+        }
+        if (petitionResult.equals(KO)) {
+            view.getSocialView().friendPopUp("addedn't");
+        }
+    }
+
     public void networkSignOut() {
         network.setNextFunc(LOG_OUT);
     }

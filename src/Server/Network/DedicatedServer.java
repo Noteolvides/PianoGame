@@ -18,6 +18,8 @@ public class DedicatedServer extends Thread {
     private DataOutputStream dataOutputStream;
     private DataInputStream dataInputStream;
     private boolean running;
+    private String userSave;
+    private String friendSave;
 
     private static final int CONFIRMATION = 0;
     private static final int ERROR = -1;
@@ -95,7 +97,6 @@ public class DedicatedServer extends Thread {
                 case CHECK_USUARIO:
                     //This will be the object to read and
                     User user = (User) objectInputStream.readObject();
-                    System.out.println(user.getNameUser());
 
                     //Then we want to check if the object Exist in the database
                     try {
@@ -103,6 +104,7 @@ public class DedicatedServer extends Thread {
                         //Here we make a  query to de databas
                         //If the query return true
                         dataOutputStream.writeInt(CONFIRMATION);
+                        userSave = user.getNameUser();
                         //Else
                     } catch (BBDDException e) {
                         dataOutputStream.writeInt(ERROR);
@@ -154,11 +156,19 @@ public class DedicatedServer extends Thread {
                     //Here we make a  query to de databas that returns the user
                     try {
                         User userTosend = service.searchUser(userToSearch);
+                        friendSave = userTosend.getNameUser();
+                        if (service.checkUserRelationship(userSave,friendSave)){
+                            userTosend.setPassword("YES");
+                        }else{
+                            userTosend.setPassword("NO");
+                        }
                         dataOutputStream.writeInt(CONFIRMATION);
                         objectOutputStream.writeObject(userTosend);
                     } catch (BBDDException e) {
                         dataOutputStream.writeInt(ERROR);
                     }
+                    break;
+                case ADD_USER:
 
                     break;
                 case GO_BACK:

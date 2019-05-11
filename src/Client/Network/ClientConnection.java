@@ -192,6 +192,7 @@ public class ClientConnection extends Thread{
         try {
             //We sent to the server the current operation
             dOut.writeUTF(SOCIAL);
+            //TODO : This it is not going to be executed until neil command
             dOut.writeUTF(SEARCH_USER);
             //This will send the User Object that we want to log into our server
             obOut.writeObject(controller.getSearchedUser());
@@ -204,13 +205,16 @@ public class ClientConnection extends Thread{
                 //TODO, QUE SALTI UN DIALOG
             }else{
                 User userToNeil = (User) obIn.readObject();
+                if (userToNeil.getPassword().equals("YES")){
+                    //TODO : Controllers puts the frind in the social with friend circle
+                }else{
+                    //TODO : The Are not friends but we put it anywais
+                }
             }
 
 
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

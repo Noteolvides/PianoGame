@@ -150,7 +150,7 @@ public class DedicatedServer extends Thread {
             switch (dataInputStream.readUTF()) {
                 case SEARCH_USER:
                     //This will be the object to read and
-                    String userToSearch = (String) objectInputStream.readObject();
+                    String userToSearch = dataInputStream.readUTF();
                     //Then we want to check if the object Exist in the database
 
                     //Here we make a  query to de databas that returns the user
@@ -159,13 +159,17 @@ public class DedicatedServer extends Thread {
                         friendSave = userTosend.getNameUser();
                         if (service.checkUserRelationship(userSave,friendSave)){
                             userTosend.setPassword("YES");
+                            System.out.println("es mi amiho");
                         }else{
                             userTosend.setPassword("NO");
+                            System.out.println("no lo es");
+
                         }
                         dataOutputStream.writeInt(CONFIRMATION);
                         objectOutputStream.writeObject(userTosend);
                     } catch (BBDDException e) {
                         dataOutputStream.writeInt(ERROR);
+                        System.out.println("Se fue a la puta");
                     }
                     break;
                 case ADD_USER:

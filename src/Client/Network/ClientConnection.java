@@ -195,7 +195,7 @@ public class ClientConnection extends Thread{
             //TODO : This it is not going to be executed until neil command
             dOut.writeUTF(SEARCH_USER);
             //This will send the User Object that we want to log into our server
-            obOut.writeObject(controller.getSearchedUser());
+            dOut.writeUTF(controller.getSearchedUser());
             //We wait for response if the operation is completed correctly
             trans_estate = dIn.readInt();
             //Todo, potser no li hem d'enviar un usuari, sino un String amb el nom de l'usuari i rebre el usuari com objecte

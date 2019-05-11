@@ -251,11 +251,11 @@ public class ClientConnection extends Thread{
 
             if (trans_estate == ERROR) {
                 System.out.println("No eres mi amiho");
-                //TODO, QUE SALTI UN DIALOG
+                controller.networkAddSocialResult(KO);
 
             } else {
                 System.out.println("Si eres mi amiho");
-                //TODO, QUE SALTI UN DIALOG
+                controller.networkAddSocialResult(OK);
             }
 
         } catch (IOException e) {

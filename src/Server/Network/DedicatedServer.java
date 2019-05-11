@@ -6,9 +6,11 @@ import Server.Controller.BBDD.Resources.BBDDException;
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.Socket;
@@ -27,10 +29,10 @@ public class DedicatedServer extends Thread {
     private String userSave;
     private String friendSave;
 
-    private ApplicationContext context;
     private static final int CONFIRMATION = 0;
     private static final int ERROR = -1;
     private static final String GO_BACK = "go_back";
+    private ServiceBBDDServer service;
 
     public static final String LOGIN = "login";
     public static final String CHECK_USUARIO = "log_user";
@@ -50,11 +52,8 @@ public class DedicatedServer extends Thread {
     public static final String SAVE_SONG = "save_song";
 
 
-    @Autowired
-    private ServiceBBDDServer service;
-
-    public DedicatedServer(){
-        context = new ClassPathXmlApplicationContext("Server/Controller/BBDD/Resources/applicationContextService.xml");
+    public DedicatedServer(ServiceBBDDServer service){
+        this.service = service;
     }
 
     public void startDedicatedServer() throws IOException {

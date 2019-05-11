@@ -3,7 +3,9 @@ package Server.Network;
 
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.IOException;
@@ -14,18 +16,18 @@ import java.util.List;
 
 public class Server extends Thread{
     private List<DedicatedServer> dedicatedServers;
+
     @Autowired
     private ServiceBBDDServer serverService;
     private ServerSocket serverSocket;
     private static final int PORT = 5000;
     private boolean running;
-    private final ApplicationContext context;
 
 
 
     public Server(){
         dedicatedServers = new LinkedList<>();
-        context =  new ClassPathXmlApplicationContext("Server/Controller/BBDD/Resources/applicationContext_2.xml");
+
         running = false;
     }
 
@@ -55,7 +57,7 @@ public class Server extends Thread{
                 System.out.println("Waiting for a new Pianist..");
                 Socket socket = serverSocket.accept();
 
-                DedicatedServer dedicatedServer = (DedicatedServer) context.getBean("controllerJ2");
+                DedicatedServer dedicatedServer = new DedicatedServer(serverService);
                 dedicatedServer.setSocket(socket);
                 dedicatedServer.setServer(this);
                 dedicatedServer.startDedicatedServer();

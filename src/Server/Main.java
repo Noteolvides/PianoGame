@@ -20,7 +20,8 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Server server = new Server();
+        ApplicationContext context =  new ClassPathXmlApplicationContext("Server/Controller/BBDD/Resources/applicationContextService.xml");
+        Server server = (Server)context.getBean("controllerJ2");
         server.startServer();
         ServerViews serverViews = new ServerViews();
 

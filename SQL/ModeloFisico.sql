@@ -132,26 +132,6 @@ SELECT * FROM User;
 
 
 
-DROP USER IF EXISTS 'noAlias' ;
-DROP USER IF EXISTS 'normalUser';
-DROP USER IF EXISTS 'admin';
-CREATE USER 'noAlias' IDENTIFIED BY 'password';
-CREATE USER 'normalUser' IDENTIFIED BY 'normalUserPassword';
-CREATE USER 'admin' IDENTIFIED BY 'admin';
-
-GRANT ALL PRIVILEGES ON * . * TO 'admin';
-GRANT SELECT  ON SmartPiano. * TO 'normalUser';
-GRANT INSERT  ON SmartPiano. * TO 'normalUser';
-GRANT DELETE  ON SmartPiano. * TO 'normalUser';
-GRANT UPDATE ON SmartPiano. * TO 'normalUser';
-GRANT INSERT ON SmartPiano. * TO 'noAlias';
-GRANT SELECT ON SmartPiano. * TO 'noAlias';
-#Permission to allow to a user to execute a procedure
-GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser';
-
-
-SELECT * FROM User;
-
 
 
 

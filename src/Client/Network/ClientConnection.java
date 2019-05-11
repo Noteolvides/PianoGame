@@ -13,7 +13,7 @@ public class ClientConnection extends Thread{
     private static final int PORT = 5000;
     private static final String IP = "localhost";
 
-    private static final int RECEIVED = 0;
+    private static final int CORRECT = 0;
     private static final int ERROR = -1;
     private static final String GO_BACK = "go_back";
 
@@ -126,8 +126,7 @@ public class ClientConnection extends Thread{
 
     // Login/Register functions
     public void loginUser() {
-        int trans_estate = RECEIVED;
-        //Todo: falta demanar l'usuari del controller
+        int trans_estate = CORRECT;
 
         try{
             //We sent to the server the current operation
@@ -154,7 +153,7 @@ public class ClientConnection extends Thread{
     }
 
     public void registerUser() {
-        int trans_estate = RECEIVED;
+        int trans_estate = CORRECT;
 
         try{
             //We sent to the server the current operation
@@ -166,8 +165,7 @@ public class ClientConnection extends Thread{
             trans_estate = dIn.readInt();
 
             if (trans_estate == ERROR) {
-                System.out.println("Error, you couldn't connect to server");
-                //TODO, QUE SALTI UN DIALOG
+                System.out.println("Error, you couldn't register to server");
             } else {
                 System.out.println("WELCOME, WELCOME!");
                 dOut.writeUTF(GO_BACK);
@@ -208,7 +206,7 @@ public class ClientConnection extends Thread{
     }
 
     public void searchUser() {
-        int trans_estate = RECEIVED;
+        int trans_estate = CORRECT;
 
         try {
             dOut.writeUTF(SEARCH_USER);
@@ -240,7 +238,7 @@ public class ClientConnection extends Thread{
     }
 
     public void addUser() {
-        int trans_estate = RECEIVED;
+        int trans_estate = CORRECT;
 
         try {
             //We sent to the server the current operation

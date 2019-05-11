@@ -1,8 +1,6 @@
 SET @@session.time_zone = '+00:00';
 SET @@global.time_zone = '+00:00';
-SET GLOBAL validate_password_length = 6;
-SET GLOBAL validate_password_number_count = 0;
-SET GLOBAL validate_password_policy=LOW;
+
 
 DROP DATABASE IF EXISTS SmartPiano;
 CREATE DATABASE SmartPiano;
@@ -113,9 +111,9 @@ DROP USER IF EXISTS 'admin';
 SET GLOBAL validate_password_length = 6;
 SET GLOBAL validate_password_number_count = 0;
 SET GLOBAL validate_password_policy=LOW;
-CREATE USER 'noAlias' IDENTIFIED BY 'password';
-CREATE USER 'normalUser' IDENTIFIED BY 'normalUserPassword';
-CREATE USER 'admin' IDENTIFIED BY 'adminPassword';
+CREATE USER 'noAlias' IDENTIFIED BY 'password1999';
+CREATE USER 'normalUser' IDENTIFIED BY 'normalUserPassword1999';
+CREATE USER 'admin' IDENTIFIED BY 'adminPassword1999';
 
 GRANT ALL PRIVILEGES ON * . * TO 'admin';
 GRANT SELECT  ON SmartPiano. * TO 'normalUser';

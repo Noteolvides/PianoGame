@@ -105,23 +105,23 @@ INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES (
 
 
 
-DROP USER IF EXISTS 'noAlias' ;
-DROP USER IF EXISTS 'normalUser';
-DROP USER IF EXISTS 'admin';
+DROP USER IF EXISTS 'noAlias'@'localhost';
+DROP USER IF EXISTS 'normalUser'@'localhost';
+DROP USER IF EXISTS 'admin'@'localhost';
 
-CREATE USER 'noAlias' IDENTIFIED BY 'password1999';
-CREATE USER 'normalUser' IDENTIFIED BY 'normalUserPassword1999';
-CREATE USER 'admin' IDENTIFIED BY 'adminPassword1999';
+CREATE USER 'noAlias'@'localhost' IDENTIFIED BY 'password1999';
+CREATE USER 'normalUser'@'localhost' IDENTIFIED BY 'normalUserPassword1999';
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'adminPassword1999';
 
-GRANT ALL PRIVILEGES ON * . * TO 'admin';
-GRANT SELECT  ON SmartPiano. * TO 'normalUser';
-GRANT INSERT  ON SmartPiano. * TO 'normalUser';
-GRANT DELETE  ON SmartPiano. * TO 'normalUser';
-GRANT UPDATE ON SmartPiano. * TO 'normalUser';
-GRANT INSERT ON SmartPiano. * TO 'noAlias';
-GRANT SELECT ON SmartPiano. * TO 'noAlias';
+GRANT ALL PRIVILEGES ON * . * TO 'admin'@'localhost';
+GRANT SELECT  ON SmartPiano. * TO 'normalUser'@'localhost';
+GRANT INSERT  ON SmartPiano. * TO 'normalUser'@'localhost';
+GRANT DELETE  ON SmartPiano. * TO 'normalUser'@'localhost';
+GRANT UPDATE ON SmartPiano. * TO 'normalUser'@'localhost';
+GRANT INSERT ON SmartPiano. * TO 'noAlias'@'localhost';
+GRANT SELECT ON SmartPiano. * TO 'noAlias'@'localhost';
 #Permission to allow to a user to execute a procedure
-GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser';
+GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser'@'localhost';
 
 
 SELECT * FROM User;

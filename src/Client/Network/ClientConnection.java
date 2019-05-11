@@ -208,11 +208,13 @@ public class ClientConnection extends Thread{
                 System.out.println("Error, this user doesn't exists");
                 //TODO, QUE SALTI UN DIALOG
             }else{
-                User userToNeil = (User) obIn.readObject();
-                if (userToNeil.getPassword().equals("YES")){
+                User userToController = (User) obIn.readObject();
+                if (userToController.getPassword().equals("YES")){
                     //TODO : Controllers puts the frind in the social with friend circle
                 }else{
                     //TODO : The Are not friends but we put it anywais
+                    System.out.println("Pues nos hacemos friends");
+                    nextFunc = ADD_USER;
                 }
             }
 
@@ -236,9 +238,10 @@ public class ClientConnection extends Thread{
             // objecte que es el que afegirem com amic del client
 
             if (trans_estate == ERROR) {
-                System.out.println("Error, you couldn't connect to server");
+                System.out.println("No eres mi amiho");
                 //TODO, QUE SALTI UN DIALOG
             } else {
+                System.out.println("Si eres mi amiho");
                 //TODO, QUE SALTI UN DIALOG
             }
         } catch (IOException e) {

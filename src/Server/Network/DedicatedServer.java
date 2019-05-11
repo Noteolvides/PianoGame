@@ -176,12 +176,15 @@ public class DedicatedServer extends Thread {
                     break;
                 case ADD_USER:
                     //Query to make friends
-                    //try {
-                        service.checkUserRelationship(friendSave,friendSave);
+                    try {
+                        User user1 = service.searchUser(userSave);
+                        User user2 = service.searchUser(friendSave);
+                        user1.getFollowing().add(user2);
+                        service.updateInformationUser(user1);
                         dataOutputStream.writeInt(CONFIRMATION);
-                    //}catch (BBDDException e){
+                    }catch (BBDDException e){
                         dataOutputStream.writeInt(ERROR);
-                    //}
+                    }
                     break;
                 case GO_BACK:
                     goBack = true;

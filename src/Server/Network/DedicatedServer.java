@@ -19,7 +19,6 @@ public class DedicatedServer extends Thread {
     private DataInputStream dataInputStream;
     private boolean running;
 
-    //TODO: cambiar valores constantes
     private static final int CONFIRMATION = 0;
     private static final int ERROR = -1;
     private static final String GO_BACK = "go_back";

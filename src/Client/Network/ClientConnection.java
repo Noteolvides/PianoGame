@@ -6,6 +6,8 @@ import Model.User;
 import java.io.*;
 import java.net.Socket;
 
+import static Client.Controller.Controller.*;
+
 public class ClientConnection extends Thread{
     //Connection const.
     private static final int PORT = 5000;
@@ -115,6 +117,7 @@ public class ClientConnection extends Thread{
         //Todo: falta demanar l'usuari del controller
 
         try{
+            controller.setPetitionStatus(WAITING);
             //We sent to the server the current operation
             dOut.writeUTF(LOGIN);
             dOut.writeUTF(SEND_LOG_USER);
@@ -124,9 +127,11 @@ public class ClientConnection extends Thread{
             trans_estate = dIn.readInt();
 
             if (trans_estate == ERROR) {
-                System.out.println("Error, you couldn't connect to server");
+                System.out.println("Error, you couldn't login to server");
                 //TODO, QUE SALTI UN DIALOG
+                controller.setPetitionStatus(KO);
             } else {
+                controller.setPetitionStatus(OK);
                 dOut.writeUTF(GO_BACK);
             }
 
@@ -253,6 +258,8 @@ public class ClientConnection extends Thread{
     public void setNextFunc(String nextFunc) {
         this.nextFunc = nextFunc;
     }
+
+
 }
 
 

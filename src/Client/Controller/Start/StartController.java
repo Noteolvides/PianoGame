@@ -21,8 +21,6 @@ public class StartController implements ActionListener {
             System.out.println(view.getStartView().getPassword());
             System.out.println("Sing in");
             controller.networkLogIn();
-            controller.openPrincipal();
-            controller.closeStart();
         }
         if (e.getActionCommand().equals("GO-REGISTER")){
             System.out.println("Register");

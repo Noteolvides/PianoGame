@@ -199,9 +199,12 @@ INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES (
 DROP USER IF EXISTS 'noAlias' ;
 DROP USER IF EXISTS 'normalUser';
 DROP USER IF EXISTS 'admin';
+SET GLOBAL validate_password_length = 6;
+SET GLOBAL validate_password_number_count = 0;
+SET GLOBAL validate_password_policy=LOW;
 CREATE USER 'noAlias' IDENTIFIED BY 'password';
 CREATE USER 'normalUser' IDENTIFIED BY 'normalUserPassword';
-CREATE USER 'admin' IDENTIFIED BY 'admin';
+CREATE USER 'admin' IDENTIFIED BY 'admin12';
 
 GRANT ALL PRIVILEGES ON * . * TO 'admin';
 GRANT SELECT  ON SmartPiano. * TO 'normalUser';

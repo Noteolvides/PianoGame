@@ -29,6 +29,8 @@ public class ClientConnection extends Thread{
     public static final String SEARCH_USER = "search_user";
     public static final String ADD_USER = "add_user";
 
+    public static final String LOG_OUT = "log_out";
+
     //Controller
     private Controller controller;
 
@@ -101,6 +103,9 @@ public class ClientConnection extends Thread{
                     break;
                 case ADD_USER:
                     addUser();
+                    break;
+                case LOG_OUT:
+                    logOut();
                     break;
                 default:
                     //Nothing
@@ -191,9 +196,10 @@ public class ClientConnection extends Thread{
         try {
             //We sent to the server the current operation
             dOut.writeUTF(SOCIAL);
+            //TODO : This it is not going to be executed until neil command
             dOut.writeUTF(SEARCH_USER);
             //This will send the User Object that we want to log into our server
-            obOut.writeObject(controller.getSearchedUser());
+            dOut.writeUTF(controller.getSearchedUser());
             //We wait for response if the operation is completed correctly
             trans_estate = dIn.readInt();
             //Todo, potser no li hem d'enviar un usuari, sino un String amb el nom de l'usuari i rebre el usuari com objecte
@@ -201,9 +207,18 @@ public class ClientConnection extends Thread{
             if (trans_estate == ERROR) {
                 System.out.println("Error, this user doesn't exists");
                 //TODO, QUE SALTI UN DIALOG
+            }else{
+                User userToNeil = (User) obIn.readObject();
+                if (userToNeil.getPassword().equals("YES")){
+                    //TODO : Controllers puts the frind in the social with friend circle
+                }else{
+                    //TODO : The Are not friends but we put it anywais
+                }
             }
 
-        } catch (IOException e) {
+
+
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -214,8 +229,7 @@ public class ClientConnection extends Thread{
         try {
             //We sent to the server the current operation
             dOut.writeUTF(ADD_USER);
-            //This will send the User Object that we want to log into our server
-            obOut.writeObject(controller.getAddedUser());
+
             //We wait for response if the operation is completed correctly
             trans_estate = dIn.readInt();
             //Todo, potser no li hem d'enviar un usuari, sino un String amb el nom de l'usuari i rebre el usuari com

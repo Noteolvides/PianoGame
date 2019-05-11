@@ -18,6 +18,8 @@ public class DedicatedServer extends Thread {
     private DataOutputStream dataOutputStream;
     private DataInputStream dataInputStream;
     private boolean running;
+    private String userSave;
+    private String friendSave;
 
     private static final int CONFIRMATION = 0;
     private static final int ERROR = -1;
@@ -34,6 +36,9 @@ public class DedicatedServer extends Thread {
     public static final String SOCIAL = "social";
     public static final String SEARCH_USER = "search_user";
     public static final String ADD_USER = "add_user";
+
+    public static final String LOG_OUT = "log_out";
+
 
     @Autowired
     private ServiceBBDDServer service;
@@ -76,9 +81,11 @@ public class DedicatedServer extends Thread {
                     case SOCIAL:
                         socialComunication();
                         break;
-                        default:
-                            //Nothing
-                            break;
+                    case LOG_OUT:
+                        break;
+                    default:
+                        //Nothing
+                        break;
                 }
             } catch (IOException e) {
                 System.out.println(e.getMessage());
@@ -95,18 +102,18 @@ public class DedicatedServer extends Thread {
                 case CHECK_USUARIO:
                     //This will be the object to read and
                     User user = (User) objectInputStream.readObject();
-                    System.out.println(user.getNameUser());
 
                     //Then we want to check if the object Exist in the database
                     try {
-                        service.getInstanceOfAUser(user.getNameUser(),user.getPassword());
+                        service.getInstanceOfAUser(user.getNameUser(), user.getPassword());
+                        //Here we make a  query to de databas
+                        //If the query return true
+                        dataOutputStream.writeInt(CONFIRMATION);
+                        userSave = user.getNameUser();
+                        //Else
                     } catch (BBDDException e) {
                         dataOutputStream.writeInt(ERROR);
                     }
-                    //Here we make a  query to de databas
-                    //If the query return true
-                    dataOutputStream.writeInt(CONFIRMATION);
-                    //Else
                     break;
                 case GO_BACK:
                     goBack = true;
@@ -119,20 +126,21 @@ public class DedicatedServer extends Thread {
 
     private void registerComunication() throws IOException, ClassNotFoundException {
         boolean goBack = false;
-        while (!goBack){
+        while (!goBack) {
             switch (dataInputStream.readUTF()) {
                 case CHECK_REGISTER:
                     //This will be the object to read and
-                    User user =  (User)objectInputStream.readObject();
+                    User user = (User) objectInputStream.readObject();
                     //Then we want to check if the object The new User has been inserted
                     try {
                         service.createUserFromNoUser(user);
+                        //Here we make a  query to de databas
+                        //If the query return true
+                        dataOutputStream.writeInt(CONFIRMATION);
                     } catch (BBDDException e) {
                         dataOutputStream.writeInt(ERROR);
                     }
-                    //Here we make a  query to de databas
-                    //If the query return true
-                    dataOutputStream.writeInt(CONFIRMATION);
+
 
                     break;
                 case GO_BACK:
@@ -143,20 +151,37 @@ public class DedicatedServer extends Thread {
 
     private void socialComunication() throws IOException, ClassNotFoundException {
         boolean goBack = false;
-        while (!goBack){
+        while (!goBack) {
             switch (dataInputStream.readUTF()) {
                 case SEARCH_USER:
                     //This will be the object to read and
-                    objectInputStream.readObject();
+                    friendSave = dataInputStream.readUTF();
                     //Then we want to check if the object Exist in the database
 
                     //Here we make a  query to de databas that returns the user
-                    //If the query return true
-                    dataOutputStream.writeInt(CONFIRMATION);
-                    //Here we send the user;
-                    objectOutputStream.write((Integer) new Object());
-                    //Else
-                    dataOutputStream.writeInt(ERROR);
+                    try {
+                        User userTosend = service.searchUser(friendSave);
+                        friendSave = userTosend.getNameUser();
+                        if (service.checkUserRelationship(userSave,friendSave)){
+                            userTosend.setPassword("YES");
+                        }else{
+                            userTosend.setPassword("NO");
+                        }
+                        dataOutputStream.writeInt(CONFIRMATION);
+                        objectOutputStream.writeObject(userTosend);
+                    } catch (BBDDException e) {
+                        dataOutputStream.writeInt(ERROR);
+                        System.out.println("Se fue a la puta");
+                    }
+                    break;
+                case ADD_USER:
+                    //Query to make friends
+                    //try {
+                        service.checkUserRelationship(friendSave,friendSave);
+                        dataOutputStream.writeInt(CONFIRMATION);
+                    //}catch (BBDDException e){
+                        dataOutputStream.writeInt(ERROR);
+                    //}
                     break;
                 case GO_BACK:
                     goBack = true;

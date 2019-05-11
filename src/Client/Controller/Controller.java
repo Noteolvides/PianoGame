@@ -132,8 +132,8 @@ public class Controller {
                 view.getRegisterView().getEmail(),password.toString());
     }
 
-    public User getSearchedUser() {
-        return new User(view.getSocialView().getjSocial().getSearchUser());
+    public String getSearchedUser() {
+        return view.getSocialView().getjSocial().getSearchUser();
     }
 
     public User getAddedUser() {

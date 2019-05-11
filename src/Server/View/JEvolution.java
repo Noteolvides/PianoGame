@@ -25,6 +25,7 @@ public class JEvolution {
 
     public void JEvolution () throws IOException {
 
+
         ImageIcon icon = new ImageIcon("img/graphicicon.png");
         evoPanel.setIconImage(icon.getImage());
 

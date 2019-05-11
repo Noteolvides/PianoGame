@@ -298,7 +298,9 @@ public class ServiceBBDDServer {
             SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
             String convert = dt1.format(date);
 
-                dao.CheckDateExists(convert);
+
+            dao.CheckDateExists(convert);
+
 
             result = dao.getDayConnection(convert);
 
@@ -381,8 +383,6 @@ public class ServiceBBDDServer {
     public void setDao(DAOServer dao) {
         this.dao = dao;
     }
-
-
 
 
 

@@ -153,9 +153,8 @@ public class DedicatedServer extends Thread {
 
                     //Here we make a  query to de databas that returns the user
                     try {
-                        service.searchUserExistence(userToSearch);
-                        dataOutputStream.writeInt(CONFIRMATION);
                         User userTosend = service.searchUser(userToSearch);
+                        dataOutputStream.writeInt(CONFIRMATION);
                         objectOutputStream.writeObject(userTosend);
                     } catch (BBDDException e) {
                         dataOutputStream.writeInt(ERROR);

@@ -230,8 +230,7 @@ public class ClientConnection extends Thread{
         try {
             //We sent to the server the current operation
             dOut.writeUTF(ADD_USER);
-            //This will send the User Object that we want to log into our server
-            obOut.writeObject(controller.getAddedUser());
+
             //We wait for response if the operation is completed correctly
             trans_estate = dIn.readInt();
             //Todo, potser no li hem d'enviar un usuari, sino un String amb el nom de l'usuari i rebre el usuari com

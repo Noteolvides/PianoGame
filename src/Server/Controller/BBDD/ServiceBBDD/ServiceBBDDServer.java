@@ -189,8 +189,10 @@ public class ServiceBBDDServer {
     }
 
     public void createUserFromNoUser (User user) throws BBDDException {
+        ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
         dao.checkExistenceUserDatabaseWithoutPassword(user.getNameUser(),true);
         dao.insertUserTable(user);
+        ServerContextHolder.clear();
     }
 
 
@@ -271,6 +273,7 @@ public class ServiceBBDDServer {
 
     //With this method you can check if two users are already friends
     public boolean checkUserRelationship (String username1, String username2) {
+        ServerContextHolder.set(AvaiableClients.UserRegistered);
         List <User> friendsUser = dao.getSomeoneFriends(username1);
         List <String> friends = new ArrayList<String>();
         for (int u = 0; u < friendsUser.size(); u++) {
@@ -279,6 +282,7 @@ public class ServiceBBDDServer {
         if (friends.contains(username2)) {
             return true;
         }
+        ServerContextHolder.clear();
         return false;
     }
 

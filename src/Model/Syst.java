@@ -1,14 +1,14 @@
 package Model;
 
-
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name="Syst")
-public class Syst {
+public class Syst implements Serializable {
     @Id
     @Column(name = "ID")
     private int ID;

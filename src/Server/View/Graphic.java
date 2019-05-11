@@ -117,8 +117,8 @@ public class Graphic extends JPanel {
     /*
      *Gets the lowest peak of users
      */
-    private double getMinUsers() {
-        double minUsers = Double.MAX_VALUE;
+    private Integer getMinUsers() {
+        Integer minUsers = Integer.MAX_VALUE;
         for (Integer Users : users) {
             minUsers = Math.min(minUsers, Users);
         }
@@ -128,8 +128,8 @@ public class Graphic extends JPanel {
     /*
      *Gets the peak number of users
      */
-    private double getMaxUsers() {
-        double maxUsers = Double.MIN_VALUE;
+    private Integer getMaxUsers() {
+        Integer maxUsers = Integer.MIN_VALUE;
         for (Integer Users : users) {
             maxUsers = Math.max(maxUsers, Users);
         }

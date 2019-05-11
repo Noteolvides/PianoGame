@@ -14,6 +14,8 @@ import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -149,13 +151,14 @@ public class DAOServer extends HibernateDaoSupport {
 
     @Transactional(readOnly = true)
     public int getDayConnection (String dateToSearch) {
-        List list = getHibernateTemplate().find ("SELECT s.totalUsers FROM "+ Syst.class.getName() + " AS s WHERE s.date =" + dateToSearch);
+        List list = getHibernateTemplate().find ("SELECT s.totalUsers FROM "+ Syst.class.getName() + " AS s WHERE s.date = '" + dateToSearch + "'");
         return (Integer) list.get(0);
     }
 
     @Transactional(readOnly = true)
     public void CheckDateExists (String dateToCheck) throws BBDDException {
-        List list = getHibernateTemplate().find("SELECT COUNT(*) FROM "+ Syst.class.getName() +" AS s WHERE s.date = " + dateToCheck);
+
+        List list = getHibernateTemplate().find("SELECT COUNT(*) FROM "+ Syst.class.getName() +" AS s WHERE s.date = '" + dateToCheck + "'");
         if((Long)list.get(0) == 0) {
             throw new BBDDException();
         }

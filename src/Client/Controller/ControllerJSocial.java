@@ -1,13 +1,8 @@
 package Client.Controller;
 
-import Client.View.FinestraJSocial;
-import Client.View.FinestraJStart;
-import Client.View.JPrincipal;
 import Client.View.View;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -15,8 +10,6 @@ public class ControllerJSocial implements MouseListener {
     private View view;
     private Controller controller;
 
-    //TODO:I don't know if we could have this here but i think it's needed
-    private JPrincipal jPrincipal;
 
     public ControllerJSocial (View view, Controller controller) {
         this.view = view;
@@ -35,13 +28,6 @@ public class ControllerJSocial implements MouseListener {
             if (e.getSource() == view.getSocialView().getjSocial().getSearchButton()) {
                 System.out.println("You are trying to find someone...");
                 controller.networkSearchSocial();
-                if (Math.random()> 0.5) {
-                    view.getSocialView().showUserNotFound();
-                }
-                else {
-                    view.getSocialView().showUserSearch( "Anonymous", "usuarioRandom.png",Math.random()>0.5);
-                    view.getSocialView().getjSocial().registerControllerAddFriend(this);
-                }
             }
             else {
                 if (e.getSource() == view.getSocialView().getjSocial().getBackButton()) {

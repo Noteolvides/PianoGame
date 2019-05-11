@@ -29,6 +29,8 @@ public class ClientConnection extends Thread{
     public static final String SEARCH_USER = "search_user";
     public static final String ADD_USER = "add_user";
 
+    public static final String LOG_OUT = "log_out";
+
     //Controller
     private Controller controller;
 
@@ -101,6 +103,9 @@ public class ClientConnection extends Thread{
                     break;
                 case ADD_USER:
                     addUser();
+                    break;
+                case LOG_OUT:
+                    logOut();
                     break;
                 default:
                     //Nothing

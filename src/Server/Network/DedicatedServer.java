@@ -37,6 +37,9 @@ public class DedicatedServer extends Thread {
     public static final String SEARCH_USER = "search_user";
     public static final String ADD_USER = "add_user";
 
+    public static final String LOG_OUT = "log_out";
+
+
     @Autowired
     private ServiceBBDDServer service;
 
@@ -77,6 +80,8 @@ public class DedicatedServer extends Thread {
                     //Social
                     case SOCIAL:
                         socialComunication();
+                        break;
+                    case LOG_OUT:
                         break;
                     default:
                         //Nothing
@@ -159,11 +164,8 @@ public class DedicatedServer extends Thread {
                         friendSave = userTosend.getNameUser();
                         if (service.checkUserRelationship(userSave,friendSave)){
                             userTosend.setPassword("YES");
-                            System.out.println("es mi amiho");
                         }else{
                             userTosend.setPassword("NO");
-                            System.out.println("no lo es");
-
                         }
                         dataOutputStream.writeInt(CONFIRMATION);
                         objectOutputStream.writeObject(userTosend);

@@ -161,6 +161,11 @@ public class ServiceBBDDServer {
         ServerContextHolder.clear();
     }
 
+    //It's a method to search if a user exists with her username
+    public void searchUserExistence (String username) throws BBDDException {
+        dao.checkExistenceUserDatabaseWithoutPassword(username,false);
+    }
+
 
     //This is the method to search if a user exists, if exists we return it.
     public User searchUser (String usernameToSearch) {

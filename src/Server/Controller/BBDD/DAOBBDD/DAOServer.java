@@ -237,13 +237,6 @@ public class DAOServer extends HibernateDaoSupport {
         });
     }
 
-    public void basicConfiguration () {
-        getHibernateTemplate().execute(new HibernateCallback<Object>() {
-            public Object doInHibernate(Session session) throws HibernateException {
-                session.createSQLQuery("CALL basicConfiguration()");
-                return null;
-            }
-        });
-    }
+
 
 }

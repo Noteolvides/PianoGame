@@ -365,9 +365,7 @@ public class ServiceBBDDServer {
         this.dao = dao;
     }
 
-    public void basicConfiguration () {
-        dao.basicConfiguration();
-    }
+
 
 
 

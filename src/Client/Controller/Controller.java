@@ -10,7 +10,6 @@ import Model.User;
 import static Client.Network.ClientConnection.*;
 
 public class Controller {
-    public static String WAITING = "wait";
     public static String OK = "ok";
     public static String KO = "ko";
     private View view;

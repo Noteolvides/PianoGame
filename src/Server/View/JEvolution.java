@@ -1,5 +1,6 @@
 package Server.View;
 
+import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import Server.Controller.JEvolutionController;
 
 import javax.swing.*;
@@ -10,11 +11,16 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class JEvolution {
+    private ServiceBBDDServer service;
     private JFrame evoPanel = new JFrame("Active Users Countage");
     private ArrayList<Double> users;
     private JButton year;
     private JButton month;
     private JButton week;
+
+    public JEvolution(ServiceBBDDServer service){
+        this.service = service;
+    }
 
     public void JEvolution () throws IOException {
 
@@ -68,7 +74,6 @@ public class JEvolution {
             users.add(random.nextDouble() * maxScore);
         }
 
-
         Graphic graphic = new Graphic(users);
         graphic.setPreferredSize(new Dimension(1280, 720));
         JPanel graphics = new JPanel();
@@ -77,13 +82,13 @@ public class JEvolution {
     }
 
 
-    public static void main(String[] args) throws IOException {
+    /*public static void main(String[] args) throws IOException {
         JEvolution evo = new JEvolution();
         evo.JEvolution();
 
         JEvolutionController controller = new JEvolutionController(evo);
         evo.registerController(controller);
-    }
+    }*/
 
     public void registerController(JEvolutionController controller){
         year.addActionListener(controller);

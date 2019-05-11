@@ -30,7 +30,7 @@ public class Main {
         RegisterController controller = new RegisterController(view);
         //view.getRegisterView().registerController(controller);
 
-        JEvolution evolution = new JEvolution();
+        JEvolution evolution = new JEvolution(server.getServerService());
         evolution.JEvolution();
         JEvolutionController evoController = new JEvolutionController(evolution);
 

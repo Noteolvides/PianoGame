@@ -69,10 +69,8 @@ public class JEvolution {
     public JPanel showGraphic() {                                      //Quan cridem aquesta funció li passarem una llista de quantitat d'usuaris
 
 
-        users = service.getLastWeekConnections();
+        users = service.getLastMonthConnections();
         //Random random = new Random();
-        int maxDataPoints = 10;
-        int maxScore = 100;
         /*for (int i = 0; i < maxDataPoints; i++) {
             users.add(random.nextDouble() * maxScore);
         }*/

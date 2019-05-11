@@ -136,10 +136,6 @@ public class Controller {
         return view.getSocialView().getjSocial().getSearchUser();
     }
 
-    public User getAddedUser() {
-        return new User(view.getSocialView().getjSocial().getSearchUser()); //Not getting the one who has been added, getting the one who was searched.
-    }
-
     public void networkLogIn() {
         network.setNextFunc(LOGIN);
     }
@@ -162,11 +158,19 @@ public class Controller {
         network.setNextFunc(PIANO);
     }
 
+    public void networkSocial() {
+        network.setNextFunc(SOCIAL);
+    }
+
     public void networkSearchSocial() {
         network.setNextFunc(SEARCH_USER);
     }
 
     public void networkAddSocial() {
         network.setNextFunc(ADD_USER);
+    }
+
+    public void networkSignOut() {
+        network.setNextFunc(LOG_OUT);
     }
 }

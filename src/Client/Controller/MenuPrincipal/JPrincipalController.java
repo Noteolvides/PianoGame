@@ -28,6 +28,7 @@ public class JPrincipalController implements ActionListener {
         String action = e.getActionCommand();
 
         if (action.equals(JPIANO)) {
+            controller.networkPiano();
             controller.openPiano();
             controller.closePrincipal();
 
@@ -37,7 +38,7 @@ public class JPrincipalController implements ActionListener {
             ControllerJSocial controllerJSocial = new ControllerJSocial(fj);
             fj.registerController(controllerJSocial);
              */
-
+            controller.networkSocial();
             controller.openSocial();
             controller.closePrincipal();
 
@@ -47,6 +48,7 @@ public class JPrincipalController implements ActionListener {
             StartController controller = new StartController(view);
             view.getStartView().registerController(controller);
             */
+            controller.networkSignOut();
             controller.closePrincipal();
             controller.openStart();
 

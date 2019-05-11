@@ -35,13 +35,6 @@ public class ControllerJSocial implements MouseListener {
             if (e.getSource() == view.getSocialView().getjSocial().getSearchButton()) {
                 System.out.println("You are trying to find someone...");
                 controller.networkSearchSocial();
-                if (Math.random()> 0.5) {
-                    view.getSocialView().showUserNotFound();
-                }
-                else {
-                    view.getSocialView().showUserSearch( "Anonymous", "usuarioRandom.png",Math.random()>0.5);
-                    view.getSocialView().getjSocial().registerControllerAddFriend(this);
-                }
             }
             else {
                 if (e.getSource() == view.getSocialView().getjSocial().getBackButton()) {

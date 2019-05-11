@@ -222,16 +222,14 @@ public class ClientConnection extends Thread{
 
             if (trans_estate == ERROR) {
                 System.out.println("Error, this user doesn't exists");
-                //TODO, QUE SALTI UN DIALOG
-
+                controller.networkSearchSocialResult(KO, null);
             }else{
-                User userToNeil = (User) obIn.readObject();
+                User userToController = (User) obIn.readObject();
 
-                if (userToNeil.getPassword().equals("YES")){
-                    //TODO : Controllers puts the frind in the social with friend circle
-
+                if (userToController.getPassword().equals("YES")){
+                    controller.networkSearchSocialResult(OK, userToController);
                 }else{
-                    //TODO : The Are not friends but we put it anywais
+                    controller.networkSearchSocialResult(OK, userToController);
                     System.out.println("Pues nos hacemos friends");
                     nextFunc = ADD_USER;
                 }

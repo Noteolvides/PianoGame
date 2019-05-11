@@ -7,8 +7,6 @@ import Client.Network.ClientConnection;
 import Client.View.View;
 import Model.User;
 
-import java.util.Arrays;
-
 import static Client.Network.ClientConnection.*;
 
 public class Controller {
@@ -164,6 +162,16 @@ public class Controller {
 
     public void networkSearchSocial() {
         network.setNextFunc(SEARCH_USER);
+    }
+
+    public void networkSearchSocialResult(String petitionResult, User userToController) {
+        if (petitionResult.equals(OK)) {
+            view.getSocialView().showUserSearch( userToController.getNameUser(), "usuarioRandom.png", userToController.getPassword().equals("YES"));
+            view.getSocialView().getjSocial().registerControllerAddFriend(controllerJSocial);
+        }
+        if (petitionResult.equals(KO)) {
+            view.getSocialView().showUserNotFound();
+        }
     }
 
     public void networkAddSocial() {

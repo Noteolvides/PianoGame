@@ -77,9 +77,9 @@ public class DedicatedServer extends Thread {
                     case SOCIAL:
                         socialComunication();
                         break;
-                        default:
-                            //Nothing
-                            break;
+                    default:
+                        //Nothing
+                        break;
                 }
             } catch (IOException e) {
                 System.out.println(e.getMessage());
@@ -100,14 +100,14 @@ public class DedicatedServer extends Thread {
 
                     //Then we want to check if the object Exist in the database
                     try {
-                        service.getInstanceOfAUser(user.getNameUser(),user.getPassword());
+                        service.getInstanceOfAUser(user.getNameUser(), user.getPassword());
+                        //Here we make a  query to de databas
+                        //If the query return true
+                        dataOutputStream.writeInt(CONFIRMATION);
+                        //Else
                     } catch (BBDDException e) {
                         dataOutputStream.writeInt(ERROR);
                     }
-                    //Here we make a  query to de databas
-                    //If the query return true
-                    dataOutputStream.writeInt(CONFIRMATION);
-                    //Else
                     break;
                 case GO_BACK:
                     goBack = true;
@@ -120,20 +120,21 @@ public class DedicatedServer extends Thread {
 
     private void registerComunication() throws IOException, ClassNotFoundException {
         boolean goBack = false;
-        while (!goBack){
+        while (!goBack) {
             switch (dataInputStream.readUTF()) {
                 case CHECK_REGISTER:
                     //This will be the object to read and
-                    User user =  (User)objectInputStream.readObject();
+                    User user = (User) objectInputStream.readObject();
                     //Then we want to check if the object The new User has been inserted
                     try {
                         service.createUserFromNoUser(user);
+                        //Here we make a  query to de databas
+                        //If the query return true
+                        dataOutputStream.writeInt(CONFIRMATION);
                     } catch (BBDDException e) {
                         dataOutputStream.writeInt(ERROR);
                     }
-                    //Here we make a  query to de databas
-                    //If the query return true
-                    dataOutputStream.writeInt(CONFIRMATION);
+
 
                     break;
                 case GO_BACK:
@@ -144,20 +145,23 @@ public class DedicatedServer extends Thread {
 
     private void socialComunication() throws IOException, ClassNotFoundException {
         boolean goBack = false;
-        while (!goBack){
+        while (!goBack) {
             switch (dataInputStream.readUTF()) {
                 case SEARCH_USER:
                     //This will be the object to read and
-                    objectInputStream.readObject();
+                    String userToSearch = (String) objectInputStream.readObject();
                     //Then we want to check if the object Exist in the database
 
                     //Here we make a  query to de databas that returns the user
-                    //If the query return true
-                    dataOutputStream.writeInt(CONFIRMATION);
-                    //Here we send the user;
-                    objectOutputStream.write((Integer) new Object());
-                    //Else
-                    dataOutputStream.writeInt(ERROR);
+                    try {
+                        service.searchUserExistence(userToSearch);
+                        dataOutputStream.writeInt(CONFIRMATION);
+                        User userTosend = service.searchUser(userToSearch);
+                        objectOutputStream.writeObject(userTosend);
+                    } catch (BBDDException e) {
+                        dataOutputStream.writeInt(ERROR);
+                    }
+
                     break;
                 case GO_BACK:
                     goBack = true;

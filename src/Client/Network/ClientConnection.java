@@ -197,9 +197,15 @@ public class ClientConnection extends Thread{
             if (trans_estate == ERROR) {
                 System.out.println("Error, this user doesn't exists");
                 //TODO, QUE SALTI UN DIALOG
+            }else{
+                User userToNeil = (User) obIn.readObject();
             }
 
+
+
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

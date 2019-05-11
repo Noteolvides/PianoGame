@@ -1,5 +1,6 @@
 package Server.View;
 
+import Model.Song;
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import Server.Controller.JTopController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +27,16 @@ public class JTop {
 
     public void JTop(){                            //Pass ArrayList<Song> to the constructor and for each one add Number 1-5
 
-        System.out.println(service.getTop5Songs().get(0).getTitle());
+        System.out.println(service.getTop5Songs().get(1).getTitle());
         //TODO: Map TOP5 Songs
-        ArrayList<SongPrueba> songs = new ArrayList<>();
+        /*ArrayList<SongPrueba> songs = new ArrayList<>();
         songs.add(new SongPrueba(1, "渡辺麻友", "She's so cute ❤"));
         songs.add(new SongPrueba(2, "岡田奈々", "Elegance and Prestige"));
         songs.add(new SongPrueba(3, "柏木由紀", "Mayu's sister"));
         songs.add(new SongPrueba(4, "田中美久", "Mayu's daughter"));
-        songs.add(new SongPrueba(5, "山本彩", "Let's rock it!"));
-
+        songs.add(new SongPrueba(5, "山本彩", "Let's rock it!"));*/
+        ArrayList<Song> songs = new ArrayList<>();
+        songs = (ArrayList<Song>) service.getTop5Songs();
 
         songTop.setLayout(new BoxLayout(songTop, BoxLayout.Y_AXIS));
 
@@ -84,12 +86,13 @@ public class JTop {
         h.registerController(controller);
     }*/
 
-    public void includeSongs (ArrayList <SongPrueba> songs) {
+    public void includeSongs (ArrayList <Song> songs) {
         //Adding a new array to not repeat different times the same songs, if we decide to refresh the window
         songsList = new ArrayList<>();
         //We take the songs that we are going to show and we add them to our view
         for (int i = 0;i < songs.size();i++) {
-            songsList.add(new SongView(songs.get(i).getIdSong(), songs.get(i).getTitle(),songs.get(i).getDescription()));
+            songsList.add(new SongView(i + 1, songs.get(i).getTitle(), songs.get(i).getDescription()));
+
             //We put a maximmum size of a song
             songsList.get(i).setMaximumSize(new Dimension(1000,1000));
         }

@@ -17,11 +17,11 @@ public class Graphic extends JPanel {
     private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
     private static int pointWidth = 10;
     private int numberYDivisions = 20;
-    private List<Double> users;
+    private List<Integer> users;
     private int padding = 30;                       //Quantitat de farcida esquerra i dreta
 
 
-    public Graphic(ArrayList<Double> users) {
+    public Graphic(List<Integer> users) {
         this.users = users;
     }
 
@@ -119,7 +119,7 @@ public class Graphic extends JPanel {
      */
     private double getMinUsers() {
         double minUsers = Double.MAX_VALUE;
-        for (Double Users : users) {
+        for (Integer Users : users) {
             minUsers = Math.min(minUsers, Users);
         }
         return minUsers;
@@ -130,7 +130,7 @@ public class Graphic extends JPanel {
      */
     private double getMaxUsers() {
         double maxUsers = Double.MIN_VALUE;
-        for (Double Users : users) {
+        for (Integer Users : users) {
             maxUsers = Math.max(maxUsers, Users);
         }
         return maxUsers;

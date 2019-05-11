@@ -8,12 +8,13 @@ import java.awt.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class JEvolution {
     private ServiceBBDDServer service;
     private JFrame evoPanel = new JFrame("Active Users Countage");
-    private ArrayList<Double> users;
+    private List<Integer> users;
     private JButton year;
     private JButton month;
     private JButton week;
@@ -66,13 +67,15 @@ public class JEvolution {
     }
 
     public JPanel showGraphic() {                                      //Quan cridem aquesta funció li passarem una llista de quantitat d'usuaris
-        users = new ArrayList<Double>();
-        Random random = new Random();
+
+
+        users = service.getLastWeekConnections();
+        //Random random = new Random();
         int maxDataPoints = 10;
         int maxScore = 100;
-        for (int i = 0; i < maxDataPoints; i++) {
+        /*for (int i = 0; i < maxDataPoints; i++) {
             users.add(random.nextDouble() * maxScore);
-        }
+        }*/
 
         Graphic graphic = new Graphic(users);
         graphic.setPreferredSize(new Dimension(1280, 720));

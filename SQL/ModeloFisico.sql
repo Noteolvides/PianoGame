@@ -91,9 +91,9 @@ DELIMITER ;
 
 
 
-INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (1,'System','2019-10-01',30);
-INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (2,'System','2019-10-02',69);
-INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (3,'System','2019-10-03',50);
+INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (1,'System','2019-04-29',30);
+INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (2,'System','2019-04-30',69);
+INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (3,'System','2019-05-01',50);
 INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (4,'System','2019-10-04',35);
 INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (5,'System','2019-10-06',38);
 INSERT INTO User (Name, Photo_Path, Password, Email) VALUES ('josep','hola.txt','roig','joseproig1999');

@@ -295,8 +295,13 @@ public class ServiceBBDDServer {
         ServerContextHolder.set(AvaiableClients.adminSmartPiano);
         int result;
         try {
-            dao.CheckDateExists(date);
-            result = dao.getDayConnection(date);
+            SimpleDateFormat dt1 = new SimpleDateFormat("yyyy-MM-dd");
+            String convert = dt1.format(date);
+
+                dao.CheckDateExists(convert);
+
+            result = dao.getDayConnection(convert);
+
         } catch (BBDDException e) {
             result = 0;
         }

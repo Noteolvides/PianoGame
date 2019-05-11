@@ -148,14 +148,14 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
     @Transactional(readOnly = true)
-    public int getDayConnection (Date dateToSearch) {
+    public int getDayConnection (String dateToSearch) {
         List list = getHibernateTemplate().find ("SELECT s.totalUsers FROM "+ Syst.class.getName() + " AS s WHERE s.date =" + dateToSearch);
         return (Integer) list.get(0);
     }
 
     @Transactional(readOnly = true)
-    public void CheckDateExists (Date dateToCheck) throws BBDDException {
-        List list = getHibernateTemplate().find("SELECT COUNT(*) FROM "+ Syst.class.getName()+" AS s WHERE s.date =" + dateToCheck);
+    public void CheckDateExists (String dateToCheck) throws BBDDException {
+        List list = getHibernateTemplate().find("SELECT COUNT(*) FROM "+ Syst.class.getName() +" AS s WHERE s.date = " + dateToCheck);
         if((Long)list.get(0) == 0) {
             throw new BBDDException();
         }

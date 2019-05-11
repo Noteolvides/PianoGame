@@ -54,6 +54,7 @@ public class JPrincipalController implements ActionListener {
 
         } else if (action.equals(DELETE_ACCOUNT)) {
             System.out.println("SERAS RETRASADO");
+            controller.networkDeleteAccount();
 
         }
     }

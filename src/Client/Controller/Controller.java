@@ -194,4 +194,8 @@ public class Controller {
     public void networkExitSocial() {
         network.exitSocial();
     }
+
+    public void networkDeleteAccount() {
+        network.setNextFunc(DELETE_ACCOUNT);
+    }
 }

@@ -141,16 +141,17 @@ public class DedicatedServer extends Thread {
                     try {
                         Gson gson = new Gson();
                         ArrayList<Song> songs = (ArrayList<Song>) service.getSongsUser(userSave);
-
                         dataOutputStream.writeUTF(gson.toJson(songs));
-
                         dataOutputStream.writeInt(CONFIRMATION);
+
                     } catch (Exception e) {
                         dataOutputStream.writeInt(ERROR);
                     }
                     break;
                 case SAVE_SONG:
                     break;
+                case GO_BACK:
+                    goBack = true;
             }
         }
     }

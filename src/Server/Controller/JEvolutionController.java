@@ -18,9 +18,11 @@ public class JEvolutionController implements ActionListener {
 
         switch (whichButton){
             case "Week":
+                //TODO: xDivions = 7
                 System.out.println("Monday");
                 break;
             case "Month":
+                //TODO: xDivions = 12
                 System.out.println("January");
                 break;
             case "Year":

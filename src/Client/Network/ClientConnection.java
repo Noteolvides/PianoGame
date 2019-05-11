@@ -115,6 +115,9 @@ public class ClientConnection extends Thread{
                 case LOG_OUT:
                     logOut();
                     break;
+                case DELETE_ACCOUNT:
+                    deleteUser();
+                    break;
                 default:
                     //Nothing
                     break;

@@ -234,7 +234,7 @@ DROP USER IF EXISTS 'normalUser';
 DROP USER IF EXISTS 'admin';
 CREATE USER 'noAlias' IDENTIFIED BY 'password';
 CREATE USER 'normalUser' IDENTIFIED BY 'normalUserPassword';
-CREATE USER 'admin' IDENTIFIED BY 'admin';
+CREATE USER 'admin' IDENTIFIED BY 'admin12';
 
 GRANT ALL PRIVILEGES ON * . * TO 'admin';
 GRANT SELECT  ON SmartPiano. * TO 'normalUser';

@@ -151,10 +151,16 @@ public class Controller {
         network.setNextFunc(REGISTER);
     }
 
+    //Piano Network functions
     public void networkPiano() {
         network.setNextFunc(PIANO);
     }
 
+    public void networkSelectSong() {
+        network.setNextFunc(SELECT_SONG);
+    }
+
+    //Social Network functions
     public void networkSocial() {
         network.setNextFunc(SOCIAL);
     }

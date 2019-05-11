@@ -142,7 +142,6 @@ public class ClientConnection extends Thread{
 
             if (trans_estate == ERROR) {
                 System.out.println("Error, you couldn't login to server");
-                //TODO, QUE SALTI UN DIALOG
                 controller.networkLogInResult(KO);
             } else {
                 controller.networkLogInResult(OK);

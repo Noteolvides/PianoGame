@@ -28,7 +28,9 @@ public class ClientConnection extends Thread{
     public static final String SOCIAL = "social";
     public static final String SEARCH_USER = "search_user";
     public static final String ADD_USER = "add_user";
+    public static final String EXIT_SOCIAL = "exit_social";
 
+    public static final String DELETE_ACCOUNT = "delete_account";
     public static final String LOG_OUT = "log_out";
 
     //Controller
@@ -98,11 +100,17 @@ public class ClientConnection extends Thread{
                     break;
                 case PIANO:
                     break;
+                case SOCIAL:
+                    openSocialWindow();
+                    break;
                 case SEARCH_USER:
                     searchUser();
                     break;
                 case ADD_USER:
                     addUser();
+                    break;
+                case EXIT_SOCIAL:
+                    exitSocial();
                     break;
                 case LOG_OUT:
                     logOut();
@@ -190,33 +198,41 @@ public class ClientConnection extends Thread{
     }
 
     // Social functions
+    public void openSocialWindow() {
+        //We sent to the server the current operation
+        try{
+            dOut.writeUTF(SOCIAL);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void searchUser() {
         int trans_estate = RECEIVED;
 
         try {
-            //We sent to the server the current operation
-            dOut.writeUTF(SOCIAL);
-            //TODO : This it is not going to be executed until neil command
             dOut.writeUTF(SEARCH_USER);
+
             //This will send the User Object that we want to log into our server
             dOut.writeUTF(controller.getSearchedUser());
+
             //We wait for response if the operation is completed correctly
             trans_estate = dIn.readInt();
-            //Todo, potser no li hem d'enviar un usuari, sino un String amb el nom de l'usuari i rebre el usuari com objecte
 
             if (trans_estate == ERROR) {
                 System.out.println("Error, this user doesn't exists");
                 //TODO, QUE SALTI UN DIALOG
+
             }else{
                 User userToNeil = (User) obIn.readObject();
+
                 if (userToNeil.getPassword().equals("YES")){
                     //TODO : Controllers puts the frind in the social with friend circle
+
                 }else{
                     //TODO : The Are not friends but we put it anywais
                 }
             }
-
-
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -232,21 +248,21 @@ public class ClientConnection extends Thread{
 
             //We wait for response if the operation is completed correctly
             trans_estate = dIn.readInt();
-            //Todo, potser no li hem d'enviar un usuari, sino un String amb el nom de l'usuari i rebre el usuari com
-            // objecte que es el que afegirem com amic del client
 
             if (trans_estate == ERROR) {
                 System.out.println("Error, you couldn't connect to server");
                 //TODO, QUE SALTI UN DIALOG
+
             } else {
                 //TODO, QUE SALTI UN DIALOG
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void exitSocial() throws IOException {
+    public void exitSocial() {
         try {
             //We sent to the server the current operation
             dOut.writeUTF(GO_BACK);

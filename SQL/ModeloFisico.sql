@@ -91,7 +91,11 @@ DELIMITER ;
 
 
 
-INSERT INTO Syst (Name, Date, TotalOfUsers) VALUES ('System',DATE(NOW()),99);
+INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (1,'System','2019-10-01',30);
+INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (2,'System','2019-10-02',69);
+INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (3,'System','2019-10-03',50);
+INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (4,'System','2019-10-04',35);
+INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (5,'System','2019-10-06',38);
 INSERT INTO User (Name, Photo_Path, Password, Email) VALUES ('josep','hola.txt','roig','joseproig1999');
 INSERT INTO User (Name, Photo_Path, Password, Email) VALUES ('pepe','holas.txt','roig','peperoig1999');
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path,SystemID) VALUES ('pepe',12,'pepe',120,'pepe.mp3',1);
@@ -100,12 +104,6 @@ INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES (
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('classo',12,'pepe',91,'pepe.mp3','josep');
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('pepeSong',12,'pepe',91,'pepe.mp3','josep');
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('FlamencoGitano',12,'pepe',57,'pepe.mp3','pepe');
-
-INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (1,'System','2019-10-01',30);
-INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (2,'System','2019-10-02',69);
-INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (3,'System','2019-10-03',50);
-INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (4,'System','2019-10-04',35);
-INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (5,'System','2019-10-06',38);
 
 
 

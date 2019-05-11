@@ -37,7 +37,7 @@ public class FinestraJSocial extends JFrame {
             JOptionPane.showMessageDialog(this, "Ereh mi amiho.", "Friend", JOptionPane.INFORMATION_MESSAGE);
         }
         if (added.equals("addedn't")) {
-            JOptionPane.showMessageDialog(this, "No ereh mi amiho, estoi trite.", "Friend", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No ereh mi amiho, estoi trite.", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
 }

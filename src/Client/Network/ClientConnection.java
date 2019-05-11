@@ -224,14 +224,7 @@ public class ClientConnection extends Thread{
                 controller.networkSearchSocialResult(KO, null);
             }else{
                 User userToController = (User) obIn.readObject();
-
-                if (userToController.getPassword().equals("YES")){
-                    controller.networkSearchSocialResult(OK, userToController);
-                }else{
-                    controller.networkSearchSocialResult(OK, userToController);
-                    System.out.println("Pues nos hacemos friends");
-                    nextFunc = ADD_USER;
-                }
+                controller.networkSearchSocialResult(OK, userToController);
             }
 
         } catch (IOException | ClassNotFoundException e) {

@@ -11,13 +11,6 @@ public class JPrincipalController implements ActionListener {
     private View view;
     private Controller controller;
 
-    //Main provisional
-    public static void main(String[] args) {
-        View view = new View();
-        //JPrincipalController controller = new JPrincipalController(view);
-        //view.getPrincipalView().registerController(controller);
-    }
-
     public JPrincipalController(View view, Controller controller) {
         this.view = view;
         this.controller = controller;
@@ -33,27 +26,18 @@ public class JPrincipalController implements ActionListener {
             controller.closePrincipal();
 
         } else if (action.equals(JSOCIAL)) {
-            /*
-            FinestraJSocial fj = new FinestraJSocial();
-            ControllerJSocial controllerJSocial = new ControllerJSocial(fj);
-            fj.registerController(controllerJSocial);
-             */
             controller.networkSocial();
             controller.openSocial();
             controller.closePrincipal();
 
         } else if (action.equals(SIGN_OUT)) {
-            /*
-            view.initStartView();
-            StartController controller = new StartController(view);
-            view.getStartView().registerController(controller);
-            */
             controller.networkSignOut();
             controller.closePrincipal();
             controller.openStart();
 
         } else if (action.equals(DELETE_ACCOUNT)) {
             System.out.println("SERAS RETRASADO");
+            controller.networkDeleteAccount();
 
         }
     }

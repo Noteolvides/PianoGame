@@ -10,7 +10,6 @@ import Model.User;
 import static Client.Network.ClientConnection.*;
 
 public class Controller {
-    public static String WAITING = "wait";
     public static String OK = "ok";
     public static String KO = "ko";
     private View view;
@@ -178,7 +177,24 @@ public class Controller {
         network.setNextFunc(ADD_USER);
     }
 
+    public void networkAddSocialResult(String petitionResult) {
+        if (petitionResult.equals(OK)) {
+            view.getSocialView().friendPopUp("added");
+        }
+        if (petitionResult.equals(KO)) {
+            view.getSocialView().friendPopUp("addedn't");
+        }
+    }
+
     public void networkSignOut() {
         network.setNextFunc(LOG_OUT);
+    }
+
+    public void networkExitSocial() {
+        network.setNextFunc(EXIT_SOCIAL);
+    }
+
+    public void networkDeleteAccount() {
+        network.setNextFunc(DELETE_ACCOUNT);
     }
 }

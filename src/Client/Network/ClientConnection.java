@@ -212,8 +212,10 @@ public class ClientConnection extends Thread {
 
             if (trans_estate == ERROR) {
                 System.out.println("Error, you couldn't register to server");
+                controller.networkLogInResult(KO);
             } else {
                 System.out.println("WELCOME, WELCOME!");
+                controller.networkLogInResult(OK);
                 dOut.writeUTF(GO_BACK);
 
             }
@@ -265,16 +267,10 @@ public class ClientConnection extends Thread {
             if (trans_estate == ERROR) {
                 System.out.println("Error, this user doesn't exists");
                 controller.networkSearchSocialResult(KO, null);
-            } else {
-                User userToController = (User) obIn.readObject();
 
-                if (userToController.getPassword().equals("YES")) {
-                    controller.networkSearchSocialResult(OK, userToController);
-                } else {
-                    controller.networkSearchSocialResult(OK, userToController);
-                    System.out.println("Pues nos hacemos friends");
-                    nextFunc = ADD_USER;
-                }
+            }else{
+                User userToController = (User) obIn.readObject();
+                controller.networkSearchSocialResult(OK, userToController);
             }
 
         } catch (IOException | ClassNotFoundException e) {
@@ -294,11 +290,11 @@ public class ClientConnection extends Thread {
 
             if (trans_estate == ERROR) {
                 System.out.println("No eres mi amiho");
-                //TODO, QUE SALTI UN DIALOG
+                controller.networkAddSocialResult(KO);
 
             } else {
                 System.out.println("Si eres mi amiho");
-                //TODO, QUE SALTI UN DIALOG
+                controller.networkAddSocialResult(OK);
             }
 
         } catch (IOException e) {

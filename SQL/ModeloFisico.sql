@@ -101,6 +101,11 @@ INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES (
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('pepeSong',12,'pepe',91,'pepe.mp3','josep');
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('FlamencoGitano',12,'pepe',57,'pepe.mp3','pepe');
 
+INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (1,'System','2019-10-01',30);
+INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (2,'System','2019-10-02',69);
+INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (3,'System','2019-10-03',50);
+INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (4,'System','2019-10-04',35);
+INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (5,'System','2019-10-06',38);
 
 
 

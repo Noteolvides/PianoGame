@@ -159,7 +159,7 @@ public class ServiceBBDDServer {
         dao.checkExistenceUserDatabaseWithoutPassword(user.getNameUser(),false);
         dao.updateUserTable(user);
         //this metodh is useles
-        //dao.recyprocityFriendship();
+        dao.recyprocityFriendship();
         ServerContextHolder.clear();
     }
 

@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS Syst(
 DROP TABLE IF EXISTS User;
 CREATE TABLE IF NOT EXISTS User(
   Name VARCHAR(255),
-  Photo BLOB,
-  #Photo_Path VARCHAR(255),
+  #Photo BLOB,
+  Photo_Path VARCHAR(255),
   Password char(32),
   Email CHAR(255),
   PRIMARY KEY (Name)
@@ -50,22 +50,6 @@ CREATE TABLE IF NOT EXISTS Song(
   FOREIGN KEY (SystemID) REFERENCES Syst(ID)
 );
 
-DROP USER IF EXISTS 'noAlias' ;
-DROP USER IF EXISTS 'normalUser';
-DROP USER IF EXISTS 'admin';
-CREATE USER 'noAlias' IDENTIFIED BY 'password';
-CREATE USER 'normalUser' IDENTIFIED BY 'normalUserPassword';
-CREATE USER 'admin' IDENTIFIED BY 'admin';
-
-GRANT ALL PRIVILEGES ON * . * TO 'admin';
-GRANT SELECT  ON SmartPiano. * TO 'normalUser';
-GRANT INSERT  ON SmartPiano. * TO 'normalUser';
-GRANT DELETE  ON SmartPiano. * TO 'normalUser';
-GRANT UPDATE ON SmartPiano. * TO 'normalUser';
-GRANT INSERT ON SmartPiano. * TO 'noAlias';
-GRANT SELECT ON SmartPiano. * TO 'noAlias';
-#Permission to allow to a user to execute a procedure
-GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser'@'localhost';
 
 SELECT * FROM Song;
 SELECT * FROM Friendship;
@@ -116,6 +100,26 @@ INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES (
 
 INSERT INTO User (Name, Photo_Path, Password, Email) VALUES ('josep','hola.txt','roig','joseproig1999');
 INSERT INTO User (Name, Photo_Path, Password, Email) VALUES ('pepe','holas.txt','roig','peperoig1999');
+
+
+
+
+DROP USER IF EXISTS 'noAlias' ;
+DROP USER IF EXISTS 'normalUser';
+DROP USER IF EXISTS 'admin';
+CREATE USER 'noAlias' IDENTIFIED BY 'password';
+CREATE USER 'normalUser' IDENTIFIED BY 'normalUserPassword';
+CREATE USER 'admin' IDENTIFIED BY 'admin';
+
+GRANT ALL PRIVILEGES ON * . * TO 'admin';
+GRANT SELECT  ON SmartPiano. * TO 'normalUser';
+GRANT INSERT  ON SmartPiano. * TO 'normalUser';
+GRANT DELETE  ON SmartPiano. * TO 'normalUser';
+GRANT UPDATE ON SmartPiano. * TO 'normalUser';
+GRANT INSERT ON SmartPiano. * TO 'noAlias';
+GRANT SELECT ON SmartPiano. * TO 'noAlias';
+#Permission to allow to a user to execute a procedure
+GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser';
 
 
 SELECT * FROM User;

@@ -147,10 +147,11 @@ public class Controller {
             //wait
         }
         if (petitionStatus.equals(OK)) {
-            //continue
+            openPrincipal();
+            closeStart();
         }
         if (petitionStatus.equals(KO)) {
-            //error
+            view.getStartView().errorPopUp("login");
         }
     }
 

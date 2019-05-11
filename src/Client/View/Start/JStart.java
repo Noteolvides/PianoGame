@@ -81,4 +81,13 @@ public class JStart extends JFrame {
         buttonRegister.setActionCommand("GO-REGISTER");
         buttonRegister.addActionListener(c);
     }
+
+    public void errorPopUp(String process) {
+        if (process.equals("login")) {
+            JOptionPane.showMessageDialog(this, "Error, Login wasn't successful.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        if (process.equals("register")) {
+            JOptionPane.showMessageDialog(this, "Error. Register wasn't successful.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }
 }

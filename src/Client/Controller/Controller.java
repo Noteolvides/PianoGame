@@ -181,4 +181,8 @@ public class Controller {
     public void networkSignOut() {
         network.setNextFunc(LOG_OUT);
     }
+
+    public void networkExitSocial() {
+        network.exitSocial();
+    }
 }

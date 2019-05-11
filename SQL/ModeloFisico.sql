@@ -50,12 +50,12 @@ CREATE TABLE IF NOT EXISTS Song(
   FOREIGN KEY (SystemID) REFERENCES Syst(ID)
 );
 
-DROP USER 'noAlias'@'localhost';
-DROP USER 'normalUser'@'localhost';
-DROP USER 'admin'@'localhost';
-CREATE USER 'noAlias'@'localhost' IDENTIFIED BY 'password';
-CREATE USER 'normalUser'@'localhost' IDENTIFIED BY 'normalUserPassword';
-CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
+DROP USER IF EXISTS 'noAlias' ;
+DROP USER IF EXISTS 'normalUser';
+DROP USER IF EXISTS 'admin';
+CREATE USER 'noAlias' IDENTIFIED BY 'password';
+CREATE USER 'normalUser' IDENTIFIED BY 'normalUserPassword';
+CREATE USER 'admin' IDENTIFIED BY 'admin';
 
 GRANT ALL PRIVILEGES ON * . * TO 'admin';
 GRANT SELECT  ON SmartPiano. * TO 'normalUser';

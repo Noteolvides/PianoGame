@@ -108,9 +108,7 @@ INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES (
 DROP USER IF EXISTS 'noAlias' ;
 DROP USER IF EXISTS 'normalUser';
 DROP USER IF EXISTS 'admin';
-SET GLOBAL validate_password_length = 6;
-SET GLOBAL validate_password_number_count = 0;
-SET GLOBAL validate_password_policy=LOW;
+
 CREATE USER 'noAlias' IDENTIFIED BY 'password1999';
 CREATE USER 'normalUser' IDENTIFIED BY 'normalUserPassword1999';
 CREATE USER 'admin' IDENTIFIED BY 'adminPassword1999';

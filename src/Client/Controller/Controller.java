@@ -5,7 +5,10 @@ import Client.Controller.Piano.PianoController;
 import Client.Controller.Start.StartController;
 import Client.Network.ClientConnection;
 import Client.View.View;
+import Model.Song;
 import Model.User;
+
+import java.util.ArrayList;
 
 import static Client.Network.ClientConnection.*;
 
@@ -158,6 +161,15 @@ public class Controller {
 
     public void networkSelectSong() {
         network.setNextFunc(SELECT_SONG);
+    }
+
+    public void networkSelectSongResult(String petitionResult, ArrayList<Song> songs) {
+        if (petitionResult.equals(OK)) {
+            view.getSongView().updateSongs(songs);
+        }
+        if (petitionResult.equals(KO)) {
+            view.getSongView().errorPopUp();
+        }
     }
 
     //Social Network functions

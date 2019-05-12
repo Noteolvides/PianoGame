@@ -9,7 +9,6 @@ import com.google.gson.reflect.TypeToken;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
 
 import static Client.Controller.Controller.*;
 
@@ -304,14 +303,14 @@ public class ClientConnection extends Thread {
             trans_estate = dIn.readInt();
 
             if (trans_estate != ERROR) {
-                //TODO : Call to controller to actualize the screen with songs
+                controller.networkSelectSongResult(OK, songs);
                 for (Song s: songs) {
                     System.out.println(s.getTitle());
                 }
 
             }else{
                 System.out.println("Error");
-                //TODO : Print Error
+                controller.networkSelectSongResult(KO, null);
             }
 
         } catch (IOException e) {

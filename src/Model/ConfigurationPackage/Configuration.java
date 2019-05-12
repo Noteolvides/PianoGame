@@ -1,11 +1,12 @@
 package Model.ConfigurationPackage;
 
+import java.util.List;
+
 public class Configuration {
     private int portConnexioBBDD;
     private String ip;
     private String BBDDName;
-    private String user;
-    private String password;
+    private List<MysqlUser> mysqlUsers;
     private int clientPort;
 
     public int getPortConnexioBBDD() {
@@ -32,20 +33,12 @@ public class Configuration {
         this.BBDDName = BBDDName;
     }
 
-    public String getUser() {
-        return user;
+    public List<MysqlUser> getMysqlUsers() {
+        return mysqlUsers;
     }
 
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setMysqlUsers(List<MysqlUser> mysqlUsers) {
+        this.mysqlUsers = mysqlUsers;
     }
 
     public int getClientPort() {

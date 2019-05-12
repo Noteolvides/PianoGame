@@ -153,7 +153,13 @@ public class DedicatedServer extends Thread {
                     }
                     break;
                 case SAVE_SONG:
-
+                    try {
+                        String song = dataInputStream.readUTF();
+                        dataOutputStream.writeInt(CONFIRMATION);
+                        //TODO: Save song into BBDD. -> in String or Midi format?
+                    } catch (IOException e) {
+                        dataOutputStream.writeInt(ERROR);
+                    }
                     break;
                 case GO_BACK:
                     goBack = true;

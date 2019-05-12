@@ -101,7 +101,10 @@ public class DedicatedServer extends Thread {
                         break;
                 }
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                //When the client interrupts the communication
+                System.out.println("Connection lost with the client");
+                stopDedicatedServer();
+
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -143,7 +146,7 @@ public class DedicatedServer extends Thread {
                         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
                         List<Song> songs = service.getSongsUser(userSave);
                         String songsJson = gson.toJson(songs);
-                        dataOutputStream.writeUTF(songsJson);
+                        //dataOutputStream.writeUTF(songsJson);
                         dataOutputStream.writeInt(CONFIRMATION);
 
                     } catch (Exception e) {
@@ -240,8 +243,8 @@ public class DedicatedServer extends Thread {
         this.socket = socket;
     }
 
-
     public void setServer(Server server) {
         this.server = server;
     }
+
 }

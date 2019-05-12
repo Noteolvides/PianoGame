@@ -14,6 +14,16 @@ public class Key extends JPanel {
     private JLabel numberOfKey = new JLabel();
     private Color colorKey;
 
+    public Key(){
+
+    }
+
+    public Key(Color color, int i, double v, int i1, int i2) {
+        numberOfKey.setForeground(color);
+        setSize(i,(int)v);
+        setLocation(i1,i2);
+    }
+
     public void setLabel(Color colorLabel,String text){
         setLayout(new BorderLayout());
         numberOfKey.setText(text);

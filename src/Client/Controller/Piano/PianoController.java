@@ -5,10 +5,12 @@ import Client.View.Piano.Key;
 import Client.View.View;
 import Model.KeyRecord;
 import org.jfugue.midi.MidiFileManager;
+import org.jfugue.midi.MidiParser;
 import org.jfugue.pattern.Pattern;
 import org.jfugue.realtime.RealtimePlayer;
 import org.jfugue.theory.Note;
 
+import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
 import javax.swing.*;
 import java.awt.*;
@@ -28,6 +30,12 @@ public class PianoController {
     private static int numberOFkeys = 0;
     private HashMap<Integer,KeyRecord> keys = new HashMap<>();
     private boolean recordSong;
+    private PlayerSongPiano player;
+
+    public static void main(String[] args) {
+        View v = new View();
+        PianoController pianoController = new PianoController(v,new Controller(v));
+    }
 
     public PianoController(View view, Controller controller) {
         this.view = view;
@@ -37,6 +45,7 @@ public class PianoController {
 
     private void initController() {
         view.initPianoView();
+        view.getPianoView().setVisible(true);
 
         //Implementation of listener for keys 1234560 to change Octave;
         for (int i = 0; i < 7; i++) {
@@ -49,8 +58,6 @@ public class PianoController {
                 }
             });
         }
-        //TODO : No funcionan los botonoes creo que lo voy a cambiar
-
 
         //To get out
         view.getPianoView().getTopOption().getExitToMenu().addActionListener(e -> {
@@ -63,6 +70,33 @@ public class PianoController {
             controller.closePiano();
             controller.networkSelectSong();
             controller.openSong();
+        });
+
+        view.getPianoView().getTopOption().getPlay().addActionListener(e->{
+            try {
+                Pattern pattern = MidiFileManager.loadPatternFromMidi(new File("Song.mid"));
+                player = new PlayerSongPiano(view.getPianoView(),pattern);
+                new Thread(() -> {
+                    double time= 0;
+                    while (time < player.getTimeSong()){
+                        for (JPanel jf  : view.getPianoView().getNotes()) {
+                            Point p = jf.getLocation();
+                            jf.setLocation(p.x, (int) (p.y+7.5));
+                        }
+                        view.getPianoView().revalidate();
+                        view.getPianoView().repaint();
+                        try {
+                            time += 0.1;
+                            Thread.sleep(100);
+                        } catch (InterruptedException j) {
+                            j.printStackTrace();
+                        }
+                    }
+                }).start();
+
+            } catch (IOException | InvalidMidiDataException ex) {
+                ex.printStackTrace();
+            }
         });
 
         try {
@@ -125,7 +159,7 @@ public class PianoController {
                     if (activado[finalI] == 0) {
                         k.touch();
                         String str = k.getNumberOfKey().getText();
-                        int actualValue = Integer.valueOf(str.substring(str.length() -1 , str.length())) + 2;
+                        int actualValue = Integer.valueOf(str.substring(str.length() -1 , str.length()));
                         str = str.substring(0, str.length() - 1) + actualValue;
                         realtimePlayer.startNote(new Note(str));
                         if (recordSong){
@@ -143,7 +177,7 @@ public class PianoController {
                     activado[finalI] = 0;
                     k.unTouch();
                     String str = k.getNumberOfKey().getText();
-                    int actualValue = Integer.valueOf(str.substring(str.length() -1 , str.length())) + 2;
+                    int actualValue = Integer.valueOf(str.substring(str.length() -1 , str.length()));
                     str = str.substring(0, str.length() - 1) + actualValue;
                     realtimePlayer.stopNote(new Note(str));
                 }

@@ -292,12 +292,13 @@ public class ClientConnection extends Thread {
 
     private void selectSongs() {
         int trans_estate = CORRECT;
-
         try {
             dOut.writeUTF(SELECT_SONG);
 
             Gson gson = new Gson();
-            String songsString =  dIn.readUTF();
+            String songsString;
+            songsString =  dIn.readUTF();
+
             ArrayList<Song> songs = gson.fromJson(songsString, new TypeToken<ArrayList <Song>>(){}.getType());
 
             trans_estate = dIn.readInt();
@@ -309,6 +310,7 @@ public class ClientConnection extends Thread {
                 }
 
             }else{
+                System.out.println("Error");
                 //TODO : Print Error
             }
 

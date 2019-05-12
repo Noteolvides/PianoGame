@@ -5,6 +5,7 @@ import Model.User;
 import Server.Controller.BBDD.Resources.BBDDException;
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -139,9 +140,10 @@ public class DedicatedServer extends Thread {
             switch (dataInputStream.readUTF()){
                 case SELECT_SONG:
                     try {
-                        Gson gson = new Gson();
-                        ArrayList<Song> songs = (ArrayList<Song>) service.getSongsUser(userSave);
-                        dataOutputStream.writeUTF(gson.toJson(songs));
+                        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+                        List<Song> songs = service.getSongsUser(userSave);
+                        String songsJson = gson.toJson(songs);
+                        dataOutputStream.writeUTF(songsJson);
                         dataOutputStream.writeInt(CONFIRMATION);
 
                     } catch (Exception e) {
@@ -152,6 +154,7 @@ public class DedicatedServer extends Thread {
                     break;
                 case GO_BACK:
                     goBack = true;
+                    break;
             }
         }
     }

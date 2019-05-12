@@ -1,4 +1,4 @@
-package Model;
+package Model.ConfigurationPackage;
 
 public class Configuration {
     private int portConnexioBBDD;

@@ -1,6 +1,7 @@
 package Server.Controller.BBDD.MultiConnection;
 
 
+import com.google.gson.Gson;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,11 +22,12 @@ public class DataSourceConfiguration {
     public DataSource clientDatasource() {
         //We define a hashmap where we will save the object together with its reference (her personal DNI that is an enumeration, so we can identify them)
         Map<Object, Object> targetDataSources = new HashMap<Object,Object>();
-
+        Gson gson = new Gson();
+        Model.ConfigurationPackage.Configuration config = gson.fromJson("configFiles/config.json", Model.ConfigurationPackage.Configuration.class);
         //We create the datasource (connections) that there may be (At the moment you will only have one)
-        DataSource clientDatasource_2 = DataSourceBuilder.create().username("noAlias").password("password1999").driverClassName("com.mysql.cj.jdbc.Driver").url("jdbc:mysql://localhost/SmartPiano?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
-        DataSource clientDatasource_3 = DataSourceBuilder.create().username("normalUser").password("normalUserPassword1999").driverClassName("com.mysql.cj.jdbc.Driver").url("jdbc:mysql://localhost/SmartPiano?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
-        DataSource clientDatasource = DataSourceBuilder.create().username("admin").password("adminPassword1999").driverClassName("com.mysql.cj.jdbc.Driver").url("jdbc:mysql://localhost/SmartPiano?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
+        DataSource clientDatasource_2 = DataSourceBuilder.create().username("noAlias").password("password1999").driverClassName("com.mysql.cj.jdbc.Driver").url("jdbc:mysql://" + config.getIp() + "/"+ config.getBBDDName() +"?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
+        DataSource clientDatasource_3 = DataSourceBuilder.create().username("normalUser").password("normalUserPassword1999").driverClassName("com.mysql.cj.jdbc.Driver").url("jdbc:mysql://"+ config.getIp()+ "/" + config.getBBDDName() + "?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
+        DataSource clientDatasource = DataSourceBuilder.create().username("admin").password("adminPassword1999").driverClassName("com.mysql.cj.jdbc.Driver").url("jdbc:mysql://"+ config.getIp()+"/"+ config.getBBDDName()+"?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
         //We add them to the hashMap
         targetDataSources.put(AvaiableClients.adminSmartPiano, clientDatasource);
         targetDataSources.put(AvaiableClients.noUserSmartPiano, clientDatasource_2);

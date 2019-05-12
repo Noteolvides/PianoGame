@@ -140,7 +140,7 @@ public class ClientConnection extends Thread {
         }
     }
 
-    // Login/Register functions
+    //Login/Register Functions
     public void loginUser() {
         int trans_estate = CORRECT;
 
@@ -210,8 +210,9 @@ public class ClientConnection extends Thread {
             e.printStackTrace();
         }
     }
+    //END Login/Register Functions
 
-    // Social functions
+    //Social Functions
     public void openSocialWindow() {
         //We sent to the server the current operation
         try {
@@ -278,8 +279,9 @@ public class ClientConnection extends Thread {
             e.printStackTrace();
         }
     }
+    //END Social Functions
 
-    // Piano functions
+    //Piano Functions
     public void openPiano() {
         //We sent to the server the current operation
         try {
@@ -290,31 +292,31 @@ public class ClientConnection extends Thread {
     }
 
     private void selectSongs() {
-        int trans_estate = CORRECT;
+        int trans_state = CORRECT;
         try {
             dOut.writeUTF(SELECT_SONG);
 
             Gson gson = new Gson();
             String songsString;
             songsString =  dIn.readUTF();
-
             ArrayList<Song> songs = gson.fromJson(songsString, new TypeToken<ArrayList <Song>>(){}.getType());
 
-            trans_estate = dIn.readInt();
+            trans_state = dIn.readInt();
 
-            if (trans_estate != ERROR) {
-                controller.networkSelectSongResult(OK, songs);
+            if (trans_state != ERROR) {
+                //TODO : Call to controller to actualize the screen with songs
                 for (Song s: songs) {
                     System.out.println(s.getTitle());
                 }
 
             }else{
-                System.out.println("Error");
+                System.out.println("Error with the GSON songs");
                 controller.networkSelectSongResult(KO, null);
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("Error with the GSON songs");
         }
 
     }
@@ -323,8 +325,16 @@ public class ClientConnection extends Thread {
 
     }
 
+    public void exitPiano() {
+        try {
+            //We sent to the server the current operation
+            dOut.writeUTF(GO_BACK);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-
+    // END Piano Functions
     public String getNextFunc() {
         return nextFunc;
     }

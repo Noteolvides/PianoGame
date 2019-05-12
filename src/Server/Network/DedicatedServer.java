@@ -146,9 +146,8 @@ public class DedicatedServer extends Thread {
                         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
                         List<Song> songs = service.getSongsUser(userSave);
                         String songsJson = gson.toJson(songs);
-                        //dataOutputStream.writeUTF(songsJson);
+                        dataOutputStream.writeUTF(songsJson);
                         dataOutputStream.writeInt(CONFIRMATION);
-
                     } catch (Exception e) {
                         dataOutputStream.writeInt(ERROR);
                     }
@@ -178,7 +177,6 @@ public class DedicatedServer extends Thread {
                     } catch (BBDDException e) {
                         dataOutputStream.writeInt(ERROR);
                     }
-
 
                     break;
                 case GO_BACK:

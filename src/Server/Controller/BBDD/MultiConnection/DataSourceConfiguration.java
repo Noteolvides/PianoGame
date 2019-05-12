@@ -2,12 +2,15 @@ package Server.Controller.BBDD.MultiConnection;
 
 
 import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +26,13 @@ public class DataSourceConfiguration {
         //We define a hashmap where we will save the object together with its reference (her personal DNI that is an enumeration, so we can identify them)
         Map<Object, Object> targetDataSources = new HashMap<Object,Object>();
         Gson gson = new Gson();
-        Model.ConfigurationPackage.Configuration config = gson.fromJson("configFiles/config.json", Model.ConfigurationPackage.Configuration.class);
+        JsonReader json = null;
+        try {
+            json = new JsonReader(new FileReader("configFiles/config.json"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Model.ConfigurationPackage.Configuration config = gson.fromJson(json, Model.ConfigurationPackage.Configuration.class);
         //We create the datasource (connections) that there may be (At the moment you will only have one)
         DataSource clientDatasource_2 = DataSourceBuilder.create().username(config.getMysqlUsers().get(0).getUsername()).password(config.getMysqlUsers().get(0).getPassword()).driverClassName("com.mysql.cj.jdbc.Driver").url("jdbc:mysql://" + config.getIp() + "/"+ config.getBBDDName() +"?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
         DataSource clientDatasource_3 = DataSourceBuilder.create().username(config.getMysqlUsers().get(1).getUsername()).password(config.getMysqlUsers().get(1).getPassword()).driverClassName("com.mysql.cj.jdbc.Driver").url("jdbc:mysql://"+ config.getIp()+ "/" + config.getBBDDName() + "?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();

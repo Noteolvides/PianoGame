@@ -21,6 +21,7 @@ public class DataSourceConfiguration {
     public DataSource clientDatasource() {
         //We define a hashmap where we will save the object together with its reference (her personal DNI that is an enumeration, so we can identify them)
         Map<Object, Object> targetDataSources = new HashMap<Object,Object>();
+
         //We create the datasource (connections) that there may be (At the moment you will only have one)
         DataSource clientDatasource_2 = DataSourceBuilder.create().username("noAlias").password("password1999").driverClassName("com.mysql.cj.jdbc.Driver").url("jdbc:mysql://localhost/SmartPiano?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();
         DataSource clientDatasource_3 = DataSourceBuilder.create().username("normalUser").password("normalUserPassword1999").driverClassName("com.mysql.cj.jdbc.Driver").url("jdbc:mysql://localhost/SmartPiano?useSSL=false&allowPublicKeyRetrieval=true").type(DriverManagerDataSource.class).build();

@@ -51,6 +51,7 @@ public class DedicatedServer extends Thread {
 
     public static final String SELECT_SONG = "select_song";
     public static final String SAVE_SONG = "save_song";
+    public static final String REQUEST_SONG = "request_song";
 
 
     public DedicatedServer(ServiceBBDDServer service){
@@ -157,6 +158,17 @@ public class DedicatedServer extends Thread {
                         String song = dataInputStream.readUTF();
                         dataOutputStream.writeInt(CONFIRMATION);
                         //TODO: Save song into BBDD. -> in String or Midi format?
+                    } catch (IOException e) {
+                        dataOutputStream.writeInt(ERROR);
+                    }
+                    break;
+                case REQUEST_SONG:
+                    try {
+                        String song = dataInputStream.readUTF();
+                        //TODO: Request to BBDD the song and return to User the MIDI FILE
+                        //MIDI OBJECT CONSTRUCTOR INITILIZATION
+                        //objectOutputStream.writeObject();
+                        dataOutputStream.writeInt(CONFIRMATION);
                     } catch (IOException e) {
                         dataOutputStream.writeInt(ERROR);
                     }

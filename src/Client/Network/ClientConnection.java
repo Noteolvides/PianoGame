@@ -112,7 +112,7 @@ public class ClientConnection extends Thread {
                     selectSongs();
                     break;
                 case SAVE_SONG:
-                    saveSong();
+                    //saveSong();
                     break;
                 case SOCIAL:
                     openSocialWindow();
@@ -160,6 +160,7 @@ public class ClientConnection extends Thread {
                 controller.networkLogInResult(OK);
                 dOut.writeUTF(GO_BACK);
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -292,7 +293,7 @@ public class ClientConnection extends Thread {
     }
 
     private void selectSongs() {
-        int trans_state = CORRECT;
+        int trans_estate = CORRECT;
         try {
             dOut.writeUTF(SELECT_SONG);
 
@@ -301,10 +302,11 @@ public class ClientConnection extends Thread {
             songsString =  dIn.readUTF();
             ArrayList<Song> songs = gson.fromJson(songsString, new TypeToken<ArrayList <Song>>(){}.getType());
 
-            trans_state = dIn.readInt();
+            trans_estate = dIn.readInt();
 
-            if (trans_state != ERROR) {
+            if (trans_estate != ERROR) {
                 controller.networkSelectSongResult(OK, songs);
+
                 for (Song s: songs) {
                     System.out.println(s.getTitle());
                 }

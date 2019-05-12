@@ -1,6 +1,8 @@
 package Client.View;
 
 import Client.Controller.ControllerJSong;
+import Model.Song;
+
 import javax.swing.*;
 import java.util.ArrayList;
 
@@ -20,7 +22,7 @@ public class FinestraJSong extends JFrame{
         return comboSongView.getjSong();
     }
 
-    public void updateSongs (ArrayList <SongPrueba> arrayList) {
+    public void updateSongs (ArrayList<Song> arrayList) {
         comboSongView.updateSongs(arrayList);
     }
     public void updateControllersSongs (ControllerJSong controllerJSong) {
@@ -33,5 +35,9 @@ public class FinestraJSong extends JFrame{
 
     public void showLoading () {
         comboSongView.showGif();
+    }
+
+    public void errorPopUp() {
+        JOptionPane.showMessageDialog(this, "There was a problem loading the songs.", "Error", JOptionPane.WARNING_MESSAGE);
     }
 }

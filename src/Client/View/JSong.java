@@ -1,6 +1,8 @@
 package Client.View;
 
 import Client.Controller.ControllerJSong;
+import Model.Song;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -85,7 +87,7 @@ public class JSong extends JPanel{
         setVisible(true);
     }
 
-    public void includeSongs (ArrayList <SongPrueba> songs) {
+    public void includeSongs (ArrayList<Song> songs) {
         //Adding a new array to not repeat different times the same songs, if we decide to refresh the window
         //We take the songs that we are going to show and we add them to our view
         songsList.clear();

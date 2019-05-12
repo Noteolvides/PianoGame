@@ -1,6 +1,8 @@
 package Model;
 
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,17 +11,22 @@ import java.util.List;
 @Entity
 @Table(name="User")
 public class User implements Serializable {
+    @Expose
     @Id
     @Column(name="Name")
     private String nameUser;
+    @Expose
     @Column(name="Photo_Path")
     private String url;
+    @Expose
     @Column(name="Password")
     private String password;
+    @Expose
     @Column(name="Email")
     private String email;
-    @OneToMany(mappedBy="author", cascade= CascadeType.ALL)
+    @OneToMany(mappedBy="author", cascade= CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Song> songs;
+    @Expose
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name="Friendship", joinColumns={@JoinColumn(name="Name1")}, inverseJoinColumns={@JoinColumn(name="Name2")})
     private List <User> following;

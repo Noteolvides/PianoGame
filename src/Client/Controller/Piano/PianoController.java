@@ -55,6 +55,7 @@ public class PianoController {
         //To get out
         view.getPianoView().getTopOption().getExitToMenu().addActionListener(e -> {
             controller.closePiano();
+            controller.networkExitPiano();
             controller.openPrincipal();
         });
 

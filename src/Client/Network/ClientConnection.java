@@ -367,7 +367,20 @@ public class ClientConnection extends Thread {
      * @param song: Song that will be saved into the BBDD
      */
     private void saveSong(String song) {
-        //Guardar cancion
+        int trans_estate = CORRECT;
+        try {
+            dOut.writeUTF(SAVE_SONG);
+            trans_estate = dIn.readInt();
+
+            if (trans_estate == ERROR) {
+                //TODO: Controller warn that the song has been saved successfully
+            } else {
+                //TODO: Controller warn with a JDialog that the Song couldn't be saved. TRY AGAIN
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

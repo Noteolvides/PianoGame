@@ -163,6 +163,10 @@ public class Controller {
         network.setNextFunc(SELECT_SONG);
     }
 
+    public void networkSaveSong(String song) {
+        network.setNextFunc(SAVE_SONG);
+    }
+
     public void networkSelectSongResult(String petitionResult, ArrayList<Song> songs) {
         if (petitionResult.equals(OK)) {
             view.getSongView().updateSongs(songs);

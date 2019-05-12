@@ -68,6 +68,7 @@ public class PianoController {
         try {
             realtimePlayer = new RealtimePlayer();
             controlKeys();
+
             //Listener to record Song
             view.getPianoView().getTopOption().getRecord().addActionListener(e ->{
                 recordSong = true;
@@ -75,6 +76,7 @@ public class PianoController {
                 keys.clear();
             });
 
+            //Save song
             view.getPianoView().getTopOption().getSave().addActionListener(e ->{
                 recordSong = false;
                 view.getPianoView().getTopOption().getRecord().setEnabled(true);
@@ -99,13 +101,16 @@ public class PianoController {
                     song.append(", ");
                     lastKey = k;
                 }
+
+                controller.networkSaveSong(song.toString());
+                /*
                 try {
                     System.out.println(song.toString());
                     MidiFileManager
                             .savePatternToMidi(new Pattern(song.toString()), new File("Song.mid"));
                 } catch (IOException ex) {
                     //TODO : SAY ERROR TO USER
-                }
+                }*/
             });
         } catch (MidiUnavailableException e) {
             e.printStackTrace();

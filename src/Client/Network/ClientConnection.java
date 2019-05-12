@@ -304,7 +304,7 @@ public class ClientConnection extends Thread {
             trans_state = dIn.readInt();
 
             if (trans_state != ERROR) {
-                //TODO : Call to controller to actualize the screen with songs
+                controller.networkSelectSongResult(OK, songs);
                 for (Song s: songs) {
                     System.out.println(s.getTitle());
                 }

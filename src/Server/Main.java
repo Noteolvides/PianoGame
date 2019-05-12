@@ -14,6 +14,7 @@ import Server.View.View;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -32,6 +33,7 @@ public class Main {
 
         JEvolution evolution = new JEvolution(server.getServerService());
         evolution.JEvolution();
+        evolution.setEvoVisible(false);
         JEvolutionController evoController = new JEvolutionController(evolution);
 
         JTop top = new JTop(server.getServerService());

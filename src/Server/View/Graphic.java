@@ -142,4 +142,8 @@ public class Graphic extends JPanel {
         }
         return maxUsers;
     }
+
+    public void setUsers(List<Integer> users) {
+        this.users = users;
+    }
 }

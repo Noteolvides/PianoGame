@@ -323,10 +323,13 @@ public class ClientConnection extends Thread {
 
     }
 
-    private void saveSong() {
-
+    private void saveSong(String song) {
+        //Guardar cancion
     }
 
+    private void requestSong() {
+        //TODO: Request a song
+    }
     public void exitPiano() {
         try {
             //We sent to the server the current operation

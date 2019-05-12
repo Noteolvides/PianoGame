@@ -18,6 +18,7 @@ public class JEvolution {
     private JButton year;
     private JButton month;
     private JButton week;
+    private Graphic graphic;
 
     public JEvolution(ServiceBBDDServer service){
         this.service = service;
@@ -63,20 +64,19 @@ public class JEvolution {
         constraints.gridy = 2;
         evoPanel.add(buttonsPanel, constraints);
 
-        evoPanel.setVisible(false);
         //evoPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public JPanel showGraphic() {                                      //Quan cridem aquesta funció li passarem una llista de quantitat d'usuaris
 
 
-        users = service.getLastMonthConnections();
+        users = service.getLastWeekConnections();
         //Random random = new Random();
         /*for (int i = 0; i < maxDataPoints; i++) {
             users.add(random.nextDouble() * maxScore);
         }*/
 
-        Graphic graphic = new Graphic(users);
+        graphic = new Graphic(users);
         graphic.setPreferredSize(new Dimension(1280, 720));
         JPanel graphics = new JPanel();
         graphics.add(graphic);
@@ -104,5 +104,37 @@ public class JEvolution {
 
     public void setInvisible(){
         evoPanel.setVisible(false);
+    }
+
+
+    public List<Integer> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<Integer> users) {
+        this.users = users;
+    }
+
+    public ServiceBBDDServer getService() {
+        return service;
+    }
+
+    public void setService(ServiceBBDDServer service) {
+        this.service = service;
+    }
+
+    public void setGraphic(List<Integer> users) {
+        graphic.setUsers(users);
+    }
+
+    public JFrame getEvoPanel() {
+        return evoPanel;
+    }
+
+
+
+    public void setEvoVisible(Boolean invisible) {
+        evoPanel.setVisible(invisible);
+        evoPanel.repaint();
     }
 }

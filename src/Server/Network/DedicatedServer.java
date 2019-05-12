@@ -5,6 +5,7 @@ import Model.User;
 import Server.Controller.BBDD.Resources.BBDDException;
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -50,6 +51,7 @@ public class DedicatedServer extends Thread {
 
     public static final String SELECT_SONG = "select_song";
     public static final String SAVE_SONG = "save_song";
+    public static final String REQUEST_SONG = "request_song";
 
 
     public DedicatedServer(ServiceBBDDServer service){
@@ -100,7 +102,10 @@ public class DedicatedServer extends Thread {
                         break;
                 }
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                //When the client interrupts the communication
+                System.out.println("Connection lost with the client");
+                stopDedicatedServer();
+
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -139,19 +144,38 @@ public class DedicatedServer extends Thread {
             switch (dataInputStream.readUTF()){
                 case SELECT_SONG:
                     try {
-                        Gson gson = new Gson();
-                        ArrayList<Song> songs = (ArrayList<Song>) service.getSongsUser(userSave);
-                        dataOutputStream.writeUTF(gson.toJson(songs));
+                        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+                        List<Song> songs = service.getSongsUser(userSave);
+                        String songsJson = gson.toJson(songs);
+                        dataOutputStream.writeUTF(songsJson);
                         dataOutputStream.writeInt(CONFIRMATION);
-
                     } catch (Exception e) {
                         dataOutputStream.writeInt(ERROR);
                     }
                     break;
                 case SAVE_SONG:
+                    try {
+                        String song = dataInputStream.readUTF();
+                        dataOutputStream.writeInt(CONFIRMATION);
+                        //TODO: Save song into BBDD. -> in String or Midi format?
+                    } catch (IOException e) {
+                        dataOutputStream.writeInt(ERROR);
+                    }
+                    break;
+                case REQUEST_SONG:
+                    try {
+                        String song = dataInputStream.readUTF();
+                        //TODO: Request to BBDD the song and return to User the MIDI FILE
+                        //MIDI OBJECT CONSTRUCTOR INITILIZATION
+                        //objectOutputStream.writeObject();
+                        dataOutputStream.writeInt(CONFIRMATION);
+                    } catch (IOException e) {
+                        dataOutputStream.writeInt(ERROR);
+                    }
                     break;
                 case GO_BACK:
                     goBack = true;
+                    break;
             }
         }
     }
@@ -172,7 +196,6 @@ public class DedicatedServer extends Thread {
                     } catch (BBDDException e) {
                         dataOutputStream.writeInt(ERROR);
                     }
-
 
                     break;
                 case GO_BACK:
@@ -237,8 +260,8 @@ public class DedicatedServer extends Thread {
         this.socket = socket;
     }
 
-
     public void setServer(Server server) {
         this.server = server;
     }
+
 }

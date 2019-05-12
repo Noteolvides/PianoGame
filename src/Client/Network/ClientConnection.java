@@ -6,10 +6,10 @@ import Model.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import javax.sound.midi.spi.MidiFileReader;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
 
 import static Client.Controller.Controller.*;
 
@@ -40,6 +40,8 @@ public class ClientConnection extends Thread {
 
     public static final String SELECT_SONG = "select_song";
     public static final String SAVE_SONG = "save_song";
+    public static final String REQUEST_SONG = "request_song";
+    public static final String EXIT_PIANO = "exit_piano";
 
     //Controller
     private Controller controller;
@@ -106,6 +108,12 @@ public class ClientConnection extends Thread {
                 case REGISTER:
                     registerUser();
                     break;
+                case LOG_OUT:
+                    logOut();
+                    break;
+                case DELETE_ACCOUNT:
+                    deleteUser();
+                    break;
                 case PIANO:
                     openPiano();
                     break;
@@ -113,8 +121,13 @@ public class ClientConnection extends Thread {
                     selectSongs();
                     break;
                 case SAVE_SONG:
-                    saveSong();
+                    //saveSong();
                     break;
+                case REQUEST_SONG:
+                    requestSong();
+                    break;
+                case EXIT_PIANO:
+                    exitPiano();
                 case SOCIAL:
                     openSocialWindow();
                     break;
@@ -127,12 +140,6 @@ public class ClientConnection extends Thread {
                 case EXIT_SOCIAL:
                     exitSocial();
                     break;
-                case LOG_OUT:
-                    logOut();
-                    break;
-                case DELETE_ACCOUNT:
-                    deleteUser();
-                    break;
                 default:
                     //Nothing
                     break;
@@ -141,7 +148,11 @@ public class ClientConnection extends Thread {
         }
     }
 
-    // Login/Register functions
+    //Login/Register Functions
+
+    /**
+     * Dedicated function to login a user
+     */
     public void loginUser() {
         int trans_estate = CORRECT;
 
@@ -161,12 +172,16 @@ public class ClientConnection extends Thread {
                 controller.networkLogInResult(OK);
                 dOut.writeUTF(GO_BACK);
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
+    /**
+     * Dedicated function to register a user
+     */
     public void registerUser() {
         int trans_estate = CORRECT;
 
@@ -194,6 +209,9 @@ public class ClientConnection extends Thread {
         }
     }
 
+    /**
+     * LogOut of the account connected to the Application
+     */
     public void logOut() {
         try {
             dOut.writeUTF(GO_BACK);
@@ -203,6 +221,9 @@ public class ClientConnection extends Thread {
         }
     }
 
+    /**
+     * Delete the account from de BBDD of the Application
+     */
     public void deleteUser() {
         try {
             dOut.writeUTF(GO_BACK);
@@ -211,8 +232,13 @@ public class ClientConnection extends Thread {
             e.printStackTrace();
         }
     }
+    //END Login/Register Functions
 
-    // Social functions
+    //Social Functions
+
+    /**
+     * Warn the server that the user opened the Social Windows
+     */
     public void openSocialWindow() {
         //We sent to the server the current operation
         try {
@@ -222,6 +248,9 @@ public class ClientConnection extends Thread {
         }
     }
 
+    /**
+     * The user Sarch another user for his/her name, and waits for a response from server
+     */
     public void searchUser() {
         int trans_estate = CORRECT;
 
@@ -247,6 +276,9 @@ public class ClientConnection extends Thread {
         }
     }
 
+    /**
+     * The user adds the searched user to his/her list of friends
+     */
     public void addUser() {
         int trans_estate = CORRECT;
 
@@ -271,6 +303,9 @@ public class ClientConnection extends Thread {
         }
     }
 
+    /**
+     * Warn the server that the user exit the Social Windows
+     */
     public void exitSocial() {
         try {
             //We sent to the server the current operation
@@ -279,8 +314,12 @@ public class ClientConnection extends Thread {
             e.printStackTrace();
         }
     }
+    //END Social Functions
 
-    // Piano functions
+    //Piano Functions
+    /**
+     * Warn the server that the user opened the Piano Windows
+     */
     public void openPiano() {
         //We sent to the server the current operation
         try {
@@ -290,39 +329,101 @@ public class ClientConnection extends Thread {
         }
     }
 
+    /**
+     * The user entered to JSong window and this function requests to server all the songs that the user has access
+     */
     private void selectSongs() {
         int trans_estate = CORRECT;
-
         try {
             dOut.writeUTF(SELECT_SONG);
 
             Gson gson = new Gson();
-            String songsString =  dIn.readUTF();
+            String songsString;
+            songsString =  dIn.readUTF();
             ArrayList<Song> songs = gson.fromJson(songsString, new TypeToken<ArrayList <Song>>(){}.getType());
 
             trans_estate = dIn.readInt();
 
             if (trans_estate != ERROR) {
-                //TODO : Call to controller to actualize the screen with songs
+                controller.networkSelectSongResult(OK, songs);
+
                 for (Song s: songs) {
                     System.out.println(s.getTitle());
                 }
 
             }else{
-                //TODO : Print Error
+                System.out.println("Error with the GSON songs");
+                controller.networkSelectSongResult(KO, null);
+            }
+
+        } catch (IOException e) {
+            //e.printStackTrace();
+            System.out.println("Error with the GSON songs");
+        }
+
+    }
+
+    /**
+     * The user wants to save a song that has created
+     * @param song: Song that will be saved into the BBDD
+     */
+    private void saveSong(String song) {
+        int trans_estate = CORRECT;
+        try {
+            dOut.writeUTF(SAVE_SONG);
+            trans_estate = dIn.readInt();
+
+            if (trans_estate == ERROR) {
+                //TODO: Controller warn that the song has been saved successfully
+            } else {
+                //TODO: Controller warn with a JDialog that the Song couldn't be saved. TRY AGAIN
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    private void saveSong() {
+    /**
+     * User request one song to play, from all the songs that has access
+     */
+    private void requestSong() {
+        int trans_estate = CORRECT;
+        try {
+            dOut.writeUTF(REQUEST_SONG);
+            String song = null; //<- TODO: Controller returns the song or the title of the song that the user wants to play
 
+            dOut.writeUTF(song);
+            //MidiFileReader midi;
+            //midi = obIn.read(); //TODO: GERARD -> Which object is the Midi File
+
+            trans_estate = dIn.readInt();
+            if (trans_estate == ERROR) {
+                System.out.println("Error, the song doesn't exist");
+                //TODO: Controller warn the user that the songs doesn't exists
+            } else {
+                //TODO: Controller warns and start reproducing the song
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error trying to access the song");
+        }
     }
 
+    /**
+     * Warn the server that the user exit the Piano Windows
+     */
+    public void exitPiano() {
+        try {
+            //We sent to the server the current operation
+            dOut.writeUTF(GO_BACK);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    // END Piano Functions
 
     public String getNextFunc() {
         return nextFunc;

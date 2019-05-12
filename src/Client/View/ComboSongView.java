@@ -1,6 +1,8 @@
 package Client.View;
 
 import Client.Controller.ControllerJSong;
+import Model.Song;
+
 import javax.swing.*;
 import java.util.ArrayList;
 
@@ -29,7 +31,7 @@ public class ComboSongView extends JLayeredPane {
         remove(loading);
     }
 
-    public void updateSongs(ArrayList<SongPrueba> arrayList) {
+    public void updateSongs(ArrayList<Song> arrayList) {
         jSong.includeSongs(arrayList);
         jSong.addAllTheSongs(jSong.getSongsList());
     }

@@ -1,0 +1,20 @@
+{
+  "portConnexioBBDD": 3306,
+  "ip": "localhost",
+  "BBDDName": "SmartPiano",
+  "mysqlUsers": [
+    {
+      "username": "noAlias",
+      "password": "password1999"
+    },
+    {
+      "username": "normalUser",
+      "password": "normalUserPassword1999"
+    },
+    {
+      "username": "admin",
+      "password": "adminPassword1999"
+    }
+  ],
+  "clientPort": 5000
+}

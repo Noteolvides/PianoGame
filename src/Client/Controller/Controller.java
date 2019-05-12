@@ -5,7 +5,10 @@ import Client.Controller.Piano.PianoController;
 import Client.Controller.Start.StartController;
 import Client.Network.ClientConnection;
 import Client.View.View;
+import Model.Song;
 import Model.User;
+
+import java.util.ArrayList;
 
 import static Client.Network.ClientConnection.*;
 
@@ -44,7 +47,7 @@ public class Controller {
         closePrincipal();
 
         view.initSocialView();
-        controllerJSocial = new ControllerJSocial(view,this);
+        controllerJSocial = new ControllerJSocial(view, this);
         view.getSocialView().registerController(controllerJSocial);
         closeSocial();
 
@@ -53,7 +56,7 @@ public class Controller {
         view.getSongView().getjSong().registerControllers(controllerJSong);
         closeSong();
 
-        pianoController = new PianoController(view,this);
+        pianoController = new PianoController(view, this);
         closePiano();
 
     }
@@ -126,7 +129,7 @@ public class Controller {
             password.append(view.getRegisterView().getPassword()[i]);
         }
         return new User(view.getRegisterView().getUsername(),
-                view.getRegisterView().getEmail(),password.toString());
+                view.getRegisterView().getEmail(), password.toString());
     }
 
     public String getSearchedUser() {
@@ -158,6 +161,23 @@ public class Controller {
 
     public void networkSelectSong() {
         network.setNextFunc(SELECT_SONG);
+    }
+
+    public void networkSaveSong(String song) {
+        network.setNextFunc(SAVE_SONG);
+    }
+
+    public void networkSelectSongResult(String petitionResult, ArrayList<Song> songs) {
+        if (petitionResult.equals(OK)) {
+            view.getSongView().updateSongs(songs);
+        }
+        if (petitionResult.equals(KO)) {
+            view.getSongView().errorPopUp();
+        }
+    }
+
+    public void networkExitPiano(){
+        network.setNextFunc(EXIT_PIANO);
     }
 
     //Social Network functions

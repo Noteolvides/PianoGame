@@ -1,28 +1,42 @@
 package Model;
 
+import com.google.gson.*;
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.lang.reflect.Type;
+
+import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Table(name="Song")
 public class Song implements Serializable {
+    @Expose
     @Column(name="SongId")
     @Id
     private int SongID;
+    @Expose
     @Column(name="Name")
     private String title;
+    @Expose
     @Column(name="Duration")
     private int duration;
+    @Expose
     @Column(name="Description")
     private String description;
-    @ManyToOne
+    @Expose
+    @ManyToOne (fetch = EAGER)
     @JoinColumn(name="Author")
     private User author;
+    @Expose
     @Column(name="Plays")
     private int plays;
+    @Expose
     @Column(name="File_Path")
     private String filePath;
-    @ManyToOne
+    @Expose
+    @ManyToOne (fetch=EAGER)
     @JoinColumn(name="SystemID")
     private Syst system;
 
@@ -31,6 +45,9 @@ public class Song implements Serializable {
         duration = 0;
         description = "default";
     }
+
+
+
 
     public Song(String name, int duration, String description,int plays, String filePath, Syst syst) {
         this.title = name;
@@ -113,4 +130,6 @@ public class Song implements Serializable {
     public void setSystem(Syst syst) {
         this.system = syst;
     }
+
+
 }

@@ -2,6 +2,8 @@ package Server.Controller.Gestor;
 
 import Server.View.SongPrueba;
 import Server.View.View;
+
+import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -57,11 +59,12 @@ public class GestorController implements MouseListener {
             view.getGestorView().registerController(this);
 
         } else {
-
-            if (e.getSource() == view.getGestorView().getSongsList()){
-                System.out.println("Caca");
-            } else if (e.getSource() == view.getGestorView().getSongsList() ){
-
+            for (int i = 0; i < view.getGestorView().getSongsList().size(); i++) {
+                if (e.getSource() == view.getGestorView().getSongsList().get(i).getDeleteButton()){
+                    System.out.println("Delete" + i);
+                } else if (e.getSource() == view.getGestorView().getSongsList().get(i).getInfoIcon()){
+                    System.out.println("Info" + i);
+                }
             }
 
         }

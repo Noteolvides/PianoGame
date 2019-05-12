@@ -6,6 +6,7 @@ import Model.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import javax.sound.midi.spi.MidiFileReader;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -387,7 +388,27 @@ public class ClientConnection extends Thread {
      * User request one song to play, from all the songs that has access
      */
     private void requestSong() {
+        int trans_estate = CORRECT;
+        try {
+            dOut.writeUTF(REQUEST_SONG);
+            String song = null; //<- TODO: Controller returns the song or the title of the song that the user wants to play
 
+            dOut.writeUTF(song);
+            //MidiFileReader midi;
+            //midi = obIn.read(); //TODO: GERARD -> Which object is the Midi File
+
+            trans_estate = dIn.readInt();
+            if (trans_estate == ERROR) {
+                System.out.println("Error, the song doesn't exist");
+                //TODO: Controller warn the user that the songs doesn't exists
+            } else {
+                //TODO: Controller warns and start reproducing the song
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error trying to access the song");
+        }
     }
 
     /**

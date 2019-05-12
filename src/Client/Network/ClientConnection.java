@@ -39,6 +39,8 @@ public class ClientConnection extends Thread {
 
     public static final String SELECT_SONG = "select_song";
     public static final String SAVE_SONG = "save_song";
+    public static final String REQUEST_SONG = "request_song";
+    public static final String EXIT_PIANO = "exit_piano";
 
     //Controller
     private Controller controller;
@@ -105,6 +107,12 @@ public class ClientConnection extends Thread {
                 case REGISTER:
                     registerUser();
                     break;
+                case LOG_OUT:
+                    logOut();
+                    break;
+                case DELETE_ACCOUNT:
+                    deleteUser();
+                    break;
                 case PIANO:
                     openPiano();
                     break;
@@ -114,6 +122,11 @@ public class ClientConnection extends Thread {
                 case SAVE_SONG:
                     //saveSong();
                     break;
+                case REQUEST_SONG:
+                    requestSong();
+                    break;
+                case EXIT_PIANO:
+                    exitPiano();
                 case SOCIAL:
                     openSocialWindow();
                     break;
@@ -126,12 +139,6 @@ public class ClientConnection extends Thread {
                 case EXIT_SOCIAL:
                     exitSocial();
                     break;
-                case LOG_OUT:
-                    logOut();
-                    break;
-                case DELETE_ACCOUNT:
-                    deleteUser();
-                    break;
                 default:
                     //Nothing
                     break;
@@ -141,6 +148,10 @@ public class ClientConnection extends Thread {
     }
 
     //Login/Register Functions
+
+    /**
+     * Dedicated function to login a user
+     */
     public void loginUser() {
         int trans_estate = CORRECT;
 
@@ -167,6 +178,9 @@ public class ClientConnection extends Thread {
 
     }
 
+    /**
+     * Dedicated function to register a user
+     */
     public void registerUser() {
         int trans_estate = CORRECT;
 
@@ -194,6 +208,9 @@ public class ClientConnection extends Thread {
         }
     }
 
+    /**
+     * LogOut of the account connected to the Application
+     */
     public void logOut() {
         try {
             dOut.writeUTF(GO_BACK);
@@ -203,6 +220,9 @@ public class ClientConnection extends Thread {
         }
     }
 
+    /**
+     * Delete the account from de BBDD of the Application
+     */
     public void deleteUser() {
         try {
             dOut.writeUTF(GO_BACK);
@@ -214,6 +234,10 @@ public class ClientConnection extends Thread {
     //END Login/Register Functions
 
     //Social Functions
+
+    /**
+     * Warn the server that the user opened the Social Windows
+     */
     public void openSocialWindow() {
         //We sent to the server the current operation
         try {
@@ -223,6 +247,9 @@ public class ClientConnection extends Thread {
         }
     }
 
+    /**
+     * The user Sarch another user for his/her name, and waits for a response from server
+     */
     public void searchUser() {
         int trans_estate = CORRECT;
 
@@ -248,6 +275,9 @@ public class ClientConnection extends Thread {
         }
     }
 
+    /**
+     * The user adds the searched user to his/her list of friends
+     */
     public void addUser() {
         int trans_estate = CORRECT;
 
@@ -272,6 +302,9 @@ public class ClientConnection extends Thread {
         }
     }
 
+    /**
+     * Warn the server that the user exit the Social Windows
+     */
     public void exitSocial() {
         try {
             //We sent to the server the current operation
@@ -283,6 +316,9 @@ public class ClientConnection extends Thread {
     //END Social Functions
 
     //Piano Functions
+    /**
+     * Warn the server that the user opened the Piano Windows
+     */
     public void openPiano() {
         //We sent to the server the current operation
         try {
@@ -292,6 +328,9 @@ public class ClientConnection extends Thread {
         }
     }
 
+    /**
+     * The user entered to JSong window and this function requests to server all the songs that the user has access
+     */
     private void selectSongs() {
         int trans_estate = CORRECT;
         try {
@@ -323,13 +362,24 @@ public class ClientConnection extends Thread {
 
     }
 
+    /**
+     * The user wants to save a song that has created
+     * @param song: Song that will be saved into the BBDD
+     */
     private void saveSong(String song) {
         //Guardar cancion
     }
 
+    /**
+     * User request one song to play, from all the songs that has access
+     */
     private void requestSong() {
-        //TODO: Request a song
+
     }
+
+    /**
+     * Warn the server that the user exit the Piano Windows
+     */
     public void exitPiano() {
         try {
             //We sent to the server the current operation
@@ -340,6 +390,7 @@ public class ClientConnection extends Thread {
     }
 
     // END Piano Functions
+
     public String getNextFunc() {
         return nextFunc;
     }

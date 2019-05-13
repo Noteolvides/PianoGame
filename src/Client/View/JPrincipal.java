@@ -82,7 +82,7 @@ public class JPrincipal extends JFrame {
 
         //Definim propietats de la finestra
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setSize(400,300);
         setMaximumSize(new Dimension(400, 300));
         setTitle("Smart Piano");

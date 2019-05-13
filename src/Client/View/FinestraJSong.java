@@ -15,7 +15,7 @@ public class FinestraJSong extends JFrame{
         setSize(400,1000);
         setVisible(false);
         setResizable(false);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
 
     public JSong getjSong() {

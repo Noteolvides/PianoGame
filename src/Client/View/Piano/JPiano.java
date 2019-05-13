@@ -42,7 +42,7 @@ public class JPiano extends JFrame {
         //add(leftOption);
 
         setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setSize(50*(ViewPiano.numberOfKeys+2),630);
         setVisible(false);
     }

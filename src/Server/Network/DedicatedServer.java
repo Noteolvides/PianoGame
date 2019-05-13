@@ -153,10 +153,15 @@ public class DedicatedServer extends Thread {
         stopDedicatedServer();
     }
 
-    private void deleteAccount() {
+    private void deleteAccount() throws IOException{
         System.out.println("Deleting user");
         //TODO: Delete user of the BBDD
         System.out.println("Closing connection with client");
+        try{
+            dataOutputStream.writeInt(CONFIRMATION);
+        } catch (IOException e) {
+            dataOutputStream.writeInt(ERROR);
+        }
         stopDedicatedServer();
 
     }

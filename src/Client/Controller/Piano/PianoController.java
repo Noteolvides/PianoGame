@@ -4,6 +4,7 @@ import Client.Controller.Controller;
 import Client.View.Piano.Key;
 import Client.View.View;
 import Model.KeyRecord;
+import Model.Song;
 import org.jfugue.midi.MidiFileManager;
 import org.jfugue.midi.MidiParser;
 import org.jfugue.pattern.Pattern;
@@ -34,7 +35,7 @@ public class PianoController {
 
     public static void main(String[] args) {
         View v = new View();
-        PianoController pianoController = new PianoController(v,new Controller(v));
+        PianoController pianoController = new PianoController(v, new Controller(v));
     }
 
     public PianoController(View view, Controller controller) {
@@ -137,15 +138,21 @@ public class PianoController {
                     lastKey = k;
                 }
 
+                //TODO: Delete THIS
+                    Song songD = new Song();
+                //
+                controller.setSongToSave(song.toString(), songD);
                 controller.networkSaveSong(song.toString());
+
                 /*
                 try {
                     System.out.println(song.toString());
                     MidiFileManager
                             .savePatternToMidi(new Pattern(song.toString()), new File("Song.mid"));
                 } catch (IOException ex) {
-                    //TODO : SAY ERROR TO USER
+
                 }*/
+                // HASTA AQUI
             });
         } catch (MidiUnavailableException e) {
             e.printStackTrace();

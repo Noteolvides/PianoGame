@@ -184,6 +184,7 @@ public class DedicatedServer extends Thread {
                 case SAVE_SONG:
                     try {
                         String song = dataInputStream.readUTF();
+                        System.out.println("Llego aqui");
 
                         //En el server guardaremos todas las canciones, de esta forma, tendremos una carpeta con todas las canciones
                         //o aun mejor, una carpeta y dentro de esa carpeta varias subcarpetas con las canciones de cada usuario, y que dentro
@@ -191,14 +192,12 @@ public class DedicatedServer extends Thread {
                         String direction =  "/Server/FilesBBDD/" + userSave;
                         File directorio = new File(direction);
                         boolean dirCreated = directorio.mkdir();
-
                         Song s = (Song) objectInputStream.readObject();
-
                         MidiFileManager.savePatternToMidi(new Pattern(song),new File(directorio + "/" + s.getTitle()));
 
                         s.setFilePath(directorio + "/" + s.getTitle());
                         service.insertSongFromUser(s);
-
+                        System.out.println("He guardat: " + s.toString() + " ------- " + song);
                         dataOutputStream.writeInt(CONFIRMATION);
                     } catch (IOException e) {
                         dataOutputStream.writeInt(ERROR);
@@ -211,15 +210,13 @@ public class DedicatedServer extends Thread {
                 case REQUEST_SONG:
                     try {
                         String song = dataInputStream.readUTF();
+
                         //I return the song, so i can get the path i then i can get the song and pass it
                         Song songObtained = service.getConcreteSongUser(userSave,song);
                         String pathSong = songObtained.getFilePath();
-
                         Pattern pattern = MidiFileManager.loadPatternFromMidi(new File(pathSong));
-
                         objectOutputStream.writeObject(pattern);
-                        //MIDI OBJECT CONSTRUCTOR INITILIZATION
-                        //objectOutputStream.writeObject();
+
                         dataOutputStream.writeInt(CONFIRMATION);
                     } catch (IOException e) {
                         dataOutputStream.writeInt(ERROR);

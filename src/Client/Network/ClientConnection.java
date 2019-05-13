@@ -122,7 +122,7 @@ public class ClientConnection extends Thread {
                     selectSongs();
                     break;
                 case SAVE_SONG:
-                    //saveSong();
+                    saveSong();
                     break;
                 case REQUEST_SONG:
                     requestSong();
@@ -388,12 +388,12 @@ public class ClientConnection extends Thread {
         int trans_estate = CORRECT;
         try {
             //TODO: BORRAR AIXO
-                Song song = new Song();
-                String songFile = "Hola bon dia";
-            //-----------------
+                String songFile = controller.getSongFileToSave();
+                Song song = controller.getSongToSave();
             dOut.writeUTF(SAVE_SONG);
             dOut.writeUTF(songFile);
             obOut.writeObject(song);
+            System.out.println("He guardat: " + songFile + " " + song.toString());
 
             trans_estate = dIn.readInt();
             if (trans_estate == ERROR) {

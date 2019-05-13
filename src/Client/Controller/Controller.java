@@ -7,6 +7,7 @@ import Client.Network.ClientConnection;
 import Client.View.View;
 import Model.Song;
 import Model.User;
+import org.jfugue.pattern.Pattern;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ import static Client.Network.ClientConnection.*;
 public class Controller {
     public static String OK = "ok";
     public static String KO = "ko";
+
     private View view;
     private ClientConnection network;
     private StartController startController;
@@ -22,6 +24,9 @@ public class Controller {
     private PianoController pianoController;
     private ControllerJSocial controllerJSocial;
     private ControllerJSong controllerJSong;
+
+    private Song song;
+    private String songFile;
 
     public Controller(View view) {
         this.view = view;
@@ -95,6 +100,19 @@ public class Controller {
     public void closePiano() {
         view.getPianoView().setVisible(false);
         view.getPianoView().dispose();
+    }
+
+    public void setSongToSave(String songFile, Song song) {
+        this.songFile = songFile;
+        this.song = song;
+    }
+
+    public String getSongFileToSave() {
+        return songFile;
+    }
+
+    public Song getSongToSave() {
+        return song;
     }
 
     public void openSocial() {

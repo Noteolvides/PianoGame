@@ -143,8 +143,13 @@ public class DedicatedServer extends Thread {
         }
     }
 
-    private void logOut() {
+    private void logOut() throws IOException {
         System.out.println("Closing connection with client");
+        try{
+            dataOutputStream.writeInt(CONFIRMATION);
+        } catch (IOException e) {
+            dataOutputStream.writeInt(ERROR);
+        }
         stopDedicatedServer();
     }
 

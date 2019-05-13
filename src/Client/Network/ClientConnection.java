@@ -222,7 +222,7 @@ public class ClientConnection extends Thread {
             if (trans_estate == ERROR) {
                 System.out.println("Couldn't logOut from server");
             } else {
-                closeConnection();
+                dOut.writeUTF(GO_BACK);
             }
 
         } catch (IOException e) {
@@ -236,7 +236,6 @@ public class ClientConnection extends Thread {
     public void deleteUser() {
         int trans_estate = CORRECT;
         try {
-            //TODO: Msg de confirmacio
             dOut.writeUTF(DELETE_ACCOUNT);
 
             trans_estate = dIn.readInt();
@@ -245,9 +244,8 @@ public class ClientConnection extends Thread {
                 System.out.println("Couldn't delete account from server");
             } else {
                 controller.networkDeleteAccountResult(OK);
-                closeConnection();
+                dOut.writeUTF(GO_BACK);
             }
-
         } catch (IOException e) {
             System.out.println("Error trying to delete account.");
         }

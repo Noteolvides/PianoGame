@@ -153,7 +153,6 @@ public class DedicatedServer extends Thread {
         } catch (IOException e) {
             dataOutputStream.writeInt(ERROR);
         }
-        stopDedicatedServer();
     }
 
     private void deleteAccount() throws IOException{
@@ -165,8 +164,6 @@ public class DedicatedServer extends Thread {
         } catch (IOException e) {
             dataOutputStream.writeInt(ERROR);
         }
-        stopDedicatedServer();
-
     }
 
     private void pianoComunication() throws IOException {

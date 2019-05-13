@@ -393,7 +393,7 @@ public class ServiceBBDDServer {
     private Date getLastYearFirstDay () {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_YEAR,1);
-        calendar.add(Calendar.YEAR,1);
+        calendar.add(Calendar.YEAR,-1);
         return calendar.getTime();
     }
 

@@ -16,6 +16,9 @@ public class JRegister extends JFrame {
     public JRegister() {
         JPanel register = new JPanel();
 
+        ImageIcon icon = new ImageIcon("img/registerIcon.png");
+        setIconImage(icon.getImage());
+
         register.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         register.setLayout(new BoxLayout(register, BoxLayout.PAGE_AXIS));
         JPanel fields = new JPanel();

@@ -397,9 +397,9 @@ public class ClientConnection extends Thread {
 
             trans_estate = dIn.readInt();
             if (trans_estate == ERROR) {
-                //TODO: Controller warn that the song has been saved successfully
+                controller.networkSaveSongResult(KO);
             } else {
-                //TODO: Controller warn with a JDialog that the Song couldn't be saved. TRY AGAIN
+                controller.networkSaveSongResult(OK);
             }
 
         } catch (IOException e) {

@@ -3,10 +3,13 @@ package Client.Controller.Start;
 import Client.Controller.Controller;
 import Client.View.View;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-public class StartController implements ActionListener {
+public class StartController implements ActionListener, WindowListener {
     private View view;
     private Controller controller;
     public StartController(View view, Controller controller) {
@@ -35,5 +38,45 @@ public class StartController implements ActionListener {
             controller.networkRegister();
             controller.closeRegister();
         }
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        if (JOptionPane.showConfirmDialog(view.getStartView(),
+                "Are you sure you want to close this window?", "Close Window?",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+            view.getStartView().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            controller.networkClose();
+        }
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
     }
 }

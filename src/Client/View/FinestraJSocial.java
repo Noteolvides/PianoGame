@@ -3,6 +3,8 @@ import Client.Controller.ControllerJSocial;
 
 import javax.swing.*;
 
+import static Client.Controller.Controller.*;
+
 public class FinestraJSocial extends JFrame {
     private JSocial jSocial;
     public FinestraJSocial () {
@@ -12,7 +14,7 @@ public class FinestraJSocial extends JFrame {
         //We make the frame not resizable
         setResizable(false);
         setVisible(false);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
     }
     public JSocial getjSocial() {
         return jSocial;
@@ -33,10 +35,10 @@ public class FinestraJSocial extends JFrame {
     }
 
     public void friendPopUp(String added) {
-        if (added.equals("added")) {
+        if (added.equals(OK)) {
             JOptionPane.showMessageDialog(this, "Ereh mi amiho.", "Friend", JOptionPane.INFORMATION_MESSAGE);
         }
-        if (added.equals("addedn't")) {
+        if (added.equals(KO)) {
             JOptionPane.showMessageDialog(this, "No ereh mi amiho, estoi trite.", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }

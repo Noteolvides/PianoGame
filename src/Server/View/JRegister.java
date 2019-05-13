@@ -59,7 +59,6 @@ public class JRegister extends JFrame {
         setSize(250, 300);
         setTitle("Register");
         setLocationRelativeTo(null);
-        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(false);
     }

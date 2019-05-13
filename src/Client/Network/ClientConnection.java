@@ -397,9 +397,9 @@ public class ClientConnection extends Thread {
 
             trans_estate = dIn.readInt();
             if (trans_estate == ERROR) {
-                //TODO: Controller warn that the song has been saved successfully
+                controller.networkSaveSongResult(KO);
             } else {
-                //TODO: Controller warn with a JDialog that the Song couldn't be saved. TRY AGAIN
+                controller.networkSaveSongResult(OK);
             }
 
         } catch (IOException e) {
@@ -414,7 +414,7 @@ public class ClientConnection extends Thread {
         int trans_estate = CORRECT;
         try {
             dOut.writeUTF(REQUEST_SONG);
-            String song = null; //<- TODO: Controller returns the song or the title of the song that the user wants to play
+            String song = controller.getSongToPlay();
 
             dOut.writeUTF(song);
             Pattern midi;

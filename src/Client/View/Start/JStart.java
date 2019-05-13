@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -62,7 +63,7 @@ public class JStart extends JFrame {
         setSize(300, 300);
         setTitle("Smart Piano");
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setResizable(false);
         setVisible(true);
     }
@@ -80,6 +81,7 @@ public class JStart extends JFrame {
         buttonSignIn.addActionListener(c);
         buttonRegister.setActionCommand("GO-REGISTER");
         buttonRegister.addActionListener(c);
+        this.addWindowListener((WindowListener) c);
     }
 
     public void errorPopUp(String process) {

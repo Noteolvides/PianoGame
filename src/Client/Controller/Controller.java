@@ -181,17 +181,30 @@ public class Controller {
         network.setNextFunc(SELECT_SONG);
     }
 
-    public void networkSaveSong(String song) {
-        network.setNextFunc(SAVE_SONG);
-    }
-
     public void networkSelectSongResult(String petitionResult, ArrayList<Song> songs) {
         if (petitionResult.equals(OK)) {
             view.getSongView().updateSongs(songs);
+            view.getSongView().updateControllersSongs(controllerJSong);
         }
         if (petitionResult.equals(KO)) {
             view.getSongView().errorPopUp();
         }
+    }
+
+    public void networkSaveSong(String song) {
+        network.setNextFunc(SAVE_SONG);
+    }
+
+    public void networkSaveSongResult(String petitionResult) {
+        view.getSongView().savePopUp(petitionResult);
+    }
+
+    public void networkRequestSong() {
+        network.setNextFunc(REQUEST_SONG);
+    }
+
+    public String getSongToPlay() {
+        return controllerJSong.getActualSong();
     }
 
     public void networkExitPiano(){
@@ -222,12 +235,7 @@ public class Controller {
     }
 
     public void networkAddSocialResult(String petitionResult) {
-        if (petitionResult.equals(OK)) {
-            view.getSocialView().friendPopUp("added");
-        }
-        if (petitionResult.equals(KO)) {
-            view.getSocialView().friendPopUp("addedn't");
-        }
+        view.getSocialView().friendPopUp(petitionResult);
     }
 
     public void networkSignOut() {
@@ -243,11 +251,10 @@ public class Controller {
     }
 
     public void networkDeleteAccountResult(String petitionResult) {
-        if (petitionResult.equals(OK)) {
-            view.getPrincipalView().deletedAccountPopUp("deleted");
-        }
-        if (petitionResult.equals(KO)) {
-            view.getPrincipalView().deletedAccountPopUp("deletedn't");
-        }
+        view.getPrincipalView().deletedAccountPopUp(petitionResult);
+    }
+
+    public void networkClose() {
+        network.closeConnection();
     }
 }

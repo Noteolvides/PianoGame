@@ -16,6 +16,7 @@ public class ControllerJSong implements MouseListener {
     private Controller controller;
     //TODO: I'm not sure that this variable can be here
     private LoadingThread loadingThread;
+    private String actualSong;
     public ControllerJSong (View view, Controller controller) {
         this.view = view;
         this.controller = controller;
@@ -45,13 +46,18 @@ public class ControllerJSong implements MouseListener {
             }
             else {
                 //We search the name of the song and then we print playing with it
-                String s = view.getSongView().getjSong().searchNameSong((JLabel)e.getSource());
-                System.out.println("Playing " + s);
+                actualSong = view.getSongView().getjSong().searchNameSong((JLabel)e.getSource());
+                System.out.println("Playing " + actualSong);
                 //TODO:En piano se podria crear una string y entonces, pasarle el nombre de la cancion (No esta hecho porque pienso que es mejor hacerlo despues del merge)
+                controller.networkRequestSong();
                 controller.openPiano();
                 controller.closeSong();
             }
         }
+    }
+
+    public String getActualSong() {
+        return actualSong;
     }
 
     @Override

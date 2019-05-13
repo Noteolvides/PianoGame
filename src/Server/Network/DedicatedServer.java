@@ -187,13 +187,16 @@ public class DedicatedServer extends Thread {
 
                         Song s = new Song();
 
-                        MidiFileManager.savePatternToMidi(new Pattern(song),new File(directorio + "\\" + s.getTitle()));
+                        MidiFileManager.savePatternToMidi(new Pattern(song),new File(directorio + "/" + s.getTitle()));
+
+                        s.setFilePath(directorio + "/" + s.getTitle());
                         service.insertSongFromUser(s);
+
                         dataOutputStream.writeInt(CONFIRMATION);
                     } catch (IOException e) {
                         dataOutputStream.writeInt(ERROR);
                     } catch (BBDDException e) {
-                        //TODO: I suppose that i have to put this here (I come here when the song already exists in the user directory
+                        //TODO: I suppose that i have to put this here (I come here when the song already exists in the user directory)
                         dataOutputStream.writeInt(ERROR);
                     }
                     break;

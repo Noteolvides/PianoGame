@@ -35,8 +35,13 @@ public class Graphic extends JPanel {
             constant = 5;
             constant2 = 1;
         }else{
-            constant = 1;
-            constant2 = 1;
+            if(users.size() == 12){
+                constant = 3;
+                constant2 = 1;
+            }else{
+                constant = 1;
+                constant2 = 1;
+            }
         }
         double xScale = ((double) getWidth() - (padding * constant2)- labelPadding) / (users.size() - 1) - constant;
         double yScale = ((double) getHeight() - 2 * padding - labelPadding) / (getMaxUsers() - getMinUsers());

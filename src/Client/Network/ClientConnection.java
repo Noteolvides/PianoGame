@@ -414,7 +414,7 @@ public class ClientConnection extends Thread {
         int trans_estate = CORRECT;
         try {
             dOut.writeUTF(REQUEST_SONG);
-            String song = null; //<- TODO: Controller returns the song or the title of the song that the user wants to play
+            String song = controller.getSongToPlay();
 
             dOut.writeUTF(song);
             Pattern midi;

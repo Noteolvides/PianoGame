@@ -184,6 +184,7 @@ public class Controller {
     public void networkSelectSongResult(String petitionResult, ArrayList<Song> songs) {
         if (petitionResult.equals(OK)) {
             view.getSongView().updateSongs(songs);
+            view.getSongView().updateControllersSongs(controllerJSong);
         }
         if (petitionResult.equals(KO)) {
             view.getSongView().errorPopUp();
@@ -196,6 +197,14 @@ public class Controller {
 
     public void networkSaveSongResult(String petitionResult) {
         view.getSongView().savePopUp(petitionResult);
+    }
+
+    public void networkRequestSong() {
+        network.setNextFunc(REQUEST_SONG);
+    }
+
+    public String getSongToPlay() {
+        return controllerJSong.getActualSong();
     }
 
     public void networkExitPiano(){

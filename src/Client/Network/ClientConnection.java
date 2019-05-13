@@ -5,6 +5,7 @@ import Model.Song;
 import Model.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.jfugue.pattern.Pattern;
 
 import javax.sound.midi.spi.MidiFileReader;
 import java.io.*;
@@ -395,8 +396,8 @@ public class ClientConnection extends Thread {
             String song = null; //<- TODO: Controller returns the song or the title of the song that the user wants to play
 
             dOut.writeUTF(song);
-            //MidiFileReader midi;
-            //midi = obIn.read(); //TODO: GERARD -> Which object is the Midi File
+            Pattern midi;
+            midi = (Pattern) obIn.readObject(); //TODO: GERARD -> Which object is the Midi File
 
             trans_estate = dIn.readInt();
             if (trans_estate == ERROR) {
@@ -409,6 +410,9 @@ public class ClientConnection extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error trying to access the song");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("File couldn't be read");
         }
     }
 

@@ -241,8 +241,10 @@ public class ClientConnection extends Thread {
 
             trans_estate = dIn.readInt();
             if (trans_estate == ERROR) {
+                controller.networkDeleteAccountResult(KO);
                 System.out.println("Couldn't delete account from server");
             } else {
+                controller.networkDeleteAccountResult(OK);
                 closeConnection();
             }
 

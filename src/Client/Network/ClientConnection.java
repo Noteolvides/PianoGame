@@ -214,11 +214,19 @@ public class ClientConnection extends Thread {
      * LogOut of the account connected to the Application
      */
     public void logOut() {
+        int trans_estate = CORRECT;
         try {
-            dOut.writeUTF(GO_BACK);
-            closeConnection();
+            dOut.writeUTF(LOG_OUT);
+
+            trans_estate = dIn.readInt();
+            if (trans_estate == ERROR) {
+                System.out.println("Couldn't logOut from server");
+            } else {
+                closeConnection();
+            }
+
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error trying to log out");
         }
     }
 

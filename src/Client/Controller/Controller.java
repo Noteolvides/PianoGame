@@ -226,12 +226,7 @@ public class Controller {
     }
 
     public void networkAddSocialResult(String petitionResult) {
-        if (petitionResult.equals(OK)) {
-            view.getSocialView().friendPopUp("added");
-        }
-        if (petitionResult.equals(KO)) {
-            view.getSocialView().friendPopUp("addedn't");
-        }
+        view.getSocialView().friendPopUp(petitionResult);
     }
 
     public void networkSignOut() {
@@ -247,12 +242,7 @@ public class Controller {
     }
 
     public void networkDeleteAccountResult(String petitionResult) {
-        if (petitionResult.equals(OK)) {
-            view.getPrincipalView().deletedAccountPopUp("deleted");
-        }
-        if (petitionResult.equals(KO)) {
-            view.getPrincipalView().deletedAccountPopUp("deletedn't");
-        }
+        view.getPrincipalView().deletedAccountPopUp(petitionResult);
     }
 
     public void networkClose() {

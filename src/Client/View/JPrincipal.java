@@ -9,6 +9,8 @@ import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
 
+import static Client.Controller.Controller.*;
+
 public class JPrincipal extends JFrame {
     public static final String JPIANO= "Piano";
     public static final String JSOCIAL = "Social";
@@ -108,7 +110,7 @@ public class JPrincipal extends JFrame {
     }
 
     public void deletedAccountPopUp(String deleted) {
-        if (deleted.equals("deleted")) {
+        if (deleted.equals(OK)) {
             JOptionPane.showMessageDialog(this, "The account was successfully deleted!", "Account Delete Request",JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "An error occurred the account wasn't deleted!", "Account Delete Request",JOptionPane.WARNING_MESSAGE);

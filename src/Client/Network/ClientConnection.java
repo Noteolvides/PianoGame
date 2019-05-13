@@ -226,6 +226,7 @@ public class ClientConnection extends Thread {
      */
     public void deleteUser() {
         try {
+            //TODO: Msg de confirmacio
             dOut.writeUTF(GO_BACK);
             closeConnection();
         } catch (IOException e) {

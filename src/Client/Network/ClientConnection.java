@@ -301,6 +301,7 @@ public class ClientConnection extends Thread {
         int trans_estate = CORRECT;
 
         try {
+            //TODO: If i'm friend of the searched user, I CAN'T PRESS ADD USER -> CONTROL IT IN THE CONTROLLER
             //We sent to the server the current operation
             dOut.writeUTF(ADD_USER);
 
@@ -387,9 +388,8 @@ public class ClientConnection extends Thread {
     private void saveSong(/*String songFile, Song song*/) {
         int trans_estate = CORRECT;
         try {
-            //TODO: BORRAR AIXO
-                String songFile = controller.getSongFileToSave();
-                Song song = controller.getSongToSave();
+            String songFile = controller.getSongFileToSave();
+            Song song = controller.getSongToSave();
             dOut.writeUTF(SAVE_SONG);
             dOut.writeUTF(songFile);
             obOut.writeObject(song);
@@ -418,7 +418,7 @@ public class ClientConnection extends Thread {
 
             dOut.writeUTF(song);
             Pattern midi;
-            midi = (Pattern) obIn.readObject(); //TODO: GERARD -> Which object is the Midi File
+            midi = (Pattern) obIn.readObject();
 
             trans_estate = dIn.readInt();
             if (trans_estate == ERROR) {

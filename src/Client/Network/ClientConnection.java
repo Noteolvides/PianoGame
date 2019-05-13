@@ -385,14 +385,19 @@ public class ClientConnection extends Thread {
 
     /**
      * The user wants to save a song that has created
-     * @param song: Song that will be saved into the BBDD
      */
-    private void saveSong(String song) {
+    private void saveSong(/*String songFile, Song song*/) {
         int trans_estate = CORRECT;
         try {
+            //TODO: BORRAR AIXO
+                Song song = new Song();
+                String songFile = "Hola bon dia";
+            //-----------------
             dOut.writeUTF(SAVE_SONG);
-            trans_estate = dIn.readInt();
+            dOut.writeUTF(songFile);
+            obOut.writeObject(song);
 
+            trans_estate = dIn.readInt();
             if (trans_estate == ERROR) {
                 //TODO: Controller warn that the song has been saved successfully
             } else {

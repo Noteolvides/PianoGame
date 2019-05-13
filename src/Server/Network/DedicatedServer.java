@@ -48,6 +48,7 @@ public class DedicatedServer extends Thread {
     public static final String ADD_USER = "add_user";
 
     public static final String LOG_OUT = "log_out";
+    public static final String DELETE_ACCOUNT = "delete_account";
 
     public static final String SELECT_SONG = "select_song";
     public static final String SAVE_SONG = "save_song";
@@ -96,6 +97,10 @@ public class DedicatedServer extends Thread {
                         socialComunication();
                         break;
                     case LOG_OUT:
+                        logOut();
+                        break;
+                    case DELETE_ACCOUNT:
+                        deleteAccount();
                         break;
                     default:
                         //Nothing
@@ -136,6 +141,14 @@ public class DedicatedServer extends Thread {
                     goBack = true;
             }
         }
+    }
+
+    private void logOut() {
+
+    }
+
+    private void deleteAccount() {
+
     }
 
     private void pianoComunication() throws IOException {

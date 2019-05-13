@@ -181,7 +181,15 @@ public class DedicatedServer extends Thread {
                         //objectOutputStream.writeObject();
                         dataOutputStream.writeInt(CONFIRMATION);
 
+                        //TODO: the confirmation goes after or later
+                        //I return the song, so i can get the path i then i can get the song and pass it
+                        Song songObtained = service.getConcreteSongUser(userSave,song);
+                        String pathSong = songObtained.getFilePath();
+                        //TODO: Read file
                     } catch (IOException e) {
+                        dataOutputStream.writeInt(ERROR);
+                    } catch (BBDDException e) {
+                        //TODO: I suppose that i have to put this here, when the songs not exists in the BBDD
                         dataOutputStream.writeInt(ERROR);
                     }
                     break;

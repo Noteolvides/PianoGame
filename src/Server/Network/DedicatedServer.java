@@ -158,7 +158,18 @@ public class DedicatedServer extends Thread {
                         String song = dataInputStream.readUTF();
                         dataOutputStream.writeInt(CONFIRMATION);
                         //TODO: Save song into BBDD. -> in String or Midi format?
+                        //En el server guardaremos todas las canciones, de esta forma, tendremos una carpeta con todas las canciones
+                        //o aun mejor, una carpeta y dentro de esa carpeta varias subcarpetas con las canciones de cada usuario, y que dentro
+                        //de esa carpeta tambien este la imagen del usuario
+                        File directorio = new File("\\Server\\FilesBBDD\\" + userSave);
+                        boolean dirCreated = directorio.mkdir();
+                        //TODO:Pass me the song in MIDI format!!
+                        Song s = new Song();
+                        service.insertSongFromUser(s);
                     } catch (IOException e) {
+                        dataOutputStream.writeInt(ERROR);
+                    } catch (BBDDException e) {
+                        //TODO: I suppose that i have to put this here (I come here when the song already exists in the user directory
                         dataOutputStream.writeInt(ERROR);
                     }
                     break;
@@ -169,6 +180,7 @@ public class DedicatedServer extends Thread {
                         //MIDI OBJECT CONSTRUCTOR INITILIZATION
                         //objectOutputStream.writeObject();
                         dataOutputStream.writeInt(CONFIRMATION);
+
                     } catch (IOException e) {
                         dataOutputStream.writeInt(ERROR);
                     }

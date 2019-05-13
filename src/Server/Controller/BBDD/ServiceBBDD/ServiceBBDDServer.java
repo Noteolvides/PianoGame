@@ -116,7 +116,7 @@ public class ServiceBBDDServer {
     }
 
 
-    public List <Integer> getLastYearConnections () {
+    public List <Integer> getLastYear365Connections () {
         Calendar calendar = Calendar.getInstance();
         List<Integer> results = new ArrayList<Integer>();
         Date dateIterator = getLastYearFirstDay();
@@ -127,6 +127,22 @@ public class ServiceBBDDServer {
         return results;
     }
 
+    public List <Integer> getLastYearConnections () {
+        Calendar calendar = Calendar.getInstance();
+        List<Integer> results = new ArrayList<Integer>();
+        Date dateIterator = getLastYearFirstDay();
+        int acumulate = 0;
+        do {
+            if (changeOfMonth(dateIterator)) {
+                results.add(acumulate);
+                acumulate = 0;
+            }
+            acumulate = acumulate + getDayConnection(dateIterator);
+            dateIterator = incrementDay(dateIterator);
+        } while (!changeOfYear(dateIterator));
+        results.add(acumulate);
+        return results;
+    }
 
     public List<Integer> getLastMonthConnections () {
         Calendar calendar = Calendar.getInstance();

@@ -189,16 +189,17 @@ public class DedicatedServer extends Thread {
                         //En el server guardaremos todas las canciones, de esta forma, tendremos una carpeta con todas las canciones
                         //o aun mejor, una carpeta y dentro de esa carpeta varias subcarpetas con las canciones de cada usuario, y que dentro
                         //de esa carpeta tambien este la imagen del usuario
-                        String direction =  "/Server/FilesBBDD/" + userSave;
+                        String direction =  "FilesBBDD/" + userSave;
                         File directorio = new File(direction);
                         boolean dirCreated = directorio.mkdir();
                         Song s = (Song) objectInputStream.readObject();
-                        MidiFileManager.savePatternToMidi(new Pattern(song),new File(directorio + "/" + s.getTitle()));
 
+                        MidiFileManager.savePatternToMidi(new Pattern(song), new File(directorio + "/" + s.getTitle()));
                         s.setFilePath(directorio + "/" + s.getTitle());
                         service.insertSongFromUser(s);
                         System.out.println("He guardat: " + s.toString() + " ------- " + song);
-                        dataOutputStream.writeInt(CONFIRMATION);
+
+
                     } catch (IOException e) {
                         dataOutputStream.writeInt(ERROR);
                     } catch (BBDDException e) {

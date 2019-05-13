@@ -15,6 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
+import javax.sound.midi.InvalidMidiDataException;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -180,7 +181,7 @@ public class DedicatedServer extends Thread {
                         //En el server guardaremos todas las canciones, de esta forma, tendremos una carpeta con todas las canciones
                         //o aun mejor, una carpeta y dentro de esa carpeta varias subcarpetas con las canciones de cada usuario, y que dentro
                         //de esa carpeta tambien este la imagen del usuario
-                        String direction =  "\\Server\\FilesBBDD\\" + userSave;
+                        String direction =  "/Server/FilesBBDD/" + userSave;
                         File directorio = new File(direction);
                         boolean dirCreated = directorio.mkdir();
 
@@ -199,13 +200,13 @@ public class DedicatedServer extends Thread {
                 case REQUEST_SONG:
                     try {
                         String song = dataInputStream.readUTF();
-                        //TODO: Request to BBDD the song and return to User the MIDI FILE
                         //I return the song, so i can get the path i then i can get the song and pass it
                         Song songObtained = service.getConcreteSongUser(userSave,song);
                         String pathSong = songObtained.getFilePath();
-                        //TODO: Read file
-                        //--
 
+                        Pattern pattern = MidiFileManager.loadPatternFromMidi(new File(pathSong));
+
+                        //TODO: Send the pattern to the client
                         //MIDI OBJECT CONSTRUCTOR INITILIZATION
                         //objectOutputStream.writeObject();
                         dataOutputStream.writeInt(CONFIRMATION);
@@ -213,6 +214,8 @@ public class DedicatedServer extends Thread {
                         dataOutputStream.writeInt(ERROR);
                     } catch (BBDDException e) {
                         //TODO: I suppose that i have to put this here, when the songs not exists in the BBDD
+                        dataOutputStream.writeInt(ERROR);
+                    } catch (InvalidMidiDataException e) {
                         dataOutputStream.writeInt(ERROR);
                     }
                     break;

@@ -131,7 +131,8 @@ public class ServiceBBDDServer {
         Calendar calendar = Calendar.getInstance();
         List<Integer> results = new ArrayList<Integer>();
         Date dateIterator = getLastYearFirstDay();
-        int acumulate = 0;
+        int acumulate = getDayConnection(dateIterator);
+        dateIterator = incrementDay(dateIterator);
         do {
             if (changeOfMonth(dateIterator)) {
                 results.add(acumulate);

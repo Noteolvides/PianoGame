@@ -31,7 +31,7 @@ public class Graphic extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        if(users.size() == 6) {
+        if(users.size() == 7) {
             constant = 5;
             constant2 = 1;
         }else{

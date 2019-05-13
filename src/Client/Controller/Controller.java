@@ -232,4 +232,8 @@ public class Controller {
             view.getPrincipalView().deletedAccountPopUp("deletedn't");
         }
     }
+
+    public void networkClose() {
+        network.closeConnection();
+    }
 }

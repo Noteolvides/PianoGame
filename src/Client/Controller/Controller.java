@@ -223,4 +223,13 @@ public class Controller {
     public void networkDeleteAccount() {
         network.setNextFunc(DELETE_ACCOUNT);
     }
+
+    public void networkDeleteAccountResult(String petitionResult) {
+        if (petitionResult.equals(OK)) {
+            view.getPrincipalView().deletedAccountPopUp("deleted");
+        }
+        if (petitionResult.equals(KO)) {
+            view.getPrincipalView().deletedAccountPopUp("deletedn't");
+        }
+    }
 }

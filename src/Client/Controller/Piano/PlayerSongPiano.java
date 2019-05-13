@@ -15,7 +15,7 @@ public class PlayerSongPiano extends Thread {
     private JPiano piano;
     private Pattern song;
     private double timeSong = 0;
-
+    private int y = 0;
     public PlayerSongPiano(JPiano piano, Pattern song) {
         this.piano = piano;
         this.song = song;
@@ -26,16 +26,15 @@ public class PlayerSongPiano extends Thread {
         int i = 0;
         String search;
         int x = 0;
-        int y = 0;
         int height = 0;
         JPanel k;
         int leftOrRight = 0;
         for (Token t : song.getTokens()) {
             if (t.getType() == Token.TokenType.NOTE) {
                 Note n = new Note(t.toString());
-                timeSong += n.getDuration();
                 height = (int) (n.getDuration() * 150);
-                y = (int) (35 - 7.5 * timeSong) - height;
+                y = (int) (35 - 150 * timeSong) - height;
+                timeSong += n.getDuration();
                 if (!n.isRest()) {
                     search = n.getToneString();
                     if (search.charAt(1) == '#' || search.charAt(1) == 'b') {
@@ -55,6 +54,7 @@ public class PlayerSongPiano extends Thread {
                             }
                         }
                         k = new JPanel();
+                        k.setName(String.valueOf(n.getOctave()));
                         k.setSize(30, height);
                         if (search.length() == 2 || Integer.parseInt(String.valueOf(search.charAt(2))) % 2 == 0) {
                             k.setLocation(x, y);
@@ -72,6 +72,7 @@ public class PlayerSongPiano extends Thread {
                             }
                         }
                         k = new JPanel();
+                        k.setName(String.valueOf(n.getOctave()));
                         k.setSize(50, height);
                         if (Integer.parseInt(String.valueOf(search.charAt(1))) % 2 == 0) {
                             k.setLocation(x, y);
@@ -84,6 +85,9 @@ public class PlayerSongPiano extends Thread {
                     }
                 }
             }
+            if (t.getType() == Token.TokenType.TRACK_TIME_BOOKMARK){
+                //offset = Integer.parseInt(t.toString().replace("@","0"));
+            }
         }
         piano.revalidate();
         piano.repaint();
@@ -91,6 +95,10 @@ public class PlayerSongPiano extends Thread {
 
     public double getTimeSong() {
         return timeSong;
+    }
+
+    public int getY() {
+        return y;
     }
 }
 

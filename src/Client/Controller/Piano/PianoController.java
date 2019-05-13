@@ -31,6 +31,7 @@ public class PianoController {
     private HashMap<Integer,KeyRecord> keys = new HashMap<>();
     private boolean recordSong;
     private PlayerSongPiano player;
+    private int[] activado = new int[24];
 
     public static void main(String[] args) {
         View v = new View();
@@ -54,6 +55,7 @@ public class PianoController {
             view.getPianoView().getPiano().getAm().put(i+"", new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    actualOctave = finalI;
                     view.getPianoView().getPiano().goOctave(finalI);
                 }
             });
@@ -79,15 +81,24 @@ public class PianoController {
                 player = new PlayerSongPiano(view.getPianoView(),pattern);
                 new Thread(() -> {
                     double time= 0;
-                    while (time < player.getTimeSong()){
+                    while (7.5*time < 340+(-player.getY())){
                         for (JPanel jf  : view.getPianoView().getNotes()) {
                             Point p = jf.getLocation();
                             jf.setLocation(p.x, (int) (p.y+7.5));
+                            if (Integer.parseInt(jf.getName()) == actualOctave || Integer.parseInt(jf.getName()) == (actualOctave+1)){
+                                if (p.y+7.5>350){
+                                    jf.setVisible(false);
+                                }else{
+                                    jf.setVisible(true);
+                                }
+                            }else{
+                                jf.setVisible(false);
+                            }
                         }
                         view.getPianoView().revalidate();
                         view.getPianoView().repaint();
                         try {
-                            time += 0.1;
+                            time++;
                             Thread.sleep(100);
                         } catch (InterruptedException j) {
                             j.printStackTrace();
@@ -137,15 +148,14 @@ public class PianoController {
                     lastKey = k;
                 }
 
-                controller.networkSaveSong(song.toString());
-                /*
+                //controller.networkSaveSong(song.toString());
                 try {
                     System.out.println(song.toString());
                     MidiFileManager
                             .savePatternToMidi(new Pattern(song.toString()), new File("Song.mid"));
                 } catch (IOException ex) {
                     //TODO : SAY ERROR TO USER
-                }*/
+                }
             });
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
@@ -153,7 +163,6 @@ public class PianoController {
     }
 
     private void controlKeys() {
-        final int[] activado = new int[24];
         int i = 0;
         for (Key k : view.getPianoView().getPiano().getKeys()) {
             view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(keyBoardConfiguration[i]), keyBoardConfiguration[i]);
@@ -168,10 +177,8 @@ public class PianoController {
                         int actualValue = Integer.valueOf(str.substring(str.length() -1 , str.length()));
                         str = str.substring(0, str.length() - 1) + actualValue;
                         realtimePlayer.startNote(new Note(str));
-                        if (recordSong){
-                            activado[finalI] = numberOFkeys+1;
-                            numberOFkeys++;
-                        }
+                        activado[finalI] = numberOFkeys+1;
+                        numberOFkeys++;
                         keys.put(numberOFkeys,new KeyRecord(str,realtimePlayer.getCurrentTime(),numberOFkeys));
                     }
                 }

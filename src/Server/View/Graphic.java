@@ -9,6 +9,7 @@ public class Graphic extends JPanel {
     private static final long serialVersionUID = 1L;
     private Integer constant;
     private Integer constant2;
+    private Integer constant3;
     private int labelPadding = 20;
     /**change the line color to the best you want;*/
     private Color lineColor = new Color(255, 28, 0);
@@ -30,12 +31,17 @@ public class Graphic extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        if(users.size() == 6) {
+        if(users.size() == 7) {
             constant = 5;
             constant2 = 1;
         }else{
-            constant = 1;
-            constant2 = 1;
+            if(users.size() == 12){
+                constant = 3;
+                constant2 = 1;
+            }else{
+                constant = 1;
+                constant2 = 1;
+            }
         }
         double xScale = ((double) getWidth() - (padding * constant2)- labelPadding) / (users.size() - 1) - constant;
         double yScale = ((double) getHeight() - 2 * padding - labelPadding) / (getMaxUsers() - getMinUsers());
@@ -54,7 +60,12 @@ public class Graphic extends JPanel {
         for (int i = 0; i < getMaxUsers() + 1; i++) {
             int x0 = padding + labelPadding;
             int x1 = pointWidth + padding + labelPadding;
-            int y0 = getHeight() - ((i * (getHeight() - padding * 2 - labelPadding)) / getMaxUsers() + padding + labelPadding);
+            if(getMaxUsers() != 0){
+                constant3 = getMaxUsers();
+            }else{
+                constant3 = 1;
+            }
+            int y0 = getHeight() - ((i * (getHeight() - padding * 2 - labelPadding)) / (constant3) + padding + labelPadding);
             int y1 = y0;
             if (users.size() > 0) {
                 g2.setColor(gridColor);
@@ -102,9 +113,19 @@ public class Graphic extends JPanel {
         //Uneix els punts de la gràfica
         for (int i = 0; i < graphPoints.size() - 1; i++) {
             int x1 = graphPoints.get(i).x;
-            int y1 = graphPoints.get(i).y;
+            int y1;
+            if(getMaxUsers() != 0){
+                y1 = graphPoints.get(i).y;
+            }else{
+                y1 = 670;
+            }
             int x2 = graphPoints.get(i + 1).x;
-            int y2 = graphPoints.get(i + 1).y;
+            int y2;
+            if(getMaxUsers() != 0){
+                y2 = graphPoints.get(i + 1).y;
+            }else{
+                y2 = 670;
+            }
             g2.drawLine(x1, y1, x2, y2);
         }
 
@@ -114,7 +135,12 @@ public class Graphic extends JPanel {
         //Plotting de punts
         for (int i = 0; i < graphPoints.size(); i++) {
             int x = graphPoints.get(i).x - pointWidth / 2;
-            int y = graphPoints.get(i).y - pointWidth / 2;
+            int y;
+            if(getMaxUsers() != 0){
+                y = graphPoints.get(i).y - pointWidth / 2;
+            }else{
+                y = 665;
+            }
             int circleW = pointWidth;
             int circleH = pointWidth;
             g2.fillOval(x, y, circleW, circleH);

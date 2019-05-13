@@ -6,6 +6,8 @@ import Server.Controller.BBDD.Resources.BBDDException;
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.jfugue.midi.MidiFileManager;
+import org.jfugue.pattern.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -13,6 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
+import javax.sound.midi.InvalidMidiDataException;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -48,6 +51,7 @@ public class DedicatedServer extends Thread {
     public static final String ADD_USER = "add_user";
 
     public static final String LOG_OUT = "log_out";
+    public static final String DELETE_ACCOUNT = "delete_account";
 
     public static final String SELECT_SONG = "select_song";
     public static final String SAVE_SONG = "save_song";
@@ -96,6 +100,10 @@ public class DedicatedServer extends Thread {
                         socialComunication();
                         break;
                     case LOG_OUT:
+                        logOut();
+                        break;
+                    case DELETE_ACCOUNT:
+                        deleteAccount();
                         break;
                     default:
                         //Nothing
@@ -138,6 +146,26 @@ public class DedicatedServer extends Thread {
         }
     }
 
+    private void logOut() throws IOException {
+        System.out.println("Closing connection with client");
+        try{
+            dataOutputStream.writeInt(CONFIRMATION);
+        } catch (IOException e) {
+            dataOutputStream.writeInt(ERROR);
+        }
+    }
+
+    private void deleteAccount() throws IOException{
+        System.out.println("Deleting user");
+        //TODO: Delete user of the BBDD
+        System.out.println("Closing connection with client");
+        try{
+            dataOutputStream.writeInt(CONFIRMATION);
+        } catch (IOException e) {
+            dataOutputStream.writeInt(ERROR);
+        }
+    }
+
     private void pianoComunication() throws IOException {
         boolean goBack = false;
         while (!goBack){
@@ -156,20 +184,48 @@ public class DedicatedServer extends Thread {
                 case SAVE_SONG:
                     try {
                         String song = dataInputStream.readUTF();
+
+                        //En el server guardaremos todas las canciones, de esta forma, tendremos una carpeta con todas las canciones
+                        //o aun mejor, una carpeta y dentro de esa carpeta varias subcarpetas con las canciones de cada usuario, y que dentro
+                        //de esa carpeta tambien este la imagen del usuario
+                        String direction =  "/Server/FilesBBDD/" + userSave;
+                        File directorio = new File(direction);
+                        boolean dirCreated = directorio.mkdir();
+
+                        Song s = (Song) objectInputStream.readObject();
+
+                        MidiFileManager.savePatternToMidi(new Pattern(song),new File(directorio + "/" + s.getTitle()));
+
+                        s.setFilePath(directorio + "/" + s.getTitle());
+                        service.insertSongFromUser(s);
+
                         dataOutputStream.writeInt(CONFIRMATION);
-                        //TODO: Save song into BBDD. -> in String or Midi format?
                     } catch (IOException e) {
+                        dataOutputStream.writeInt(ERROR);
+                    } catch (BBDDException e) {
+                        dataOutputStream.writeInt(ERROR);
+                    } catch (ClassNotFoundException e) {
                         dataOutputStream.writeInt(ERROR);
                     }
                     break;
                 case REQUEST_SONG:
                     try {
                         String song = dataInputStream.readUTF();
-                        //TODO: Request to BBDD the song and return to User the MIDI FILE
+                        //I return the song, so i can get the path i then i can get the song and pass it
+                        Song songObtained = service.getConcreteSongUser(userSave,song);
+                        String pathSong = songObtained.getFilePath();
+
+                        Pattern pattern = MidiFileManager.loadPatternFromMidi(new File(pathSong));
+
+                        objectOutputStream.writeObject(pattern);
                         //MIDI OBJECT CONSTRUCTOR INITILIZATION
                         //objectOutputStream.writeObject();
                         dataOutputStream.writeInt(CONFIRMATION);
                     } catch (IOException e) {
+                        dataOutputStream.writeInt(ERROR);
+                    } catch (BBDDException e) {
+                        dataOutputStream.writeInt(ERROR);
+                    } catch (InvalidMidiDataException e) {
                         dataOutputStream.writeInt(ERROR);
                     }
                     break;

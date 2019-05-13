@@ -116,7 +116,7 @@ public class ServiceBBDDServer {
     }
 
 
-    public List <Integer> getLastYearConnections () {
+    public List <Integer> getLastYear365Connections () {
         Calendar calendar = Calendar.getInstance();
         List<Integer> results = new ArrayList<Integer>();
         Date dateIterator = getLastYearFirstDay();
@@ -127,6 +127,23 @@ public class ServiceBBDDServer {
         return results;
     }
 
+    public List <Integer> getLastYearConnections () {
+        Calendar calendar = Calendar.getInstance();
+        List<Integer> results = new ArrayList<Integer>();
+        Date dateIterator = getLastYearFirstDay();
+        int acumulate = getDayConnection(dateIterator);
+        dateIterator = incrementDay(dateIterator);
+        do {
+            if (changeOfMonth(dateIterator)) {
+                results.add(acumulate);
+                acumulate = 0;
+            }
+            acumulate = acumulate + getDayConnection(dateIterator);
+            dateIterator = incrementDay(dateIterator);
+        } while (!changeOfYear(dateIterator));
+        results.add(acumulate);
+        return results;
+    }
 
     public List<Integer> getLastMonthConnections () {
         Calendar calendar = Calendar.getInstance();
@@ -144,7 +161,7 @@ public class ServiceBBDDServer {
     public List <Integer> getLastWeekConnections () {
         Date dateIterator = getLastWeekMonday();
         List<Integer> results = new ArrayList<Integer>();
-        for (int i = 1; i < 7; i++) {
+        for (int i = 1; i <= 7; i++) {
             results.add(getDayConnection(dateIterator));
             dateIterator = incrementDay(dateIterator);
         }
@@ -244,6 +261,34 @@ public class ServiceBBDDServer {
         dao.insertSong(song);
     }
 
+
+    public Song getConcreteSongUser (String username, String songName) throws BBDDException {
+        ServerContextHolder.set(AvaiableClients.UserRegistered);
+        List <Song> songsThatUserCanAccess = null;
+        try {
+            songsThatUserCanAccess = getSongsUser(username);
+        } catch (Exception e) {
+            ServerContextHolder.clear();
+            throw new BBDDException();
+        }
+        int i  = 0;
+        boolean found = false;
+        while (!found && i < songsThatUserCanAccess.size()) {
+            if (songName.equals(songsThatUserCanAccess.get(i).getTitle())) {
+                found = true;
+            }
+            i++;
+        }
+        if (found) {
+            List <Song> song = dao.searchConcreteSong(songName);
+            ServerContextHolder.clear();
+            return song.get(0);
+        }
+        else {
+            ServerContextHolder.clear();
+            throw new BBDDException();
+        }
+    }
 
     public List<Song> getSongsUser (String username) throws Exception{
         if (!(username.equals("") || username.contains(" "))) {
@@ -348,7 +393,7 @@ public class ServiceBBDDServer {
     private Date getLastYearFirstDay () {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_YEAR,1);
-        calendar.add(Calendar.YEAR,1);
+        calendar.add(Calendar.YEAR,-1);
         return calendar.getTime();
     }
 

@@ -103,4 +103,15 @@ public class JPrincipal extends JFrame {
         buttonDeleteAccount.addActionListener(pc);
     }
 
+    public int confirmPopUp() {
+        return JOptionPane.showConfirmDialog(this, "Are you sure you want to delete the account?", "Delete Account Confirmation", JOptionPane.YES_NO_OPTION);
+    }
+
+    public void deletedAccountPopUp(String deleted) {
+        if (deleted.equals("deleted")) {
+            JOptionPane.showMessageDialog(this, "The account was successfully deleted!", "Account Delete Request",JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "An error occurred the account wasn't deleted!", "Account Delete Request",JOptionPane.WARNING_MESSAGE);
+        }
+    }
 }

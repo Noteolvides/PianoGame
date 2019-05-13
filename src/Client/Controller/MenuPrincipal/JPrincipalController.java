@@ -2,6 +2,8 @@ package Client.Controller.MenuPrincipal;
 
 import Client.Controller.Controller;
 import Client.View.View;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,9 +38,11 @@ public class JPrincipalController implements ActionListener {
             controller.openStart();
 
         } else if (action.equals(DELETE_ACCOUNT)) {
-            System.out.println("SERAS RETRASADO");
-            controller.networkDeleteAccount();
-
+            if (view.getPrincipalView().confirmPopUp() == JOptionPane.YES_OPTION) {
+                controller.networkDeleteAccount();
+                controller.closePrincipal();
+                controller.openStart();
+            }
         }
     }
 

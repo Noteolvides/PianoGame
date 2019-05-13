@@ -5,6 +5,7 @@ import Model.Song;
 import Model.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.jfugue.pattern.Pattern;
 
 import javax.sound.midi.spi.MidiFileReader;
 import java.io.*;
@@ -213,11 +214,19 @@ public class ClientConnection extends Thread {
      * LogOut of the account connected to the Application
      */
     public void logOut() {
+        int trans_estate = CORRECT;
         try {
-            dOut.writeUTF(GO_BACK);
-            closeConnection();
+            dOut.writeUTF(LOG_OUT);
+
+            trans_estate = dIn.readInt();
+            if (trans_estate == ERROR) {
+                System.out.println("Couldn't logOut from server");
+            } else {
+                dOut.writeUTF(GO_BACK);
+            }
+
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error trying to log out");
         }
     }
 
@@ -225,11 +234,20 @@ public class ClientConnection extends Thread {
      * Delete the account from de BBDD of the Application
      */
     public void deleteUser() {
+        int trans_estate = CORRECT;
         try {
-            dOut.writeUTF(GO_BACK);
-            closeConnection();
+            dOut.writeUTF(DELETE_ACCOUNT);
+
+            trans_estate = dIn.readInt();
+            if (trans_estate == ERROR) {
+                controller.networkDeleteAccountResult(KO);
+                System.out.println("Couldn't delete account from server");
+            } else {
+                controller.networkDeleteAccountResult(OK);
+                dOut.writeUTF(GO_BACK);
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error trying to delete account.");
         }
     }
     //END Login/Register Functions
@@ -365,14 +383,19 @@ public class ClientConnection extends Thread {
 
     /**
      * The user wants to save a song that has created
-     * @param song: Song that will be saved into the BBDD
      */
-    private void saveSong(String song) {
+    private void saveSong(/*String songFile, Song song*/) {
         int trans_estate = CORRECT;
         try {
+            //TODO: BORRAR AIXO
+                Song song = new Song();
+                String songFile = "Hola bon dia";
+            //-----------------
             dOut.writeUTF(SAVE_SONG);
-            trans_estate = dIn.readInt();
+            dOut.writeUTF(songFile);
+            obOut.writeObject(song);
 
+            trans_estate = dIn.readInt();
             if (trans_estate == ERROR) {
                 //TODO: Controller warn that the song has been saved successfully
             } else {
@@ -394,8 +417,8 @@ public class ClientConnection extends Thread {
             String song = null; //<- TODO: Controller returns the song or the title of the song that the user wants to play
 
             dOut.writeUTF(song);
-            //MidiFileReader midi;
-            //midi = obIn.read(); //TODO: GERARD -> Which object is the Midi File
+            Pattern midi;
+            midi = (Pattern) obIn.readObject(); //TODO: GERARD -> Which object is the Midi File
 
             trans_estate = dIn.readInt();
             if (trans_estate == ERROR) {
@@ -408,6 +431,9 @@ public class ClientConnection extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error trying to access the song");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("File couldn't be read");
         }
     }
 

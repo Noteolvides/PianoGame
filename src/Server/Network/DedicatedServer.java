@@ -37,6 +37,7 @@ public class DedicatedServer extends Thread {
     private static final int ERROR = -1;
     private static final String GO_BACK = "go_back";
     private ServiceBBDDServer service;
+    //TODO for GERARD: Create more CONTROL ERRORS
 
     public static final String LOGIN = "login";
     public static final String CHECK_USUARIO = "log_user";
@@ -56,7 +57,6 @@ public class DedicatedServer extends Thread {
     public static final String SELECT_SONG = "select_song";
     public static final String SAVE_SONG = "save_song";
     public static final String REQUEST_SONG = "request_song";
-
 
     public DedicatedServer(ServiceBBDDServer service){
         this.service = service;
@@ -131,7 +131,6 @@ public class DedicatedServer extends Thread {
                     //Then we want to check if the object Exist in the database
                     try {
                         service.getInstanceOfAUser(user.getNameUser(), user.getPassword());
-                        //Here we make a  query to de databas
                         //If the query return true
                         dataOutputStream.writeInt(CONFIRMATION);
                         userSave = user.getNameUser();
@@ -157,7 +156,7 @@ public class DedicatedServer extends Thread {
 
     private void deleteAccount() throws IOException{
         System.out.println("Deleting user");
-        //TODO: Delete user of the BBDD
+        //TODO: Delete user from the BBDD
         System.out.println("Closing connection with client");
         try{
             dataOutputStream.writeInt(CONFIRMATION);
@@ -243,7 +242,6 @@ public class DedicatedServer extends Thread {
                     //Then we want to check if the object The new User has been inserted
                     try {
                         service.createUserFromNoUser(user);
-                        //Here we make a  query to de databas
                         //If the query return true
                         dataOutputStream.writeInt(CONFIRMATION);
                     } catch (BBDDException e) {
@@ -265,8 +263,7 @@ public class DedicatedServer extends Thread {
                     //This will be the object to read and
                     friendSave = dataInputStream.readUTF();
                     //Then we want to check if the object Exist in the database
-
-                    //Here we make a  query to de databas that returns the user
+                    //TODO: Here we make a  query to de databas that returns the user
                     try {
                         User userTosend = service.searchUser(friendSave);
                         friendSave = userTosend.getNameUser();

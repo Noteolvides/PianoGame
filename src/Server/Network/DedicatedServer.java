@@ -266,7 +266,6 @@ public class DedicatedServer extends Thread {
                     friendSave = dataInputStream.readUTF();
 
                     //Then we want to check if the object Exist in the database
-                    //TODO: Here we make a  query to de databas that returns the user
                     try {
                         User userTosend = service.searchUser(friendSave);
                         friendSave = userTosend.getNameUser();

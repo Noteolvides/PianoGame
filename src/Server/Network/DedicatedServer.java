@@ -144,7 +144,8 @@ public class DedicatedServer extends Thread {
     }
 
     private void logOut() {
-
+        System.out.println("Closing connection with client");
+        stopDedicatedServer();
     }
 
     private void deleteAccount() {

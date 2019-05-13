@@ -190,15 +190,15 @@ public class DedicatedServer extends Thread {
                     try {
                         String song = dataInputStream.readUTF();
                         //TODO: Request to BBDD the song and return to User the MIDI FILE
-                        //MIDI OBJECT CONSTRUCTOR INITILIZATION
-                        //objectOutputStream.writeObject();
-                        dataOutputStream.writeInt(CONFIRMATION);
-
-                        //TODO: the confirmation goes after or later
                         //I return the song, so i can get the path i then i can get the song and pass it
                         Song songObtained = service.getConcreteSongUser(userSave,song);
                         String pathSong = songObtained.getFilePath();
                         //TODO: Read file
+                        //--
+                        //TODO: the confirmation goes later
+                        //MIDI OBJECT CONSTRUCTOR INITILIZATION
+                        //objectOutputStream.writeObject();
+                        dataOutputStream.writeInt(CONFIRMATION);
                     } catch (IOException e) {
                         dataOutputStream.writeInt(ERROR);
                     } catch (BBDDException e) {

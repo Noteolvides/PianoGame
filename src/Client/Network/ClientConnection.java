@@ -234,12 +234,20 @@ public class ClientConnection extends Thread {
      * Delete the account from de BBDD of the Application
      */
     public void deleteUser() {
+        int trans_estate = CORRECT;
         try {
             //TODO: Msg de confirmacio
-            dOut.writeUTF(GO_BACK);
-            closeConnection();
+            dOut.writeUTF(DELETE_ACCOUNT);
+
+            trans_estate = dIn.readInt();
+            if (trans_estate == ERROR) {
+                System.out.println("Couldn't delete account from server");
+            } else {
+                closeConnection();
+            }
+
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error trying to delete account.");
         }
     }
     //END Login/Register Functions

@@ -161,7 +161,7 @@ public class ServiceBBDDServer {
     public List <Integer> getLastWeekConnections () {
         Date dateIterator = getLastWeekMonday();
         List<Integer> results = new ArrayList<Integer>();
-        for (int i = 1; i < 7; i++) {
+        for (int i = 1; i <= 7; i++) {
             results.add(getDayConnection(dateIterator));
             dateIterator = incrementDay(dateIterator);
         }

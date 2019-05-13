@@ -6,6 +6,8 @@ import Server.Controller.BBDD.Resources.BBDDException;
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.jfugue.midi.MidiFileManager;
+import org.jfugue.pattern.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -174,16 +176,19 @@ public class DedicatedServer extends Thread {
                 case SAVE_SONG:
                     try {
                         String song = dataInputStream.readUTF();
-                        dataOutputStream.writeInt(CONFIRMATION);
-                        //TODO: Save song into BBDD. -> in String or Midi format?
+
                         //En el server guardaremos todas las canciones, de esta forma, tendremos una carpeta con todas las canciones
                         //o aun mejor, una carpeta y dentro de esa carpeta varias subcarpetas con las canciones de cada usuario, y que dentro
                         //de esa carpeta tambien este la imagen del usuario
-                        File directorio = new File("\\Server\\FilesBBDD\\" + userSave);
+                        String direction =  "\\Server\\FilesBBDD\\" + userSave;
+                        File directorio = new File(direction);
                         boolean dirCreated = directorio.mkdir();
-                        //TODO:Pass me the song in MIDI format!!
+
                         Song s = new Song();
+
+                        MidiFileManager.savePatternToMidi(new Pattern(song),new File(directorio + "\\" + s.getTitle()));
                         service.insertSongFromUser(s);
+                        dataOutputStream.writeInt(CONFIRMATION);
                     } catch (IOException e) {
                         dataOutputStream.writeInt(ERROR);
                     } catch (BBDDException e) {
@@ -200,7 +205,7 @@ public class DedicatedServer extends Thread {
                         String pathSong = songObtained.getFilePath();
                         //TODO: Read file
                         //--
-                        //TODO: the confirmation goes later
+
                         //MIDI OBJECT CONSTRUCTOR INITILIZATION
                         //objectOutputStream.writeObject();
                         dataOutputStream.writeInt(CONFIRMATION);

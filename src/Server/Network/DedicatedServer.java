@@ -130,6 +130,7 @@ public class DedicatedServer extends Thread {
 
                     //Then we want to check if the object Exist in the database
                     try {
+                        //Here we make a  query to de database
                         service.getInstanceOfAUser(user.getNameUser(), user.getPassword());
                         //If the query return true
                         dataOutputStream.writeInt(CONFIRMATION);
@@ -262,6 +263,7 @@ public class DedicatedServer extends Thread {
                 case SEARCH_USER:
                     //This will be the object to read and
                     friendSave = dataInputStream.readUTF();
+
                     //Then we want to check if the object Exist in the database
                     //TODO: Here we make a  query to de databas that returns the user
                     try {

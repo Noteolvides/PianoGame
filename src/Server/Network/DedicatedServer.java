@@ -185,7 +185,7 @@ public class DedicatedServer extends Thread {
                         File directorio = new File(direction);
                         boolean dirCreated = directorio.mkdir();
 
-                        Song s = new Song();
+                        Song s = (Song) objectInputStream.readObject();
 
                         MidiFileManager.savePatternToMidi(new Pattern(song),new File(directorio + "/" + s.getTitle()));
 
@@ -196,7 +196,8 @@ public class DedicatedServer extends Thread {
                     } catch (IOException e) {
                         dataOutputStream.writeInt(ERROR);
                     } catch (BBDDException e) {
-                        //TODO: I suppose that i have to put this here (I come here when the song already exists in the user directory)
+                        dataOutputStream.writeInt(ERROR);
+                    } catch (ClassNotFoundException e) {
                         dataOutputStream.writeInt(ERROR);
                     }
                     break;
@@ -209,14 +210,13 @@ public class DedicatedServer extends Thread {
 
                         Pattern pattern = MidiFileManager.loadPatternFromMidi(new File(pathSong));
 
-                        //TODO: Send the pattern to the client
+                        objectOutputStream.writeObject(pattern);
                         //MIDI OBJECT CONSTRUCTOR INITILIZATION
                         //objectOutputStream.writeObject();
                         dataOutputStream.writeInt(CONFIRMATION);
                     } catch (IOException e) {
                         dataOutputStream.writeInt(ERROR);
                     } catch (BBDDException e) {
-                        //TODO: I suppose that i have to put this here, when the songs not exists in the BBDD
                         dataOutputStream.writeInt(ERROR);
                     } catch (InvalidMidiDataException e) {
                         dataOutputStream.writeInt(ERROR);

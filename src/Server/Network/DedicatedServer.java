@@ -6,6 +6,8 @@ import Server.Controller.BBDD.Resources.BBDDException;
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.jfugue.midi.MidiFileManager;
+import org.jfugue.pattern.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -13,6 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
+import javax.sound.midi.InvalidMidiDataException;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -184,16 +187,19 @@ public class DedicatedServer extends Thread {
                 case SAVE_SONG:
                     try {
                         String song = dataInputStream.readUTF();
-                        dataOutputStream.writeInt(CONFIRMATION);
-                        //TODO: Save song into BBDD. -> in String or Midi format?
+
                         //En el server guardaremos todas las canciones, de esta forma, tendremos una carpeta con todas las canciones
                         //o aun mejor, una carpeta y dentro de esa carpeta varias subcarpetas con las canciones de cada usuario, y que dentro
                         //de esa carpeta tambien este la imagen del usuario
-                        File directorio = new File("\\Server\\FilesBBDD\\" + userSave);
+                        String direction =  "/Server/FilesBBDD/" + userSave;
+                        File directorio = new File(direction);
                         boolean dirCreated = directorio.mkdir();
-                        //TODO:Pass me the song in MIDI format!!
+
                         Song s = new Song();
+
+                        MidiFileManager.savePatternToMidi(new Pattern(song),new File(directorio + "\\" + s.getTitle()));
                         service.insertSongFromUser(s);
+                        dataOutputStream.writeInt(CONFIRMATION);
                     } catch (IOException e) {
                         dataOutputStream.writeInt(ERROR);
                     } catch (BBDDException e) {
@@ -204,13 +210,13 @@ public class DedicatedServer extends Thread {
                 case REQUEST_SONG:
                     try {
                         String song = dataInputStream.readUTF();
-                        //TODO: Request to BBDD the song and return to User the MIDI FILE
                         //I return the song, so i can get the path i then i can get the song and pass it
                         Song songObtained = service.getConcreteSongUser(userSave,song);
                         String pathSong = songObtained.getFilePath();
-                        //TODO: Read file
-                        //--
-                        //TODO: the confirmation goes later
+
+                        Pattern pattern = MidiFileManager.loadPatternFromMidi(new File(pathSong));
+
+                        //TODO: Send the pattern to the client
                         //MIDI OBJECT CONSTRUCTOR INITILIZATION
                         //objectOutputStream.writeObject();
                         dataOutputStream.writeInt(CONFIRMATION);
@@ -218,6 +224,8 @@ public class DedicatedServer extends Thread {
                         dataOutputStream.writeInt(ERROR);
                     } catch (BBDDException e) {
                         //TODO: I suppose that i have to put this here, when the songs not exists in the BBDD
+                        dataOutputStream.writeInt(ERROR);
+                    } catch (InvalidMidiDataException e) {
                         dataOutputStream.writeInt(ERROR);
                     }
                     break;

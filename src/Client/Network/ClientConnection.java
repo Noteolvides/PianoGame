@@ -423,9 +423,9 @@ public class ClientConnection extends Thread {
             trans_estate = dIn.readInt();
             if (trans_estate == ERROR) {
                 System.out.println("Error, the song doesn't exist");
-                //TODO: Controller warn the user that the songs doesn't exists
+                controller.networkRequestSongResult(KO);
             } else {
-                //TODO: Controller warns and start reproducing the song
+                controller.networkRequestSongResult(OK);
             }
 
         } catch (IOException e) {

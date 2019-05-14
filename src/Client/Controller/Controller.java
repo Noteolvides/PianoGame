@@ -207,6 +207,10 @@ public class Controller {
         return controllerJSong.getActualSong();
     }
 
+    public void networkRequestSongResult(String petitionResult) {
+        view.getSongView().requestPopUp(petitionResult);
+    }
+
     public void networkExitPiano(){
         network.setNextFunc(EXIT_PIANO);
     }

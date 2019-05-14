@@ -43,6 +43,15 @@ public class FinestraJSong extends JFrame{
         JOptionPane.showMessageDialog(this, "There was a problem loading the songs.", "Error", JOptionPane.WARNING_MESSAGE);
     }
 
+    public void requestPopUp (String petitionResult) {
+        if (petitionResult.equals(OK)) {
+            JOptionPane.showMessageDialog(this, "The selected song was successfully loaded.", "Song request", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if (petitionResult.equals(KO)) {
+            JOptionPane.showMessageDialog(this, "There was a problem with the song.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
     public void savePopUp(String petitionResult) {
         if (petitionResult.equals(OK)) {
             JOptionPane.showMessageDialog(this, "The song was saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);

@@ -15,11 +15,13 @@ public class RegisterController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("REGISTER")) {
-            System.out.println(view.getRegisterView().getUsername());
-            System.out.println(view.getRegisterView().getEmail());
-            System.out.println(view.getRegisterView().getPassword());
-            System.out.println(view.getRegisterView().getPasswordVerify());
-            System.out.println("Registered");
+            String password = new String(view.getRegisterView().getPassword());
+            String confirmPassword = new String(view.getRegisterView().getPasswordVerify());
+            if (confirmPassword(password, confirmPassword)) {
+                System.out.println("Registered");
+            } else {
+                view.getRegisterView().errorPasswordPopUp();
+            }
         }
     }
 

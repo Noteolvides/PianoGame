@@ -85,9 +85,6 @@ public class PlayerSongPiano extends Thread {
                     }
                 }
             }
-            if (t.getType() == Token.TokenType.TRACK_TIME_BOOKMARK){
-                //offset = Integer.parseInt(t.toString().replace("@","0"));
-            }
         }
         piano.revalidate();
         piano.repaint();

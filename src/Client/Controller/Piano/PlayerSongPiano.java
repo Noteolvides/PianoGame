@@ -16,7 +16,9 @@ public class PlayerSongPiano extends Thread {
     private Pattern song;
     private double timeSong = 0;
     private int y = 0;
+    private ArrayList<Note> notesOfPiano;
     public PlayerSongPiano(JPiano piano, Pattern song) {
+        notesOfPiano = new ArrayList<>();
         this.piano = piano;
         this.song = song;
         initPlayer();
@@ -32,8 +34,8 @@ public class PlayerSongPiano extends Thread {
         for (Token t : song.getTokens()) {
             if (t.getType() == Token.TokenType.NOTE) {
                 Note n = new Note(t.toString());
-                height = (int) (n.getDuration() * 150);
-                y = (int) (35 - 150 * timeSong) - height;
+                height = (int) (n.getDuration() * 70);
+                y = (int) (35 - 80 * timeSong) - height;
                 timeSong += n.getDuration();
                 if (!n.isRest()) {
                     search = n.getToneString();
@@ -54,7 +56,7 @@ public class PlayerSongPiano extends Thread {
                             }
                         }
                         k = new JPanel();
-                        k.setName(String.valueOf(n.getOctave()));
+                        k.setName(n.toString());
                         k.setSize(30, height);
                         if (search.length() == 2 || Integer.parseInt(String.valueOf(search.charAt(2))) % 2 == 0) {
                             k.setLocation(x, y);
@@ -72,7 +74,7 @@ public class PlayerSongPiano extends Thread {
                             }
                         }
                         k = new JPanel();
-                        k.setName(String.valueOf(n.getOctave()));
+                        k.setName(n.toString());
                         k.setSize(50, height);
                         if (Integer.parseInt(String.valueOf(search.charAt(1))) % 2 == 0) {
                             k.setLocation(x, y);

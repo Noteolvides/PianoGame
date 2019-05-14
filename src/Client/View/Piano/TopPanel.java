@@ -12,7 +12,7 @@ public class TopPanel extends JMenuBar {
     private JMenu playSong;
     private JMenuItem playSongInSystem;
     private JMenuItem selectSongInSystem;
-    private JMenuItem restartSongInSystem;
+    private JMenuItem muteSoundPlaying;
     private JMenu more;
     private JMenuItem exitToMenu;
 
@@ -26,19 +26,21 @@ public class TopPanel extends JMenuBar {
         recordSong.add(record);
         play = new JMenuItem("Play");
         recordSong.add(play);
-        stop = new JMenuItem("Stop");
-        recordSong.add(stop);
+        //stop = new JMenuItem("Stop");
+        //recordSong.add(stop);
         save = new JMenuItem("Save");
+        save.setEnabled(false);
         recordSong.add(save);
 
         playSong = new JMenu("Play Song");
-
         selectSongInSystem = new JMenuItem("Select Song");
         playSong.add(selectSongInSystem);
-        playSongInSystem = new JMenuItem("Play Song");
-        playSong.add(playSongInSystem);
-        restartSongInSystem = new JMenuItem("Restart Song");
-        playSong.add(restartSongInSystem);
+        //playSongInSystem = new JMenuItem("Play Song");
+        //playSong.add(playSongInSystem);
+        muteSoundPlaying = new JMenuItem("Mute Song Playing");
+        muteSoundPlaying.setEnabled(false);
+        playSong.add(muteSoundPlaying);
+
 
         more = new JMenu("More");
         exitToMenu = new JMenuItem("Exit to Menu");
@@ -77,8 +79,8 @@ public class TopPanel extends JMenuBar {
         return selectSongInSystem;
     }
 
-    public JMenuItem getRestartSongInSystem() {
-        return restartSongInSystem;
+    public JMenuItem getMuteSoundPlaying() {
+        return muteSoundPlaying;
     }
 
     public JMenuItem getExitToMenu() {

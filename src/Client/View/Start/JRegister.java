@@ -79,4 +79,8 @@ public class JRegister extends JFrame {
         buttonRegister.setActionCommand("REGISTER");
         buttonRegister.addActionListener(c);
     }
+
+    public void errorPasswordPopUp() {
+        JOptionPane.showMessageDialog(this, "The password doesn't meet the requirements!", "Bad password", JOptionPane.WARNING_MESSAGE);
+    }
 }

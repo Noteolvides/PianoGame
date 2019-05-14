@@ -198,7 +198,7 @@ public class ClientConnection extends Thread {
             //We wait for response if the information was correct
             trans_estate = dIn.readInt();
 
-            if (trans_estate == ERROR) {
+            if (trans_estate == ERROR_BBDD) {   //TODO: Definir nous msg d'error on els prompts
                 System.out.println("Error, you couldn't register to server");
                 controller.networkLogInResult(KO);
             } else {
@@ -283,7 +283,7 @@ public class ClientConnection extends Thread {
             //We wait for response if the operation is completed correctly
             trans_estate = dIn.readInt();
 
-            if (trans_estate == ERROR) {
+            if (trans_estate == ERROR_BBDD) {   //TODO: Definir nous msg d'error on els prompts
                 System.out.println("Error, this user doesn't exists");
                 controller.networkSearchSocialResult(KO, null);
 
@@ -311,7 +311,7 @@ public class ClientConnection extends Thread {
             //We wait for response if the operation is completed correctly
             trans_estate = dIn.readInt();
 
-            if (trans_estate == ERROR) {
+            if (trans_estate == ERROR_BBDD) {   //TODO: Definir nous msg d'error on els prompts
                 System.out.println("No eres mi amiho");
                 controller.networkAddSocialResult(KO);
 
@@ -399,7 +399,9 @@ public class ClientConnection extends Thread {
             System.out.println("He guardat: " + songFile + " " + song.toString());
 
             trans_estate = dIn.readInt();
-            if (trans_estate == ERROR) {
+            if (trans_estate == CORRECT) {  //TODO: Definir nous msg d'error on els prompts
+                controller.networkSaveSongResult(OK);
+            } else if (trans_estate == ERROR_BBDD) {
                 controller.networkSaveSongResult(KO);
             } else if (trans_estate == ERROR_OBJECT) {
                 controller.networkSaveSongResult(KO);
@@ -426,11 +428,15 @@ public class ClientConnection extends Thread {
             midi = (Pattern) obIn.readObject();
 
             trans_estate = dIn.readInt();
-            if (trans_estate == ERROR) {
-                System.out.println("Error, the song doesn't exist");
-                controller.networkRequestSongResult(KO);
+            if (trans_estate == CORRECT) {  //TODO: Definir nous msg d'error on els prompts
+                controller.networkSaveSongResult(OK);
+            } else if (trans_estate == ERROR_BBDD) {
+                controller.networkSaveSongResult(KO);
+            } else if (trans_estate == ERROR_MIDI) {
+                controller.networkSaveSongResult(KO);
             } else {
-                controller.networkRequestSongResult(OK);
+                System.out.println("Error, the song doesn't exist");
+                controller.networkSaveSongResult(KO);
             }
 
         } catch (IOException e) {

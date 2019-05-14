@@ -4,6 +4,8 @@ import Model.Song;
 import Model.User;
 import Server.Controller.BBDD.Resources.BBDDException;
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
+import Server.Controller.RegisterController;
+import Server.Controller.Utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.jfugue.midi.MidiFileManager;
@@ -242,11 +244,16 @@ public class DedicatedServer extends Thread {
                     //This will be the object to read and
                     User user = (User) objectInputStream.readObject();
                     //Then we want to check if the object The new User has been inserted
-                    try {
-                        service.createUserFromNoUser(user);
-                        //If the query return true
-                        dataOutputStream.writeInt(CONFIRMATION);
-                    } catch (BBDDException e) {
+                    Utils utils = new Utils();
+                    if (utils.confirmPassword(user.getPassword(), user.getPassword(), user.getNameUser())) {
+                        try {
+                            service.createUserFromNoUser(user);
+                            //If the query return true
+                            dataOutputStream.writeInt(CONFIRMATION);
+                        } catch (BBDDException e) {
+                            dataOutputStream.writeInt(ERROR);
+                        }
+                    } else {
                         dataOutputStream.writeInt(ERROR);
                     }
 

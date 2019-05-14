@@ -122,7 +122,7 @@ public class ClientConnection extends Thread {
                     selectSongs();
                     break;
                 case SAVE_SONG:
-                    //saveSong();
+                    saveSong();
                     break;
                 case REQUEST_SONG:
                     requestSong();
@@ -301,6 +301,7 @@ public class ClientConnection extends Thread {
         int trans_estate = CORRECT;
 
         try {
+            //TODO: If i'm friend of the searched user, I CAN'T PRESS ADD USER -> CONTROL IT IN THE CONTROLLER
             //We sent to the server the current operation
             dOut.writeUTF(ADD_USER);
 
@@ -387,19 +388,18 @@ public class ClientConnection extends Thread {
     private void saveSong(/*String songFile, Song song*/) {
         int trans_estate = CORRECT;
         try {
-            //TODO: BORRAR AIXO
-                Song song = new Song();
-                String songFile = "Hola bon dia";
-            //-----------------
+            String songFile = controller.getSongFileToSave();
+            Song song = controller.getSongToSave();
             dOut.writeUTF(SAVE_SONG);
             dOut.writeUTF(songFile);
             obOut.writeObject(song);
+            System.out.println("He guardat: " + songFile + " " + song.toString());
 
             trans_estate = dIn.readInt();
             if (trans_estate == ERROR) {
-                //TODO: Controller warn that the song has been saved successfully
+                controller.networkSaveSongResult(KO);
             } else {
-                //TODO: Controller warn with a JDialog that the Song couldn't be saved. TRY AGAIN
+                controller.networkSaveSongResult(OK);
             }
 
         } catch (IOException e) {
@@ -414,18 +414,18 @@ public class ClientConnection extends Thread {
         int trans_estate = CORRECT;
         try {
             dOut.writeUTF(REQUEST_SONG);
-            String song = null; //<- TODO: Controller returns the song or the title of the song that the user wants to play
+            String song = controller.getSongToPlay();
 
             dOut.writeUTF(song);
             Pattern midi;
-            midi = (Pattern) obIn.readObject(); //TODO: GERARD -> Which object is the Midi File
+            midi = (Pattern) obIn.readObject();
 
             trans_estate = dIn.readInt();
             if (trans_estate == ERROR) {
                 System.out.println("Error, the song doesn't exist");
-                //TODO: Controller warn the user that the songs doesn't exists
+                controller.networkRequestSongResult(KO);
             } else {
-                //TODO: Controller warns and start reproducing the song
+                controller.networkRequestSongResult(OK);
             }
 
         } catch (IOException e) {

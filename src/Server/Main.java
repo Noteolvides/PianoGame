@@ -1,6 +1,5 @@
 package Server;
 
-import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import Server.Controller.Controller;
 import Server.Controller.JEvolutionController;
 import Server.Controller.JTopController;
@@ -14,9 +13,6 @@ import Server.View.View;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-
-import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 
 public class Main {

@@ -3,7 +3,6 @@ package Server.View;
 import Model.Song;
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import Server.Controller.JTopController;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import javax.swing.*;
@@ -14,9 +13,8 @@ import java.util.ArrayList;
 
 @Controller
 public class JTop {
-    //public JList songTop;
     private ServiceBBDDServer service;
-    private JFrame frameTop = new JFrame("TOP 5 - Popular Songs"); //Prova
+    private JFrame frameTop = new JFrame("TOP 5 - Popular Songs");
     private JPanel songTop = new JPanel();
     private ArrayList<SongView> songsList;
     private JPanel songsGroup = new JPanel();
@@ -26,14 +24,7 @@ public class JTop {
     }
 
     public void JTop(){                            //Pass ArrayList<Song> to the constructor and for each one add Number 1-5
-        //TODO: Map TOP5 Songs
-        /*ArrayList<SongPrueba> songs = new ArrayList<>();
-        songs.add(new SongPrueba(1, "渡辺麻友", "She's so cute ❤"));
-        songs.add(new SongPrueba(2, "岡田奈々", "Elegance and Prestige"));
-        songs.add(new SongPrueba(3, "柏木由紀", "Mayu's sister"));
-        songs.add(new SongPrueba(4, "田中美久", "Mayu's daughter"));
-        songs.add(new SongPrueba(5, "山本彩", "Let's rock it!"));*/
-        ArrayList<Song> songs = new ArrayList<>();
+        ArrayList<Song> songs;
         songs = (ArrayList<Song>) service.getTop5Songs();
 
         songTop.setLayout(new BoxLayout(songTop, BoxLayout.Y_AXIS));
@@ -45,7 +36,7 @@ public class JTop {
         addAllTheSongs(songsList);
 
         songTop.add(songsGroup);
-        //songTop.add()
+
         JPanel panelTop = new JPanel();
         panelTop.add(songTop);
 
@@ -77,12 +68,6 @@ public class JTop {
         frameTop.add(panelTop);
     }
 
-    /*public static void main(String[] args) {
-        JTop h = new JTop();
-        h.JTop();
-        JTopController controller = new JTopController(h);
-        h.registerController(controller);
-    }*/
 
     public void includeSongs (ArrayList <Song> songs) {
         //Adding a new array to not repeat different times the same songs, if we decide to refresh the window

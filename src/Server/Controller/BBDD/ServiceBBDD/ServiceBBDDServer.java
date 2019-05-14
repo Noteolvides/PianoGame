@@ -170,6 +170,14 @@ public class ServiceBBDDServer {
 
     //:::::::::::::::::::USER BBDD METHODS::::::::::::::::::::
 
+    //Method to delete your user
+    public void deleteUser (String username) throws BBDDException {
+        ServerContextHolder.set(AvaiableClients.UserRegistered);
+        dao.deleteUser(username);
+        ServerContextHolder.clear();
+    }
+
+
     //Method to update the information of a user (the username mopdify is not valid in not valid in this method)
     public void updateInformationUser (User user) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.UserRegistered);

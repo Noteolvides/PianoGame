@@ -7,9 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class JEvolution {
     private ServiceBBDDServer service;
@@ -63,18 +61,10 @@ public class JEvolution {
         constraints.gridx = 1;
         constraints.gridy = 2;
         evoPanel.add(buttonsPanel, constraints);
-
-        //evoPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public JPanel showGraphic() {                                      //Quan cridem aquesta funció li passarem una llista de quantitat d'usuaris
-
-
+    public JPanel showGraphic() {
         users = service.getLastWeekConnections();
-        //Random random = new Random();
-        /*for (int i = 0; i < maxDataPoints; i++) {
-            users.add(random.nextDouble() * maxScore);
-        }*/
 
         graphic = new Graphic(users);
         graphic.setPreferredSize(new Dimension(1280, 720));
@@ -82,15 +72,6 @@ public class JEvolution {
         graphics.add(graphic);
         return graphics;
     }
-
-
-    /*public static void main(String[] args) throws IOException {
-        JEvolution evo = new JEvolution();
-        evo.JEvolution();
-
-        JEvolutionController controller = new JEvolutionController(evo);
-        evo.registerController(controller);
-    }*/
 
     public void registerController(JEvolutionController controller){
         year.addActionListener(controller);

@@ -21,6 +21,9 @@ public class ClientConnection extends Thread {
 
     private static final int CORRECT = 0;
     private static final int ERROR = -1;
+    private static final int ERROR_BBDD = 1;
+    private static final int ERROR_MIDI = 2;
+    private static final int ERROR_OBJECT = 3;
     private static final String GO_BACK = "go_back";
 
     public static final String LOGIN = "login";
@@ -398,8 +401,10 @@ public class ClientConnection extends Thread {
             trans_estate = dIn.readInt();
             if (trans_estate == ERROR) {
                 controller.networkSaveSongResult(KO);
+            } else if (trans_estate == ERROR_OBJECT) {
+                controller.networkSaveSongResult(KO);
             } else {
-                controller.networkSaveSongResult(OK);
+                controller.networkSaveSongResult(KO);
             }
 
         } catch (IOException e) {

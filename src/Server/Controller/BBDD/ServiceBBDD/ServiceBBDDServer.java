@@ -26,12 +26,6 @@ public class ServiceBBDDServer {
     @Autowired
     private DAOServer dao;
 
-
-
-
-
-
-
     //TODO: Don't controll strings
 
     //:::::::::::::::::::CommonMethods::::::::::::::::::::::::::

@@ -35,9 +35,11 @@ public class DedicatedServer extends Thread {
 
     private static final int CONFIRMATION = 0;
     private static final int ERROR = -1;
+    private static final int ERROR_BBDD = 1;
+    private static final int ERROR_MIDI = 2;
+    private static final int ERROR_OBJECT = 3;
     private static final String GO_BACK = "go_back";
     private ServiceBBDDServer service;
-    //TODO for GERARD: Create more CONTROL ERRORS
 
     public static final String LOGIN = "login";
     public static final String CHECK_USUARIO = "log_user";
@@ -67,7 +69,6 @@ public class DedicatedServer extends Thread {
         objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
         dataInputStream = new DataInputStream(socket.getInputStream());
         dataOutputStream = new DataOutputStream(socket.getOutputStream());
-
         running = true;
         start();
     }
@@ -178,7 +179,7 @@ public class DedicatedServer extends Thread {
                         dataOutputStream.writeUTF(songsJson);
                         dataOutputStream.writeInt(CONFIRMATION);
                     } catch (Exception e) {
-                        dataOutputStream.writeInt(ERROR);
+                        dataOutputStream.writeInt(ERROR);   //Error al recuperar les cançons
                     }
                     break;
                 case SAVE_SONG:
@@ -198,14 +199,13 @@ public class DedicatedServer extends Thread {
                         s.setFilePath(directorio + "/" + s.getTitle());
                         service.insertSongFromUser(s);
                         System.out.println("He guardat: " + s.toString() + " ------- " + song);
-
-
+                        dataOutputStream.writeInt(CONFIRMATION);
                     } catch (IOException e) {
-                        dataOutputStream.writeInt(ERROR);
+                        dataOutputStream.writeInt(ERROR);   //Error al connectar amb el servidor
                     } catch (BBDDException e) {
-                        dataOutputStream.writeInt(ERROR);
+                        dataOutputStream.writeInt(ERROR_BBDD); //Error amb la BBDD
                     } catch (ClassNotFoundException e) {
-                        dataOutputStream.writeInt(ERROR);
+                        dataOutputStream.writeInt(ERROR_OBJECT); //Error amb l'estructura de l'objecte
                     }
                     break;
                 case REQUEST_SONG:
@@ -222,9 +222,9 @@ public class DedicatedServer extends Thread {
                     } catch (IOException e) {
                         dataOutputStream.writeInt(ERROR);
                     } catch (BBDDException e) {
-                        dataOutputStream.writeInt(ERROR);
+                        dataOutputStream.writeInt(ERROR_BBDD);
                     } catch (InvalidMidiDataException e) {
-                        dataOutputStream.writeInt(ERROR);
+                        dataOutputStream.writeInt(ERROR_MIDI);   //Error amb l'arxiu MIDI
                     }
                     break;
                 case GO_BACK:
@@ -247,7 +247,7 @@ public class DedicatedServer extends Thread {
                         //If the query return true
                         dataOutputStream.writeInt(CONFIRMATION);
                     } catch (BBDDException e) {
-                        dataOutputStream.writeInt(ERROR);
+                        dataOutputStream.writeInt(ERROR_BBDD);
                     }
 
                     break;
@@ -277,7 +277,7 @@ public class DedicatedServer extends Thread {
                         dataOutputStream.writeInt(CONFIRMATION);
                         objectOutputStream.writeObject(userTosend);
                     } catch (BBDDException e) {
-                        dataOutputStream.writeInt(ERROR);
+                        dataOutputStream.writeInt(ERROR_BBDD);
                         System.out.println("Se fue a la puta");
                     }
                     break;
@@ -291,7 +291,7 @@ public class DedicatedServer extends Thread {
 
                         dataOutputStream.writeInt(CONFIRMATION);
                     }catch (BBDDException e){
-                        dataOutputStream.writeInt(ERROR);
+                        dataOutputStream.writeInt(ERROR_BBDD);
                     }
                     break;
                 case GO_BACK:

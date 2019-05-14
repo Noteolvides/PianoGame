@@ -15,7 +15,7 @@ public class ViewPiano extends JLayeredPane {
     public ViewPiano() {
 
         setLayout(null);
-        creationOfPiano(0);
+        creationOfPiano(4);
 
     }
 

@@ -50,7 +50,7 @@ public class PianoController {
         view.getPianoView().setVisible(true);
 
         //Implementation of listener for keys 1234560 to change Octave;
-        for (int i = 0; i < 7; i++) {
+        for (int i = 1; i < 7; i++) {
             view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(i+""), i+"");
             int finalI = i;
             view.getPianoView().getPiano().getAm().put(i+"", new AbstractAction() {
@@ -194,13 +194,15 @@ public class PianoController {
             view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i] + " released", new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    keys.get(activado[finalI]).setEnd(realtimePlayer.getCurrentTime());
-                    activado[finalI] = 0;
-                    k.unTouch();
-                    String str = k.getNumberOfKey().getText();
-                    int actualValue = Integer.valueOf(str.substring(str.length() -1 , str.length()));
-                    str = str.substring(0, str.length() - 1) + actualValue;
-                    realtimePlayer.stopNote(new Note(str));
+                    if (keys.get(activado[finalI]) != null){
+                        keys.get(activado[finalI]).setEnd(realtimePlayer.getCurrentTime());
+                        activado[finalI] = 0;
+                        k.unTouch();
+                        String str = k.getNumberOfKey().getText();
+                        int actualValue = Integer.valueOf(str.substring(str.length() -1 , str.length()));
+                        str = str.substring(0, str.length() - 1) + actualValue;
+                        realtimePlayer.stopNote(new Note(str));
+                    }
                 }
             });
             i++;

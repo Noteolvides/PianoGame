@@ -17,44 +17,12 @@ public class RegisterController implements ActionListener {
         if (e.getActionCommand().equals("REGISTER")) {
             String password = new String(view.getRegisterView().getPassword());
             String confirmPassword = new String(view.getRegisterView().getPasswordVerify());
-            if (confirmPassword(password, confirmPassword)) {
+            Utils utils = new Utils();
+            if (utils.confirmPassword(password, confirmPassword, view.getRegisterView().getUsername())) {
                 System.out.println("Registered");
             } else {
                 view.getRegisterView().errorPasswordPopUp();
             }
         }
-    }
-
-    private boolean confirmPassword(String password, String confirmPassword) {
-        boolean validPassword;
-        validPassword = password.equals(confirmPassword);
-        if (validPassword) {
-            validPassword = password.length() >= 8;
-            if (validPassword) {
-                validPassword = !password.contains(view.getRegisterView().getUsername());
-                if (validPassword) {
-                    validPassword = specialCharacters(password);
-                }
-            }
-        }
-
-        return validPassword;
-    }
-
-    private boolean specialCharacters(String password) {
-        int num = 0;
-        if (password.matches("(?=.*[a-z])")) {
-            num++;
-        }
-        if (password.matches("(?=.*[A-Z])")) {
-            num++;
-        }
-        if (password.matches("(?=.*[@#$%^&+=])")) {
-            num++;
-        }
-        if (password.matches("(?=.*d)")) {
-            num++;
-        }
-        return num >= 2;
     }
 }

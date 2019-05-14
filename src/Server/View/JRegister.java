@@ -90,4 +90,8 @@ public class JRegister extends JFrame {
     public void setInvisible(){
         setVisible(false);
     }
+
+    public void errorPasswordPopUp() {
+        JOptionPane.showMessageDialog(this, "The password doesn't meet the requirements!", "Bad password", JOptionPane.WARNING_MESSAGE);
+    }
 }

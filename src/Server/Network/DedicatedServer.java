@@ -227,7 +227,9 @@ public class DedicatedServer extends Thread {
 
                         Song s = (Song) objectInputStream.readObject();
                         String direction;
-                        if (s.getPrivacity() == true) {
+
+                        //If privacity = true: song is private, else: song is public
+                        if (s.getPrivacity()) {
                             direction =  "FilesBBDD/Private/" + userSave;
                         } else {
                             direction =  "FilesBBDD/Public/" + userSave;

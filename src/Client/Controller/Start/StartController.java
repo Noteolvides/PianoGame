@@ -30,25 +30,25 @@ public class StartController implements ActionListener, WindowListener {
             controller.openRegister();
         }
         if (e.getActionCommand().equals("REGISTER")) {
+            controller.networkRegister();
             String password = new String(view.getRegisterView().getPassword());
             String confirmPassword = new String(view.getRegisterView().getPasswordVerify());
-            if (confirmPassword(password, confirmPassword)) {
+            if (confirmPassword(password, confirmPassword, view.getRegisterView().getUsername())) {
                 System.out.println("Registered");
                 controller.networkRegister();
-                controller.closeRegister();
             } else {
                 view.getRegisterView().errorPasswordPopUp();
             }
         }
     }
 
-    private boolean confirmPassword(String password, String confirmPassword) {
+    private boolean confirmPassword(String password, String confirmPassword, String username) {
         boolean validPassword;
         validPassword = password.equals(confirmPassword);
         if (validPassword) {
             validPassword = password.length() >= 8;
             if (validPassword) {
-                validPassword = !password.contains(view.getRegisterView().getUsername());
+                validPassword = !password.contains(username);
                 if (validPassword) {
                     validPassword = specialCharacters(password);
                 }

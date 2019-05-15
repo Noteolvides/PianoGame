@@ -169,6 +169,14 @@ public class Controller {
         network.setNextFunc(REGISTER);
     }
 
+    public void networkRegisterResult(int petitionResult) {
+        if (petitionResult == OK) {
+            closeRegister();
+        } else {
+            view.getRegisterView().errorPopUp(petitionResult);
+        }
+    }
+
     //Piano Network functions
     public void networkPiano() {
         network.setNextFunc(PIANO);

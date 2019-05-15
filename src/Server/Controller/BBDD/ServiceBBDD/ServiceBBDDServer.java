@@ -255,6 +255,7 @@ public class ServiceBBDDServer {
         Song song  = new Song(name,duration,description,plays,filePath,author);
         if (duration == 0 || author == null || filePath.equals("") || filePath.contains(" ")) {
             throw new FieldsNoValidException();
+            //comment
         }
         else {
             dao.checkSongExistence(name,author.getNameUser());

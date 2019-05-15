@@ -335,6 +335,20 @@ public class ServiceBBDDServer {
                     songs.add(songsFriend.get(u));
                 }
             }
+            boolean trobat=false;
+            List <Song> publicSongs = dao.searchPublicSongs();
+            for (int j = 0; j < publicSongs.size();j++) {
+                trobat = false;
+                for (int h = 0; h < songs.size();h++) {
+                    if (publicSongs.get(j).getSongID() == songs.get(h).getSongID()) {
+                        trobat = true;
+                        break;
+                    }
+                }
+                if (!trobat) {
+                    songs.add(publicSongs.get(j));
+                }
+            }
             ServerContextHolder.clear();
             return songs;
         }

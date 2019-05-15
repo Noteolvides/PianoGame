@@ -248,4 +248,10 @@ public class DAOServer extends HibernateDaoSupport {
         List list = getHibernateTemplate().find("FROM " + Song.class.getName() + " AS s WHERE s.id ='" + id + "'");
         return (List<Song>) list;
     }
+
+    @Transactional (readOnly = true)
+    public List<Song> searchPublicSongs () {
+        List list = getHibernateTemplate().find("FROM " + Song.class.getName() + " AS s WHERE s.privacity = FALSE ");
+        return (List<Song>) list;
+    }
 }

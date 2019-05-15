@@ -13,27 +13,21 @@ import java.util.ArrayList;
 
 @Controller
 public class JTop {
-    private ServiceBBDDServer service;
     private JFrame frameTop = new JFrame("TOP 5 - Popular Songs");
     private JPanel songTop = new JPanel();
     private ArrayList<SongView> songsList;
     private JPanel songsGroup = new JPanel();
-
-    public JTop(ServiceBBDDServer service){
-        this.service = service;
+    private ArrayList<Song> songs;
+    public JTop(){
     }
 
     public void JTop(){                            //Pass ArrayList<Song> to the constructor and for each one add Number 1-5
-        ArrayList<Song> songs;
-        songs = (ArrayList<Song>) service.getTop5Songs();
+
+        //songs = (ArrayList<Song>) service.getTop5Songs();
 
         songTop.setLayout(new BoxLayout(songTop, BoxLayout.Y_AXIS));
 
         songsGroup.setLayout(new BoxLayout(songsGroup,BoxLayout.Y_AXIS));
-
-
-        includeSongs(songs);
-        addAllTheSongs(songsList);
 
         songTop.add(songsGroup);
 
@@ -69,23 +63,7 @@ public class JTop {
     }
 
     //TODO: ESTO NO SERIA PARTE DEL CONTROLLER?????
-    public void includeSongs (ArrayList <Song> songs) {
-        //Adding a new array to not repeat different times the same songs, if we decide to refresh the window
-        songsList = new ArrayList<>();
-        //We take the songs that we are going to show and we add them to our view
-        for (int i = 0;i < songs.size();i++) {
-            songsList.add(new SongView(i + 1, songs.get(i).getTitle(), songs.get(i).getDescription()));
 
-            //We put a maximmum size of a song
-            songsList.get(i).setMaximumSize(new Dimension(1000,1000));
-        }
-
-    }
-    private void addAllTheSongs (ArrayList <SongView> songsViews) {
-        for (int i = 0; i < songsViews.size();i++) {
-            songsGroup.add(songsViews.get(i));
-        }
-    }
 
     public ArrayList<SongView> getSongsList() {
         return songsList;
@@ -110,4 +88,23 @@ public class JTop {
         frameTop.setVisible(false);
     }
 
+    public ArrayList<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(ArrayList<Song> songs) {
+        this.songs = songs;
+    }
+
+    public void setSongsList(ArrayList<SongView> songsList) {
+        this.songsList = songsList;
+    }
+
+    public JPanel getSongsGroup() {
+        return songsGroup;
+    }
+
+    public void setSongsGroup(JPanel songsGroup) {
+        this.songsGroup = songsGroup;
+    }
 }

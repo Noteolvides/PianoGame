@@ -1,22 +1,28 @@
 package Server.Controller;
 
+import Model.Song;
 import Model.playSong;
+import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import Server.View.JTop;
+import Server.View.SongView;
 
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Set;
 
 public class JTopController implements MouseListener {
+    private ServiceBBDDServer service;
     private JTop jTop;
     private Set<Thread> setOfThread;
     private ArrayList<playSong> music = new ArrayList<>();
 
-    public JTopController(JTop jTop) {
+    public JTopController(JTop jTop, ServiceBBDDServer service) {
         this.jTop = jTop;
+        this.service = service;
     }
 
     public void mousePressed(MouseEvent event) {
@@ -82,6 +88,23 @@ public class JTopController implements MouseListener {
         }
     }
 
+    public void includeSongs (ArrayList <Song> songs) {
+        //Adding a new array to not repeat different times the same songs, if we decide to refresh the window
+        jTop.setSongsList(new ArrayList<>());
+        //We take the songs that we are going to show and we add them to our view
+        for (int i = 0;i < songs.size();i++) {
+            jTop.getSongsList().add(new SongView(i + 1, songs.get(i).getTitle(), songs.get(i).getDescription()));
+
+            //We put a maximmum size of a song
+            jTop.getSongsList().get(i).setMaximumSize(new Dimension(1000,1000));
+        }
+    }
+    public void addAllTheSongs (ArrayList <SongView> songsViews) {
+        for (int i = 0; i < songsViews.size();i++) {
+            jTop.getSongsGroup().add(songsViews.get(i));
+        }
+    }
+
     @Override
     public void mouseReleased(MouseEvent e) {
 
@@ -95,5 +118,13 @@ public class JTopController implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    public ServiceBBDDServer getService() {
+        return service;
+    }
+
+    public void setService(ServiceBBDDServer service) {
+        this.service = service;
     }
 }

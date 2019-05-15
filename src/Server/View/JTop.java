@@ -62,8 +62,6 @@ public class JTop {
         frameTop.add(panelTop);
     }
 
-    //TODO: ESTO NO SERIA PARTE DEL CONTROLLER?????
-
 
     public ArrayList<SongView> getSongsList() {
         return songsList;

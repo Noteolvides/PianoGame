@@ -302,7 +302,11 @@ public class ServiceBBDDServer {
         if (found) {
             List <Song> song = dao.searchConcreteSong(songName);
             ServerContextHolder.clear();
-            return song.get(0);
+            int h = 0;
+            while (!((song.get(h).getAuthor().getNameUser()).equals(username))) {
+                h++;
+            }
+            return song.get(h);
         }
         else {
             ServerContextHolder.clear();

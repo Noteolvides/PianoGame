@@ -23,9 +23,10 @@ public class RegisterController implements ActionListener {
             Utils utils = new Utils();
             if (utils.confirmPassword(password, confirmPassword, view.getRegisterView().getUsername())) {
                 try {
-                    serviceBBDDServer.createUserFromNoUser(view.getRegisterView().getUsername(),password,"hola.txt",view.getRegisterView().getEmail());
+                    serviceBBDDServer.createUserFromNoUser(view.getRegisterView().getUsername(),password,view.getRegisterView().getEmail());
                 } catch (Exception e1) {
                     //TODO: Error, el usuario ya existe en la paltaforma
+                    e1.printStackTrace();
                 }
                 System.out.println("Registered");
             } else {

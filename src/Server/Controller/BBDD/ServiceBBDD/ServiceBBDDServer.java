@@ -14,12 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.time.Instant;
+import java.util.*;
 
 @Service
 public class ServiceBBDDServer {
@@ -212,16 +211,21 @@ public class ServiceBBDDServer {
     public void createUserFromNoUser (User user) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
         dao.checkExistenceUserDatabaseWithoutPassword(user.getNameUser(),true);
+        //We generate the userCode, correspondent to the user
+        userCodeCalculate (user);
         dao.insertUserTable(user);
         ServerContextHolder.clear();
     }
 
 
-    public void createUserFromNoUser (String username, String password, String photoPath, String email) throws Exception {
+    public void createUserFromNoUser (String username, String password,String email) throws Exception {
         if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
             ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
             dao.checkExistenceUserDatabaseWithoutPassword(username,true);
-            dao.insertUserTable(username, password, photoPath, email);
+            //We generate the userCode, correspondent to the user
+            User user = new User (username,password,email);
+            userCodeCalculate(user);
+            dao.insertUserTable(user);
             ServerContextHolder.clear();
         }
         else {
@@ -420,6 +424,23 @@ public class ServiceBBDDServer {
         return calendar.getTime();
     }
 
+    private void userCodeCalculate (User user) {
+        long now = Instant.now().toEpochMilli()/1000;
+        String conversion = String.valueOf(now);
+        String strFinal = "";
+        if (String.valueOf(now).length() < 8) {
+            strFinal = String.valueOf(now).substring(0,String.valueOf(now).length()-1);
+            while(strFinal.length() != 8) {
+                strFinal = '0' + strFinal;
+            }
+
+        }
+        else {
+            strFinal = conversion.substring(conversion.length() - 8, conversion.length());
+        }
+        strFinal = strFinal + user.getNameUser().substring(0,1);
+        user.setUserCode(strFinal);
+    }
 
 
     //::::::::::::::::::::::::::::Getters and setters:::::::::::::::::::::::::::::::::::

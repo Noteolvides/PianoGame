@@ -16,8 +16,8 @@ public class User implements Serializable {
     @Column(name="Name")
     private String nameUser;
     @Expose
-    @Column(name="Photo_Path")
-    private String url;
+    @Column (name = "userCode")
+    private String userCode;
     @Expose
     @Column(name="Password")
     private String password;
@@ -43,9 +43,15 @@ public class User implements Serializable {
     }
 
 
-    public User(String name, String url, String password, String email) {
+    public User(String name,String password, String userCode, String email) {
         this.nameUser = name;
-        this.url = url;
+        this.password = password;
+        this.email = email;
+        this.userCode = userCode;
+    }
+
+    public User(String name,String password, String email) {
+        this.nameUser = name;
         this.password = password;
         this.email = email;
     }
@@ -55,11 +61,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public User(String username, String email, String password) {
-        this.nameUser = username;
-        this.email = email;
-        this.password = password;
-    }
+
 
     public User(String name) {
         this.nameUser = name;
@@ -73,13 +75,6 @@ public class User implements Serializable {
         this.nameUser = name;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
 
     public String getPassword() {
         return password;
@@ -116,5 +111,13 @@ public class User implements Serializable {
 
     public void addNewFriend (User user) {
         following.add(user);
+    }
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
     }
 }

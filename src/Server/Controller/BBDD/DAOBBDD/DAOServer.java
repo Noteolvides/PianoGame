@@ -87,8 +87,8 @@ public class DAOServer extends HibernateDaoSupport {
 
 
     @Transactional
-    public void insertUserTable (String username, String password, String photoPath, String email) {
-        User newUser = new User(username,photoPath,password,email);
+    public void insertUserTable (String username, String password, String userCode, String email) {
+        User newUser = new User(username,userCode,password,email);
         getHibernateTemplate().save(newUser);
     }
 

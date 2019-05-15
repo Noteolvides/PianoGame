@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS Song(
   Description TEXT,
   Author VARCHAR(255),
   Plays INT,
+  Privacity BOOLEAN,
   File_Path VARCHAR(255),
   SystemID INT,
   PRIMARY KEY (SongID),
@@ -97,12 +98,12 @@ INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (4,'System','2019-10-04',
 INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (5,'System','2019-10-06',38);
 INSERT INTO User (Name, userCode, Password, Email) VALUES ('josep','12345678J','roig','joseproig1999');
 INSERT INTO User (Name, userCode, Password, Email) VALUES ('pepe','12345678P','roig','peperoig1999');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path,SystemID) VALUES ('pepe',12,'pepe',120,'pepe.mp3',1);
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('todays class',12,'pepe',56,'pepe.mp3','pepe');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('josepsSong',12,'pepe',89,'pepe.mp3','pepe');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('classo',12,'pepe',91,'pepe.mp3','josep');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('pepeSong',12,'pepe',91,'pepe.mp3','josep');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('FlamencoGitano',12,'pepe',57,'pepe.mp3','pepe');
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, SystemID) VALUES ('pepe',12,'pepe',120,'pepe.mp3',1);
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path,Privacity, Author) VALUES ('todays class',12,'pepe',56,'pepe.mp3',TRUE,'pepe');
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('josepsSong',12,'pepe',89,'pepe.mp3',FALSE,'pepe');
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('classo',12,'pepe',91,'pepe.mp3',FALSE,'josep');
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path,Privacity, Author) VALUES ('pepeSong',12,'pepe',91,'pepe.mp3',TRUE,'josep');
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('FlamencoGitano',12,'pepe',57,'pepe.mp3',TRUE,'pepe');
 
 
 
@@ -127,4 +128,5 @@ GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser'@'localhost';
 
 
 SELECT * FROM User;
+SELECT * FROM Song;
 

@@ -36,6 +36,9 @@ public class Song implements Serializable {
     @Column(name="File_Path")
     private String filePath;
     @Expose
+    @Column(name="Privacity")
+    private Boolean privacity;
+    @Expose
     @ManyToOne (fetch=EAGER)
     @JoinColumn(name="SystemID")
     private Syst system;
@@ -58,7 +61,7 @@ public class Song implements Serializable {
         this.system = syst;
     }
 
-    public Song(String name, int duration, String description,int plays, String filePath, User autor) {
+    public Song(String name, int duration, String description,int plays, String filePath,boolean privacity, User autor) {
         this.title = name;
         this.duration = duration;
         this.description = description;
@@ -131,5 +134,11 @@ public class Song implements Serializable {
         this.system = syst;
     }
 
+    public Boolean getPrivacity() {
+        return privacity;
+    }
 
+    public void setPrivacity(Boolean privacity) {
+        this.privacity = privacity;
+    }
 }

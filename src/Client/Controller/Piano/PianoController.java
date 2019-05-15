@@ -183,6 +183,7 @@ public class PianoController {
                         song.append(note.toString());
                         song.append(", ");
                         lastKey = k;
+                        view.getPianoView().getTopOption().getSave().setEnabled(false);
                     }
                 /*
                 //TODO: Delete THIS

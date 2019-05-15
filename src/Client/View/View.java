@@ -14,6 +14,7 @@ public class View {
     private FinestraJSocial socialView;
     private JStart startView;
     private FinestraJSong songView;
+    private SaveSong saveSong;
 
     public JPiano getPianoView() {
         return pianoView;
@@ -43,6 +44,10 @@ public class View {
         return songView;
     }
 
+    public SaveSong getSaveSong(){
+        return saveSong;
+    }
+
     public void initPianoView() {
         pianoView = new JPiano();
     }
@@ -65,5 +70,9 @@ public class View {
 
     public void initSongView() {
         songView = new FinestraJSong();
+    }
+
+    public void initSaveSongView(){
+        saveSong = new SaveSong();
     }
 }

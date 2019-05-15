@@ -121,6 +121,8 @@ public class JPrincipal extends JFrame {
     public void logOutPopUp(int petitionResult) {
         if (petitionResult == OK) {
             JOptionPane.showMessageDialog(this, "LogOut successful!", "LogOut",JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "An error occured the LogOut was unsuccessful!", "Error",JOptionPane.WARNING_MESSAGE);
         }
     }
 }

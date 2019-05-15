@@ -3,7 +3,7 @@ import Client.Controller.ControllerJSocial;
 
 import javax.swing.*;
 
-import static Client.Controller.Controller.*;
+import static Client.Network.ClientConnection.OK;
 
 public class FinestraJSocial extends JFrame {
     private JSocial jSocial;
@@ -34,11 +34,11 @@ public class FinestraJSocial extends JFrame {
         jSocial.showUserNotFound();
     }
 
-    public void friendPopUp(String added) {
-        if (added.equals(OK)) {
+    public void friendPopUp(int added) {
+        if (added == OK) {
             JOptionPane.showMessageDialog(this, "Ereh mi amiho.", "Friend", JOptionPane.INFORMATION_MESSAGE);
         }
-        if (added.equals(KO)) {
+        if (added == ERROR) {
             JOptionPane.showMessageDialog(this, "No ereh mi amiho, estoi trite.", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }

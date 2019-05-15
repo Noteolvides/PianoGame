@@ -7,20 +7,13 @@ import Client.Network.ClientConnection;
 import Client.View.View;
 import Model.Song;
 import Model.User;
-import org.jfugue.pattern.Pattern;
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 
 import java.util.ArrayList;
 
 import static Client.Network.ClientConnection.*;
 
 public class Controller {
-    public static String OK = "ok";
-    public static String KO = "ko";
-    public static String KO_CLASS = "ko_class";
-    public static String KO_MIDI = "ko_midi";
-    public static String KO_OBJ = "ko_obj";
-    public static String KO_BBDD= "ko_bbdd";
-
     private View view;
     private ClientConnection network;
     private StartController startController;
@@ -162,12 +155,12 @@ public class Controller {
         network.setNextFunc(LOGIN);
     }
 
-    public void networkLogInResult(String petitionResult) {
-        if (petitionResult.equals(OK)) {
+    public void networkLogInResult(int petitionResult) {
+        if (petitionResult == OK) {
             openPrincipal();
             closeStart();
         }
-        if (petitionResult.equals(KO_BBDD)) {
+        if (petitionResult == ERROR_BBDD) {
             view.getStartView().errorPopUp("login");
         }
     }
@@ -185,12 +178,12 @@ public class Controller {
         network.setNextFunc(SELECT_SONG);
     }
 
-    public void networkSelectSongResult(String petitionResult, ArrayList<Song> songs) {
-        if (petitionResult.equals(OK)) {
+    public void networkSelectSongResult(int petitionResult, ArrayList<Song> songs) {
+        if (petitionResult == OK) {
             view.getSongView().updateSongs(songs);
             view.getSongView().updateControllersSongs(controllerJSong);
         }
-        if (petitionResult.equals(KO)) {
+        if (petitionResult == ERROR_BBDD) {
             view.getSongView().errorPopUp();
         }
     }
@@ -199,7 +192,7 @@ public class Controller {
         network.setNextFunc(SAVE_SONG);
     }
 
-    public void networkSaveSongResult(String petitionResult) {
+    public void networkSaveSongResult(int petitionResult) {
         view.getSongView().savePopUp(petitionResult);
     }
 
@@ -211,7 +204,7 @@ public class Controller {
         return controllerJSong.getActualSong();
     }
 
-    public void networkRequestSongResult(String petitionResult) {
+    public void networkRequestSongResult(int petitionResult) {
         view.getSongView().requestPopUp(petitionResult);
     }
 
@@ -228,12 +221,12 @@ public class Controller {
         network.setNextFunc(SEARCH_USER);
     }
 
-    public void networkSearchSocialResult(String petitionResult, User userToController) {
-        if (petitionResult.equals(OK)) {
+    public void networkSearchSocialResult(int petitionResult, User userToController) {
+        if (petitionResult == OK) {
             view.getSocialView().showUserSearch( userToController.getNameUser(), "usuarioRandom.png", userToController.getPassword().equals("YES"));
             view.getSocialView().getjSocial().registerControllerAddFriend(controllerJSocial);
         }
-        if (petitionResult.equals(KO)) {
+        if (petitionResult == ERROR_BBDD) {
             view.getSocialView().showUserNotFound();
         }
     }
@@ -242,7 +235,7 @@ public class Controller {
         network.setNextFunc(ADD_USER);
     }
 
-    public void networkAddSocialResult(String petitionResult) {
+    public void networkAddSocialResult(int petitionResult) {
         view.getSocialView().friendPopUp(petitionResult);
     }
 
@@ -258,7 +251,7 @@ public class Controller {
         network.setNextFunc(DELETE_ACCOUNT);
     }
 
-    public void networkDeleteAccountResult(String petitionResult) {
+    public void networkDeleteAccountResult(int petitionResult) {
         view.getPrincipalView().deletedAccountPopUp(petitionResult);
     }
 

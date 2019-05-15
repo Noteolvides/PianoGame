@@ -7,24 +7,20 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.jfugue.pattern.Pattern;
 
-import javax.sound.midi.spi.MidiFileReader;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-
-import static Client.Controller.Controller.*;
 
 public class ClientConnection extends Thread {
     //Connection const.
     private static final int PORT = 5000;
     private static final String IP = "localhost";
 
-    private static final int CORRECT = 0;
-    private static final int ERROR = -1;
-    private static final int ERROR_BBDD = 1;
-    private static final int ERROR_MIDI = 2;
-    private static final int ERROR_OBJECT = 3;
-    private static final String GO_BACK = "go_back";
+    public static final int OK = 0;
+    public static final int KO = -1;
+    public static final int ERROR_BBDD = 1;
+    public static final int ERROR_MIDI = 2;
+    public static final int ERROR_OBJECT = 3;
 
     public static final String LOGIN = "login";
     public static final String SEND_LOG_USER = "log_user";
@@ -46,6 +42,7 @@ public class ClientConnection extends Thread {
     public static final String SAVE_SONG = "save_song";
     public static final String REQUEST_SONG = "request_song";
     public static final String EXIT_PIANO = "exit_piano";
+    public static final String GO_BACK = "go_back";
 
     //Controller
     private Controller controller;
@@ -158,7 +155,7 @@ public class ClientConnection extends Thread {
      * Dedicated function to login a user
      */
     public void loginUser() {
-        int trans_estate = CORRECT;
+        int trans_estate = KO;
 
         try {
             //We sent to the server the current operation
@@ -169,16 +166,15 @@ public class ClientConnection extends Thread {
             //We wait for response if the information was correct
             trans_estate = dIn.readInt();
 
-            if (trans_estate == ERROR) {
+            controller.networkLogInResult(trans_estate);
+            if (trans_estate == KO) {
                 System.out.println("Error, you couldn't login to the server");
-                controller.networkLogInResult(KO);
             } else {
-                controller.networkLogInResult(OK);
                 dOut.writeUTF(GO_BACK);
             }
 
         } catch (IOException e) {
-            controller.networkLogInResult(KO);
+            controller.networkLogInResult(trans_estate);
         }
 
     }
@@ -187,7 +183,7 @@ public class ClientConnection extends Thread {
      * Dedicated function to register a user
      */
     public void registerUser() {
-        int trans_estate = CORRECT;
+        int trans_estate = KO;
 
         try {
             //We sent to the server the current operation
@@ -197,16 +193,15 @@ public class ClientConnection extends Thread {
             obOut.writeObject(controller.getRegister());
             //We wait for response if the information was correct
             trans_estate = dIn.readInt();
-
+            controller.networkLogInResult(trans_estate);
             if (trans_estate == ERROR_BBDD) {
-                controller.networkLogInResult(KO_BBDD);
+                System.out.println("Error couldn't register");
             } else {
-                controller.networkLogInResult(OK);
                 dOut.writeUTF(GO_BACK);
             }
 
         } catch (IOException e) {
-            controller.networkLogInResult(KO_BBDD);
+            controller.networkLogInResult(trans_estate);
         }
     }
 
@@ -214,12 +209,13 @@ public class ClientConnection extends Thread {
      * LogOut of the account connected to the Application
      */
     public void logOut() {
-        int trans_estate = CORRECT;
+        int trans_estate = KO;
         try {
             dOut.writeUTF(LOG_OUT);
 
             trans_estate = dIn.readInt();
-            if (trans_estate == ERROR) {
+            controller.networkSignOutResult(trans_estate);
+            if (trans_estate == KO) {
                 System.out.println("Couldn't logOut from server");
             } else {
                 dOut.writeUTF(GO_BACK);
@@ -234,15 +230,15 @@ public class ClientConnection extends Thread {
      * Delete the account from de BBDD of the Application
      */
     public void deleteUser() {
-        int trans_estate = CORRECT;
+        int trans_estate = KO;
         try {
             dOut.writeUTF(DELETE_ACCOUNT);
 
             trans_estate = dIn.readInt();
-            if (trans_estate == ERROR) {
-                controller.networkDeleteAccountResult(KO);
+            controller.networkDeleteAccountResult(trans_estate);
+            if (trans_estate == KO) {
+                System.out.println("Couldn't delete the user");
             } else {
-                controller.networkDeleteAccountResult(OK);
                 dOut.writeUTF(GO_BACK);
             }
         } catch (IOException e) {
@@ -269,7 +265,7 @@ public class ClientConnection extends Thread {
      * The user Sarch another user for his/her name, and waits for a response from server
      */
     public void searchUser() {
-        int trans_estate = CORRECT;
+        int trans_estate = KO;
 
         try {
             dOut.writeUTF(SEARCH_USER);
@@ -279,15 +275,8 @@ public class ClientConnection extends Thread {
             //We wait for response if the operation is completed correctly
             trans_estate = dIn.readInt();
 
-            if (trans_estate == ERROR_BBDD) {
-                System.out.println("Error, this user doesn't exists");
-                controller.networkSearchSocialResult(KO, null);
-
-            }else{
-                User userToController = (User) obIn.readObject();
-                controller.networkSearchSocialResult(OK, userToController);
-            }
-
+            User userToController = (User) obIn.readObject();
+            controller.networkSearchSocialResult(trans_estate, userToController);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -297,7 +286,7 @@ public class ClientConnection extends Thread {
      * The user adds the searched user to his/her list of friends
      */
     public void addUser() {
-        int trans_estate = CORRECT;
+        int trans_estate = KO;
 
         try {
             //TODO: If i'm friend of the searched user, I CAN'T PRESS ADD USER -> CONTROL IT IN THE CONTROLLER
@@ -306,15 +295,7 @@ public class ClientConnection extends Thread {
 
             //We wait for response if the operation is completed correctly
             trans_estate = dIn.readInt();
-
-            if (trans_estate == ERROR_BBDD) {
-                System.out.println("No eres mi amiho");
-                controller.networkAddSocialResult(KO);
-
-            } else {
-                System.out.println("Si eres mi amiho");
-                controller.networkAddSocialResult(OK);
-            }
+            controller.networkAddSocialResult(trans_estate);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -351,7 +332,7 @@ public class ClientConnection extends Thread {
      * The user entered to JSong window and this function requests to server all the songs that the user has access
      */
     private void selectSongs() {
-        int trans_estate = CORRECT;
+        int trans_estate = KO;
         try {
             dOut.writeUTF(SELECT_SONG);
 
@@ -361,18 +342,7 @@ public class ClientConnection extends Thread {
             ArrayList<Song> songs = gson.fromJson(songsString, new TypeToken<ArrayList <Song>>(){}.getType());
 
             trans_estate = dIn.readInt();
-
-            if (trans_estate != ERROR) {
-                controller.networkSelectSongResult(OK, songs);
-
-                for (Song s: songs) {
-                    System.out.println(s.getTitle());
-                }
-
-            }else{
-                System.out.println("Error with the GSON songs");
-                controller.networkSelectSongResult(KO, null);
-            }
+            controller.networkSelectSongResult(trans_estate, songs);
 
         } catch (IOException e) {
             //e.printStackTrace();
@@ -385,7 +355,7 @@ public class ClientConnection extends Thread {
      * The user wants to save a song that has created
      */
     private void saveSong(/*String songFile, Song song*/) {
-        int trans_estate = CORRECT;
+        int trans_estate = KO;
         try {
             String songFile = controller.getSongFileToSave();
             Song song = controller.getSongToSave();
@@ -395,15 +365,7 @@ public class ClientConnection extends Thread {
             System.out.println("He guardat: " + songFile + " " + song.toString());
 
             trans_estate = dIn.readInt();
-            if (trans_estate == CORRECT) {
-                controller.networkSaveSongResult(OK);
-            } else if (trans_estate == ERROR_BBDD) {
-                controller.networkSaveSongResult(KO);
-            } else if (trans_estate == ERROR_OBJECT) {
-                controller.networkSaveSongResult(KO);
-            } else {
-                controller.networkSaveSongResult(KO);
-            }
+            controller.networkSaveSongResult(trans_estate);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -414,7 +376,7 @@ public class ClientConnection extends Thread {
      * User request one song to play, from all the songs that has access
      */
     private void requestSong() {
-        int trans_estate = CORRECT;
+        int trans_estate = KO;
         try {
             dOut.writeUTF(REQUEST_SONG);
             String song = controller.getSongToPlay();
@@ -424,16 +386,8 @@ public class ClientConnection extends Thread {
             midi = (Pattern) obIn.readObject();
 
             trans_estate = dIn.readInt();
-            if (trans_estate == CORRECT) {
-                controller.networkSaveSongResult(OK);
-            } else if (trans_estate == ERROR_BBDD) {
-                controller.networkSaveSongResult(KO);
-            } else if (trans_estate == ERROR_MIDI) {
-                controller.networkSaveSongResult(KO);
-            } else {
-                System.out.println("Error, the song doesn't exist");
-                controller.networkSaveSongResult(KO);
-            }
+
+            controller.networkSaveSongResult(trans_estate);
 
         } catch (IOException e) {
             e.printStackTrace();

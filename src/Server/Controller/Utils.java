@@ -20,7 +20,6 @@ public class Utils {
     }
 
     private boolean specialCharacters(String password) {
-        //TODO: HE CAMBIADO LOS REGEX PORQUE SINO SIEMPRE ERA INCORRECTA
         int num = 0;
         if (password.matches(".*[a-z].*")) {
             num++;
@@ -31,8 +30,7 @@ public class Utils {
         if (password.matches("(.*[@#$%^&+=].*)")) {
             num++;
         }
-        //TODO: Ni idea de lo que se busca aqui :(
-        if (password.matches("(?=.*d)")) {
+        if (password.matches("(.*[0-9]*.)")) {
             num++;
         }
         return num >= 2;

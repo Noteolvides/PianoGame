@@ -24,7 +24,7 @@ public class Main {
 
         View view = new View();
         view.initRegisterView();
-        RegisterController controller = new RegisterController(view);
+        RegisterController controller = new RegisterController(view,server.getServerService());
         //view.getRegisterView().registerController(controller);
 
         JEvolution evolution = new JEvolution(server.getServerService());

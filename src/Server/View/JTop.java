@@ -68,7 +68,7 @@ public class JTop {
         frameTop.add(panelTop);
     }
 
-
+    //TODO: ESTO NO SERIA PARTE DEL CONTROLLER?????
     public void includeSongs (ArrayList <Song> songs) {
         //Adding a new array to not repeat different times the same songs, if we decide to refresh the window
         songsList = new ArrayList<>();

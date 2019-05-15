@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class JEvolution {
+    //TODO: En la view??
     private ServiceBBDDServer service;
     private JFrame evoPanel = new JFrame("Active Users Countage");
     private List<Integer> users;

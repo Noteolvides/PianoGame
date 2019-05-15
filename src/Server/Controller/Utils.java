@@ -20,16 +20,18 @@ public class Utils {
     }
 
     private boolean specialCharacters(String password) {
+        //TODO: HE CAMBIADO LOS REGEX PORQUE SINO SIEMPRE ERA INCORRECTA
         int num = 0;
-        if (password.matches("(?=.*[a-z])")) {
+        if (password.matches(".*[a-z].*")) {
             num++;
         }
-        if (password.matches("(?=.*[A-Z])")) {
+        if (password.matches(".*[A-Z].*")) {
             num++;
         }
-        if (password.matches("(?=.*[@#$%^&+=])")) {
+        if (password.matches("(.*[@#$%^&+=].*)")) {
             num++;
         }
+        //TODO: Ni idea de lo que se busca aqui :(
         if (password.matches("(?=.*d)")) {
             num++;
         }

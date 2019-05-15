@@ -160,30 +160,30 @@ public class PianoController {
 
             //Save song
             view.getPianoView().getTopOption().getSave().addActionListener(e -> {
-                recordSong = false;
-                view.getPianoView().getTopOption().getRecord().setEnabled(true);
-                ArrayList<KeyRecord> temporalKeys = new ArrayList<KeyRecord>(keys.values());
-                Note rest = null;
-                Note note = null;
-                StringBuilder song = new StringBuilder();
-                temporalKeys.sort(Comparator.comparingInt(KeyRecord::getId));
-                KeyRecord lastKey = null;
-                for (KeyRecord k : temporalKeys) {
-                    if (lastKey != null) {
-                        if (k.getStart() - lastKey.getEnd() > 0) {
-                            rest = new Note("R");
-                            rest.setDuration((double) (k.getStart() - lastKey.getEnd()) / (double) 1000);
-                            song.append(rest.toString());
-                            song.append(", ");
+                if (view.getPianoView().saveConfirmation()) {
+                    recordSong = false;
+                    view.getPianoView().getTopOption().getRecord().setEnabled(true);
+                    ArrayList<KeyRecord> temporalKeys = new ArrayList<KeyRecord>(keys.values());
+                    Note rest = null;
+                    Note note = null;
+                    StringBuilder song = new StringBuilder();
+                    temporalKeys.sort(Comparator.comparingInt(KeyRecord::getId));
+                    KeyRecord lastKey = null;
+                    for (KeyRecord k : temporalKeys) {
+                        if (lastKey != null) {
+                            if (k.getStart() - lastKey.getEnd() > 0) {
+                                rest = new Note("R");
+                                rest.setDuration((double) (k.getStart() - lastKey.getEnd()) / (double) 1000);
+                                song.append(rest.toString());
+                                song.append(", ");
+                            }
                         }
+                        note = new Note(k.getKey());
+                        note.setDuration((double) (k.getEnd() - k.getStart()) / (double) 1000);
+                        song.append(note.toString());
+                        song.append(", ");
+                        lastKey = k;
                     }
-                    note = new Note(k.getKey());
-                    note.setDuration((double) (k.getEnd() - k.getStart()) / (double) 1000);
-                    song.append(note.toString());
-                    song.append(", ");
-                    lastKey = k;
-                    view.getPianoView().getTopOption().getSave().setEnabled(false);
-                }
                 /*
                 //TODO: Delete THIS
                     Song songD = new Song();
@@ -192,12 +192,13 @@ public class PianoController {
                 controller.networkSaveSong(song.toString());
                 */
 
-                try {
-                    System.out.println(song.toString());
-                    MidiFileManager
-                            .savePatternToMidi(new Pattern(song.toString()), new File("Song.mid"));
-                } catch (IOException ex) {
+                    try {
+                        System.out.println(song.toString());
+                        MidiFileManager
+                                .savePatternToMidi(new Pattern(song.toString()), new File("Song.mid"));
+                    } catch (IOException ex) {
 
+                    }
                 }
                 // HASTA AQUI
             });

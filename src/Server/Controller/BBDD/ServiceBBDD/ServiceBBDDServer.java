@@ -14,31 +14,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.time.Instant;
+import java.util.*;
 
 @Service
 public class ServiceBBDDServer {
     @Autowired
     private DAOServer dao;
 
-
-
-
-
-
-
     //TODO: Don't controll strings
 
     //:::::::::::::::::::CommonMethods::::::::::::::::::::::::::
-    public void deleteSong (String nameOfTheSong) throws FieldsNoValidException {
+    public void deleteSong (String nameOfTheSong, String author) throws FieldsNoValidException {
         try {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
-            dao.checkSongExistence(nameOfTheSong);
+            dao.checkSongExistence(nameOfTheSong, author,false);
             ServerContextHolder.clear();
 
         } catch (BBDDException e) {
@@ -90,7 +83,7 @@ public class ServiceBBDDServer {
         Song song = new Song(name, duration,description,plays,filePath, syst);
         if (name.equals("") || name.contains(" ") || filePath.equals("") || filePath.contains(" ")) {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
-            dao.checkSongExistence(name);
+            dao.checkSongExistence(name,syst.getName(),true);
             dao.insertSong(song);
             ServerContextHolder.clear();
         }
@@ -218,16 +211,21 @@ public class ServiceBBDDServer {
     public void createUserFromNoUser (User user) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
         dao.checkExistenceUserDatabaseWithoutPassword(user.getNameUser(),true);
+        //We generate the userCode, correspondent to the user
+        userCodeCalculate (user);
         dao.insertUserTable(user);
         ServerContextHolder.clear();
     }
 
 
-    public void createUserFromNoUser (String username, String password, String photoPath, String email) throws Exception {
+    public void createUserFromNoUser (String username, String password,String email) throws Exception {
         if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
             ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
             dao.checkExistenceUserDatabaseWithoutPassword(username,true);
-            dao.insertUserTable(username, password, photoPath, email);
+            //We generate the userCode, correspondent to the user
+            User user = new User (username,password,email);
+            userCodeCalculate(user);
+            dao.insertUserTable(user);
             ServerContextHolder.clear();
         }
         else {
@@ -253,20 +251,34 @@ public class ServiceBBDDServer {
 
 
     //If the user wants to add a song (the id is assigned by the database because it's serial
-    public void insertSongFromUser (String name, int duration, String description, User author, int plays, String filePath) throws Exception {
-        Song song  = new Song(name,duration,description,plays,filePath,author);
+    public void insertSongFromUser (String name, int duration, String description, User author, int plays, String filePath, boolean privacity) throws Exception {
+        Song song  = new Song(name,duration,description,plays,filePath,privacity,author);
         if (duration == 0 || author == null || filePath.equals("") || filePath.contains(" ")) {
             throw new FieldsNoValidException();
         }
         else {
-            dao.checkSongExistence(name);
+            dao.checkSongExistence(name,author.getNameUser(),false);
             dao.insertSong (song);
         }
     }
 
     public void insertSongFromUser(Song song) throws BBDDException {
-        dao.checkSongExistence(song.getTitle());
+        ServerContextHolder.set(AvaiableClients.UserRegistered);
+        dao.checkSongExistence(song.getTitle(),song.getAuthor().getNameUser(),false);
         dao.insertSong(song);
+        ServerContextHolder.clear();
+    }
+
+    public void incrementPlays (int id) throws BBDDException{
+        ServerContextHolder.set(AvaiableClients.UserRegistered);
+        //TODO: Para pepe: Donde se usa searchconcretesong
+        List<Song> songs = dao.searchConcreteSongWithId(id);
+        if (songs == null) {
+            throw new BBDDException();
+        }
+        else {
+            songs.get(0).setPlays(songs.get(0).getPlays()+1);
+        }
     }
 
 
@@ -290,7 +302,11 @@ public class ServiceBBDDServer {
         if (found) {
             List <Song> song = dao.searchConcreteSong(songName);
             ServerContextHolder.clear();
-            return song.get(0);
+            int h = 0;
+            while (!((song.get(h).getAuthor().getNameUser()).equals(username))) {
+                h++;
+            }
+            return song.get(h);
         }
         else {
             ServerContextHolder.clear();
@@ -304,6 +320,7 @@ public class ServiceBBDDServer {
             dao.checkExistenceUserDatabaseWithoutPassword(username,false);
             List <Song> songs = new ArrayList<Song>();
             List <Song> songsSystem  = dao.getSystemSongs();
+            songs = dao.getSomeoneSongs(username);
             for (int i = 0; i < songsSystem.size();i++) {
                 songs.add(songsSystem.get(i));
             }
@@ -316,6 +333,20 @@ public class ServiceBBDDServer {
                 List <Song> songsFriend = dao.getSomeoneSongs(friends.get(j));
                 for (int u = 0; u < songsFriend.size();u++) {
                     songs.add(songsFriend.get(u));
+                }
+            }
+            boolean trobat=false;
+            List <Song> publicSongs = dao.searchPublicSongs();
+            for (int j = 0; j < publicSongs.size();j++) {
+                trobat = false;
+                for (int h = 0; h < songs.size();h++) {
+                    if (publicSongs.get(j).getSongID() == songs.get(h).getSongID()) {
+                        trobat = true;
+                        break;
+                    }
+                }
+                if (!trobat) {
+                    songs.add(publicSongs.get(j));
                 }
             }
             ServerContextHolder.clear();
@@ -426,6 +457,23 @@ public class ServiceBBDDServer {
         return calendar.getTime();
     }
 
+    private void userCodeCalculate (User user) {
+        long now = Instant.now().toEpochMilli()/1000;
+        String conversion = String.valueOf(now);
+        String strFinal = "";
+        if (String.valueOf(now).length() < 8) {
+            strFinal = String.valueOf(now).substring(0,String.valueOf(now).length()-1);
+            while(strFinal.length() != 8) {
+                strFinal = '0' + strFinal;
+            }
+
+        }
+        else {
+            strFinal = conversion.substring(conversion.length() - 8, conversion.length());
+        }
+        strFinal = strFinal + user.getNameUser().substring(0,1);
+        user.setUserCode(strFinal);
+    }
 
 
     //::::::::::::::::::::::::::::Getters and setters:::::::::::::::::::::::::::::::::::

@@ -16,6 +16,10 @@ import static Client.Network.ClientConnection.*;
 public class Controller {
     public static String OK = "ok";
     public static String KO = "ko";
+    public static String KO_CLASS = "ko_class";
+    public static String KO_MIDI = "ko_midi";
+    public static String KO_OBJ = "ko_obj";
+    public static String KO_BBDD= "ko_bbdd";
 
     private View view;
     private ClientConnection network;
@@ -163,7 +167,7 @@ public class Controller {
             openPrincipal();
             closeStart();
         }
-        if (petitionResult.equals(KO)) {
+        if (petitionResult.equals(KO_BBDD)) {
             view.getStartView().errorPopUp("login");
         }
     }

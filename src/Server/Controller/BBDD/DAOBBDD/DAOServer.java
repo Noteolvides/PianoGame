@@ -87,8 +87,8 @@ public class DAOServer extends HibernateDaoSupport {
 
 
     @Transactional
-    public void insertUserTable (String username, String password, String photoPath, String email) {
-        User newUser = new User(username,photoPath,password,email);
+    public void insertUserTable (String username, String password, String userCode, String email) {
+        User newUser = new User(username,userCode,password,email);
         getHibernateTemplate().save(newUser);
     }
 
@@ -99,8 +99,14 @@ public class DAOServer extends HibernateDaoSupport {
 
 
     @Transactional (readOnly = true)
-    public void checkSongExistence (final String songName) throws BBDDException{
-        List list = getHibernateTemplate().find("SELECT COUNT(*) FROM " + Song.class.getName() + " AS s WHERE s.title = '" + songName + "'");
+    public void checkSongExistence (final String songName, final String author,boolean system) throws BBDDException{
+        List list;
+        if (!system) {
+            list = getHibernateTemplate().find("SELECT COUNT(*) FROM " + Song.class.getName() + " AS s WHERE s.title = '" + songName + "' AND (s.author.nameUser = '" + author + "'");
+        }
+        else {
+            list = getHibernateTemplate().find("SELECT COUNT(*) FROM " + Song.class.getName() + " AS s WHERE s.title = '" + songName + "' AND (s.syst.ID = '" + author + "'");
+        }
         Boolean b = ((Long) list.get(0) == 0);
         if (!b.booleanValue()) {
             throw new BBDDException();
@@ -180,6 +186,7 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
 
+
     @Transactional
     public void createSystemToActualDate () {
         Calendar c = Calendar.getInstance();
@@ -243,5 +250,14 @@ public class DAOServer extends HibernateDaoSupport {
         List list = getHibernateTemplate().find("FROM " + Song.class.getName() + " AS s WHERE s.title ='" + songName + "'");
         return (List<Song>) list;
     }
+    public List<Song> searchConcreteSongWithId (final int id) {
+        List list = getHibernateTemplate().find("FROM " + Song.class.getName() + " AS s WHERE s.id ='" + id + "'");
+        return (List<Song>) list;
+    }
 
+    @Transactional (readOnly = true)
+    public List<Song> searchPublicSongs () {
+        List list = getHibernateTemplate().find("FROM " + Song.class.getName() + " AS s WHERE s.privacity = FALSE ");
+        return (List<Song>) list;
+    }
 }

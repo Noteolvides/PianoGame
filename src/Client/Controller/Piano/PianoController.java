@@ -17,6 +17,8 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -99,7 +101,6 @@ public class PianoController {
                     double time = 0;
                     int i = 0;
                     Note n;
-                    boolean flag[] = new boolean[view.getPianoView().getNotes().size()];
                     while (10 * time < 360 + (-player.getY())) {
                         i = 0;
                         for (JPanel jf : view.getPianoView().getNotes()) {
@@ -107,8 +108,10 @@ public class PianoController {
                             jf.setLocation(p.x, (int) (p.y + 10));
                             n = new Note(jf.getName());
                             if (n.getOctave() == actualOctave || n.getOctave() == (actualOctave + 1)) {
-                                if (p.y + 10 + jf.getSize().height > 330 && !flag[i]) {
-                                    flag[i] = true;
+                                if (jf.getLocation().y + jf.getSize().height > 360 && jf.getComponents().length == 0 && jf.getLocation().y < 360) {
+                                    JTextField flag = new JTextField("Yes");
+                                    flag.setVisible(false);
+                                    jf.add(flag);
                                     if (!mute){
                                         realtimePlayer2.startNote(n);
                                     }
@@ -118,7 +121,8 @@ public class PianoController {
                             } else {
                                 jf.setVisible(false);
                             }
-                            if (flag[i] && p.y + 10 > 330) {
+                            if (jf.getComponents().length != 0 && jf.getLocation().y> 360) {
+                                jf.remove(jf.getComponent(0));
                                 realtimePlayer2.stopNote(n);
                             }
                             i++;
@@ -132,6 +136,7 @@ public class PianoController {
                             j.printStackTrace();
                         }
                     }
+                    view.getPianoView().getNotes().clear();
 
                 }).start();
                 realtimePlayer2.close();
@@ -149,6 +154,7 @@ public class PianoController {
                 recordSong = true;
                 view.getPianoView().getTopOption().getRecord().setEnabled(false);
                 keys.clear();
+                numberOFkeys = 0;
                 view.getPianoView().getTopOption().getSave().setEnabled(true);
             });
 
@@ -176,6 +182,7 @@ public class PianoController {
                     song.append(note.toString());
                     song.append(", ");
                     lastKey = k;
+                    view.getPianoView().getTopOption().getSave().setEnabled(false);
                 }
                 /*
                 //TODO: Delete THIS
@@ -208,33 +215,68 @@ public class PianoController {
             view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i], new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (activado[finalI] == 0) {
-                        k.touch();
-                        String str = k.getNumberOfKey().getText();
-                        int actualValue = Integer.valueOf(str.substring(str.length() - 1, str.length()));
-                        str = str.substring(0, str.length() - 1) + actualValue;
-                        realtimePlayer.startNote(new Note(str));
-                        activado[finalI] = numberOFkeys + 1;
-                        numberOFkeys++;
-                        keys.put(numberOFkeys, new KeyRecord(str, realtimePlayer.getCurrentTime(), numberOFkeys));
-                    }
+                    playKey(finalI, k);
                 }
             });
             view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i] + " released", new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (keys.get(activado[finalI]) != null) {
-                        keys.get(activado[finalI]).setEnd(realtimePlayer.getCurrentTime());
-                        activado[finalI] = 0;
-                        k.unTouch();
-                        String str = k.getNumberOfKey().getText();
-                        int actualValue = Integer.valueOf(str.substring(str.length() - 1, str.length()));
-                        str = str.substring(0, str.length() - 1) + actualValue;
-                        realtimePlayer.stopNote(new Note(str));
-                    }
+                    unPlayKey(finalI, k);
+                }
+            });
+            k.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    playKey(finalI, k);
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    unPlayKey(finalI, k);
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+
                 }
             });
             i++;
+        }
+    }
+
+
+
+    private void unPlayKey(int finalI, Key k) {
+        if (keys.get(activado[finalI]) != null) {
+            keys.get(activado[finalI]).setEnd(realtimePlayer.getCurrentTime());
+            activado[finalI] = 0;
+            k.unTouch();
+            String str = k.getNumberOfKey().getText();
+            int actualValue = Integer.valueOf(str.substring(str.length() - 1, str.length()));
+            str = str.substring(0, str.length() - 1) + actualValue;
+            realtimePlayer.stopNote(new Note(str));
+        }
+    }
+
+    private void playKey(int finalI, Key k) {
+        if (activado[finalI] == 0) {
+            k.touch();
+            String str = k.getNumberOfKey().getText();
+            int actualValue = Integer.valueOf(str.substring(str.length() - 1, str.length()));
+            str = str.substring(0, str.length() - 1) + actualValue;
+            realtimePlayer.startNote(new Note(str));
+            activado[finalI] = numberOFkeys + 1;
+            numberOFkeys++;
+            keys.put(numberOFkeys, new KeyRecord(str, realtimePlayer.getCurrentTime(), numberOFkeys));
         }
     }
 }

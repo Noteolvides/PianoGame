@@ -60,16 +60,16 @@ public class StartController implements ActionListener, WindowListener {
 
     private boolean specialCharacters(String password) {
         int num = 0;
-        if (password.matches("(?=.*[a-z])")) {
+        if (password.matches(".*[a-z].*")) {
             num++;
         }
-        if (password.matches("(?=.*[A-Z])")) {
+        if (password.matches(".*[A-Z].*")) {
             num++;
         }
-        if (password.matches("(?=.*[@#$%^&+=])")) {
+        if (password.matches("(.*[@#$%^&+=].*)")) {
             num++;
         }
-        if (password.matches("(?=.*d)")) {
+        if (password.matches("(.*[0-9]*.)")) {
             num++;
         }
         return num >= 2;

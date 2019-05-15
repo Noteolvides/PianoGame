@@ -160,7 +160,7 @@ public class Controller {
             openPrincipal();
             closeStart();
         }
-        if (petitionResult == ERROR_BBDD) {
+        if (petitionResult == KO) {
             view.getStartView().errorPopUp("login");
         }
     }
@@ -183,7 +183,7 @@ public class Controller {
             view.getSongView().updateSongs(songs);
             view.getSongView().updateControllersSongs(controllerJSong);
         }
-        if (petitionResult == ERROR_BBDD) {
+        if (petitionResult == KO) {
             view.getSongView().errorPopUp();
         }
     }
@@ -226,7 +226,7 @@ public class Controller {
             view.getSocialView().showUserSearch( userToController.getNameUser(), "usuarioRandom.png", userToController.getPassword().equals("YES"));
             view.getSocialView().getjSocial().registerControllerAddFriend(controllerJSocial);
         }
-        if (petitionResult == ERROR_BBDD) {
+        if (petitionResult == KO) {
             view.getSocialView().showUserNotFound();
         }
     }

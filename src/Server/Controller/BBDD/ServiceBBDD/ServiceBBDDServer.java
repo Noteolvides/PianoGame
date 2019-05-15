@@ -251,8 +251,8 @@ public class ServiceBBDDServer {
 
 
     //If the user wants to add a song (the id is assigned by the database because it's serial
-    public void insertSongFromUser (String name, int duration, String description, User author, int plays, String filePath) throws Exception {
-        Song song  = new Song(name,duration,description,plays,filePath,author);
+    public void insertSongFromUser (String name, int duration, String description, User author, int plays, String filePath, boolean privacity) throws Exception {
+        Song song  = new Song(name,duration,description,plays,filePath,privacity,author);
         if (duration == 0 || author == null || filePath.equals("") || filePath.contains(" ")) {
             throw new FieldsNoValidException();
             //comment

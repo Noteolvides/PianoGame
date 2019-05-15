@@ -16,7 +16,7 @@ public class User implements Serializable {
     @Column(name="Name")
     private String nameUser;
     @Expose
-    @Column (name = "userCode")
+    @Column (name = "UserCode")
     private String userCode;
     @Expose
     @Column(name="Password")

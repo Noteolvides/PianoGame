@@ -19,8 +19,7 @@ CREATE TABLE IF NOT EXISTS Syst(
 DROP TABLE IF EXISTS User;
 CREATE TABLE IF NOT EXISTS User(
   Name VARCHAR(255),
-  #Photo BLOB,
-  Photo_Path VARCHAR(255),
+  UserCode VARCHAR(12),
   Password char(32),
   Email CHAR(255),
   PRIMARY KEY (Name)
@@ -96,8 +95,8 @@ INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (2,'System','2019-04-30',
 INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (3,'System','2019-05-01',50);
 INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (4,'System','2019-10-04',35);
 INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (5,'System','2019-10-06',38);
-INSERT INTO User (Name, Photo_Path, Password, Email) VALUES ('josep','hola.txt','roig','joseproig1999');
-INSERT INTO User (Name, Photo_Path, Password, Email) VALUES ('pepe','holas.txt','roig','peperoig1999');
+INSERT INTO User (Name, userCode, Password, Email) VALUES ('josep','12345678J','roig','joseproig1999');
+INSERT INTO User (Name, userCode, Password, Email) VALUES ('pepe','12345678P','roig','peperoig1999');
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path,SystemID) VALUES ('pepe',12,'pepe',120,'pepe.mp3',1);
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('todays class',12,'pepe',56,'pepe.mp3','pepe');
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Author) VALUES ('josepsSong',12,'pepe',89,'pepe.mp3','pepe');

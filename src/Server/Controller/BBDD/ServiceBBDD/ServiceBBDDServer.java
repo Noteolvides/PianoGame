@@ -321,6 +321,7 @@ public class ServiceBBDDServer {
             dao.checkExistenceUserDatabaseWithoutPassword(username,false);
             List <Song> songs = new ArrayList<Song>();
             List <Song> songsSystem  = dao.getSystemSongs();
+            songs = dao.getSomeoneSongs(username);
             for (int i = 0; i < songsSystem.size();i++) {
                 songs.add(songsSystem.get(i));
             }

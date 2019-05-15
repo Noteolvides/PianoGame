@@ -180,6 +180,7 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
 
+
     @Transactional
     public void createSystemToActualDate () {
         Calendar c = Calendar.getInstance();
@@ -243,5 +244,8 @@ public class DAOServer extends HibernateDaoSupport {
         List list = getHibernateTemplate().find("FROM " + Song.class.getName() + " AS s WHERE s.title ='" + songName + "'");
         return (List<Song>) list;
     }
-
+    public List<Song> searchConcreteSongWithId (final int id) {
+        List list = getHibernateTemplate().find("FROM " + Song.class.getName() + " AS s WHERE s.id ='" + id + "'");
+        return (List<Song>) list;
+    }
 }

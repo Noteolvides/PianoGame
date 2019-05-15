@@ -263,8 +263,22 @@ public class ServiceBBDDServer {
     }
 
     public void insertSongFromUser(Song song) throws BBDDException {
+        ServerContextHolder.set(AvaiableClients.UserRegistered);
         dao.checkSongExistence(song.getTitle());
         dao.insertSong(song);
+        ServerContextHolder.clear();
+    }
+
+    public void incrementPlays (int id) throws BBDDException{
+        ServerContextHolder.set(AvaiableClients.UserRegistered);
+        //TODO: Para pepe: Donde se usa searchconcretesong
+        List<Song> songs = dao.searchConcreteSongWithId(id);
+        if (songs == null) {
+            throw new BBDDException();
+        }
+        else {
+            songs.get(0).setPlays(songs.get(0).getPlays()+1);
+        }
     }
 
 

@@ -31,7 +31,7 @@ public class ServiceBBDDServer {
     public void deleteSong (String nameOfTheSong, String author) throws FieldsNoValidException {
         try {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
-            dao.checkSongExistence(nameOfTheSong, author);
+            dao.checkSongExistence(nameOfTheSong, author,false);
             ServerContextHolder.clear();
 
         } catch (BBDDException e) {
@@ -83,7 +83,7 @@ public class ServiceBBDDServer {
         Song song = new Song(name, duration,description,plays,filePath, syst);
         if (name.equals("") || name.contains(" ") || filePath.equals("") || filePath.contains(" ")) {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
-            dao.checkSongExistence(name,syst.getName());
+            dao.checkSongExistence(name,syst.getName(),true);
             dao.insertSong(song);
             ServerContextHolder.clear();
         }
@@ -255,17 +255,16 @@ public class ServiceBBDDServer {
         Song song  = new Song(name,duration,description,plays,filePath,privacity,author);
         if (duration == 0 || author == null || filePath.equals("") || filePath.contains(" ")) {
             throw new FieldsNoValidException();
-            //comment
         }
         else {
-            dao.checkSongExistence(name,author.getNameUser());
+            dao.checkSongExistence(name,author.getNameUser(),false);
             dao.insertSong (song);
         }
     }
 
     public void insertSongFromUser(Song song) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
-        dao.checkSongExistence(song.getTitle(),song.getAuthor().getNameUser());
+        dao.checkSongExistence(song.getTitle(),song.getAuthor().getNameUser(),false);
         dao.insertSong(song);
         ServerContextHolder.clear();
     }

@@ -102,10 +102,10 @@ public class DAOServer extends HibernateDaoSupport {
     public void checkSongExistence (final String songName, final String author,boolean system) throws BBDDException{
         List list;
         if (!system) {
-            list = getHibernateTemplate().find("SELECT COUNT(*) FROM " + Song.class.getName() + " AS s WHERE s.title = '" + songName + "' AND (s.author.nameUser = '" + author + "'");
+            list = getHibernateTemplate().find("SELECT COUNT(*) FROM " + Song.class.getName() + " AS s WHERE s.title = '"+ songName + "' AND (s.author.nameUser = '" + author + "')");
         }
         else {
-            list = getHibernateTemplate().find("SELECT COUNT(*) FROM " + Song.class.getName() + " AS s WHERE s.title = '" + songName + "' AND (s.syst.ID = '" + author + "'");
+            list = getHibernateTemplate().find("SELECT COUNT(*) FROM " + Song.class.getName() + " AS s WHERE s.title = '" + songName + "' AND (s.syst.ID = '" + author + "')");
         }
         Boolean b = ((Long) list.get(0) == 0);
         if (!b.booleanValue()) {

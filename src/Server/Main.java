@@ -24,11 +24,11 @@ public class Main {
         Server server = (Server)context.getBean("controllerJ2");
         server.startServer();
         ServerViews serverViews = new ServerViews();
-        /*try {
-            server.getServerService().insertSongFromUser("pepe", 69, "marcviolalolis", server.getServerService().getInstanceOfAUser("josep", "roig"), 2, "mayu.mp3");
+        try {
+            server.getServerService().insertSongFromUser("pepe", 69, "marcviolalolis", server.getServerService().getInstanceOfAUser("josep", "roig"), 2, "mayu.mp3", true);
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
 
 
         View view = new View();

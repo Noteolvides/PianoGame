@@ -1,6 +1,7 @@
 package Client.View.Piano;
 
 import Client.Controller.Piano.PlayerSongPiano;
+import Client.View.View;
 import org.jfugue.midi.MidiFileManager;
 import org.jfugue.pattern.Pattern;
 
@@ -68,5 +69,9 @@ public class JPiano extends JFrame {
 
     public ArrayList<JPanel> getNotes() {
         return notes;
+    }
+
+    public boolean saveConfirmation() {
+        return JOptionPane.showConfirmDialog(this, "Are you sure do you save the song?", "Save Song", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
 }

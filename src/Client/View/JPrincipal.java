@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static Client.Controller.Controller.*;
+import static Client.Network.ClientConnection.OK;
 
 public class JPrincipal extends JFrame {
     public static final String JPIANO= "Piano";
@@ -109,11 +110,17 @@ public class JPrincipal extends JFrame {
         return JOptionPane.showConfirmDialog(this, "Are you sure you want to delete the account?", "Delete Account Confirmation", JOptionPane.YES_NO_OPTION);
     }
 
-    public void deletedAccountPopUp(String deleted) {
-        if (deleted.equals(OK)) {
+    public void deletedAccountPopUp(int deleted) {
+        if (deleted == OK) {
             JOptionPane.showMessageDialog(this, "The account was successfully deleted!", "Account Delete Request",JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "An error occurred the account wasn't deleted!", "Account Delete Request",JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    public void logOutPopUp(int petitionResult) {
+        if (petitionResult == OK) {
+            JOptionPane.showMessageDialog(this, "LogOut successful!", "LogOut",JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

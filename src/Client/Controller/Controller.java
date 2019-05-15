@@ -243,6 +243,10 @@ public class Controller {
         network.setNextFunc(LOG_OUT);
     }
 
+    public void networkSignOutResult(int petitionResult) {
+        view.getPrincipalView().logOutPopUp(petitionResult);
+    }
+
     public void networkExitSocial() {
         network.setNextFunc(EXIT_SOCIAL);
     }

@@ -170,7 +170,7 @@ public class ClientConnection extends Thread {
             trans_estate = dIn.readInt();
 
             if (trans_estate == ERROR) {
-                System.out.println("Error, you couldn't login to server");
+                System.out.println("Error, you couldn't login to the server");
                 controller.networkLogInResult(KO);
             } else {
                 controller.networkLogInResult(OK);
@@ -178,7 +178,7 @@ public class ClientConnection extends Thread {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            controller.networkLogInResult(KO);
         }
 
     }
@@ -198,18 +198,15 @@ public class ClientConnection extends Thread {
             //We wait for response if the information was correct
             trans_estate = dIn.readInt();
 
-            if (trans_estate == ERROR_BBDD) {   //TODO: Definir nous msg d'error on els prompts
-                System.out.println("Error, you couldn't register to server");
-                controller.networkLogInResult(KO);
+            if (trans_estate == ERROR_BBDD) {
+                controller.networkLogInResult(KO_BBDD);
             } else {
-                System.out.println("WELCOME, WELCOME!");
                 controller.networkLogInResult(OK);
                 dOut.writeUTF(GO_BACK);
-
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            controller.networkLogInResult(KO_BBDD);
         }
     }
 
@@ -244,7 +241,6 @@ public class ClientConnection extends Thread {
             trans_estate = dIn.readInt();
             if (trans_estate == ERROR) {
                 controller.networkDeleteAccountResult(KO);
-                System.out.println("Couldn't delete account from server");
             } else {
                 controller.networkDeleteAccountResult(OK);
                 dOut.writeUTF(GO_BACK);
@@ -283,7 +279,7 @@ public class ClientConnection extends Thread {
             //We wait for response if the operation is completed correctly
             trans_estate = dIn.readInt();
 
-            if (trans_estate == ERROR_BBDD) {   //TODO: Definir nous msg d'error on els prompts
+            if (trans_estate == ERROR_BBDD) {
                 System.out.println("Error, this user doesn't exists");
                 controller.networkSearchSocialResult(KO, null);
 
@@ -311,7 +307,7 @@ public class ClientConnection extends Thread {
             //We wait for response if the operation is completed correctly
             trans_estate = dIn.readInt();
 
-            if (trans_estate == ERROR_BBDD) {   //TODO: Definir nous msg d'error on els prompts
+            if (trans_estate == ERROR_BBDD) {
                 System.out.println("No eres mi amiho");
                 controller.networkAddSocialResult(KO);
 
@@ -399,7 +395,7 @@ public class ClientConnection extends Thread {
             System.out.println("He guardat: " + songFile + " " + song.toString());
 
             trans_estate = dIn.readInt();
-            if (trans_estate == CORRECT) {  //TODO: Definir nous msg d'error on els prompts
+            if (trans_estate == CORRECT) {
                 controller.networkSaveSongResult(OK);
             } else if (trans_estate == ERROR_BBDD) {
                 controller.networkSaveSongResult(KO);
@@ -428,7 +424,7 @@ public class ClientConnection extends Thread {
             midi = (Pattern) obIn.readObject();
 
             trans_estate = dIn.readInt();
-            if (trans_estate == CORRECT) {  //TODO: Definir nous msg d'error on els prompts
+            if (trans_estate == CORRECT) {
                 controller.networkSaveSongResult(OK);
             } else if (trans_estate == ERROR_BBDD) {
                 controller.networkSaveSongResult(KO);

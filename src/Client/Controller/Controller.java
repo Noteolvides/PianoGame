@@ -336,9 +336,11 @@ public class Controller {
      * Functions that depending of the result of the ClientConnection transmission
      * of requesting a song, notifies if the song was correctly acquired.
      * @param petitionResult ClientConnection Transmission result code.
+     * @param midi
      */
-    public void networkRequestSongResult(int petitionResult) {
+    public void networkRequestSongResult(int petitionResult, String midi) {
         view.getSongView().requestPopUp(petitionResult);
+        pianoController.playSong(midi);
     }
 
     /**

@@ -195,10 +195,18 @@ public class ServiceBBDDServer {
 
 
     //This is the method to search if a user exists, if exists we return it.
-    public User searchUser (String usernameToSearch) throws BBDDException {
+    public User searchUserByUsername (String usernameToSearch) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         dao.checkExistenceUserDatabaseWithoutPassword(usernameToSearch,false);
         User user = dao.searchUser(usernameToSearch);
+        ServerContextHolder.clear();
+        return user;
+    }
+
+    public User searchUserByCode (String code) throws BBDDException {
+        ServerContextHolder.set(AvaiableClients.UserRegistered);
+        dao.checkExistenceCode(code);
+        User user = dao.getUserByCode(code);
         ServerContextHolder.clear();
         return user;
     }
@@ -221,6 +229,7 @@ public class ServiceBBDDServer {
     public void createUserFromNoUser (User user) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
         dao.checkExistenceUserDatabaseWithoutPassword(user.getNameUser(),true);
+        dao.checkExistenceEmailDatabaseWithoutPassword(user.getEmail(),true);
         //We generate the userCode, correspondent to the user
         userCodeCalculate (user);
         dao.insertUserTable(user);
@@ -232,6 +241,7 @@ public class ServiceBBDDServer {
         if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
             ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
             dao.checkExistenceUserDatabaseWithoutPassword(username,true);
+            dao.checkExistenceEmailDatabaseWithoutPassword(email,true);
             //We generate the userCode, correspondent to the user
             User user = new User (username,password,email);
             userCodeCalculate(user);
@@ -251,10 +261,18 @@ public class ServiceBBDDServer {
     }
 
 
-    public User getInstanceOfAUser (String username, String password) throws BBDDException {
+    public User getInstanceOfAUserByName (String username, String password) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
         dao.checkExistenceUserDatabase(username,password,false);
         User user = dao.getUser(username);
+        ServerContextHolder.clear();
+        return user;
+    }
+
+    public User getInstanceOfAUserByEmail (String email, String password) throws BBDDException {
+        ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
+        dao.checkExistenceEmailDatabase(email,password,false);
+        User user = dao.getUserByEmail(email);
         ServerContextHolder.clear();
         return user;
     }

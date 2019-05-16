@@ -34,7 +34,6 @@ public class DAOServer extends HibernateDaoSupport {
     @Transactional(readOnly = true)
     public void checkExistenceUserDatabase ( String username, String password, boolean existException) throws BBDDException {
         List list = getHibernateTemplate().find("SELECT COUNT(*) FROM "+ User.class.getName() +" AS u WHERE u.nameUser ='"+ username +"' AND u.password ='" + password + "'");
-
         if (existException) {
             if ((Long) list.get(0) != 0) {
                 throw new BBDDException();
@@ -64,6 +63,35 @@ public class DAOServer extends HibernateDaoSupport {
         }
     }
 
+    @Transactional
+    public void checkExistenceEmailDatabaseWithoutPassword (String email,boolean existException) throws BBDDException {
+        List list = getHibernateTemplate().find ("SELECT COUNT(*) FROM " + User.class.getName() + " AS u WHERE u.email = '" + email + "'");
+        if (existException) {
+            if ((Long) list.get(0) != 0) {
+                throw new BBDDException();
+            }
+        }
+        else {
+            if ((Long) list.get(0) == 0) {
+                throw new BBDDException();
+            }
+        }
+    }
+
+    @Transactional(readOnly = true)
+    public void checkExistenceEmailDatabase (String email, String password, boolean existException) throws BBDDException {
+        List list = getHibernateTemplate().find ("SELECT COUNT(*) FROM " + User.class.getName() + " AS u WHERE u.email = '" + email + "' AND u.password = '" + password + "'");
+        if (existException) {
+            if ((Long) list.get(0) != 0) {
+                throw new BBDDException();
+            }
+        }
+        else {
+            if ((Long) list.get(0) == 0) {
+                throw new BBDDException();
+            }
+        }
+    }
 
     @Transactional (readOnly = true)
     public User getUser (String username) {
@@ -71,6 +99,11 @@ public class DAOServer extends HibernateDaoSupport {
         return (User) list.get(0);
     }
 
+    @Transactional (readOnly = true)
+    public User getUserByEmail (String email) {
+        List list = getHibernateTemplate().find("FROM " + User.class.getName() + " AS u WHERE u.email = '" + email +"'");
+        return (User) list.get(0);
+    }
 
     @Transactional
     public void deleteUserByObject (User user) {
@@ -84,7 +117,19 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
 
+    @Transactional (readOnly = true)
+    public void checkExistenceCode (String codeToSearch) throws BBDDException {
+        List list = getHibernateTemplate().find("SELECT COUNT(*) FROM " + User.class.getName() + " AS u WHERE u.userCode = '" + codeToSearch + "'" );
+        if ((Long) list.get(0) == 0) {
+            throw new BBDDException();
+        }
+    }
 
+    @Transactional(readOnly = true)
+    public User getUserByCode (String codeToSearch) throws BBDDException {
+        List list = getHibernateTemplate().find("FROM " + User.class.getName() + " AS u WHERE u.userCode = '" + codeToSearch + "'" );
+        return (User) list.get(0);
+    }
 
     @Transactional
     public void insertUserTable (String username, String password, String userCode, String email) {

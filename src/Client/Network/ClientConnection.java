@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class ClientConnection extends Thread {
     //Connection const.
-    private static final int PORT = 5000;
+    private int port = 5000;
     private static final String IP = "localhost";
 
     public static final int OK = 0;
@@ -60,7 +60,8 @@ public class ClientConnection extends Thread {
     /**
      * Client sockets controller
      */
-    public ClientConnection(Controller controller) {
+    public ClientConnection(Controller controller, int clientPort) {
+        port = clientPort;
         this.controller = controller;
         nextFunc = "";
     }
@@ -70,7 +71,7 @@ public class ClientConnection extends Thread {
      */
     public void establishConnection() {
         try {
-            server = new Socket(IP, PORT);
+            server = new Socket(IP, port);
             System.out.println("[CLIENT] Connection established");
 
             obOut = new ObjectOutputStream(server.getOutputStream());
@@ -385,7 +386,7 @@ public class ClientConnection extends Thread {
             String midi =  dIn.readUTF();
             trans_estate = dIn.readInt();
 
-            controller.networkSaveSongResult(trans_estate);
+            controller.networkRequestSongResult(trans_estate, midi);
 
         } catch (IOException e) {
             e.printStackTrace();

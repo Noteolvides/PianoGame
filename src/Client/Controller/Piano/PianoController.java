@@ -45,7 +45,7 @@ public class PianoController {
     private PlayerSongPiano player;
     private int[] activado = new int[24];
     private boolean mute = false;
-    
+
 
     public PianoController(View view, Controller controller) {
         try {
@@ -128,62 +128,6 @@ public class PianoController {
             controller.closePiano();
             controller.networkSelectSong();
             controller.openSong();
-        });
-
-        view.getPianoView().getTopOption().getPlay().addActionListener(e -> {
-            try {
-                view.getPianoView().getTopOption().getMuteSoundPlaying().setEnabled(true);
-                Pattern pattern = MidiFileManager.loadPatternFromMidi(new File("Song.mid"));
-                player = new PlayerSongPiano(view.getPianoView(), pattern);
-                Player play = new Player();
-                RealtimePlayer realtimePlayer2 = new RealtimePlayer();
-
-                new Thread(() -> {
-                    double time = 0;
-                    int i = 0;
-                    Note n;
-                    while (10 * time < 360 + (-player.getY())) {
-                        i = 0;
-                        for (JPanel jf : view.getPianoView().getNotes()) {
-                            Point p = jf.getLocation();
-                            jf.setLocation(p.x, (int) (p.y + 10));
-                            n = new Note(jf.getName());
-                            if (n.getOctave() == actualOctave || n.getOctave() == (actualOctave + 1)) {
-                                if (jf.getLocation().y + jf.getSize().height > 360 && jf.getComponents().length == 0 && jf.getLocation().y < 360) {
-                                    JTextField flag = new JTextField("Yes");
-                                    flag.setVisible(false);
-                                    jf.add(flag);
-                                    if (!mute) {
-                                        realtimePlayer2.startNote(n);
-                                    }
-                                } else {
-                                    jf.setVisible(true);
-                                }
-                            } else {
-                                jf.setVisible(false);
-                            }
-                            if (jf.getComponents().length != 0 && jf.getLocation().y > 360) {
-                                jf.remove(jf.getComponent(0));
-                                realtimePlayer2.stopNote(n);
-                            }
-                            i++;
-                        }
-                        view.getPianoView().revalidate();
-                        view.getPianoView().repaint();
-                        try {
-                            time++;
-                            Thread.sleep(100);
-                        } catch (InterruptedException j) {
-                            j.printStackTrace();
-                        }
-                    }
-                    view.getPianoView().getNotes().clear();
-
-                }).start();
-                realtimePlayer2.close();
-            } catch (IOException | InvalidMidiDataException | MidiUnavailableException ex) {
-                ex.printStackTrace();
-            }
         });
 
         try {
@@ -313,6 +257,63 @@ public class PianoController {
             activado[finalI] = numberOFkeys + 1;
             numberOFkeys++;
             keys.put(numberOFkeys, new KeyRecord(str, realtimePlayer.getCurrentTime(), numberOFkeys));
+        }
+    }
+
+    public void playSong(String songMidi) {
+        try {
+            controller.networkRequestSong();
+            view.getPianoView().getTopOption().getMuteSoundPlaying().setEnabled(true);
+            Pattern pattern = new Pattern(songMidi);
+            player = new PlayerSongPiano(view.getPianoView(), pattern);
+            Player play = new Player();
+            RealtimePlayer realtimePlayer2 = new RealtimePlayer();
+
+            new Thread(() -> {
+                double time = 0;
+                int i = 0;
+                Note n;
+                while (10 * time < 360 + (-player.getY())) {
+                    i = 0;
+                    for (JPanel jf : view.getPianoView().getNotes()) {
+                        Point p = jf.getLocation();
+                        jf.setLocation(p.x, (int) (p.y + 10));
+                        n = new Note(jf.getName());
+                        if (n.getOctave() == actualOctave || n.getOctave() == (actualOctave + 1)) {
+                            if (jf.getLocation().y + jf.getSize().height > 360 && jf.getComponents().length == 0 && jf.getLocation().y < 360) {
+                                JTextField flag = new JTextField("Yes");
+                                flag.setVisible(false);
+                                jf.add(flag);
+                                if (!mute) {
+                                    realtimePlayer2.startNote(n);
+                                }
+                            } else {
+                                jf.setVisible(true);
+                            }
+                        } else {
+                            jf.setVisible(false);
+                        }
+                        if (jf.getComponents().length != 0 && jf.getLocation().y > 360) {
+                            jf.remove(jf.getComponent(0));
+                            realtimePlayer2.stopNote(n);
+                        }
+                        i++;
+                    }
+                    view.getPianoView().revalidate();
+                    view.getPianoView().repaint();
+                    try {
+                        time++;
+                        Thread.sleep(100);
+                    } catch (InterruptedException j) {
+                        j.printStackTrace();
+                    }
+                }
+                view.getPianoView().getNotes().clear();
+
+            }).start();
+            realtimePlayer2.close();
+        } catch (MidiUnavailableException ex) {
+            ex.printStackTrace();
         }
     }
 }

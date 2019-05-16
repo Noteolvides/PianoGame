@@ -2,8 +2,24 @@ package Client.View.Piano;
 
 import java.awt.*;
 
+/**
+ * BlackKey is a extends of a Jpanel to show a blackKey in the pianoView
+ *
+ * @author  Gerard
+ * @author Gustavo
+ * @author Neil
+ * @author Jiahui
+ * @author Josep
+ * @version 1.0
+ * @since 2019-05-16
+ */
 public class BlackKey extends Key {
 
+    /**
+     * Constructor of blackKey
+     * @param i        The number in that octave
+     * @param levelKey The octave that this key represents
+     */
     public BlackKey(int i, int levelKey) {
         int iCopy = i;
         if (i >= 8){

@@ -2,6 +2,8 @@ package Client.Controller.Piano;
 
 import Client.Controller.Controller;
 import Client.View.Piano.Key;
+import Client.View.Piano.KeyConfigurationVisual;
+import Client.View.Piano.SelectionOfKeys;
 import Client.View.View;
 import Model.ConfigurationPackage.Configuration;
 import Model.ConfigurationPackage.KeyConfiguration;
@@ -20,6 +22,7 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -33,12 +36,13 @@ import java.util.HashMap;
 public class PianoController {
     private View view;
     private Controller controller;
-    private int actualOctave = 4; //TODO : Revision of this atribute
+    private int actualOctave = 4;
     private RealtimePlayer realtimePlayer;
     private KeyConfiguration[] keyBoardConfiguration;
     private static int numberOFkeys = 0;
-    private HashMap<Integer, KeyRecord> keys = new HashMap<>();
+    private HashMap<Integer, KeyRecord> keys;
     private boolean recordSong;
+    private SelectionOfKeys selectionOfKeys;
     private PlayerSongPiano player;
     private int[] activado = new int[24];
     private boolean mute = false;
@@ -51,6 +55,8 @@ public class PianoController {
 
     public PianoController(View view, Controller controller) {
         try {
+            keys = new HashMap<>();
+            selectionOfKeys = new SelectionOfKeys();
             Gson gson = new Gson();
             JsonReader json;
             json = new JsonReader(new FileReader("configFiles/config.json"));
@@ -68,6 +74,31 @@ public class PianoController {
     private void initController() {
         view.initPianoView();
         view.getPianoView().setVisible(true);
+
+        view.getPianoView().getTopOption().getChangeKeys().addActionListener(e ->{
+            for (KeyConfigurationVisual k: selectionOfKeys.getList()) {
+                selectionOfKeys.remove(k);
+            }
+            selectionOfKeys.getList().clear();
+            for (KeyConfiguration k: keyBoardConfiguration) {
+                selectionOfKeys.getList().add(new KeyConfigurationVisual(k.getName(),k.getKey()));
+            }
+            selectionOfKeys.acctKeyConfiguration();
+            selectionOfKeys.setVisible(true);
+            selectionOfKeys.getChange().addActionListener(e1 -> {
+                int i = 0;
+                for (KeyConfigurationVisual l : selectionOfKeys.getList()) {
+                    keyBoardConfiguration[i].setKey(l.getKey().getText().charAt(0));
+                    i++;
+                }
+                view.getPianoView().getPiano().getIm().clear();
+                view.getPianoView().getPiano().getAm().clear();
+                view.getPianoView().setVisible(false); //you can't see me!
+                view.getPianoView().dispose();
+                initController();
+                showPromt();
+            });
+        });
 
         //Implementation of listener for keys 1234560 to change Octave;
         for (int i = 0; i < 6; i++) {
@@ -212,6 +243,15 @@ public class PianoController {
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showPromt() {
+        JOptionPane.showMessageDialog(selectionOfKeys,
+                "Key Configuration Changed.",
+                "Information",
+                JOptionPane.PLAIN_MESSAGE);
+        selectionOfKeys.setVisible(false);
+        view.getPianoView().revalidate();
     }
 
     private void controlKeys() {

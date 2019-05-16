@@ -13,5 +13,17 @@ public class KeyConfigurationVisual extends JPanel {
         this.key = new JTextField();
         this.key.setText(String.valueOf(key));
         this.key.setColumns(1);
+
+        add(this.name);
+        add(this.key);
+    }
+
+
+    public JTextField getKey() {
+        return key;
+    }
+
+    public void setKey(JTextField key) {
+        this.key = key;
     }
 }

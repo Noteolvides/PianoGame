@@ -9,9 +9,11 @@ public class SelectionOfKeys extends JFrame {
     private JButton change;
 
     public SelectionOfKeys() {
-        setTitle("Configuration Of Keys");
-        setLayout(new BoxLayout( this,BoxLayout.PAGE_AXIS));
+        setTitle("Change Keys");
+        list = new ArrayList<>();
+        setLayout(new FlowLayout());
         change = new JButton("Change");
+        setVisible(false);
     }
 
     public ArrayList<KeyConfigurationVisual> getList() {
@@ -27,6 +29,8 @@ public class SelectionOfKeys extends JFrame {
             add(i);
         }
         add(change);
+        setSize(600,200);
+        setLocationRelativeTo(null);
         revalidate();
     }
 

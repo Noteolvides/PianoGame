@@ -7,13 +7,12 @@ public class TopPanel extends JMenuBar {
     private JMenu recordSong;
     private JMenuItem record;
     private JMenuItem play;
-    private JMenuItem stop;
     private JMenuItem save;
     private JMenu playSong;
-    private JMenuItem playSongInSystem;
     private JMenuItem selectSongInSystem;
     private JMenuItem muteSoundPlaying;
     private JMenu more;
+    private JMenuItem changeKeys;
     private JMenuItem exitToMenu;
 
 
@@ -26,8 +25,6 @@ public class TopPanel extends JMenuBar {
         recordSong.add(record);
         play = new JMenuItem("Play");
         recordSong.add(play);
-        //stop = new JMenuItem("Stop");
-        //recordSong.add(stop);
         save = new JMenuItem("Save");
         save.setEnabled(false);
         recordSong.add(save);
@@ -35,8 +32,6 @@ public class TopPanel extends JMenuBar {
         playSong = new JMenu("Play Song");
         selectSongInSystem = new JMenuItem("Select Song");
         playSong.add(selectSongInSystem);
-        //playSongInSystem = new JMenuItem("Play Song");
-        //playSong.add(playSongInSystem);
         muteSoundPlaying = new JMenuItem("Mute Song Playing");
         muteSoundPlaying.setEnabled(false);
         playSong.add(muteSoundPlaying);
@@ -45,6 +40,8 @@ public class TopPanel extends JMenuBar {
         more = new JMenu("More");
         exitToMenu = new JMenuItem("Exit to Menu");
         more.add(exitToMenu);
+        changeKeys = new JMenuItem("Change Keys");
+        more.add(changeKeys);
 
         setBackground(Color.WHITE);
         setForeground(Color.BLACK);
@@ -59,8 +56,12 @@ public class TopPanel extends JMenuBar {
         return record;
     }
 
-    public JMenuItem getStop() {
-        return stop;
+    public JMenuItem getChangeKeys() {
+        return changeKeys;
+    }
+
+    public void setChangeKeys(JMenuItem changeKeys) {
+        this.changeKeys = changeKeys;
     }
 
     public JMenuItem getSave() {
@@ -71,9 +72,6 @@ public class TopPanel extends JMenuBar {
         return play;
     }
 
-    public JMenuItem getPlaySongInSystem() {
-        return playSongInSystem;
-    }
 
     public JMenuItem getSelectSongInSystem() {
         return selectSongInSystem;

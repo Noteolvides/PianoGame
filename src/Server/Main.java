@@ -1,5 +1,6 @@
 package Server;
 
+import Model.ConfigurationPackage.Configuration;
 import Model.Song;
 import Model.User;
 import Server.Controller.Controller;
@@ -12,9 +13,13 @@ import Server.View.JTop;
 import Server.View.ServerViews;
 import Server.View.View;
 //import javafx.application.Application;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -22,19 +27,15 @@ public class Main {
     public static void main(String[] args) throws IOException {
         ApplicationContext context =  new ClassPathXmlApplicationContext("Server/Controller/BBDD/Resources/applicationContextService.xml");
         Server server = (Server)context.getBean("controllerJ2");
-        server.startServer();
+        Gson gson = new Gson();
+        JsonReader json = null;
+        json = new JsonReader(new FileReader("configFiles/config.json"));
+        Configuration config = gson.fromJson(json, Configuration.class);
+        server.startServer(config.getClientPort());
         ServerViews serverViews = new ServerViews();
-        /*try {
-            server.getServerService().insertSongFromUser("pepe", 69, "marcviolalolis", server.getServerService().getInstanceOfAUser("josep", "roig"), 2, "mayu.mp3");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-
-
         View view = new View();
         view.initRegisterView();
         RegisterController controller = new RegisterController(view,server.getServerService());
-        //view.getRegisterView().registerController(controller);
 
         JEvolution evolution = new JEvolution(server.getServerService());
         evolution.JEvolution();

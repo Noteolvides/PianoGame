@@ -45,7 +45,7 @@ public class PianoController {
     private PlayerSongPiano player;
     private int[] activado = new int[24];
     private boolean mute = false;
-    
+
 
     public PianoController(View view, Controller controller) {
         try {

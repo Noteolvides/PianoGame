@@ -8,6 +8,7 @@ public class Configuration {
     private String BBDDName;
     private List<MysqlUser> mysqlUsers;
     private int clientPort;
+    private KeyConfiguration[] keys;
 
     public int getPortConnexioBBDD() {
         return portConnexioBBDD;
@@ -47,5 +48,13 @@ public class Configuration {
 
     public void setClientPort(int clientPort) {
         this.clientPort = clientPort;
+    }
+
+    public KeyConfiguration[] getKeys() {
+        return keys;
+    }
+
+    public void setKeys(KeyConfiguration[] keys) {
+        this.keys = keys;
     }
 }

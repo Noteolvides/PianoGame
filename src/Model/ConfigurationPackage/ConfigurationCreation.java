@@ -36,6 +36,7 @@ public class ConfigurationCreation {
 
         configuration.setMysqlUsers(mysqlUsers);
 
+
         try {
             FileWriter fw = new FileWriter("configFiles/config.json");
             gson.toJson(configuration,fw);

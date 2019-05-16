@@ -371,8 +371,12 @@ public class Controller {
      */
     public void networkSearchSocialResult(int petitionResult, User userToController) {
         if (petitionResult == OK) {
-            view.getSocialView().showUserSearch( userToController.getNameUser(), "usuarioRandom.png", userToController.getPassword().equals("YES"));
-            view.getSocialView().getjSocial().registerControllerAddFriend(controllerJSocial);
+            view.getSocialView().showUserSearch(userToController.getNameUser(), "usuarioRandom.png", userToController.getPassword().equals("YES"));
+            if (userToController.getPassword().equals("YES")) {
+                view.getSocialView().getjSocial().getPanelFriend().setButtonAddAsDisabled();
+            } else {
+                view.getSocialView().getjSocial().registerControllerAddFriend(controllerJSocial);
+            }
         }
         if (petitionResult == KO) {
             view.getSocialView().showUserNotFound();

@@ -65,3 +65,4 @@ test/
 hs_err_pid*
 
 out/production/DPOOProject/META-INF/DPOOProject\.kotlin_module
+FilesBBDD/*

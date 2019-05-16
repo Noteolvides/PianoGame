@@ -40,10 +40,6 @@ public class SaveSong extends JFrame{
         setVisible(false);
     }
 
-    public static void main(String[] args) {
-        SaveSong saveSong = new SaveSong();
-    }
-
     public void registerController(ActionListener c) {
         okButton.setActionCommand("SAVE-SONG");
         okButton.addActionListener(c);

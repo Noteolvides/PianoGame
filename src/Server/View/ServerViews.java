@@ -6,11 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ServerViews {
-        private JButton serverGraph, topSongs, registerUser;
+        private JButton serverGraph, topSongs, registerUser, gestor;
 
         public ServerViews(){
                 JFrame serverFrame = new JFrame("Server Functionalities");
-                serverFrame.setLayout(new GridLayout(3, 1));
+                serverFrame.setLayout(new GridLayout(4, 1));
 
                 registerUser = new JButton("Register User");
                 ImageIcon iconRegister = new ImageIcon("img/registerIcon.png");
@@ -18,10 +18,13 @@ public class ServerViews {
                 topSongs = new JButton("Top 5 Songs");
                 ImageIcon iconTop = new ImageIcon("img/topicon.png");
                 topSongs.setIcon(resizeIcon(iconTop, iconTop.getIconWidth()/7, iconTop.getIconHeight()/7));
+
                 serverGraph = new JButton("User Graph");
                 ImageIcon iconGraph = new ImageIcon("img/graphicicon.png");
                 serverGraph.setIcon(resizeIcon(iconGraph, iconGraph.getIconWidth()/35, iconGraph.getIconHeight()/35));
-
+                gestor = new JButton("Song Manager");
+                ImageIcon iconManagar = new ImageIcon("img/managericon.png");
+                gestor.setIcon(resizeIcon(iconManagar, iconManagar.getIconWidth(), iconManagar.getIconHeight()));
                 serverFrame.add(registerUser);
                 serverFrame.add(topSongs);
                 serverFrame.add(serverGraph);

@@ -50,8 +50,8 @@ public class PianoController {
     }
 
     public PianoController(View view, Controller controller) {
-        Gson gson = new Gson();
         try {
+            Gson gson = new Gson();
             JsonReader json;
             json = new JsonReader(new FileReader("configFiles/config.json"));
             Configuration config = gson.fromJson(json, Configuration.class);
@@ -59,6 +59,7 @@ public class PianoController {
             this.view = view;
             this.controller = controller;
             initController();
+            view.getPianoView().getPiano().goOctave(actualOctave);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -71,7 +72,7 @@ public class PianoController {
         //Implementation of listener for keys 1234560 to change Octave;
         for (int i = 0; i < 6; i++) {
             view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(keyBoardConfiguration[i].getKey()), keyBoardConfiguration[i].getKey());
-            int finalI = Integer.parseInt(keyBoardConfiguration[i].getKey()+"");
+            int finalI = Integer.parseInt(keyBoardConfiguration[i].getKey() + "");
             view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i].getKey(), new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -82,9 +83,9 @@ public class PianoController {
         }
 
         view.getPianoView().getTopOption().getMuteSoundPlaying().addActionListener(e -> {
-            if (!mute){
+            if (!mute) {
                 mute = true;
-            }else{
+            } else {
                 mute = false;
             }
         });
@@ -127,7 +128,7 @@ public class PianoController {
                                     JTextField flag = new JTextField("Yes");
                                     flag.setVisible(false);
                                     jf.add(flag);
-                                    if (!mute){
+                                    if (!mute) {
                                         realtimePlayer2.startNote(n);
                                     }
                                 } else {
@@ -136,7 +137,7 @@ public class PianoController {
                             } else {
                                 jf.setVisible(false);
                             }
-                            if (jf.getComponents().length != 0 && jf.getLocation().y> 360) {
+                            if (jf.getComponents().length != 0 && jf.getLocation().y > 360) {
                                 jf.remove(jf.getComponent(0));
                                 realtimePlayer2.stopNote(n);
                             }
@@ -200,21 +201,11 @@ public class PianoController {
                         lastKey = k;
                         view.getPianoView().getTopOption().getSave().setEnabled(false);
                     }
-                /*
-                //TODO: Delete THIS
+
                     Song songD = new Song();
-                //
-                controller.setSongToSave(song.toString(), songD);
-                controller.networkSaveSong(song.toString());
-                */
+                    controller.setSongToSave(song.toString(), songD);
+                    controller.networkSaveSong(song.toString());
 
-                    try {
-                        System.out.println(song.toString());
-                        MidiFileManager
-                                .savePatternToMidi(new Pattern(song.toString()), new File("Song.mid"));
-                    } catch (IOException ex) {
-
-                    }
                 }
                 // HASTA AQUI
             });
@@ -228,7 +219,7 @@ public class PianoController {
         for (Key k : view.getPianoView().getPiano().getKeys()) {
             view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(keyBoardConfiguration[i].getKey()), keyBoardConfiguration[i].getKey());
             view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke("released " + keyBoardConfiguration[i].getKey()), keyBoardConfiguration[i].getKey() + " released");
-            int finalI = i-6;
+            int finalI = i - 6;
             view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i].getKey(), new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -269,7 +260,6 @@ public class PianoController {
             i++;
         }
     }
-
 
 
     private void unPlayKey(int finalI, Key k) {

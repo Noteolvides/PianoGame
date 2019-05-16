@@ -152,7 +152,7 @@ public class DedicatedServer extends Thread {
                     //Then we want to check if the object Exist in the database
                     try {
                         //Here we make a  query to de database
-                        service.getInstanceOfAUser(user.getNameUser(), user.getPassword());
+                        service.getInstanceOfAUserByName(user.getNameUser(), user.getPassword());
                         //If the query return true
                         dataOutputStream.writeInt(CONFIRMATION);
                         userSave = user.getNameUser();

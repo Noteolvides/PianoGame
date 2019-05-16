@@ -152,7 +152,7 @@ public class DedicatedServer extends Thread {
                     //Then we want to check if the object Exist in the database
                     try {
                         //Here we make a  query to de database
-                        service.getInstanceOfAUser(user.getNameUser(), user.getPassword());
+                        service.getInstanceOfAUserByName(user.getNameUser(), user.getPassword());
                         //If the query return true
                         dataOutputStream.writeInt(CONFIRMATION);
                         userSave = user.getNameUser();
@@ -332,7 +332,7 @@ public class DedicatedServer extends Thread {
 
                     //Then we want to check if the object Exist in the database
                     try {
-                        User userTosend = service.searchUser(friendSave);
+                        User userTosend = service.searchUserByCode(friendSave);
                         friendSave = userTosend.getNameUser();
                         if (service.checkUserRelationship(userSave,friendSave)){
                             userTosend.setPassword("YES");
@@ -350,8 +350,8 @@ public class DedicatedServer extends Thread {
                 case ADD_USER:
                     //Query to make friends
                     try {
-                        User user1 = service.searchUser(userSave);
-                        User user2 = service.searchUser(friendSave);
+                        User user1 = service.searchUserByUsername(userSave);
+                        User user2 = service.searchUserByUsername(friendSave);
                         user1.getFollowing().add(user2);
                         service.updateInformationUser(user1);
 

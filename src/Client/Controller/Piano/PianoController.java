@@ -211,7 +211,7 @@ public class PianoController {
                     ArrayList<KeyRecord> temporalKeys = new ArrayList<KeyRecord>(keys.values());
                     Note rest = null;
                     Note note = null;
-                    StringBuilder song = new StringBuilder();
+                    StringBuilder songMidi = new StringBuilder();
                     temporalKeys.sort(Comparator.comparingInt(KeyRecord::getId));
                     KeyRecord lastKey = null;
                     for (KeyRecord k : temporalKeys) {
@@ -219,22 +219,19 @@ public class PianoController {
                             if (k.getStart() - lastKey.getEnd() > 0) {
                                 rest = new Note("R");
                                 rest.setDuration((double) (k.getStart() - lastKey.getEnd()) / (double) 1000);
-                                song.append(rest.toString());
-                                song.append(", ");
+                                songMidi.append(rest.toString());
+                                songMidi.append(", ");
                             }
                         }
                         note = new Note(k.getKey());
                         note.setDuration((double) (k.getEnd() - k.getStart()) / (double) 1000);
-                        song.append(note.toString());
-                        song.append(", ");
+                        songMidi.append(note.toString());
+                        songMidi.append(", ");
                         lastKey = k;
                         view.getPianoView().getTopOption().getSave().setEnabled(false);
                     }
-
-                    Song songD = new Song();
-                    controller.setSongToSave(song.toString(), songD);
-                    controller.networkSaveSong(song.toString());
-
+                    controller.setMidiToSave(songMidi.toString());
+                    controller.openSaveSong();
                 }
                 // HASTA AQUI
             });

@@ -236,7 +236,7 @@ public class DedicatedServer extends Thread {
                         }
 
                         File directorio = new File(direction);
-                        boolean dirCreated = directorio.mkdir();
+                        boolean dirCreated = directorio.mkdirs();
 
 
                         MidiFileManager.savePatternToMidi(new Pattern(song), new File(directorio + "/" + s.getTitle()));

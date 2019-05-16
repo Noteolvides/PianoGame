@@ -47,7 +47,7 @@ public class PianoController {
     private int[] activado = new int[24];
     private boolean mute = false;
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
 
         View v = new View();
         PianoController pianoController = new PianoController(v, new Controller(v));
@@ -88,7 +88,9 @@ public class PianoController {
             selectionOfKeys.getChange().addActionListener(e1 -> {
                 int i = 0;
                 for (KeyConfigurationVisual l : selectionOfKeys.getList()) {
-                    keyBoardConfiguration[i].setKey(l.getKey().getText().charAt(0));
+                    if (!l.getKey().getText().isEmpty() || l.getKey().getText().charAt(0) == ' '){
+                        keyBoardConfiguration[i].setKey(l.getKey().getText().charAt(0));
+                    }
                     i++;
                 }
                 view.getPianoView().getPiano().getIm().clear();
@@ -100,7 +102,6 @@ public class PianoController {
             });
         });
 
-        //Implementation of listener for keys 1234560 to change Octave;
         for (int i = 0; i < 6; i++) {
             view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(keyBoardConfiguration[i].getKey()), keyBoardConfiguration[i].getKey());
             int finalI = Integer.parseInt(keyBoardConfiguration[i].getKey() + "");

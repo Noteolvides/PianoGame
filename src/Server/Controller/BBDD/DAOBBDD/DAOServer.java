@@ -64,10 +64,17 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
     @Transactional
-    public void checkExistenceEmailDatabaseWithoutPassword (String email) throws BBDDException {
+    public void checkExistenceEmailDatabaseWithoutPassword (String email,boolean existException) throws BBDDException {
         List list = getHibernateTemplate().find ("SELECT COUNT(*) FROM " + User.class.getName() + " AS u WHERE u.email = '" + email + "'");
-        if ((Long) list.get(0) != 0) {
-            throw new BBDDException();
+        if (existException) {
+            if ((Long) list.get(0) != 0) {
+                throw new BBDDException();
+            }
+        }
+        else {
+            if ((Long) list.get(0) == 0) {
+                throw new BBDDException();
+            }
         }
     }
 

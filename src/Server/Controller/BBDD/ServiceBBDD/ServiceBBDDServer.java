@@ -221,7 +221,7 @@ public class ServiceBBDDServer {
     public void createUserFromNoUser (User user) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
         dao.checkExistenceUserDatabaseWithoutPassword(user.getNameUser(),true);
-        dao.checkExistenceEmailDatabaseWithoutPassword(user.getEmail());
+        dao.checkExistenceEmailDatabaseWithoutPassword(user.getEmail(),true);
         //We generate the userCode, correspondent to the user
         userCodeCalculate (user);
         dao.insertUserTable(user);
@@ -233,6 +233,7 @@ public class ServiceBBDDServer {
         if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
             ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
             dao.checkExistenceUserDatabaseWithoutPassword(username,true);
+            dao.checkExistenceEmailDatabaseWithoutPassword(email,true);
             //We generate the userCode, correspondent to the user
             User user = new User (username,password,email);
             userCodeCalculate(user);
@@ -252,12 +253,19 @@ public class ServiceBBDDServer {
     }
 
 
-    public User getInstanceOfAUser (String username, String password) throws BBDDException {
+    public User getInstanceOfAUserByName (String username, String password) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
         dao.checkExistenceUserDatabase(username,password,false);
         User user = dao.getUser(username);
         ServerContextHolder.clear();
         return user;
+    }
+
+    public User getInstanceOfAUserByEmail (String email, String password) throws BBDDException {
+        ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
+        //dao.checkExistenceEmailDatabase(username,password,false);
+        //User user = dao.getUser(username);
+        ServerContextHolder.clear();
     }
 
 

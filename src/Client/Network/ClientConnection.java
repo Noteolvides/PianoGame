@@ -383,19 +383,14 @@ public class ClientConnection extends Thread {
             String song = controller.getSongToPlay();
 
             dOut.writeUTF(song);
-            Pattern midi;
-            midi = (Pattern) obIn.readObject();
-
+            String midi =  dIn.readUTF();
             trans_estate = dIn.readInt();
 
-            controller.networkSaveSongResult(trans_estate);
+            controller.networkRequestSongResult(trans_estate, midi);
 
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error trying to access the song");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("File couldn't be read");
         }
     }
 

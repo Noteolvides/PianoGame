@@ -34,7 +34,6 @@ public class DAOServer extends HibernateDaoSupport {
     @Transactional(readOnly = true)
     public void checkExistenceUserDatabase ( String username, String password, boolean existException) throws BBDDException {
         List list = getHibernateTemplate().find("SELECT COUNT(*) FROM "+ User.class.getName() +" AS u WHERE u.nameUser ='"+ username +"' AND u.password ='" + password + "'");
-
         if (existException) {
             if ((Long) list.get(0) != 0) {
                 throw new BBDDException();
@@ -52,6 +51,21 @@ public class DAOServer extends HibernateDaoSupport {
     public void checkExistenceUserDatabaseWithoutPassword (String username, boolean existException) throws BBDDException{
         List list = getHibernateTemplate().find ("SELECT COUNT(*) FROM " + User.class.getName() + " AS u WHERE u.nameUser = '" + username + "'");
 
+        if (existException) {
+            if ((Long) list.get(0) != 0) {
+                throw new BBDDException();
+            }
+        }
+        else {
+            if ((Long) list.get(0) == 0) {
+                throw new BBDDException();
+            }
+        }
+    }
+
+    @Transactional
+    public void checkExistenceEmailDatabaseWithoutPassword (String email,boolean existException) throws BBDDException {
+        List list = getHibernateTemplate().find ("SELECT COUNT(*) FROM " + User.class.getName() + " AS u WHERE u.email = '" + email + "'");
         if (existException) {
             if ((Long) list.get(0) != 0) {
                 throw new BBDDException();

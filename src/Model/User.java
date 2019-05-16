@@ -16,14 +16,14 @@ public class User implements Serializable {
     @Column(name="Name")
     private String nameUser;
     @Expose
+    @Column(name="Email")
+    private String email;
+    @Expose
     @Column (name = "UserCode")
     private String userCode;
     @Expose
     @Column(name="Password")
     private String password;
-    @Expose
-    @Column(name="Email")
-    private String email;
     @OneToMany(mappedBy="author", cascade= CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Song> songs;
     @Expose

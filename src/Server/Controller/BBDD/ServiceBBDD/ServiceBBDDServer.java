@@ -221,6 +221,7 @@ public class ServiceBBDDServer {
     public void createUserFromNoUser (User user) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
         dao.checkExistenceUserDatabaseWithoutPassword(user.getNameUser(),true);
+        dao.checkExistenceEmailDatabaseWithoutPassword(user.getEmail());
         //We generate the userCode, correspondent to the user
         userCodeCalculate (user);
         dao.insertUserTable(user);

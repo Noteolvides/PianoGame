@@ -387,7 +387,7 @@ public class ClientConnection extends Thread {
 
             trans_estate = dIn.readInt();
 
-            controller.networkSaveSongResult(trans_estate);
+            controller.networkRequestSongResult(trans_estate, midi);
 
         } catch (IOException e) {
             e.printStackTrace();

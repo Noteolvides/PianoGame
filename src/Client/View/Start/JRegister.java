@@ -3,7 +3,6 @@ package Client.View.Start;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 import static Client.Network.ClientConnection.KO;
 

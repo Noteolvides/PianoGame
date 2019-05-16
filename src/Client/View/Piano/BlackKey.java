@@ -1,6 +1,5 @@
 package Client.View.Piano;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class BlackKey extends Key {

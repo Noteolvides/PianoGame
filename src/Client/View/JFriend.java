@@ -3,7 +3,6 @@ package Client.View;
 import Client.Controller.ControllerJSocial;
 
 import javax.swing.*;
-import javax.swing.text.JTextComponent;
 import java.awt.*;
 
 public class JFriend extends JPanel {

@@ -156,4 +156,12 @@ public class SongFile extends JPanel {
     public void setPrivacity(JLabel privacity) {
         this.privacity = privacity;
     }
+
+    public JLabel getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(JLabel author) {
+        this.author = author;
+    }
 }

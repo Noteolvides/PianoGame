@@ -24,6 +24,8 @@ public class JGestor extends JFrame {
     private JPanel songsGroup;
     private JScrollPane scrollBar;
 
+    //TODO: Javadoc y hacer bonito
+
     public JGestor (List<Song> songs){
         //Inicialization of Layout
         setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));

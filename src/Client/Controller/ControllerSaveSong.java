@@ -17,7 +17,7 @@ public class ControllerSaveSong implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("SAVE-SONG")){
-            controller.setSongToSave(view.getSaveSongView().getAddSongName().getAccessibleContext().toString());
+            controller.setSongToSave();
             controller.networkSaveSong();
         }
     }

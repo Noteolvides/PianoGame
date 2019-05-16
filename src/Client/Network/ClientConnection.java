@@ -357,7 +357,7 @@ public class ClientConnection extends Thread {
     private void saveSong(/*String songFile, Song song*/) {
         int trans_estate = KO;
         try {
-            String songFile = controller.getSongFileToSave();
+            String songFile = controller.getSongMidi();
             Song song = controller.getSongToSave();
             dOut.writeUTF(SAVE_SONG);
             dOut.writeUTF(songFile);

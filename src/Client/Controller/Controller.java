@@ -24,9 +24,9 @@ public class Controller {
     private PianoController pianoController;
     private ControllerJSocial controllerJSocial;
     private ControllerJSong controllerJSong;
-
+    private ControllerSaveSong controllerSaveSong;
+    private String songMidi;
     private Song song;
-    private String songFile;
 
     /**
      * Controller constructor, it assigns the view and starts showing the firts
@@ -77,6 +77,9 @@ public class Controller {
         pianoController = new PianoController(view, this);
         closePiano();
 
+        view.initSaveSongView();
+        controllerSaveSong = new ControllerSaveSong(view, this);
+        view.getSaveSongView().registerController(controllerSaveSong);
     }
 
     /**
@@ -139,17 +142,22 @@ public class Controller {
         view.getPianoView().dispose();
     }
 
-    public void setSongToSave(String songFile, Song song) {
-        this.songFile = songFile;
-        this.song = song;
+    public void setMidiToSave(String songMidi) {
+        this.songMidi = songMidi;
     }
 
-    public String getSongFileToSave() {
-        return songFile;
+    public void setSongToSave () {
+        song = new Song();
+        song.setTitle(view.getSaveSongView().getAddSongName().getText());
+        song.setPrivacity(view.getSaveSongView().getWannaPrivate().isSelected());
     }
 
     public Song getSongToSave() {
         return song;
+    }
+
+    public String getSongMidi() {
+        return songMidi;
     }
 
     /**
@@ -180,6 +188,15 @@ public class Controller {
     public void closeSong() {
         view.getSongView().setVisible(false);
         view.getSongView().dispose();
+    }
+
+    public void openSaveSong() {
+        view.getSaveSongView().setVisible(true);
+    }
+
+    public void closeSaveSong() {
+        view.getSaveSongView().setVisible(false);
+        view.getSaveSongView().dispose();
     }
 
     /**
@@ -291,7 +308,7 @@ public class Controller {
     /**
      * Function that sets the next action to do for the ClientConnection as SAVE_SONG
      */
-    public void networkSaveSong(String song) {
+    public void networkSaveSong() {
         network.setNextFunc(SAVE_SONG);
     }
 

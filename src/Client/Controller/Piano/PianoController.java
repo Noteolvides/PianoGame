@@ -41,7 +41,6 @@ public class PianoController {
     private KeyConfiguration[] keyBoardConfiguration;
     private static int numberOFkeys = 0;
     private HashMap<Integer, KeyRecord> keys;
-    private boolean recordSong;
     private SelectionOfKeys selectionOfKeys;
     private PlayerSongPiano player;
     private int[] activado = new int[24];
@@ -95,7 +94,7 @@ public class PianoController {
                 }
                 view.getPianoView().getPiano().getIm().clear();
                 view.getPianoView().getPiano().getAm().clear();
-                view.getPianoView().setVisible(false); //you can't see me!
+                view.getPianoView().setVisible(false);
                 view.getPianoView().dispose();
                 initController();
                 showPromt();
@@ -199,7 +198,6 @@ public class PianoController {
 
             //Listener to record Song
             view.getPianoView().getTopOption().getRecord().addActionListener(e -> {
-                recordSong = true;
                 view.getPianoView().getTopOption().getRecord().setEnabled(false);
                 keys.clear();
                 numberOFkeys = 0;
@@ -209,7 +207,6 @@ public class PianoController {
             //Save song
             view.getPianoView().getTopOption().getSave().addActionListener(e -> {
                 if (view.getPianoView().saveConfirmation()) {
-                    recordSong = false;
                     view.getPianoView().getTopOption().getRecord().setEnabled(true);
                     ArrayList<KeyRecord> temporalKeys = new ArrayList<KeyRecord>(keys.values());
                     Note rest = null;

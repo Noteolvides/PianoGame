@@ -45,12 +45,7 @@ public class PianoController {
     private PlayerSongPiano player;
     private int[] activado = new int[24];
     private boolean mute = false;
-
-    public static void main(String[] args) {
-
-        View v = new View();
-        PianoController pianoController = new PianoController(v, new Controller(v));
-    }
+    
 
     public PianoController(View view, Controller controller) {
         try {
@@ -72,8 +67,6 @@ public class PianoController {
 
     private void initController() {
         view.initPianoView();
-        view.getPianoView().setVisible(true);
-
         view.getPianoView().getTopOption().getChangeKeys().addActionListener(e ->{
             for (KeyConfigurationVisual k: selectionOfKeys.getList()) {
                 selectionOfKeys.remove(k);
@@ -97,6 +90,7 @@ public class PianoController {
                 view.getPianoView().setVisible(false);
                 view.getPianoView().dispose();
                 initController();
+                view.getPianoView().setVisible(true);
                 showPromt();
             });
         });

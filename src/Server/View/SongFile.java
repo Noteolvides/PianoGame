@@ -41,6 +41,7 @@ public class SongFile extends JPanel {
 
 
         //We make a button to Delete the song
+        //TODO: IF PRIVACITY == NULL -> DELETE BUTTON DELETE SONG 'CAUSE IS A PUBLIC PERMANENT SONG
         deleteButton = new JLabel ();
         ImageIcon deleteImage = new ImageIcon("img/delete_button.png");
         //We scale the image because it's too big

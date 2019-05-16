@@ -4,11 +4,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+
+/**
+ * Main View that contains all the utilities of the piano
+ *
+ * @author  Gerard
+ * @author Gustavo
+ * @author Neil
+ * @author Jiahui
+ * @author Josep
+ * @version 1.0
+ * @since 2019-05-16
+ */
 public class JPiano extends JFrame {
 
     private TopPanel topOption;
     private JPanel botOption;
-    //private LeftPanel leftOption;
     private ArrayList<JPanel> notes;
     private JPanel rightOption;
     private ViewPiano piano;
@@ -49,15 +60,15 @@ public class JPiano extends JFrame {
         return piano;
     }
 
-    //public LeftPanel getLeftOption() {
-    //    return leftOption;
-    //}
-
 
     public ArrayList<JPanel> getNotes() {
         return notes;
     }
 
+    /**
+     * Promts a mesagge to the user if he wants to save a song
+     * @return if wants to save it or not
+     */
     public boolean saveConfirmation() {
         return JOptionPane.showConfirmDialog(this, "Are you sure do you save the song?", "Save Song", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }

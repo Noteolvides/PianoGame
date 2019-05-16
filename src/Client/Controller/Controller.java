@@ -221,7 +221,7 @@ public class Controller {
             password.append(view.getRegisterView().getPassword()[i]);
         }
         return new User(view.getRegisterView().getUsername(),
-                view.getRegisterView().getEmail(), password.toString());
+                 password.toString(),view.getRegisterView().getEmail());
     }
 
     /**

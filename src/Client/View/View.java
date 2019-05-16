@@ -40,7 +40,7 @@ public class View {
         return songView;
     }
 
-    public SaveSong getSaveSong(){
+    public SaveSong getSaveSongView(){
         return saveSong;
     }
 

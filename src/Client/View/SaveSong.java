@@ -22,13 +22,14 @@ public class SaveSong extends JFrame{
         setSize(250, 300);
         setTitle("Register");
         setLocationRelativeTo(null);
-        //setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setResizable(false);
-        setVisible(true);
+        setVisible(false);
     }
 
     public void registerController(ActionListener c) {
-
+        okButton.setActionCommand("SAVE-SONG");
+        okButton.addActionListener(c);
     }
 
     public JCheckBox getWannaPrivate() {

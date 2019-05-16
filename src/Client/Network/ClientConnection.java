@@ -214,7 +214,7 @@ public class ClientConnection extends Thread {
             dOut.writeUTF(LOG_OUT);
 
             trans_estate = dIn.readInt();
-            controller.networkSignOutResult(trans_estate);
+            controller.networkLogOutResult(trans_estate);
             if (trans_estate == KO) {
                 System.out.println("Couldn't logOut from server");
             } else {

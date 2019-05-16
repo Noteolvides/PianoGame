@@ -247,11 +247,11 @@ public class Controller {
         view.getSocialView().friendPopUp(petitionResult);
     }
 
-    public void networkSignOut() {
+    public void networkLogOut() {
         network.setNextFunc(LOG_OUT);
     }
 
-    public void networkSignOutResult(int petitionResult) {
+    public void networkLogOutResult(int petitionResult) {
         view.getPrincipalView().logOutPopUp(petitionResult);
     }
 

@@ -377,6 +377,12 @@ public class ServiceBBDDServer {
                     songs.add(publicSongs.get(j));
                 }
             }
+            songs.sort(new Comparator<Song>() {
+                @Override
+                public int compare(Song o1, Song o2) {
+                    return ((Integer)o1.getPlays()).compareTo(o2.getPlays());
+                }
+            });
             ServerContextHolder.clear();
             return songs;
         }

@@ -8,4 +8,20 @@ public class KeyConfiguration {
         this.name = nameKey;
         key = i;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public char getKey() {
+        return key;
+    }
+
+    public void setKey(char key) {
+        this.key = key;
+    }
 }

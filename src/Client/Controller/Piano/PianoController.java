@@ -3,8 +3,12 @@ package Client.Controller.Piano;
 import Client.Controller.Controller;
 import Client.View.Piano.Key;
 import Client.View.View;
+import Model.ConfigurationPackage.Configuration;
+import Model.ConfigurationPackage.KeyConfiguration;
 import Model.KeyRecord;
 import Model.Song;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import org.jfugue.midi.MidiFileManager;
 import org.jfugue.midi.MidiParser;
 import org.jfugue.pattern.Pattern;
@@ -20,6 +24,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -30,7 +36,7 @@ public class PianoController {
     private Controller controller;
     private int actualOctave = 4; //TODO : Revision of this atribute
     private RealtimePlayer realtimePlayer;
-    private char[] keyBoardConfiguration = new char[]{'A', 'S', 'D', 'F', 'G', 'H', 'J', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'L'};//TODO : OTRO ATRIBUTO QUE DEBERIA ESTAR EN MODEL
+    private KeyConfiguration[] keyBoardConfiguration;
     private static int numberOFkeys = 0;
     private HashMap<Integer, KeyRecord> keys = new HashMap<>();
     private boolean recordSong;
@@ -38,15 +44,25 @@ public class PianoController {
     private int[] activado = new int[24];
     private boolean mute = false;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+
         View v = new View();
         PianoController pianoController = new PianoController(v, new Controller(v));
     }
 
     public PianoController(View view, Controller controller) {
-        this.view = view;
-        this.controller = controller;
-        initController();
+        Gson gson = new Gson();
+        try {
+            JsonReader json;
+            json = new JsonReader(new FileReader("configFiles/config.json"));
+            Configuration config = gson.fromJson(json, Configuration.class);
+            keyBoardConfiguration = config.getKeys();
+            this.view = view;
+            this.controller = controller;
+            initController();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initController() {
@@ -54,10 +70,10 @@ public class PianoController {
         view.getPianoView().setVisible(true);
 
         //Implementation of listener for keys 1234560 to change Octave;
-        for (int i = 1; i < 7; i++) {
-            view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(i + ""), i + "");
-            int finalI = i;
-            view.getPianoView().getPiano().getAm().put(i + "", new AbstractAction() {
+        for (int i = 0; i < 6; i++) {
+            view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(keyBoardConfiguration[i].getKey()), keyBoardConfiguration[i].getKey());
+            char finalI = keyBoardConfiguration[i].getKey();
+            view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i].getKey(), new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     actualOctave = finalI;
@@ -209,18 +225,18 @@ public class PianoController {
     }
 
     private void controlKeys() {
-        int i = 0;
+        int i = 6;
         for (Key k : view.getPianoView().getPiano().getKeys()) {
-            view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(keyBoardConfiguration[i]), keyBoardConfiguration[i]);
-            view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke("released " + keyBoardConfiguration[i]), keyBoardConfiguration[i] + " released");
-            int finalI = i;
-            view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i], new AbstractAction() {
+            view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(keyBoardConfiguration[i].getKey()), keyBoardConfiguration[i].getKey());
+            view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke("released " + keyBoardConfiguration[i].getKey()), keyBoardConfiguration[i].getKey() + " released");
+            int finalI = i-6;
+            view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i].getKey(), new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     playKey(finalI, k);
                 }
             });
-            view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i] + " released", new AbstractAction() {
+            view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i].getKey() + " released", new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     unPlayKey(finalI, k);

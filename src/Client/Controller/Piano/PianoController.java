@@ -259,11 +259,11 @@ public class PianoController {
         }
     }
 
-    public void playSong(Pattern songMidi) {
+    public void playSong(String songMidi) {
         try {
             controller.networkRequestSong();
             view.getPianoView().getTopOption().getMuteSoundPlaying().setEnabled(true);
-            Pattern pattern = songMidi;
+            Pattern pattern = new Pattern(songMidi);
             player = new PlayerSongPiano(view.getPianoView(), pattern);
             Player play = new Player();
             RealtimePlayer realtimePlayer2 = new RealtimePlayer();

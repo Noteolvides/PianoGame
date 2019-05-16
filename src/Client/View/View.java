@@ -4,6 +4,9 @@ import Client.View.Piano.JPiano;
 import Client.View.Start.JRegister;
 import Client.View.Start.JStart;
 
+/**
+ * View Father class that manages all the individual views.
+ */
 public class View {
     private JPiano pianoView;
     private JPrincipal principalView;
@@ -37,34 +40,55 @@ public class View {
         return songView;
     }
 
-    public SaveSong getSaveSong(){
+    public SaveSong getSaveSongView(){
         return saveSong;
     }
 
+    /**
+     * Initializes piano view.
+     */
     public void initPianoView() {
         pianoView = new JPiano();
     }
 
+    /**
+     * Initializes start view.
+     */
     public void initStartView() {
         startView = new JStart();
     }
 
+    /**
+     * Initializes register view.
+     */
     public void initRegisterView() {
         registerView = new JRegister();
     }
 
+    /**
+     * Initializes principal view.
+     */
     public void initPrincipalView() {
         principalView = new JPrincipal();
     }
 
+    /**
+     * Initializes social view.
+     */
     public void initSocialView() {
         socialView = new FinestraJSocial();
     }
 
+    /**
+     * Initializes song view.
+     */
     public void initSongView() {
         songView = new FinestraJSong();
     }
 
+    /**
+     * Initializes save view.
+     */
     public void initSaveSongView(){
         saveSong = new SaveSong();
     }

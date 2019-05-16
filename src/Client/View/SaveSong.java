@@ -8,27 +8,45 @@ public class SaveSong extends JFrame{
     private JCheckBox wannaPrivate;
     private JTextField addSongName;
     private JButton okButton;
-
+    private JTextArea songDescription;
     public SaveSong() {
         wannaPrivate = new JCheckBox("Enable Song Privacy");
         okButton = new JButton("Save Song");
         addSongName = new JTextField();
+        songDescription = new JTextArea();
 
-        setLayout(new GridLayout(3,1));
-        add(addSongName);
-        add(wannaPrivate);
-        add(okButton);
+        setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.weightx = 1;
+        add(addSongName, constraints);
+        constraints.gridy = 1;
+        constraints.ipady = 50;
+        add(songDescription, constraints);
+        constraints.weightx = 0;
+        constraints.gridy = 2;
+        constraints.ipady = 0;
+        add(wannaPrivate, constraints);
+        constraints.gridy = 3;
+        add(okButton, constraints);
 
-        setSize(250, 300);
+        setSize(400, 300);
         setTitle("Register");
         setLocationRelativeTo(null);
-        //setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setResizable(false);
-        setVisible(true);
+        setVisible(false);
+    }
+
+    public static void main(String[] args) {
+        SaveSong saveSong = new SaveSong();
     }
 
     public void registerController(ActionListener c) {
-
+        okButton.setActionCommand("SAVE-SONG");
+        okButton.addActionListener(c);
     }
 
     public JCheckBox getWannaPrivate() {

@@ -134,7 +134,9 @@ public class JFriend extends JPanel {
         }
     }
 
-    public JLabel getButtonAddFriend() {
-        return buttonAddFriend;
+    public void setButtonAddAsDisabled() {
+        ImageIcon notAdd = new ImageIcon("img/delete_button.png");
+        buttonAddFriend.setDisabledIcon(new ImageIcon(notAdd.getImage().getScaledInstance(notAdd.getIconWidth()/28, notAdd.getIconHeight() / 25, Image.SCALE_SMOOTH)));
+        buttonAddFriend.setEnabled(false);
     }
 }

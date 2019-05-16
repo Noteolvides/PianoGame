@@ -156,6 +156,10 @@ public class JSocial extends JPanel {
         return backButton;
     }
 
+    public JFriend getPanelFriend() {
+        return panelFriend;
+    }
+
     public void deleteText() {
         //We don't put anything in the textfield text
         squareSeachFriend.setText("");

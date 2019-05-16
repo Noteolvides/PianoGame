@@ -20,19 +20,19 @@ public class Server extends Thread{
     @Autowired
     private ServiceBBDDServer serverService;
     private ServerSocket serverSocket;
-    private static final int PORT = 5000;
+    private int port;
     private boolean running;
 
 
 
     public Server(){
         dedicatedServers = new LinkedList<>();
-
         running = false;
     }
 
-    public void startServer() throws IOException{
-        serverSocket = new ServerSocket(PORT);
+    public void startServer(int portConnexioBBDD) throws IOException{
+        this.port = portConnexioBBDD;
+        serverSocket = new ServerSocket(portConnexioBBDD);
         running = true;
         super.start();
     }

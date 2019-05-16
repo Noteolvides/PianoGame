@@ -9,14 +9,28 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+/**
+ * Controller class for the Start and Register View
+ * that implements ActionListener and WindowListener.
+ */
 public class StartController implements ActionListener, WindowListener {
     private View view;
     private Controller controller;
+
+    /**
+     * Start Controller constructor, it assigns the view and the father controller
+     * @param view Class with all the views.
+     * @param controller  Class Controller Father that manages all the subcontrollers.
+     */
     public StartController(View view, Controller controller) {
         this.view = view;
         this.controller = controller;
     }
 
+    /**
+     * Method implemented from the ActionListener.
+     * @param e Action done in the View.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("SIGN-IN")){
@@ -42,6 +56,13 @@ public class StartController implements ActionListener, WindowListener {
         }
     }
 
+    /**
+     * Function that confirms if the password meets the MIT requirements.
+     * @param password Password inputted in the view.
+     * @param confirmPassword Verifing password inputted in the view.
+     * @param username Username inputted in the view.
+     * @return Returns if the password meets the requirements.
+     */
     private boolean confirmPassword(String password, String confirmPassword, String username) {
         boolean validPassword;
         validPassword = password.equals(confirmPassword);
@@ -58,6 +79,11 @@ public class StartController implements ActionListener, WindowListener {
         return validPassword;
     }
 
+    /**
+     * Function that checks the requirement involving special characters.
+     * @param password Password needed to check.
+     * @return Returns if it meets the special characters requirement.
+     */
     private boolean specialCharacters(String password) {
         int num = 0;
         if (password.matches(".*[a-z].*")) {
@@ -75,11 +101,19 @@ public class StartController implements ActionListener, WindowListener {
         return num >= 2;
     }
 
+    /**
+     * Implemented function, action to do when window opens.
+     * @param e Window event.
+     */
     @Override
     public void windowOpened(WindowEvent e) {
 
     }
 
+    /**
+     * Implemented function, action to do when window closes.
+     * @param e Window event.
+     */
     @Override
     public void windowClosing(WindowEvent e) {
         if (JOptionPane.showConfirmDialog(view.getStartView(),
@@ -90,26 +124,46 @@ public class StartController implements ActionListener, WindowListener {
         }
     }
 
+    /**
+     * Implemented function, action to do when window is closed.
+     * @param e Window event.
+     */
     @Override
     public void windowClosed(WindowEvent e) {
 
     }
 
+    /**
+     * Implemented function, action to do when window is iconified.
+     * @param e Window event.
+     */
     @Override
     public void windowIconified(WindowEvent e) {
 
     }
 
+    /**
+     * Implemented function, action to do when window is deiconified.
+     * @param e Window event.
+     */
     @Override
     public void windowDeiconified(WindowEvent e) {
 
     }
 
+    /**
+     * Implemented function, action to do when window is activated.
+     * @param e Window event.
+     */
     @Override
     public void windowActivated(WindowEvent e) {
 
     }
 
+    /**
+     * Implemented function, action to do when window is deactivated.
+     * @param e Window event.
+     */
     @Override
     public void windowDeactivated(WindowEvent e) {
 

@@ -1,7 +1,5 @@
 package Server.Controller.Gestor;
 
-import Model.Song;
-import Server.Controller.BBDD.Resources.FieldsNoValidException;
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import Server.View.View;
 import java.awt.event.MouseEvent;
@@ -48,17 +46,20 @@ public class GestorController implements MouseListener {
         } else if (e.getSource() == view.getGestorView().getRefreshButton()) {
             view.getGestorView().setVisible(false);
             view.getGestorView().dispose();
-            //Todo ficar un revalidate en comptes d'eliminar tot
             view.initGestorView(service.getListSongs());
             view.getGestorView().registerController(this);
 
         } else {
             for (int i = 0; i < view.getGestorView().getSongsList().size(); i++) {
                 if (e.getSource() == view.getGestorView().getSongsList().get(i).getDeleteButton()){
-                    System.out.println("Delete" + i);
-                    //TODO: canviar Pepe per l'autor de la canco
                     service.deleteSong(view.getGestorView().getSongsList().get(i).getTitleSong().getText(),
-                            "pepe");
+                            view.getGestorView().getSongsList().get(i).getAuthor().getText());
+                    view.getGestorView().getSongsList().remove(view.getGestorView().getSongsList().get(i));
+
+                    view.getGestorView().setVisible(false);
+                    view.getGestorView().dispose();
+                    view.initGestorView(service.getListSongs());
+                    view.getGestorView().registerController(this);
 
                 }
             }

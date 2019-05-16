@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class LoadingThread extends Thread{
     FinestraJSong finestraJSong;
     ControllerJSong controllerJSong;
-    
+
     public LoadingThread (FinestraJSong finestraJSong,ControllerJSong controllerJSong) {
         this.finestraJSong = finestraJSong;
         this.controllerJSong = controllerJSong;

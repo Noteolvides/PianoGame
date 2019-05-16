@@ -1,17 +1,8 @@
 package Client.View.Piano;
 
-import Client.Controller.Piano.PlayerSongPiano;
-import Client.View.View;
-import org.jfugue.midi.MidiFileManager;
-import org.jfugue.pattern.Pattern;
-
-import javax.sound.midi.InvalidMidiDataException;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class JPiano extends JFrame {
 

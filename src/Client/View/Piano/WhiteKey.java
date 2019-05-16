@@ -1,6 +1,5 @@
 package Client.View.Piano;
 
-import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
 

@@ -5,7 +5,6 @@ import Client.View.View;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 public class ControllerJSong implements MouseListener {
     private View view;
@@ -16,7 +15,6 @@ public class ControllerJSong implements MouseListener {
     public ControllerJSong (View view, Controller controller) {
         this.view = view;
         this.controller = controller;
-        //view.getSongView().updateSongs(simulationOfArray());
         view.getSongView().updateControllersSongs(this);
         loadingThread = new LoadingThread(view.getSongView(),this);
     }

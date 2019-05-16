@@ -10,7 +10,6 @@ import Model.Song;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import org.jfugue.midi.MidiFileManager;
-import org.jfugue.midi.MidiParser;
 import org.jfugue.pattern.Pattern;
 import org.jfugue.player.Player;
 import org.jfugue.realtime.RealtimePlayer;

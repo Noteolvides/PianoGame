@@ -56,6 +56,7 @@ public class GestorController implements MouseListener {
             for (int i = 0; i < view.getGestorView().getSongsList().size(); i++) {
                 if (e.getSource() == view.getGestorView().getSongsList().get(i).getDeleteButton()){
                     System.out.println("Delete" + i);
+                    //TODO: canviar Pepe per l'autor de la canco
                     service.deleteSong(view.getGestorView().getSongsList().get(i).getTitleSong().getText(),
                             "pepe");
 

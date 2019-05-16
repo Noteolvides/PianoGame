@@ -261,7 +261,7 @@ public class DedicatedServer extends Thread {
                         songObtained.setPlays(songObtained.getPlays() + 1);
                         String pathSong = songObtained.getFilePath();
                         Pattern pattern = MidiFileManager.loadPatternFromMidi(new File(pathSong));
-                        objectOutputStream.writeObject(pattern);
+                        dataOutputStream.writeUTF(pattern.toString());
 
                         dataOutputStream.writeInt(CONFIRMATION);
                     } catch (IOException e) {

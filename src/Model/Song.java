@@ -3,11 +3,14 @@ package Model;
 import com.google.gson.*;
 import com.google.gson.annotations.Expose;
 
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 
 import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
+
 
 @Entity
 @Table(name="Song")
@@ -26,7 +29,7 @@ public class Song implements Serializable {
     @Column(name="Description")
     private String description;
     @Expose
-    @ManyToOne (fetch = EAGER)
+    @ManyToOne (fetch = LAZY)
     @JoinColumn(name="Author")
     private User author;
     @Expose

@@ -9,15 +9,18 @@ import java.awt.*;
 public class SongFile extends JPanel {
     //Atributes of the SongFile class
     private JPanel panelPlayInfo;
-    private JPanel groupTitleDescription;
+    private JPanel groupTitleAuthor;
     private JLabel titleSong;
     private JLabel description;
+    private JLabel author;
     private JLabel musicIcon;
     private JLabel deleteButton;
     private JLabel infoIcon;
-    private JLabel privacity;
+    private JLabel privacity; //true -> private
+                              //false -> public
+    //TODO: Afegir author
 
-    public SongFile(String title, String description, String privacity) {
+    public SongFile(String title, String description, String author, Boolean privacity) {
         setLayout(new BorderLayout());
 
         //To obtain the resource directly without the full path
@@ -27,8 +30,6 @@ public class SongFile extends JPanel {
         //Initializing the JLabel of music
         musicIcon = new JLabel();
         musicIcon.setIcon(musicImage_scaled);
-
-
 
         //Localizing the image in the project
         ImageIcon infoImage = new ImageIcon("img/info_1.png");
@@ -40,6 +41,7 @@ public class SongFile extends JPanel {
 
 
         //We make a button to Delete the song
+        //TODO: IF PRIVACITY == NULL -> DELETE BUTTON DELETE SONG 'CAUSE IS A PUBLIC PERMANENT SONG
         deleteButton = new JLabel ();
         ImageIcon deleteImage = new ImageIcon("img/delete_button.png");
         //We scale the image because it's too big
@@ -57,23 +59,28 @@ public class SongFile extends JPanel {
         titleSong.setFont(new Font("Sans Serif", Font.BOLD,14));
         this.description = new JLabel (description);
         this.description.setFont(new Font("Sans Serif", Font.PLAIN,10));
-        this.privacity = new JLabel("[" + privacity + "]");
+        if (privacity == null || !privacity) {
+            this.privacity = new JLabel("[public]");
+        } else {
+            this.privacity = new JLabel("[private]");
+        }
         this.privacity.setFont(new Font("Sans Serif", Font.PLAIN,10));
 
 
         //We create a panel to add the title and her description
-        groupTitleDescription = new JPanel();
-        groupTitleDescription.setLayout(new BoxLayout(groupTitleDescription, BoxLayout.Y_AXIS));
-        groupTitleDescription.add(titleSong);
-        groupTitleDescription.add(this.description);
-        groupTitleDescription.add(this.privacity);
+        groupTitleAuthor = new JPanel();
+        groupTitleAuthor.setLayout(new BoxLayout(groupTitleAuthor, BoxLayout.Y_AXIS));
+        groupTitleAuthor.add(titleSong);
+        this.author = new JLabel(author);
+        groupTitleAuthor.add(this.author);
+        groupTitleAuthor.add(this.privacity);
         //We make an empty border to down the group of elements
-        groupTitleDescription.setBorder(BorderFactory.createEmptyBorder(7,7,7,7));
+        groupTitleAuthor.setBorder(BorderFactory.createEmptyBorder(7,7,7,7));
 
 
         //Adding the elements to the JPanel
         add(musicIcon,BorderLayout.LINE_START);
-        add(groupTitleDescription,BorderLayout.CENTER);
+        add(groupTitleAuthor,BorderLayout.CENTER);
         add(panelPlayInfo,BorderLayout.LINE_END);
 
         //We make a border to separate the songs
@@ -83,7 +90,7 @@ public class SongFile extends JPanel {
 
     public void registerController(GestorController gc) {
         deleteButton.addMouseListener(gc);
-        infoIcon.setToolTipText(titleSong.getText() + " a song created by " + description.getText());
+        infoIcon.setToolTipText(description.getText());
     }
 
     public JPanel getPanelPlayInfo() {
@@ -94,12 +101,12 @@ public class SongFile extends JPanel {
         this.panelPlayInfo = panelPlayInfo;
     }
 
-    public JPanel getGroupTitleDescription() {
-        return groupTitleDescription;
+    public JPanel getGroupTitleAuthor() {
+        return groupTitleAuthor;
     }
 
-    public void setGroupTitleDescription(JPanel groupTitleDescription) {
-        this.groupTitleDescription = groupTitleDescription;
+    public void setGroupTitleAuthor(JPanel groupTitleDescription) {
+        this.groupTitleAuthor = groupTitleDescription;
     }
 
     public JLabel getTitleSong() {

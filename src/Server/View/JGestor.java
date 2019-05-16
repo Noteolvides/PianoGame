@@ -1,11 +1,13 @@
 package Server.View;
 
+import Model.Song;
 import Server.Controller.Gestor.GestorController;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class JGestor extends JFrame {
     //Basic elements of the JSongs Class
@@ -22,7 +24,7 @@ public class JGestor extends JFrame {
     private JPanel songsGroup;
     private JScrollPane scrollBar;
 
-    public JGestor (ArrayList<SongPrueba> songs){
+    public JGestor (List<Song> songs){
         //Inicialization of Layout
         setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 
@@ -106,19 +108,24 @@ public class JGestor extends JFrame {
         }
     }
 
-    public void includeSongs(ArrayList <SongPrueba> songs) {
+    public void includeSongs(List <Song> songs) {
         //Adding a new array to not repeat different times the same songs, if we decide to refresh the window
         songsList = new ArrayList<>();
         //We take the songs that we are going to show and we add them to our view
-        for (int i = 0;i < songs.size();i++) {
-            songsList.add(new SongFile(songs.get(i).getTitle(), songs.get(i).getDescription(), songs.get(i).getPrivacity()));
+        for (int i = 0; i < songs.size(); i++) {
+            if (songs.get(i).getAuthor() != null){
+                songsList.add(new SongFile(songs.get(i).getTitle(), songs.get(i).getDescription(), songs.get(i).getAuthor().getNameUser(), songs.get(i).getPrivacity()));
+            } else {
+                songsList.add(new SongFile(songs.get(i).getTitle(), songs.get(i).getDescription(), songs.get(i).getSystem().getName(), songs.get(i).getPrivacity()));
+            }
+
             //We put a maximmum size of a song
             songsList.get(i).setMaximumSize(new Dimension(1000,70));
         }
 
     }
 
-    private void addAllTheSongs (ArrayList <SongFile> songsViews) {
+    private void addAllTheSongs (List <SongFile> songsViews) {
         for (int i = 0; i < songsViews.size();i++) {
             songsGroup.add(songsViews.get(i));
         }

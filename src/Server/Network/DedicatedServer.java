@@ -186,12 +186,13 @@ public class DedicatedServer extends Thread {
      */
     private void deleteAccount() throws IOException{
         System.out.println("Deleting user");
-        //TODO: Delete user from the BBDD
-        System.out.println("Closing connection with client");
         try{
+            service.deleteUser(userSave);
             dataOutputStream.writeInt(CONFIRMATION);
         } catch (IOException e) {
             dataOutputStream.writeInt(ERROR);
+        } catch (BBDDException e) {
+            dataOutputStream.writeInt(ERROR_BBDD);
         }
     }
 
@@ -261,7 +262,7 @@ public class DedicatedServer extends Thread {
                         songObtained.setPlays(songObtained.getPlays() + 1);
                         String pathSong = songObtained.getFilePath();
                         Pattern pattern = MidiFileManager.loadPatternFromMidi(new File(pathSong));
-                        objectOutputStream.writeObject(pattern);
+                        dataOutputStream.writeUTF(pattern.toString());
 
                         dataOutputStream.writeInt(CONFIRMATION);
                     } catch (IOException e) {

@@ -28,14 +28,14 @@ public class ServiceBBDDServer {
     //TODO: Don't controll strings
 
     //:::::::::::::::::::CommonMethods::::::::::::::::::::::::::
-    public void deleteSong (String nameOfTheSong, String author) throws FieldsNoValidException {
+    public void deleteSong (String nameOfTheSong, String author)  {
         try {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
             dao.checkSongExistence(nameOfTheSong, author,false);
             ServerContextHolder.clear();
 
         } catch (BBDDException e) {
-            dao.deleteSong (nameOfTheSong);
+            dao.deleteSong (nameOfTheSong,author);
             ServerContextHolder.clear();
         }
     }
@@ -221,6 +221,7 @@ public class ServiceBBDDServer {
     public void createUserFromNoUser (User user) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
         dao.checkExistenceUserDatabaseWithoutPassword(user.getNameUser(),true);
+        dao.checkExistenceEmailDatabaseWithoutPassword(user.getEmail());
         //We generate the userCode, correspondent to the user
         userCodeCalculate (user);
         dao.insertUserTable(user);

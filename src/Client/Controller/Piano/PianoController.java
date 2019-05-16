@@ -71,7 +71,7 @@ public class PianoController {
         //Implementation of listener for keys 1234560 to change Octave;
         for (int i = 0; i < 6; i++) {
             view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(keyBoardConfiguration[i].getKey()), keyBoardConfiguration[i].getKey());
-            char finalI = keyBoardConfiguration[i].getKey();
+            int finalI = Integer.parseInt(keyBoardConfiguration[i].getKey()+"");
             view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i].getKey(), new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {

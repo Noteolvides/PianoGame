@@ -263,9 +263,10 @@ public class ServiceBBDDServer {
 
     public User getInstanceOfAUserByEmail (String email, String password) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
-        //dao.checkExistenceEmailDatabase(username,password,false);
-        //User user = dao.getUser(username);
+        dao.checkExistenceEmailDatabase(email,password,false);
+        User user = dao.getUserByEmail(email);
         ServerContextHolder.clear();
+        return user;
     }
 
 

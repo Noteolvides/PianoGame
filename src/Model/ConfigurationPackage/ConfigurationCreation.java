@@ -36,7 +36,7 @@ public class ConfigurationCreation {
 
         configuration.setMysqlUsers(mysqlUsers);
 
-        KeyConfiguration keyConfiguration [] = new KeyConfiguration[31];
+        KeyConfiguration[] keyConfiguration = new KeyConfiguration[30];
 
         keyConfiguration[0] = new KeyConfiguration("PrimeraOctava",'1');
         keyConfiguration[1] = new KeyConfiguration("SegundaOctava",'2');
@@ -55,23 +55,23 @@ public class ConfigurationCreation {
 
         keyConfiguration[13] = new KeyConfiguration("C#(i)",'Q');
         keyConfiguration[14] = new KeyConfiguration("D#(i)",'W');
-        keyConfiguration[16] = new KeyConfiguration("F#(i)",'E');
-        keyConfiguration[17] = new KeyConfiguration("G#(i)",'R');
-        keyConfiguration[18] = new KeyConfiguration("A#(i)",'T');
+        keyConfiguration[15] = new KeyConfiguration("F#(i)",'E');
+        keyConfiguration[16] = new KeyConfiguration("G#(i)",'R');
+        keyConfiguration[17] = new KeyConfiguration("A#(i)",'T');
 
-        keyConfiguration[19] = new KeyConfiguration("C(i+1)",'Z');
-        keyConfiguration[20] = new KeyConfiguration("D(i+1)",'X');
-        keyConfiguration[21] = new KeyConfiguration("E(i+1)",'C');
-        keyConfiguration[22] = new KeyConfiguration("F(i+1)",'V');
-        keyConfiguration[23] = new KeyConfiguration("G(i+1)",'B');
-        keyConfiguration[24] = new KeyConfiguration("A(i+1)",'N');
-        keyConfiguration[25] = new KeyConfiguration("B(i+1)",'M');
+        keyConfiguration[18] = new KeyConfiguration("C(i+1)",'Z');
+        keyConfiguration[19] = new KeyConfiguration("D(i+1)",'X');
+        keyConfiguration[20] = new KeyConfiguration("E(i+1)",'C');
+        keyConfiguration[21] = new KeyConfiguration("F(i+1)",'V');
+        keyConfiguration[22] = new KeyConfiguration("G(i+1)",'B');
+        keyConfiguration[23] = new KeyConfiguration("A(i+1)",'N');
+        keyConfiguration[24] = new KeyConfiguration("B(i+1)",'M');
 
-        keyConfiguration[26] = new KeyConfiguration("C#(i+1)",'Y');
-        keyConfiguration[27] = new KeyConfiguration("D#(i+1)",'U');
-        keyConfiguration[28] = new KeyConfiguration("F#(i+1)",'I');
-        keyConfiguration[29] = new KeyConfiguration("G#(i+1)",'O');
-        keyConfiguration[30] = new KeyConfiguration("A#(i+1)",'P');
+        keyConfiguration[25] = new KeyConfiguration("C#(i+1)",'Y');
+        keyConfiguration[26] = new KeyConfiguration("D#(i+1)",'U');
+        keyConfiguration[27] = new KeyConfiguration("F#(i+1)",'I');
+        keyConfiguration[28] = new KeyConfiguration("G#(i+1)",'O');
+        keyConfiguration[29] = new KeyConfiguration("A#(i+1)",'P');
 
         configuration.setKeys(keyConfiguration);
 

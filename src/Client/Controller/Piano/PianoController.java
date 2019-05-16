@@ -46,6 +46,7 @@ public class PianoController {
     private int[] activado = new int[24];
     private boolean mute = false;
 
+
     public PianoController(View view, Controller controller) {
         try {
             keys = new HashMap<>();

@@ -2,6 +2,8 @@ package Client.Controller.Piano;
 
 import Client.Controller.Controller;
 import Client.View.Piano.Key;
+import Client.View.Piano.KeyConfigurationVisual;
+import Client.View.Piano.SelectionOfKeys;
 import Client.View.View;
 import Model.ConfigurationPackage.Configuration;
 import Model.ConfigurationPackage.KeyConfiguration;
@@ -20,6 +22,7 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -33,24 +36,21 @@ import java.util.HashMap;
 public class PianoController {
     private View view;
     private Controller controller;
-    private int actualOctave = 4; //TODO : Revision of this atribute
+    private int actualOctave = 4;
     private RealtimePlayer realtimePlayer;
     private KeyConfiguration[] keyBoardConfiguration;
     private static int numberOFkeys = 0;
-    private HashMap<Integer, KeyRecord> keys = new HashMap<>();
-    private boolean recordSong;
+    private HashMap<Integer, KeyRecord> keys;
+    private SelectionOfKeys selectionOfKeys;
     private PlayerSongPiano player;
     private int[] activado = new int[24];
     private boolean mute = false;
-
-    public static void main(String[] args) throws FileNotFoundException {
-
-        View v = new View();
-        PianoController pianoController = new PianoController(v, new Controller(v));
-    }
+    
 
     public PianoController(View view, Controller controller) {
         try {
+            keys = new HashMap<>();
+            selectionOfKeys = new SelectionOfKeys();
             Gson gson = new Gson();
             JsonReader json;
             json = new JsonReader(new FileReader("configFiles/config.json"));
@@ -67,9 +67,34 @@ public class PianoController {
 
     private void initController() {
         view.initPianoView();
-        view.getPianoView().setVisible(true);
+        view.getPianoView().getTopOption().getChangeKeys().addActionListener(e ->{
+            for (KeyConfigurationVisual k: selectionOfKeys.getList()) {
+                selectionOfKeys.remove(k);
+            }
+            selectionOfKeys.getList().clear();
+            for (KeyConfiguration k: keyBoardConfiguration) {
+                selectionOfKeys.getList().add(new KeyConfigurationVisual(k.getName(),k.getKey()));
+            }
+            selectionOfKeys.acctKeyConfiguration();
+            selectionOfKeys.setVisible(true);
+            selectionOfKeys.getChange().addActionListener(e1 -> {
+                int i = 0;
+                for (KeyConfigurationVisual l : selectionOfKeys.getList()) {
+                    if (!l.getKey().getText().isEmpty() || l.getKey().getText().charAt(0) == ' '){
+                        keyBoardConfiguration[i].setKey(l.getKey().getText().charAt(0));
+                    }
+                    i++;
+                }
+                view.getPianoView().getPiano().getIm().clear();
+                view.getPianoView().getPiano().getAm().clear();
+                view.getPianoView().setVisible(false);
+                view.getPianoView().dispose();
+                initController();
+                view.getPianoView().setVisible(true);
+                showPromt();
+            });
+        });
 
-        //Implementation of listener for keys 1234560 to change Octave;
         for (int i = 0; i < 6; i++) {
             view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(keyBoardConfiguration[i].getKey()), keyBoardConfiguration[i].getKey());
             int finalI = Integer.parseInt(keyBoardConfiguration[i].getKey() + "");
@@ -167,7 +192,6 @@ public class PianoController {
 
             //Listener to record Song
             view.getPianoView().getTopOption().getRecord().addActionListener(e -> {
-                recordSong = true;
                 view.getPianoView().getTopOption().getRecord().setEnabled(false);
                 keys.clear();
                 numberOFkeys = 0;
@@ -177,8 +201,6 @@ public class PianoController {
             //Save song
             view.getPianoView().getTopOption().getSave().addActionListener(e -> {
                 if (view.getPianoView().saveConfirmation()) {
-
-                    recordSong = false;
                     view.getPianoView().getTopOption().getRecord().setEnabled(true);
                     ArrayList<KeyRecord> temporalKeys = new ArrayList<KeyRecord>(keys.values());
                     Note rest = null;
@@ -210,6 +232,15 @@ public class PianoController {
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showPromt() {
+        JOptionPane.showMessageDialog(selectionOfKeys,
+                "Key Configuration Changed.",
+                "Information",
+                JOptionPane.PLAIN_MESSAGE);
+        selectionOfKeys.setVisible(false);
+        view.getPianoView().revalidate();
     }
 
     private void controlKeys() {

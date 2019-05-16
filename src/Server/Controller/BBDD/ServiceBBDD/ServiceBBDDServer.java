@@ -181,7 +181,17 @@ public class ServiceBBDDServer {
         ServerContextHolder.clear();
     }
 
-
+    public void updateSong (Song song) throws BBDDException {
+        ServerContextHolder.set(AvaiableClients.UserRegistered);
+        if (song.getAuthor() != null) {
+            dao.checkSongExistence(song.getTitle(), song.getAuthor().getNameUser(), false);
+        }
+        else {
+            dao.checkSongExistence(song.getTitle(), song.getSystem().getName(), true);
+        }
+        dao.updateSong(song);
+        ServerContextHolder.clear();
+    }
 
 
     //This is the method to search if a user exists, if exists we return it.

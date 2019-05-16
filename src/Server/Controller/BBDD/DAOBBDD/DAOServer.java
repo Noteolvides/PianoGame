@@ -210,6 +210,11 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
 
+    @Transactional
+    public void updateSong (Song s) {
+        getHibernateTemplate().update(s);
+    }
+
     @Transactional (readOnly = true)
     public List<Song> getSomeoneSongs (final String username) {
         List list = getHibernateTemplate().find("FROM " + Song.class.getName() + " AS s WHERE s.author='" + username + "'");

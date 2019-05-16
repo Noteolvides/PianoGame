@@ -33,7 +33,7 @@ public class JPrincipalController implements ActionListener {
             controller.closePrincipal();
 
         } else if (action.equals(SIGN_OUT)) {
-            controller.networkSignOut();
+            controller.networkLogOut();
             controller.closePrincipal();
             controller.openStart();
 

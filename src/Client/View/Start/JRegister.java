@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
+import static Client.Network.ClientConnection.KO;
+
 public class JRegister extends JFrame {
     private JTextField usernameRegister;
     private JTextField emailRegister;
@@ -89,5 +91,11 @@ public class JRegister extends JFrame {
                 "Upper case characters, " +
                 "\n\t\t\t\t\t\t\t\t\t\t\t\tSpecial characters or " +
                 "Numbers", "Bad password", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void errorPopUp(int petitionResult) {
+        if (petitionResult == KO) {
+            JOptionPane.showMessageDialog(this, "Register wasn't successful!", "Error", JOptionPane.WARNING_MESSAGE);
+        }
     }
 }

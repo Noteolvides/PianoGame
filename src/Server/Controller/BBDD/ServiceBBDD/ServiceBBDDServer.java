@@ -28,14 +28,14 @@ public class ServiceBBDDServer {
     //TODO: Don't controll strings
 
     //:::::::::::::::::::CommonMethods::::::::::::::::::::::::::
-    public void deleteSong (String nameOfTheSong, String author) throws FieldsNoValidException {
+    public void deleteSong (String nameOfTheSong, String author)  {
         try {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
             dao.checkSongExistence(nameOfTheSong, author,false);
             ServerContextHolder.clear();
 
         } catch (BBDDException e) {
-            dao.deleteSong (nameOfTheSong);
+            dao.deleteSong (nameOfTheSong,author);
             ServerContextHolder.clear();
         }
     }

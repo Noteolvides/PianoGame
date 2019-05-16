@@ -131,15 +131,15 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
     @Transactional
-    public void deleteSong (final String songName) {
+    public void deleteSong (final String songName, String author) {
         //TODO: Borrar referencias con amigos
-        List list  = getHibernateTemplate().find("SELECT s FROM " + Song.class.getName() + " AS s WHERE s.title = '" + songName + "'");
+        List list  = getHibernateTemplate().find("SELECT s FROM " + Song.class.getName() + " AS s WHERE s.title = '" + songName + "' AND s.author.nameUser ='" + author+ "'");
         getHibernateTemplate().delete((Song) list.get(0));
     }
 
     @Transactional (readOnly = true)
     public List <Song> getAllTheSongs () {
-        List query = getHibernateTemplate().find("SELECT Model.Song FROM Model.Song");
+        List query = getHibernateTemplate().find("FROM " + Song.class.getName());
         List <Song> resultat = new ArrayList<Song>();
         for (int i = 0; i < query.size(); i++) {
             resultat.add((Song)query.get(i));

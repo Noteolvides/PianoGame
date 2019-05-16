@@ -97,6 +97,6 @@ public class SongView extends JPanel {
     public void registerButtonController (ControllerJSong controllerJSong) {
         playButton.addMouseListener(controllerJSong);
         //Now, we add the tool tip text too
-        infoIcon.setToolTipText(titleSong.getText() + " a song created by " + description.getText());
+        infoIcon.setToolTipText(description.getText());
     }
 }

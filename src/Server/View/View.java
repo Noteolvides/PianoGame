@@ -1,7 +1,8 @@
 package Server.View;
 
-import Server.View.SongPrueba;
-import java.util.ArrayList;
+import Model.Song;
+
+import java.util.List;
 
 public class View {
     private Graphic graficView;
@@ -44,7 +45,7 @@ public class View {
             registerView = new JRegister();
     }
 
-    public void initGestorView(ArrayList<SongPrueba> songs) {
+    public void initGestorView(List<Song> songs) {
         gestorView = new JGestor(songs);
     }
 

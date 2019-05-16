@@ -4,21 +4,16 @@ import Model.ConfigurationPackage.Configuration;
 import Model.Song;
 import Model.User;
 import Server.Controller.Controller;
+import Server.Controller.Gestor.GestorController;
 import Server.Controller.JEvolutionController;
 import Server.Controller.JTopController;
 import Server.Controller.RegisterController;
 import Server.Network.Server;
-import Server.View.JEvolution;
-import Server.View.JTop;
-import Server.View.ServerViews;
-import Server.View.View;
-//import javafx.application.Application;
+import Server.View.*;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,5 +47,9 @@ public class Main {
         Controller control = new Controller(evoController, topController, controller, top, evolution, view, serverViews);
         serverViews.registerController(control);
         control.actionManager(evolution, top, view);
+
+        //TODO: Delete this
+        GestorController gestorController = new GestorController(view, server.getServerService());
+        view.getGestorView().registerController(gestorController);
     }
 }

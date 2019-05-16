@@ -1,5 +1,6 @@
 package Server.Controller.Gestor;
 
+import Server.Controller.BBDD.Resources.BBDDException;
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import Server.View.View;
 import java.awt.event.MouseEvent;
@@ -52,8 +53,12 @@ public class GestorController implements MouseListener {
         } else {
             for (int i = 0; i < view.getGestorView().getSongsList().size(); i++) {
                 if (e.getSource() == view.getGestorView().getSongsList().get(i).getDeleteButton()){
-                    service.deleteSong(view.getGestorView().getSongsList().get(i).getTitleSong().getText(),
-                            view.getGestorView().getSongsList().get(i).getAuthor().getText());
+                    try {
+                        service.deleteSong(view.getGestorView().getSongsList().get(i).getTitleSong().getText(),
+                                view.getGestorView().getSongsList().get(i).getAuthor().getText());
+                    } catch (BBDDException e1) {
+                        e1.printStackTrace();
+                    }
                     view.getGestorView().getSongsList().remove(view.getGestorView().getSongsList().get(i));
 
                     view.getGestorView().setVisible(false);

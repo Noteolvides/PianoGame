@@ -153,6 +153,7 @@ public class DedicatedServer extends Thread {
                     try {
                         //Here we make a  query to de database
                         service.getInstanceOfAUserByName(user.getNameUser(), user.getPassword());
+                        service.addConnection();
                         //If the query return true
                         dataOutputStream.writeInt(CONFIRMATION);
                         userSave = user.getNameUser();
@@ -260,6 +261,7 @@ public class DedicatedServer extends Thread {
                         //I return the song, so i can get the path i then i can get the song and pass it
                         Song songObtained = service.getConcreteSongUser(userSave,song);
                         songObtained.setPlays(songObtained.getPlays() + 1);
+                        service.updateSong(songObtained);
                         String pathSong = songObtained.getFilePath();
                         Pattern pattern = MidiFileManager.loadPatternFromMidi(new File(pathSong));
                         dataOutputStream.writeUTF(pattern.toString());

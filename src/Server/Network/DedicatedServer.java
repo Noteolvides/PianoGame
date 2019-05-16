@@ -256,9 +256,9 @@ public class DedicatedServer extends Thread {
                 case REQUEST_SONG:
                     try {
                         String song = dataInputStream.readUTF();
-
                         //I return the song, so i can get the path i then i can get the song and pass it
                         Song songObtained = service.getConcreteSongUser(userSave,song);
+                        songObtained.setPlays(songObtained.getPlays() + 1);
                         String pathSong = songObtained.getFilePath();
                         Pattern pattern = MidiFileManager.loadPatternFromMidi(new File(pathSong));
                         objectOutputStream.writeObject(pattern);

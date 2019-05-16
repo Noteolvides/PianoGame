@@ -5,11 +5,10 @@ import Client.Controller.MenuPrincipal.JPrincipalController;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static Client.Controller.Controller.*;
 import static Client.Network.ClientConnection.OK;
 
 public class JPrincipal extends JFrame {

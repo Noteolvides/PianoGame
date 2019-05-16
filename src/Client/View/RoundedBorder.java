@@ -4,7 +4,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 public class RoundedBorder implements Border {
-        int radius;
+        private int radius;
         RoundedBorder(int radius) {
             this.radius = radius;
         }

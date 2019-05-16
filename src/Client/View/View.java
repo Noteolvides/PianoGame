@@ -4,11 +4,8 @@ import Client.View.Piano.JPiano;
 import Client.View.Start.JRegister;
 import Client.View.Start.JStart;
 
-import javax.swing.*;
-
 public class View {
     private JPiano pianoView;
-    private JFriend friendsView;
     private JPrincipal principalView;
     private JRegister registerView;
     private FinestraJSocial socialView;
@@ -19,11 +16,7 @@ public class View {
     public JPiano getPianoView() {
         return pianoView;
     }
-
-    public JFriend getFriendsView() {
-        return friendsView;
-    }
-
+    
     public JPrincipal getPrincipalView() {
         return principalView;
     }

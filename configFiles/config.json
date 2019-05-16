@@ -16,5 +16,127 @@
       "password": "adminPassword1999"
     }
   ],
-  "clientPort": 5000
+  "clientPort": 5000,
+  "keys": [
+    {
+      "name": "PrimeraOctava",
+      "key": "1"
+    },
+    {
+      "name": "SegundaOctava",
+      "key": "2"
+    },
+    {
+      "name": "TerceraOctava",
+      "key": "3"
+    },
+    {
+      "name": "CuartaOctava",
+      "key": "4"
+    },
+    {
+      "name": "QuintaOctava",
+      "key": "5"
+    },
+    {
+      "name": "SextaOctava",
+      "key": "6"
+    },
+    {
+      "name": "C(i)",
+      "key": "A"
+    },
+    {
+      "name": "D(i)",
+      "key": "S"
+    },
+    {
+      "name": "E(i)",
+      "key": "D"
+    },
+    {
+      "name": "F(i)",
+      "key": "F"
+    },
+    {
+      "name": "G(i)",
+      "key": "G"
+    },
+    {
+      "name": "A(i)",
+      "key": "H"
+    },
+    {
+      "name": "B(i)",
+      "key": "J"
+    },
+    {
+      "name": "C#(i)",
+      "key": "Q"
+    },
+    {
+      "name": "D#(i)",
+      "key": "W"
+    },
+    {
+      "name": "F#(i)",
+      "key": "E"
+    },
+    {
+      "name": "G#(i)",
+      "key": "R"
+    },
+    {
+      "name": "A#(i)",
+      "key": "T"
+    },
+    {
+      "name": "C(i+1)",
+      "key": "Z"
+    },
+    {
+      "name": "D(i+1)",
+      "key": "X"
+    },
+    {
+      "name": "E(i+1)",
+      "key": "C"
+    },
+    {
+      "name": "F(i+1)",
+      "key": "V"
+    },
+    {
+      "name": "G(i+1)",
+      "key": "B"
+    },
+    {
+      "name": "A(i+1)",
+      "key": "N"
+    },
+    {
+      "name": "B(i+1)",
+      "key": "M"
+    },
+    {
+      "name": "C#(i+1)",
+      "key": "Y"
+    },
+    {
+      "name": "D#(i+1)",
+      "key": "U"
+    },
+    {
+      "name": "F#(i+1)",
+      "key": "I"
+    },
+    {
+      "name": "G#(i+1)",
+      "key": "O"
+    },
+    {
+      "name": "A#(i+1)",
+      "key": "P"
+    }
+  ]
 }

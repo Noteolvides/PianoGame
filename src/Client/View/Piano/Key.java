@@ -1,7 +1,6 @@
 package Client.View.Piano;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import java.awt.*;
 
 public class Key extends JPanel {

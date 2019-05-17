@@ -44,6 +44,7 @@ public class ServerViews {
             serverGraph.addMouseListener(controller);
             topSongs.addMouseListener(controller);
             registerUser.addMouseListener(controller);
+            gestor.addMouseListener(controller);
         }
 
     public JButton getServerGraph() {
@@ -56,5 +57,9 @@ public class ServerViews {
 
     public JButton getRegisterUser() {
         return registerUser;
+    }
+
+    public JButton getGestor() {
+        return gestor;
     }
 }

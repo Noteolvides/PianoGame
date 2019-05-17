@@ -94,7 +94,7 @@ public class JGestor extends JFrame {
         add(bottomPanel);
 
         setSize(400,1000);
-        setVisible(true);
+        setVisible(false);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -153,6 +153,8 @@ public class JGestor extends JFrame {
         return addButton;
     }
 
-
+    public void setVisible(){
+        setVisible(true);
+    }
 }
 

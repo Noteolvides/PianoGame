@@ -271,11 +271,11 @@ public class PianoController {
                 double time = 0;
                 int i = 0;
                 Note n;
-                while (10 * time < 360 + (-player.getY())) {
+                while (1 * time < 360 + (-player.getY())) {
                     i = 0;
                     for (JPanel jf : view.getPianoView().getNotes()) {
                         Point p = jf.getLocation();
-                        jf.setLocation(p.x, (int) (p.y + 10));
+                        jf.setLocation(p.x, (int) (p.y + 1));
                         n = new Note(jf.getName());
                         if (n.getOctave() == actualOctave || n.getOctave() == (actualOctave + 1)) {
                             if (jf.getLocation().y + jf.getSize().height > 360 && jf.getComponents().length == 0 && jf.getLocation().y < 360) {
@@ -301,7 +301,7 @@ public class PianoController {
                     view.getPianoView().repaint();
                     try {
                         time++;
-                        Thread.sleep(100);
+                        Thread.sleep(10);
                     } catch (InterruptedException j) {
                         j.printStackTrace();
                     }

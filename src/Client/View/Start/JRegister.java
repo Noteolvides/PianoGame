@@ -104,14 +104,4 @@ public class JRegister extends JFrame {
                 "\n\t\t\t\t\t\t\t\t\t\t\t\tSpecial characters or " +
                 "Numbers", "Bad password", JOptionPane.WARNING_MESSAGE);
     }
-
-    /**
-     * Function that shows a popup when the register is called.
-     * @param petitionResult Int that defines the type of error.
-     */
-    public void errorPopUp(int petitionResult) {
-        if (petitionResult == KO) {
-            JOptionPane.showMessageDialog(this, "Register wasn't successful!", "Error", JOptionPane.WARNING_MESSAGE);
-        }
-    }
 }

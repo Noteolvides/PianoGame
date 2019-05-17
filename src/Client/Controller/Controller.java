@@ -260,9 +260,8 @@ public class Controller {
         if (petitionResult == OK) {
             openPrincipal();
             closeStart();
-        }
-        if (petitionResult == KO) {
-            view.getStartView().errorPopUp("login");
+        } else {
+            view.getStartView().errorPopUp("login", petitionResult);
         }
     }
 
@@ -283,7 +282,7 @@ public class Controller {
         if (petitionResult == OK) {
             closeRegister();
         } else {
-            view.getRegisterView().errorPopUp(petitionResult);
+            view.getStartView().errorPopUp("register", petitionResult);
         }
     }
 

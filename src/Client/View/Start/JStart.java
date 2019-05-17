@@ -95,10 +95,12 @@ public class JStart extends JFrame {
     }
 
     /**
-     * Function that shows a popup when the login is called.
-     * @param process Strign that indicates if there's an error or not.
+     * Function that show a PopUp to verify if the login or the register
+     * were done successfully.
+     * @param process String to see if is login or register.
+     * @param petitionResult Type of error.
      */
-    public void errorPopUp(String process) {
+    public void errorPopUp(String process, int petitionResult) {
         if (process.equals("login")) {
             JOptionPane.showMessageDialog(this, "Error, Login wasn't successful.", "Warning", JOptionPane.WARNING_MESSAGE);
         }

@@ -21,14 +21,12 @@ public class JEvolutionController implements ActionListener {
 
         switch (whichButton){
             case "Week":
-                //TODO: xDivions = 7
                 jEvolution.setUsers(service.getLastWeekConnections());
                 jEvolution.setGraphic(jEvolution.getUsers());
                 jEvolution.setEvoVisible(true);
                 System.out.println("Monday");
                 break;
             case "Month":
-                //TODO: xDivions = 12
                 jEvolution.setUsers(service.getLastMonthConnections());
                 jEvolution.setGraphic(jEvolution.getUsers());
                 jEvolution.setEvoVisible(true);

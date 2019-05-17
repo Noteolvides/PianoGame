@@ -142,6 +142,7 @@ public class DedicatedServer extends Thread {
      * @throws ClassNotFoundException: If is any error with the User object throws exception
      */
     private void loginComunication() throws IOException, ClassNotFoundException {
+        Utils utils = new Utils();
         boolean goBack = false;
         while (!goBack) {
             switch (dataInputStream.readUTF()) {
@@ -151,9 +152,17 @@ public class DedicatedServer extends Thread {
 
                     //Then we want to check if the object Exist in the database
                     try {
-                        //Here we make a  query to de database
-                        service.getInstanceOfAUserByName(user.getNameUser(),user.getPassword());
-                        service.addConnection();
+                        //Determines whether the user has introduced a login name or a mail to log in
+                        if(utils.confirmEmail(user.getNameUser())){
+                            service.getInstanceOfAUserByEmail(user.getNameUser(), user.getPassword());
+                            service.addConnection();
+                        }else{
+                            //Here we make a  query to de database
+                            service.getInstanceOfAUserByName(user.getNameUser(),user.getPassword());
+                            service.addConnection();
+
+                        }
+
                         //If the query return true
                         dataOutputStream.writeInt(CONFIRMATION);
                         userSave = user.getNameUser();

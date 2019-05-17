@@ -44,7 +44,15 @@ public class FinestraJSong extends JFrame{
      * @param petitionResult Type of error.
      */
     public void errorPopUp(int petitionResult) {
-        JOptionPane.showMessageDialog(this, "There was a problem loading the songs.", "Error", JOptionPane.WARNING_MESSAGE);
+        if (petitionResult == KO) {
+            JOptionPane.showMessageDialog(this, "Couldn't connect to the server.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        if (petitionResult == ERROR_BBDD) {
+            JOptionPane.showMessageDialog(this, "There was a problem with the database.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        if (petitionResult == ERROR_OBJECT) {
+            JOptionPane.showMessageDialog(this, "There was a problem loading the songs.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     /**

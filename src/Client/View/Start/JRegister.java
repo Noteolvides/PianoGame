@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 
 import static Client.Network.ClientConnection.KO;
 
+/**
+ * Class that creates the view of the register.
+ */
 public class JRegister extends JFrame {
     private JTextField usernameRegister;
     private JTextField emailRegister;
@@ -13,6 +16,9 @@ public class JRegister extends JFrame {
     private JPasswordField passwordRegisterVerify;
     private JButton buttonRegister;
 
+    /**
+     * Constructor, it creates and adds all the jComponents and jPanels to the jFrame.
+     */
     public JRegister() {
         JPanel register = new JPanel();
         register.setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
@@ -76,11 +82,18 @@ public class JRegister extends JFrame {
         return passwordRegisterVerify.getPassword();
     }
 
+    /**
+     * Function that assigns the Controller/ActionListener to the view.
+     * @param c Controller/ActionListener
+     */
     public void registerController(ActionListener c) {
         buttonRegister.setActionCommand("REGISTER");
         buttonRegister.addActionListener(c);
     }
 
+    /**
+     * Function that shows a popup when the password is incorrect.
+     */
     public void errorPasswordPopUp() {
         JOptionPane.showMessageDialog(this, "The password doesn't meet the requirements or the confirm doesn't match!" +
                 "\n\t\t\t\t\t\tThe password must at least be 8 caracters long." +
@@ -92,6 +105,10 @@ public class JRegister extends JFrame {
                 "Numbers", "Bad password", JOptionPane.WARNING_MESSAGE);
     }
 
+    /**
+     * Function that shows a popup when the register is called.
+     * @param petitionResult Int that defines the type of error.
+     */
     public void errorPopUp(int petitionResult) {
         if (petitionResult == KO) {
             JOptionPane.showMessageDialog(this, "Register wasn't successful!", "Error", JOptionPane.WARNING_MESSAGE);

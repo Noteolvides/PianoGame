@@ -28,6 +28,8 @@ public class Main {
         Configuration config = gson.fromJson(json, Configuration.class);
         server.startServer(config.getClientPort());
         ServerViews serverViews = new ServerViews();
+
+
         View view = new View();
         view.initRegisterView();
         RegisterController controller = new RegisterController(view,server.getServerService());

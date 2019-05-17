@@ -60,6 +60,13 @@ public class ServiceBBDDServer {
     }
 
     //:::::::::::::::::::Server BBDD Methods:::::::::::::::::::::::::::::::
+    public void databaseInitialization () {
+        ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
+        dao.databaseInitialization();
+        ServerContextHolder.clear();
+    }
+
+
     public void createUserFromSystem (String username, String password, String photoPath, String email) throws Exception {
 
         if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {

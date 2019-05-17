@@ -320,4 +320,15 @@ public class DAOServer extends HibernateDaoSupport {
         List list = getHibernateTemplate().find("FROM " + Song.class.getName() + " AS s WHERE s.privacity = FALSE ");
         return (List<Song>) list;
     }
+
+    @Transactional
+    public void databaseInitialization () {
+        getHibernateTemplate().execute(new HibernateCallback<Object>() {
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("CALL databaseInitialization()");
+                query.executeUpdate();
+                return null;
+            }
+        });
+    }
 }

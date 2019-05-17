@@ -119,23 +119,26 @@ DROP USER IF EXISTS 'noAlias';
 DROP USER IF EXISTS 'normalUser';
 DROP USER IF EXISTS 'admin';
 
-CREATE USER 'noAlias' IDENTIFIED BY 'password1999';
-CREATE USER 'normalUser' IDENTIFIED BY 'normalUserPassword1999';
-CREATE USER 'admin' IDENTIFIED BY 'adminPassword1999';
+CREATE USER 'noAlias'@'%' IDENTIFIED BY 'password1999';
+CREATE USER 'normalUser'@'%' IDENTIFIED BY 'normalUserPassword1999';
+CREATE USER 'admin'@'%' IDENTIFIED BY 'adminPassword1999';
 
-GRANT ALL PRIVILEGES ON * . * TO 'admin';
-GRANT SELECT  ON SmartPiano. * TO 'normalUser';
-GRANT INSERT  ON SmartPiano. * TO 'normalUser';
-GRANT DELETE  ON SmartPiano. * TO 'normalUser';
-GRANT UPDATE ON SmartPiano. * TO 'normalUser';
-GRANT INSERT ON SmartPiano. * TO 'noAlias';
-GRANT SELECT ON SmartPiano. * TO 'noAlias';
+GRANT ALL PRIVILEGES ON * . * TO 'admin'@'%';
+GRANT SELECT  ON SmartPiano. * TO 'normalUser'@'%';
+GRANT INSERT  ON SmartPiano. * TO 'normalUser'@'%';
+GRANT DELETE  ON SmartPiano. * TO 'normalUser'@'%';
+GRANT UPDATE ON SmartPiano. * TO 'normalUser'@'%';
+GRANT INSERT ON SmartPiano. * TO 'noAlias'@'%';
+GRANT SELECT ON SmartPiano. * TO 'noAlias'@'%';
 #Permission to allow to a user to execute a procedure
-GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser';
-GRANT EXECUTE ON PROCEDURE SmartPiano.databaseInitialization TO 'noAlias';
+GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser'@'%';
+GRANT EXECUTE ON PROCEDURE SmartPiano.databaseInitialization TO 'noAlias'@'%';
+FLUSH PRIVILEGES;
 
 SELECT * FROM User;
 SELECT * FROM Song;
 SELECT * FROM Syst;
 SELECT * FROM Friendship;
 TRUNCATE Friendship;
+
+

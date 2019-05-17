@@ -260,9 +260,8 @@ public class Controller {
         if (petitionResult == OK) {
             openPrincipal();
             closeStart();
-        }
-        if (petitionResult == KO) {
-            view.getStartView().errorPopUp("login");
+        } else {
+            view.getStartView().errorPopUp("login", petitionResult);
         }
     }
 
@@ -283,7 +282,7 @@ public class Controller {
         if (petitionResult == OK) {
             closeRegister();
         } else {
-            view.getRegisterView().errorPopUp(petitionResult);
+            view.getStartView().errorPopUp("register", petitionResult);
         }
     }
 
@@ -297,9 +296,8 @@ public class Controller {
         if (petitionResult == OK) {
             view.getSongView().updateSongs(songs);
             view.getSongView().updateControllersSongs(controllerJSong);
-        }
-        if (petitionResult == KO) {
-            view.getSongView().errorPopUp();
+        } else {
+            view.getSongView().errorPopUp(petitionResult);
         }
     }
 
@@ -334,7 +332,7 @@ public class Controller {
      * Functions that depending of the result of the ClientConnection transmission
      * of requesting a song, notifies if the song was correctly acquired.
      * @param petitionResult ClientConnection Transmission result code.
-     * @param midi
+     * @param midi String with the song in midi format.
      */
     public void networkRequestSongResult(int petitionResult, String midi) {
         view.getSongView().requestPopUp(petitionResult);

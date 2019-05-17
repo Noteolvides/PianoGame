@@ -281,9 +281,8 @@ public class Controller {
     public void networkRegisterResult(int petitionResult) {
         if (petitionResult == OK) {
             closeRegister();
-        } else {
-            view.getStartView().errorPopUp("register", petitionResult);
         }
+        view.getStartView().errorPopUp("register", petitionResult);
     }
 
     /**

@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import static Client.Network.ClientConnection.*;
+
 /**
  * Class that creates the start view with the login and to enter the register.
  */
@@ -102,10 +104,26 @@ public class JStart extends JFrame {
      */
     public void errorPopUp(String process, int petitionResult) {
         if (process.equals("login")) {
-            JOptionPane.showMessageDialog(this, "Error, Login wasn't successful.", "Warning", JOptionPane.WARNING_MESSAGE);
+            if (petitionResult == ERROR_OBJECT) {
+                JOptionPane.showMessageDialog(this, "Error. Login wasn't successful. The fields are not correct.", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+            if (petitionResult == ERROR_BBDD) {
+                JOptionPane.showMessageDialog(this, "Error, Login wasn't successful.", "Error", JOptionPane.WARNING_MESSAGE);
+            }
         }
         if (process.equals("register")) {
-            JOptionPane.showMessageDialog(this, "Error. Register wasn't successful.", "Warning", JOptionPane.WARNING_MESSAGE);
+            if (petitionResult == OK) {
+                JOptionPane.showMessageDialog(this, "Register was successful.", "Registered", JOptionPane.INFORMATION_MESSAGE);
+            }
+            if (petitionResult == KO) {
+                JOptionPane.showMessageDialog(this, "Couldn't connect to the server.", "Error", JOptionPane.WARNING_MESSAGE);
+            }
+            if (petitionResult == ERROR_OBJECT) {
+                JOptionPane.showMessageDialog(this, "Register wasn't successful. The fields are not correct.", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+            if (petitionResult == ERROR_BBDD) {
+                JOptionPane.showMessageDialog(this, "Error. Register wasn't successful.", "Error", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }
 }

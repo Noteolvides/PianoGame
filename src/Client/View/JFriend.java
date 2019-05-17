@@ -134,6 +134,10 @@ public class JFriend extends JPanel {
         }
     }
 
+    /**
+     * Functions that changes the icon and disables the add button of the friend.
+     * @param controllerJSocial Controller of the Social view.
+     */
     public void setButtonAddAsDisabled(ControllerJSocial controllerJSocial) {
         ImageIcon notAdd = new ImageIcon("img/delete_button.png");
         buttonAddFriend.setDisabledIcon(new ImageIcon(notAdd.getImage().getScaledInstance(notAdd.getIconWidth()/23, notAdd.getIconHeight() / 23, Image.SCALE_SMOOTH)));

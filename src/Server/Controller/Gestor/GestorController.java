@@ -57,7 +57,7 @@ public class GestorController implements MouseListener {
                         service.deleteSong(view.getGestorView().getSongsList().get(i).getTitleSong().getText(),
                                 view.getGestorView().getSongsList().get(i).getAuthor().getText());
                     } catch (BBDDException e1) {
-                        e1.printStackTrace();
+                        System.out.println("System song cannot be deleted");
                     }
                     view.getGestorView().getSongsList().remove(view.getGestorView().getSongsList().get(i));
 

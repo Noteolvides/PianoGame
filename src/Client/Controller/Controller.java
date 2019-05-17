@@ -141,10 +141,17 @@ public class Controller {
         network.setNextFunc(EXIT_PIANO);
     }
 
+    /**
+     * Function that saves the midi string of the song played in the piano.
+     * @param songMidi String of midi of the song played.
+     */
     public void setMidiToSave(String songMidi) {
         this.songMidi = songMidi;
     }
 
+    /**
+     * Function that creates and saves the file that is going to be saved in the database.
+     */
     public void setSongToSave () {
         song = new Song();
         song.setTitle(view.getSaveSongView().getAddSongName().getText());

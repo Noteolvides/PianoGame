@@ -29,9 +29,9 @@ public class ServiceBBDDServer {
 
     //:::::::::::::::::::CommonMethods::::::::::::::::::::::::::
     public void deleteSong (String nameOfTheSong, String author) throws BBDDException {
+            ServerContextHolder.clear();
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
             dao.checkSongExistence(nameOfTheSong, author,false,false);
-            ServerContextHolder.clear();
             dao.deleteSong (nameOfTheSong,author);
             ServerContextHolder.clear();
     }

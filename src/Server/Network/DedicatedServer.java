@@ -398,4 +398,7 @@ public class DedicatedServer extends Thread {
         this.server = server;
     }
 
+
+    //TODO: QUAN ENTRES A PIANO I TOQUES UN PLAY I GUARDES, NO FUNCIONA
+    //TODO: QUAN REPRODEIXES CANÇÓ I TORNES A REPRODUIR-LO NO S'AFEGEIX MÉS VISITES
 }

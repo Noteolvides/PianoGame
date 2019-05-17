@@ -178,10 +178,12 @@ public class Controller {
     }
 
     /**
-     * Function that shows the song view.
+     * Function that shows the song view and sets the
+     * next action to do for the ClientConnection as SELECT_SONG
      */
     public void openSong() {
         view.getSongView().setVisible(true);
+        network.setNextFunc(SELECT_SONG);
     }
 
     /**
@@ -194,6 +196,7 @@ public class Controller {
 
     public void openSaveSong() {
         view.getSaveSongView().setVisible(true);
+        network.setNextFunc(SAVE_SONG);
     }
 
     public void closeSaveSong() {
@@ -275,13 +278,6 @@ public class Controller {
         } else {
             view.getRegisterView().errorPopUp(petitionResult);
         }
-    }
-
-    /**
-     * Function that sets the next action to do for the ClientConnection as SELECT_SONG
-     */
-    public void networkSelectSong() {
-        network.setNextFunc(SELECT_SONG);
     }
 
     /**

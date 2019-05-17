@@ -46,7 +46,7 @@ public class StartController implements ActionListener, WindowListener {
         if (e.getActionCommand().equals("REGISTER")) {
             String password = new String(view.getRegisterView().getPassword());
             String confirmPassword = new String(view.getRegisterView().getPasswordVerify());
-            if (confirmPassword(password, confirmPassword, view.getRegisterView().getUsername())) {
+            if (confirmPassword(password, confirmPassword, view.getRegisterView().getUsername()) && confirmEmail(view.getRegisterView().getEmail())) {
                 System.out.println("Registered");
                 controller.networkRegister();
             } else {
@@ -98,6 +98,10 @@ public class StartController implements ActionListener, WindowListener {
             num++;
         }
         return num >= 2;
+    }
+
+    public boolean confirmEmail(String email){
+        return email.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
     }
 
     /**

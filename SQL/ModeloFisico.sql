@@ -115,29 +115,27 @@ INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author
 
 
 
-DROP USER IF EXISTS 'noAlias'@'localhost';
-DROP USER IF EXISTS 'normalUser'@'localhost';
-DROP USER IF EXISTS 'admin'@'localhost';
+DROP USER IF EXISTS 'noAlias';
+DROP USER IF EXISTS 'normalUser';
+DROP USER IF EXISTS 'admin';
 
-CREATE USER 'noAlias'@'localhost' IDENTIFIED BY 'password1999';
-CREATE USER 'normalUser'@'localhost' IDENTIFIED BY 'normalUserPassword1999';
-CREATE USER 'admin'@'localhost' IDENTIFIED BY 'adminPassword1999';
+CREATE USER 'noAlias' IDENTIFIED BY 'password1999';
+CREATE USER 'normalUser' IDENTIFIED BY 'normalUserPassword1999';
+CREATE USER 'admin' IDENTIFIED BY 'adminPassword1999';
 
-GRANT ALL PRIVILEGES ON * . * TO 'admin'@'localhost';
-GRANT SELECT  ON SmartPiano. * TO 'normalUser'@'localhost';
-GRANT INSERT  ON SmartPiano. * TO 'normalUser'@'localhost';
-GRANT DELETE  ON SmartPiano. * TO 'normalUser'@'localhost';
-GRANT UPDATE ON SmartPiano. * TO 'normalUser'@'localhost';
-GRANT INSERT ON SmartPiano. * TO 'noAlias'@'localhost';
-GRANT SELECT ON SmartPiano. * TO 'noAlias'@'localhost';
+GRANT ALL PRIVILEGES ON * . * TO 'admin';
+GRANT SELECT  ON SmartPiano. * TO 'normalUser';
+GRANT INSERT  ON SmartPiano. * TO 'normalUser';
+GRANT DELETE  ON SmartPiano. * TO 'normalUser';
+GRANT UPDATE ON SmartPiano. * TO 'normalUser';
+GRANT INSERT ON SmartPiano. * TO 'noAlias';
+GRANT SELECT ON SmartPiano. * TO 'noAlias';
 #Permission to allow to a user to execute a procedure
-GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser'@'localhost';
-GRANT EXECUTE ON PROCEDURE SmartPiano.databaseInitialization TO 'noAlias'@'localhost';
+GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser';
+GRANT EXECUTE ON PROCEDURE SmartPiano.databaseInitialization TO 'noAlias';
 
 SELECT * FROM User;
 SELECT * FROM Song;
 SELECT * FROM Syst;
 SELECT * FROM Friendship;
 TRUNCATE Friendship;
-
-

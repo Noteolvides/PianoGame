@@ -296,9 +296,8 @@ public class Controller {
         if (petitionResult == OK) {
             view.getSongView().updateSongs(songs);
             view.getSongView().updateControllersSongs(controllerJSong);
-        }
-        if (petitionResult == KO) {
-            view.getSongView().errorPopUp();
+        } else {
+            view.getSongView().errorPopUp(petitionResult);
         }
     }
 

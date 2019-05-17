@@ -40,7 +40,7 @@ public class FinestraJSong extends JFrame{
         comboSongView.showGif();
     }
 
-    public void errorPopUp() {
+    public void errorPopUp(int petitionResult) {
         JOptionPane.showMessageDialog(this, "There was a problem loading the songs.", "Error", JOptionPane.WARNING_MESSAGE);
     }
 

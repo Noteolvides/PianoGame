@@ -9,6 +9,7 @@ import Model.Syst;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -292,14 +293,16 @@ public class DAOServer extends HibernateDaoSupport {
 
     }
 
-
+    @Transactional
     public void recyprocityFriendship () {
         getHibernateTemplate().execute(new HibernateCallback<Object>() {
             public Object doInHibernate(Session session) throws HibernateException {
-                session.createSQLQuery("CALL updateFriends()");
+                Query query = session.createSQLQuery("CALL updateFriends()");
+                 query.executeUpdate();
                 return null;
             }
         });
+
     }
 
     @Transactional (readOnly = true)

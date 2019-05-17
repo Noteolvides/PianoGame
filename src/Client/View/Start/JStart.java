@@ -9,12 +9,18 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Class that creates the start view with the login and to enter the register.
+ */
 public class JStart extends JFrame {
     private JTextField emailLogin;
     private JPasswordField passwordField;
     private JButton buttonSignIn;
     private JButton buttonRegister;
 
+    /**
+     * Constructor, it creates and adds all the jComponents and jPanels to the jFrame.
+     */
     public JStart (){
         JPanel start = new JPanel();
         start.setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
@@ -76,6 +82,10 @@ public class JStart extends JFrame {
         return passwordField.getPassword();
     }
 
+    /**
+     * Function that assigns the Controller/ActionListener to the view.
+     * @param c Controller/ActionListener
+     */
     public void registerController(ActionListener c) {
         buttonSignIn.setActionCommand("SIGN-IN");
         buttonSignIn.addActionListener(c);
@@ -84,6 +94,10 @@ public class JStart extends JFrame {
         this.addWindowListener((WindowListener) c);
     }
 
+    /**
+     * Function that shows a popup when the login is called.
+     * @param process Strign that indicates if there's an error or not.
+     */
     public void errorPopUp(String process) {
         if (process.equals("login")) {
             JOptionPane.showMessageDialog(this, "Error, Login wasn't successful.", "Warning", JOptionPane.WARNING_MESSAGE);

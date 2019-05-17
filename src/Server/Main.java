@@ -44,12 +44,13 @@ public class Main {
         topController.includeSongs(top.getSongs());
         topController.addAllTheSongs(top.getSongsList());
 
-        Controller control = new Controller(evoController, topController, controller, top, evolution, view, serverViews);
+        GestorController gestorController = new GestorController(view, server.getServerService());
+        view.getGestorView().registerController(gestorController);
+
+        Controller control = new Controller(evoController, topController, controller, gestorController, top, evolution, view, serverViews);
         serverViews.registerController(control);
         control.actionManager(evolution, top, view);
 
         //TODO: Delete this
-        GestorController gestorController = new GestorController(view, server.getServerService());
-        view.getGestorView().registerController(gestorController);
     }
 }

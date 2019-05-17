@@ -34,9 +34,10 @@ public class FinestraJSocial extends JFrame {
         jSocial.showUserNotFound();
     }
 
-    public void friendPopUp(int added) {
+    public void friendPopUp(int added, ControllerJSocial controllerJSocial) {
         if (added == OK) {
             JOptionPane.showMessageDialog(this, "Ereh mi amiho.", "Friend", JOptionPane.INFORMATION_MESSAGE);
+            jSocial.getPanelFriend().setButtonAddAsDisabled(controllerJSocial);
         }
         if (added == ERROR) {
             JOptionPane.showMessageDialog(this, "No ereh mi amiho, estoi trite.", "Error", JOptionPane.WARNING_MESSAGE);

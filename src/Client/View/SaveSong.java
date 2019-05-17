@@ -35,7 +35,7 @@ public class SaveSong extends JFrame{
         setSize(400, 300);
         setTitle("Register");
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setResizable(false);
         setVisible(false);
     }
@@ -67,5 +67,9 @@ public class SaveSong extends JFrame{
 
     public void setOkButton(JButton okButton) {
         this.okButton = okButton;
+    }
+
+    public JTextArea getSongDescription() {
+        return songDescription;
     }
 }

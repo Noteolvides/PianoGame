@@ -24,6 +24,8 @@ public class JGestor extends JFrame {
     private JPanel songsGroup;
     private JScrollPane scrollBar;
 
+    //TODO: Javadoc y hacer bonito
+
     public JGestor (List<Song> songs){
         //Inicialization of Layout
         setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
@@ -92,7 +94,7 @@ public class JGestor extends JFrame {
         add(bottomPanel);
 
         setSize(400,1000);
-        setVisible(true);
+        setVisible(false);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -151,6 +153,8 @@ public class JGestor extends JFrame {
         return addButton;
     }
 
-
+    public void setVisible(){
+        setVisible(true);
+    }
 }
 

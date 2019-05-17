@@ -119,14 +119,12 @@ public class PianoController {
         //To get out
         view.getPianoView().getTopOption().getExitToMenu().addActionListener(e -> {
             controller.closePiano();
-            controller.networkExitPiano();
             controller.openPrincipal();
         });
 
         //To go open a song
         view.getPianoView().getTopOption().getSelectSongInSystem().addActionListener(e -> {
             controller.closePiano();
-            controller.networkSelectSong();
             controller.openSong();
         });
 

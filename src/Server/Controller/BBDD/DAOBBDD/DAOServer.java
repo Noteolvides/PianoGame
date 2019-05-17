@@ -9,6 +9,7 @@ import Model.Syst;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.HibernateCallback;
 import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
@@ -117,7 +118,19 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
 
+    @Transactional (readOnly = true)
+    public void checkExistenceCode (String codeToSearch) throws BBDDException {
+        List list = getHibernateTemplate().find("SELECT COUNT(*) FROM " + User.class.getName() + " AS u WHERE u.userCode = '" + codeToSearch + "'" );
+        if ((Long) list.get(0) == 0) {
+            throw new BBDDException();
+        }
+    }
 
+    @Transactional(readOnly = true)
+    public User getUserByCode (String codeToSearch) throws BBDDException {
+        List list = getHibernateTemplate().find("FROM " + User.class.getName() + " AS u WHERE u.userCode = '" + codeToSearch + "'" );
+        return (User) list.get(0);
+    }
 
     @Transactional
     public void insertUserTable (String username, String password, String userCode, String email) {
@@ -132,7 +145,7 @@ public class DAOServer extends HibernateDaoSupport {
 
 
     @Transactional (readOnly = true)
-    public void checkSongExistence (final String songName, final String author,boolean system) throws BBDDException{
+    public void checkSongExistence (final String songName, final String author,boolean system,boolean existException) throws BBDDException{
         List list;
         if (!system) {
             list = getHibernateTemplate().find("SELECT COUNT(*) FROM " + Song.class.getName() + " AS s WHERE s.title = '"+ songName + "' AND (s.author.nameUser = '" + author + "')");
@@ -141,8 +154,15 @@ public class DAOServer extends HibernateDaoSupport {
             list = getHibernateTemplate().find("SELECT COUNT(*) FROM " + Song.class.getName() + " AS s WHERE s.title = '" + songName + "' AND (s.syst.ID = '" + author + "')");
         }
         Boolean b = ((Long) list.get(0) == 0);
-        if (!b.booleanValue()) {
-            throw new BBDDException();
+        if (existException) {
+            if (!b.booleanValue()) {
+                throw new BBDDException();
+            }
+        }
+        else {
+            if (b.booleanValue()) {
+                throw new BBDDException();
+            }
         }
     }
 
@@ -273,14 +293,16 @@ public class DAOServer extends HibernateDaoSupport {
 
     }
 
-
+    @Transactional
     public void recyprocityFriendship () {
         getHibernateTemplate().execute(new HibernateCallback<Object>() {
             public Object doInHibernate(Session session) throws HibernateException {
-                session.createSQLQuery("CALL updateFriends()");
+                Query query = session.createSQLQuery("CALL updateFriends()");
+                 query.executeUpdate();
                 return null;
             }
         });
+
     }
 
     @Transactional (readOnly = true)

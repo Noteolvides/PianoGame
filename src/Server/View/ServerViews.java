@@ -23,10 +23,11 @@ public class ServerViews {
                 ImageIcon iconGraph = new ImageIcon("img/graphicicon.png");
                 serverGraph.setIcon(resizeIcon(iconGraph, iconGraph.getIconWidth()/35, iconGraph.getIconHeight()/35));
                 gestor = new JButton("Song Manager");
-                ImageIcon iconManagar = new ImageIcon("img/managericon.png");
-                gestor.setIcon(resizeIcon(iconManagar, iconManagar.getIconWidth(), iconManagar.getIconHeight()));
+                ImageIcon iconManagar = new ImageIcon("img/managericon.jpg");
+                gestor.setIcon(resizeIcon(iconManagar, iconManagar.getIconWidth()/15, iconManagar.getIconHeight()/15));
                 serverFrame.add(registerUser);
                 serverFrame.add(topSongs);
+                serverFrame.add(gestor);
                 serverFrame.add(serverGraph);
 
                 serverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,6 +44,7 @@ public class ServerViews {
             serverGraph.addMouseListener(controller);
             topSongs.addMouseListener(controller);
             registerUser.addMouseListener(controller);
+            gestor.addMouseListener(controller);
         }
 
     public JButton getServerGraph() {
@@ -55,5 +57,9 @@ public class ServerViews {
 
     public JButton getRegisterUser() {
         return registerUser;
+    }
+
+    public JButton getGestor() {
+        return gestor;
     }
 }

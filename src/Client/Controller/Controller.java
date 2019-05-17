@@ -57,25 +57,20 @@ public class Controller {
 
         view.initRegisterView();
         view.getRegisterView().registerController(startController);
-        closeRegister();
 
         view.initPrincipalView();
         principalController = new JPrincipalController(view, this);
         view.getPrincipalView().registerController(principalController);
-        closePrincipal();
 
         view.initSocialView();
         controllerJSocial = new ControllerJSocial(view, this);
         view.getSocialView().registerController(controllerJSocial);
-        closeSocial();
 
         view.initSongView();
         controllerJSong = new ControllerJSong(view, this);
         view.getSongView().getjSong().registerControllers(controllerJSong);
-        closeSong();
 
         pianoController = new PianoController(view, this);
-        closePiano();
 
         view.initSaveSongView();
         controllerSaveSong = new ControllerSaveSong(view, this);
@@ -128,18 +123,22 @@ public class Controller {
     }
 
     /**
-     * Function that shows the piano view.
+     * Function that shows the piano view and sets the
+     * next action to do for the ClientConnection as PIANO
      */
     public void openPiano() {
         view.getPianoView().setVisible(true);
+        network.setNextFunc(PIANO);
     }
 
     /**
-     * Function that hides the piano view.
+     * Function that hides the piano view and sets the
+     * next action to do for the ClientConnection as EXIT_PIANO
      */
     public void closePiano() {
         view.getPianoView().setVisible(false);
         view.getPianoView().dispose();
+        network.setNextFunc(EXIT_PIANO);
     }
 
     public void setMidiToSave(String songMidi) {
@@ -149,6 +148,7 @@ public class Controller {
     public void setSongToSave () {
         song = new Song();
         song.setTitle(view.getSaveSongView().getAddSongName().getText());
+        song.setDescription(view.getSaveSongView().getSongDescription().getText());
         song.setPrivacity(view.getSaveSongView().getWannaPrivate().isSelected());
     }
 
@@ -161,10 +161,12 @@ public class Controller {
     }
 
     /**
-     * Function that shows the social view.
+     * Function that shows the social view and sets the
+     * next action to do for the ClientConnection as SOCIAL
      */
     public void openSocial() {
         view.getSocialView().setVisible(true);
+        network.setNextFunc(SOCIAL);
     }
 
     /**
@@ -176,10 +178,12 @@ public class Controller {
     }
 
     /**
-     * Function that shows the song view.
+     * Function that shows the song view and sets the
+     * next action to do for the ClientConnection as SELECT_SONG
      */
     public void openSong() {
         view.getSongView().setVisible(true);
+        network.setNextFunc(SELECT_SONG);
     }
 
     /**
@@ -192,6 +196,7 @@ public class Controller {
 
     public void openSaveSong() {
         view.getSaveSongView().setVisible(true);
+        network.setNextFunc(SAVE_SONG);
     }
 
     public void closeSaveSong() {
@@ -221,7 +226,7 @@ public class Controller {
             password.append(view.getRegisterView().getPassword()[i]);
         }
         return new User(view.getRegisterView().getUsername(),
-                view.getRegisterView().getEmail(), password.toString());
+                 password.toString(),view.getRegisterView().getEmail());
     }
 
     /**
@@ -273,20 +278,6 @@ public class Controller {
         } else {
             view.getRegisterView().errorPopUp(petitionResult);
         }
-    }
-
-    /**
-     * Function that sets the next action to do for the ClientConnection as PIANO
-     */
-    public void networkPiano() {
-        network.setNextFunc(PIANO);
-    }
-
-    /**
-     * Function that sets the next action to do for the ClientConnection as SELECT_SONG
-     */
-    public void networkSelectSong() {
-        network.setNextFunc(SELECT_SONG);
     }
 
     /**
@@ -344,19 +335,6 @@ public class Controller {
     }
 
     /**
-     * Function that sets the next action to do for the ClientConnection as EXIT_PIANO
-     */
-    public void networkExitPiano(){
-        network.setNextFunc(EXIT_PIANO);
-    }
-
-    /**
-     * Function that sets the next action to do for the ClientConnection as SOCIAL
-     */    public void networkSocial() {
-        network.setNextFunc(SOCIAL);
-    }
-
-    /**
      * Function that sets the next action to do for the ClientConnection as SEARCH_USER
      */
     public void networkSearchSocial() {
@@ -371,8 +349,11 @@ public class Controller {
      */
     public void networkSearchSocialResult(int petitionResult, User userToController) {
         if (petitionResult == OK) {
-            view.getSocialView().showUserSearch( userToController.getNameUser(), "usuarioRandom.png", userToController.getPassword().equals("YES"));
+            view.getSocialView().showUserSearch(userToController.getNameUser(), "usuarioRandom.png", userToController.getPassword().equals("YES"));
             view.getSocialView().getjSocial().registerControllerAddFriend(controllerJSocial);
+            if (userToController.getPassword().equals("YES")) {
+                view.getSocialView().getjSocial().getPanelFriend().setButtonAddAsDisabled(controllerJSocial);
+            }
         }
         if (petitionResult == KO) {
             view.getSocialView().showUserNotFound();
@@ -392,7 +373,7 @@ public class Controller {
      * @param petitionResult ClientConnection Transmission result code.
      */
     public void networkAddSocialResult(int petitionResult) {
-        view.getSocialView().friendPopUp(petitionResult);
+        view.getSocialView().friendPopUp(petitionResult, controllerJSocial);
     }
 
     /**

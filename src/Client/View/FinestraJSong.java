@@ -6,8 +6,7 @@ import Model.Song;
 import javax.swing.*;
 import java.util.ArrayList;
 
-import static Client.Network.ClientConnection.KO;
-import static Client.Network.ClientConnection.OK;
+import static Client.Network.ClientConnection.*;
 
 public class FinestraJSong extends JFrame{
     private ComboSongView comboSongView;
@@ -49,6 +48,12 @@ public class FinestraJSong extends JFrame{
             JOptionPane.showMessageDialog(this, "The selected song was successfully loaded.", "Song request", JOptionPane.INFORMATION_MESSAGE);
         }
         if (petitionResult == KO) {
+            JOptionPane.showMessageDialog(this, "Couldn't connect to the server.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        if (petitionResult == ERROR_BBDD) {
+            JOptionPane.showMessageDialog(this, "There was a problem with the database.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        if (petitionResult == ERROR_OBJECT) {
             JOptionPane.showMessageDialog(this, "There was a problem with the song.", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
@@ -58,6 +63,12 @@ public class FinestraJSong extends JFrame{
             JOptionPane.showMessageDialog(this, "The song was saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
         if (petitionResult == KO) {
+            JOptionPane.showMessageDialog(this, "Couldn't connect to the server.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        if (petitionResult == ERROR_BBDD) {
+            JOptionPane.showMessageDialog(this, "There was a problem with the database.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        if (petitionResult == ERROR_OBJECT) {
             JOptionPane.showMessageDialog(this, "There was a problem saving the song.", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }

@@ -309,9 +309,13 @@ public class DedicatedServer extends Thread {
                     Utils utils = new Utils();
                     if (utils.confirmPassword(user.getPassword(), user.getPassword(), user.getNameUser())) {
                         try {
-                            service.createUserFromNoUser(user);
-                            //If the query return true
-                            dataOutputStream.writeInt(CONFIRMATION);
+                            if(utils.confirmEmail(user.getEmail())){
+                                service.createUserFromNoUser(user);
+                                //If the query return true
+                                dataOutputStream.writeInt(CONFIRMATION);
+                            }else{
+                                throw new BBDDException();
+                            }
                         } catch (BBDDException e) {
                             dataOutputStream.writeInt(ERROR_BBDD);
                         }

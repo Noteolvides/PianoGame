@@ -125,7 +125,6 @@ public class PianoController {
         //To go open a song
         view.getPianoView().getTopOption().getSelectSongInSystem().addActionListener(e -> {
             controller.closePiano();
-            controller.networkSelectSong();
             controller.openSong();
         });
 

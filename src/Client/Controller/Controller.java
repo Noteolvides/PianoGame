@@ -178,10 +178,12 @@ public class Controller {
     }
 
     /**
-     * Function that shows the song view.
+     * Function that shows the song view and sets the
+     * next action to do for the ClientConnection as SELECT_SONG
      */
     public void openSong() {
         view.getSongView().setVisible(true);
+        network.setNextFunc(SELECT_SONG);
     }
 
     /**
@@ -194,6 +196,7 @@ public class Controller {
 
     public void openSaveSong() {
         view.getSaveSongView().setVisible(true);
+        network.setNextFunc(SAVE_SONG);
     }
 
     public void closeSaveSong() {
@@ -278,13 +281,6 @@ public class Controller {
     }
 
     /**
-     * Function that sets the next action to do for the ClientConnection as SELECT_SONG
-     */
-    public void networkSelectSong() {
-        network.setNextFunc(SELECT_SONG);
-    }
-
-    /**
      * Functions that depending of the result of the ClientConnection transmission
      * of getting the song from the database, makes the program to updates the songs in the view or show an error popup.
      * @param petitionResult ClientConnection Transmission result code.
@@ -354,10 +350,9 @@ public class Controller {
     public void networkSearchSocialResult(int petitionResult, User userToController) {
         if (petitionResult == OK) {
             view.getSocialView().showUserSearch(userToController.getNameUser(), "usuarioRandom.png", userToController.getPassword().equals("YES"));
+            view.getSocialView().getjSocial().registerControllerAddFriend(controllerJSocial);
             if (userToController.getPassword().equals("YES")) {
-                view.getSocialView().getjSocial().getPanelFriend().setButtonAddAsDisabled();
-            } else {
-                view.getSocialView().getjSocial().registerControllerAddFriend(controllerJSocial);
+                view.getSocialView().getjSocial().getPanelFriend().setButtonAddAsDisabled(controllerJSocial);
             }
         }
         if (petitionResult == KO) {
@@ -378,7 +373,7 @@ public class Controller {
      * @param petitionResult ClientConnection Transmission result code.
      */
     public void networkAddSocialResult(int petitionResult) {
-        view.getSocialView().friendPopUp(petitionResult);
+        view.getSocialView().friendPopUp(petitionResult, controllerJSocial);
     }
 
     /**

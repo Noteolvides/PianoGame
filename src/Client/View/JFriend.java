@@ -134,9 +134,10 @@ public class JFriend extends JPanel {
         }
     }
 
-    public void setButtonAddAsDisabled() {
+    public void setButtonAddAsDisabled(ControllerJSocial controllerJSocial) {
         ImageIcon notAdd = new ImageIcon("img/delete_button.png");
-        buttonAddFriend.setDisabledIcon(new ImageIcon(notAdd.getImage().getScaledInstance(notAdd.getIconWidth()/28, notAdd.getIconHeight() / 25, Image.SCALE_SMOOTH)));
+        buttonAddFriend.setDisabledIcon(new ImageIcon(notAdd.getImage().getScaledInstance(notAdd.getIconWidth()/23, notAdd.getIconHeight() / 23, Image.SCALE_SMOOTH)));
         buttonAddFriend.setEnabled(false);
+        buttonAddFriend.removeMouseListener(controllerJSocial);
     }
 }

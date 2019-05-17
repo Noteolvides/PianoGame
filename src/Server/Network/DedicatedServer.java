@@ -314,6 +314,7 @@ public class DedicatedServer extends Thread {
                                 //If the query return true
                                 dataOutputStream.writeInt(CONFIRMATION);
                             }else{
+                                //TODO: POP UP MESSAGE - EMAIL NO CORRECTE O USER EXISTS
                                 throw new BBDDException();
                             }
                         } catch (BBDDException e) {

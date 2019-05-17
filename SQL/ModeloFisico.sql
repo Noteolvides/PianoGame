@@ -1,7 +1,3 @@
-SET @@session.time_zone = '+00:00';
-SET @@global.time_zone = '+00:00';
-
-
 DROP DATABASE IF EXISTS SmartPiano;
 CREATE DATABASE SmartPiano;
 USE SmartPiano;
@@ -77,14 +73,25 @@ BEGIN
 
       FETCH cur1 INTO nam1, nam2;
 
-      IF done=1 THEN
-         LEAVE bucle;
-      ELSE
+      IF done=0 THEN
          INSERT INTO Friendship (Name1, Name2) VALUES (nam2,nam1);
+      ELSE
+         leave bucle;
       END IF;
 
     END LOOP bucle;
     CLOSE cur1;
+END $$
+DELIMITER ;
+
+
+
+DELIMITER  $$
+DROP    PROCEDURE    IF    EXISTS databaseInitialization  $$
+CREATE PROCEDURE  databaseInitialization ()
+BEGIN
+    SET @@session.time_zone = '+00:00';
+    SET @@global.time_zone = '+00:00';
 END $$
 DELIMITER ;
 
@@ -96,8 +103,8 @@ INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (2,'System','2019-04-30',
 INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (3,'System','2019-05-01',50);
 INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (4,'System','2019-10-04',35);
 INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (5,'System','2019-10-06',38);
-INSERT INTO User (Name, userCode, Password, Email) VALUES ('josep','12345678J','roig','joseproig1999');
-INSERT INTO User (Name, userCode, Password, Email) VALUES ('pepe','12345678P','roig','peperoig1999');
+INSERT INTO User (Name, userCode, Password, Email) VALUES ('josep','12345678J','roig','joseproig1999@gmail.com');
+INSERT INTO User (Name, userCode, Password, Email) VALUES ('pepe','12345678P','roig','peperoig1999@gmail.com');
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path, SystemID) VALUES ('pepe',12,'pepe',120,'pepe.mp3',1);
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path,Privacity, Author) VALUES ('todays class',12,'pepe',56,'pepe.mp3',TRUE,'pepe');
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('josepsSong',12,'pepe',89,'pepe.mp3',FALSE,'pepe');
@@ -125,8 +132,12 @@ GRANT INSERT ON SmartPiano. * TO 'noAlias'@'localhost';
 GRANT SELECT ON SmartPiano. * TO 'noAlias'@'localhost';
 #Permission to allow to a user to execute a procedure
 GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser'@'localhost';
-
+GRANT EXECUTE ON PROCEDURE SmartPiano.databaseInitialization TO 'noAlias'@'localhost';
 
 SELECT * FROM User;
 SELECT * FROM Song;
+SELECT * FROM Syst;
+SELECT * FROM Friendship;
+TRUNCATE Friendship;
+
 

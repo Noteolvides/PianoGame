@@ -56,6 +56,9 @@ public class Controller implements MouseListener {
         if(serverViews.getServerGraph().equals(whichButton)){
             jEvolution.setVisible();
         }
+        if(serverViews.getGestor().equals(whichButton)){
+            view.getGestorView().setVisible();
+        }
 
     }
     @Override

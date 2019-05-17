@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static Client.Network.ClientConnection.OK;
+import static Client.Network.ClientConnection.*;
 
 public class JPrincipal extends JFrame {
     public static final String JPIANO= "Piano";
@@ -112,16 +112,30 @@ public class JPrincipal extends JFrame {
     public void deletedAccountPopUp(int deleted) {
         if (deleted == OK) {
             JOptionPane.showMessageDialog(this, "The account was successfully deleted!", "Account Delete Request",JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "An error occurred the account wasn't deleted!", "Account Delete Request",JOptionPane.WARNING_MESSAGE);
+        }
+        if (deleted == KO) {
+            JOptionPane.showMessageDialog(this, "Couldn't connect to the server.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        if (deleted == ERROR_OBJECT) {
+            JOptionPane.showMessageDialog(this, "An error occurred the account wasn't deleted! User incorrect.", "Error",JOptionPane.WARNING_MESSAGE);
+        }
+        if (deleted == ERROR_BBDD) {
+            JOptionPane.showMessageDialog(this, "An error occurred the account wasn't deleted!", "Error",JOptionPane.WARNING_MESSAGE);
         }
     }
 
     public void logOutPopUp(int petitionResult) {
         if (petitionResult == OK) {
             JOptionPane.showMessageDialog(this, "LogOut successful!", "LogOut",JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "An error occured the LogOut was unsuccessful!", "Error",JOptionPane.WARNING_MESSAGE);
+        }
+        if (petitionResult == KO) {
+            JOptionPane.showMessageDialog(this, "Couldn't connect to the server.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        if (petitionResult == ERROR_BBDD){
+            JOptionPane.showMessageDialog(this, "An error occurred the LogOut was unsuccessful!", "Error",JOptionPane.WARNING_MESSAGE);
+        }
+        if (petitionResult == ERROR_OBJECT) {
+            JOptionPane.showMessageDialog(this, "An error occurred the LogOut was unsuccessful! User incorrect.", "Error",JOptionPane.WARNING_MESSAGE);
         }
     }
 }

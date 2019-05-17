@@ -359,9 +359,7 @@ public class Controller {
                 view.getSocialView().getjSocial().getPanelFriend().setButtonAddAsDisabled(controllerJSocial);
             }
         } else {
-            if (petitionResult == ERROR_BBDD) {
-                view.getSocialView().errorPopUp();
-            }
+            view.getSocialView().errorPopUp(petitionResult);
             view.getSocialView().showUserNotFound();
         }
     }

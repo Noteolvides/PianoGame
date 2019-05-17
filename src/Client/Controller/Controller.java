@@ -149,6 +149,7 @@ public class Controller {
     public void setSongToSave () {
         song = new Song();
         song.setTitle(view.getSaveSongView().getAddSongName().getText());
+        song.setDescription(view.getSaveSongView().getSongDescription().getText());
         song.setPrivacity(view.getSaveSongView().getWannaPrivate().isSelected());
     }
 

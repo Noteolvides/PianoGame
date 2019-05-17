@@ -68,4 +68,8 @@ public class SaveSong extends JFrame{
     public void setOkButton(JButton okButton) {
         this.okButton = okButton;
     }
+
+    public JTextArea getSongDescription() {
+        return songDescription;
+    }
 }

@@ -100,6 +100,11 @@ public class StartController implements ActionListener, WindowListener {
         return num >= 2;
     }
 
+    /**
+     * Function to analize if the string entered is a email or not.
+     * @param email Email to analise.
+     * @return Boolean if the email is correct.
+     */
     public boolean confirmEmail(String email){
         return email.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
     }

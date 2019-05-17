@@ -57,25 +57,20 @@ public class Controller {
 
         view.initRegisterView();
         view.getRegisterView().registerController(startController);
-        closeRegister();
 
         view.initPrincipalView();
         principalController = new JPrincipalController(view, this);
         view.getPrincipalView().registerController(principalController);
-        closePrincipal();
 
         view.initSocialView();
         controllerJSocial = new ControllerJSocial(view, this);
         view.getSocialView().registerController(controllerJSocial);
-        closeSocial();
 
         view.initSongView();
         controllerJSong = new ControllerJSong(view, this);
         view.getSongView().getjSong().registerControllers(controllerJSong);
-        closeSong();
 
         pianoController = new PianoController(view, this);
-        closePiano();
 
         view.initSaveSongView();
         controllerSaveSong = new ControllerSaveSong(view, this);

@@ -11,19 +11,19 @@ public class Graphic extends JPanel {
     private Integer constant2;
     private Integer constant3;
     private int labelPadding = 20;
-    /**change the line color to the best you want;*/
+    /** Change the line color to the best you want*/
     private Color lineColor = new Color(255, 28, 0);
     private Color pointColor = new Color(134, 255, 216);
     private Color gridColor = new Color(200, 200, 200, 200);
     private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
     private static int pointWidth = 11;
     private List<Integer> users;
-    private int padding = 30;                       //Quantitat de farcida esquerra i dreta
-
+    private int padding = 30;                                                                                           //Quantitat de farcida esquerra i dreta
 
     public Graphic(List<Integer> users) {
         this.users = users;
     }
+
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -103,14 +103,14 @@ public class Graphic extends JPanel {
 
 
         //Dibuixa els dos eixos de la gràfica
-        g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, padding + labelPadding, padding);             //Eix Y
+        g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, padding + labelPadding, padding);                                      //Eix Y
         g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, getWidth() - padding, getHeight() - padding - labelPadding);      //Eix X
 
         Stroke oldStroke = g2.getStroke();
-        g2.setColor(lineColor);             //Color de la unió dels punts
+        g2.setColor(lineColor);                                                                                         /* Color de la unió dels punts */
         g2.setStroke(GRAPH_STROKE);
 
-        //Uneix els punts de la gràfica
+        //Matches all the points together, painting lines from point to point (segement by segment)
         for (int i = 0; i < graphPoints.size() - 1; i++) {
             int x1 = graphPoints.get(i).x;
             int y1;
@@ -132,7 +132,7 @@ public class Graphic extends JPanel {
         g2.setStroke(oldStroke);
         g2.setColor(pointColor);
 
-        //Plotting de punts
+        //Plotting of points in the graphic
         for (int i = 0; i < graphPoints.size(); i++) {
             int x = graphPoints.get(i).x - pointWidth / 2;
             int y;
@@ -148,7 +148,7 @@ public class Graphic extends JPanel {
     }
 
     /*
-     *Gets the lowest peak of users
+     *Gets the lowest peak of users to determine the lowest number
      */
     private Integer getMinUsers() {
         Integer minUsers = Integer.MAX_VALUE;
@@ -159,7 +159,7 @@ public class Graphic extends JPanel {
     }
 
     /*
-     *Gets the peak number of users
+     *Gets the peak number of users to determine the peak number
      */
     private Integer getMaxUsers() {
         Integer maxUsers = Integer.MIN_VALUE;

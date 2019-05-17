@@ -34,6 +34,11 @@ public class FinestraJSocial extends JFrame {
         jSocial.showUserNotFound();
     }
 
+    /**
+     * Function that shows a PopUp with the information of the adding a friend.
+     * @param added Type of error.
+     * @param controllerJSocial Controller of Social view.
+     */
     public void friendPopUp(int added, ControllerJSocial controllerJSocial) {
         if (added == OK) {
             JOptionPane.showMessageDialog(this, "You are friends now.", "Friend", JOptionPane.INFORMATION_MESSAGE);
@@ -50,6 +55,10 @@ public class FinestraJSocial extends JFrame {
         }
     }
 
+    /**
+     * Function that shows a PopUp with the search error.
+     * @param petitionResult Type of error.
+     */
     public void errorPopUp(int petitionResult) {
         if (petitionResult == KO) {
             JOptionPane.showMessageDialog(this, "Couldn't connect to the server.", "Error", JOptionPane.WARNING_MESSAGE);

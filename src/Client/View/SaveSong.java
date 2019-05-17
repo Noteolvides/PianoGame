@@ -52,12 +52,9 @@ public class SaveSong extends JFrame{
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setResizable(false);
-        setVisible(true);
+        setVisible(false);
     }
 
-    public static void main(String[] args) {
-        SaveSong saveSong = new SaveSong();
-    }
     public void registerController(ActionListener c) {
         okButton.setActionCommand("SAVE-SONG");
         okButton.addActionListener(c);

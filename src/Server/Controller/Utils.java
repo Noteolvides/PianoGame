@@ -35,4 +35,11 @@ public class Utils {
         }
         return num >= 2;
     }
+
+    public boolean confirmEmail(String email){
+        if(email.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")){
+            return true;
+        }
+        return false;
+    }
 }

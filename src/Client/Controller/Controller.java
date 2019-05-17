@@ -128,18 +128,22 @@ public class Controller {
     }
 
     /**
-     * Function that shows the piano view.
+     * Function that shows the piano view and sets the
+     * next action to do for the ClientConnection as PIANO
      */
     public void openPiano() {
         view.getPianoView().setVisible(true);
+        network.setNextFunc(PIANO);
     }
 
     /**
-     * Function that hides the piano view.
+     * Function that hides the piano view and sets the
+     * next action to do for the ClientConnection as EXIT_PIANO
      */
     public void closePiano() {
         view.getPianoView().setVisible(false);
         view.getPianoView().dispose();
+        network.setNextFunc(EXIT_PIANO);
     }
 
     public void setMidiToSave(String songMidi) {
@@ -162,10 +166,12 @@ public class Controller {
     }
 
     /**
-     * Function that shows the social view.
+     * Function that shows the social view and sets the
+     * next action to do for the ClientConnection as SOCIAL
      */
     public void openSocial() {
         view.getSocialView().setVisible(true);
+        network.setNextFunc(SOCIAL);
     }
 
     /**
@@ -277,13 +283,6 @@ public class Controller {
     }
 
     /**
-     * Function that sets the next action to do for the ClientConnection as PIANO
-     */
-    public void networkPiano() {
-        network.setNextFunc(PIANO);
-    }
-
-    /**
      * Function that sets the next action to do for the ClientConnection as SELECT_SONG
      */
     public void networkSelectSong() {
@@ -342,19 +341,6 @@ public class Controller {
     public void networkRequestSongResult(int petitionResult, String midi) {
         view.getSongView().requestPopUp(petitionResult);
         pianoController.playSong(midi);
-    }
-
-    /**
-     * Function that sets the next action to do for the ClientConnection as EXIT_PIANO
-     */
-    public void networkExitPiano(){
-        network.setNextFunc(EXIT_PIANO);
-    }
-
-    /**
-     * Function that sets the next action to do for the ClientConnection as SOCIAL
-     */    public void networkSocial() {
-        network.setNextFunc(SOCIAL);
     }
 
     /**

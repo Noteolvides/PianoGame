@@ -23,12 +23,10 @@ public class JPrincipalController implements ActionListener {
         String action = e.getActionCommand();
 
         if (action.equals(JPIANO)) {
-            controller.networkPiano();
             controller.openPiano();
             controller.closePrincipal();
 
         } else if (action.equals(JSOCIAL)) {
-            controller.networkSocial();
             controller.openSocial();
             controller.closePrincipal();
 

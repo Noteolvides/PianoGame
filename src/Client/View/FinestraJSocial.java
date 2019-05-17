@@ -36,11 +36,15 @@ public class FinestraJSocial extends JFrame {
 
     public void friendPopUp(int added, ControllerJSocial controllerJSocial) {
         if (added == OK) {
-            JOptionPane.showMessageDialog(this, "Ereh mi amiho.", "Friend", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "You are friends now.", "Friend", JOptionPane.INFORMATION_MESSAGE);
             jSocial.getPanelFriend().setButtonAddAsDisabled(controllerJSocial);
         }
         if (added == ERROR) {
-            JOptionPane.showMessageDialog(this, "No ereh mi amiho, estoi trite.", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "You are not friends.", "Error", JOptionPane.WARNING_MESSAGE);
         }
+    }
+
+    public void errorPopUp() {
+        JOptionPane.showMessageDialog(this, "An error ocurred!", "Error", JOptionPane.WARNING_MESSAGE);
     }
 }

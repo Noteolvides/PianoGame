@@ -361,8 +361,10 @@ public class Controller {
             if (userToController.getPassword().equals("YES")) {
                 view.getSocialView().getjSocial().getPanelFriend().setButtonAddAsDisabled(controllerJSocial);
             }
-        }
-        if (petitionResult == KO) {
+        } else {
+            if (petitionResult == ERROR_BBDD) {
+                view.getSocialView().errorPopUp();
+            }
             view.getSocialView().showUserNotFound();
         }
     }

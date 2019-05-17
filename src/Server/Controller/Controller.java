@@ -1,5 +1,6 @@
 package Server.Controller;
 
+import Server.Controller.Gestor.GestorController;
 import Server.View.JEvolution;
 import Server.View.JTop;
 import Server.View.ServerViews;
@@ -13,6 +14,7 @@ public class Controller implements MouseListener {
     private JEvolutionController jEvolutionController;
     private JTopController jTopController;
     private RegisterController registerController;
+    private GestorController gestorController;
 
     private JTop jTop;
     private JEvolution jEvolution;
@@ -21,10 +23,12 @@ public class Controller implements MouseListener {
     private ServerViews serverViews;
 
     public Controller(JEvolutionController jEvolutionController, JTopController jTopController, RegisterController registerController,
+                        GestorController gestorController,
                         JTop jTop, JEvolution jEvolution, View view, ServerViews serverViews){
         this.jEvolutionController = jEvolutionController;
         this.jTopController = jTopController;
         this.registerController = registerController;
+        this.gestorController = gestorController;
 
         this.jTop = jTop;
         this.jEvolution = jEvolution;
@@ -36,6 +40,7 @@ public class Controller implements MouseListener {
         jEvolution.registerController(jEvolutionController);
         jTop.registerController(jTopController);
         view.getRegisterView().registerController(registerController);
+        view.getGestorView().registerController(gestorController);
     }
 
     @Override

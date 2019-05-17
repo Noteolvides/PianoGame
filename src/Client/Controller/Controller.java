@@ -416,7 +416,6 @@ public class Controller {
      * @param petitionResult ClientConnection Transmission result code.
      */
     public void networkDeleteAccountResult(int petitionResult) {
-        //TODO: HI HA ERROR DE BBDD. PONLO PUTO
         view.getPrincipalView().deletedAccountPopUp(petitionResult);
     }
 

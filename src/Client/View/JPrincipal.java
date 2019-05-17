@@ -105,10 +105,18 @@ public class JPrincipal extends JFrame {
         buttonDeleteAccount.addActionListener(pc);
     }
 
+    /**
+     * Function that creates a prompt to confirm the account deletion.
+     * @return Returns the option selected in the prompt.
+     */
     public int confirmPopUp() {
         return JOptionPane.showConfirmDialog(this, "Are you sure you want to delete the account?", "Delete Account Confirmation", JOptionPane.YES_NO_OPTION);
     }
 
+    /**
+     * Function that shows a PopUp with the information about the error of the account deletion.
+     * @param deleted Type of error.
+     */
     public void deletedAccountPopUp(int deleted) {
         if (deleted == OK) {
             JOptionPane.showMessageDialog(this, "The account was successfully deleted!", "Account Delete Request",JOptionPane.INFORMATION_MESSAGE);
@@ -124,6 +132,10 @@ public class JPrincipal extends JFrame {
         }
     }
 
+    /**
+     * Function that shows a PopUp with the information about the error of the logout.
+     * @param petitionResult Type of error.
+     */
     public void logOutPopUp(int petitionResult) {
         if (petitionResult == OK) {
             JOptionPane.showMessageDialog(this, "LogOut successful!", "LogOut",JOptionPane.INFORMATION_MESSAGE);

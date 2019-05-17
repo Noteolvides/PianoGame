@@ -19,6 +19,7 @@ public class ControllerSaveSong implements ActionListener {
         if (e.getActionCommand().equals("SAVE-SONG")){
             controller.setSongToSave();
             controller.networkSaveSong();
+            controller.closeSaveSong();
         }
     }
 }

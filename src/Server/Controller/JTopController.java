@@ -127,4 +127,10 @@ public class JTopController implements MouseListener {
     public void setService(ServiceBBDDServer service) {
         this.service = service;
     }
+
+    public void refresh(ArrayList<Song> refreshedSongs){
+        jTop.getFrameTop().dispose();
+        includeSongs(refreshedSongs);
+        addAllTheSongs(jTop.getSongsList());
+    }
 }

@@ -290,6 +290,8 @@ public class DedicatedServer extends Thread {
                         dataOutputStream.writeInt(ERROR_BBDD);
                     } catch (InvalidMidiDataException e) {
                         dataOutputStream.writeInt(ERROR_MIDI);   //Error amb l'arxiu MIDI
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                     break;
                 //The user has exit the piano view

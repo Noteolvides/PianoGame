@@ -120,7 +120,6 @@ public class PianoController {
         view.getPianoView().getTopOption().getExitToMenu().addActionListener(e -> {
             controller.closePiano();
             controller.openPrincipal();
-            controller.networkExitPiano();
         });
 
         //To go open a song
@@ -168,6 +167,9 @@ public class PianoController {
                     }
                     controller.setMidiToSave(songMidi.toString());
                     controller.openSaveSong();
+                } else {
+                    view.getPianoView().getTopOption().getRecord().setEnabled(true);
+                    view.getPianoView().getTopOption().getSave().setEnabled(false);
                 }
                 // HASTA AQUI
             });

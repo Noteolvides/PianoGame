@@ -15,11 +15,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-//It is the method where we specify the different connections that may exist. We define it as a bean, because in
-// reality should be in the XML, but we do it through annotations.
+
 /**
  * Class that takes care of loading all the configuration that is needed to connect
- * to the database (contains hashmap of the different users ...)
+ * to the database (contains hashmap of the different users ...). Simply, it is the
+ * method where we specify the different connections that may exist. We define it
+ * as a bean, because in reality should be in the XML, but we do it through annotations.
  */
 @Configuration
 public class DataSourceConfiguration {

@@ -13,6 +13,9 @@ public class JRegister extends JFrame {
     private JPasswordField passwordRegisterVerify;
     private JButton buttonRegister;
 
+    /**
+     * JRegister View
+     */
     public JRegister() {
         JPanel register = new JPanel();
 
@@ -83,7 +86,11 @@ public class JRegister extends JFrame {
         return passwordRegisterVerify.getPassword();
     }
 
-    //Mapping the Register Controller to the Register View
+    /**
+     * Mapping the Register Controller to the Register View
+     * @param controller: Controller
+     */
+
     public void registerController(RegisterController controller) {
         buttonRegister.setActionCommand("REGISTER");
         buttonRegister.addActionListener(controller);
@@ -96,7 +103,7 @@ public class JRegister extends JFrame {
         setVisible(false);
     }
 
-    /*
+    /**
      * If the password doesn't match with the authentication pattern it shows a pop-up
      */
     public void errorPasswordPopUp() {

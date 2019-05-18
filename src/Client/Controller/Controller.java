@@ -202,10 +202,16 @@ public class Controller {
         view.getSongView().dispose();
     }
 
+    /**
+     * Function that shows the SaveSong View.
+     */
     public void openSaveSong() {
         view.getSaveSongView().setVisible(true);
     }
 
+    /**
+     * Function that hides the SaveSong view.
+     */
     public void closeSaveSong() {
         view.getSaveSongView().setVisible(false);
         view.getSaveSongView().dispose();

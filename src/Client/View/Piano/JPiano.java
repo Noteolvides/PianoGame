@@ -26,7 +26,9 @@ public class JPiano extends JFrame {
     private JPanel rightOption;
     private ViewPiano piano;
 
-
+    /**
+     * Initialization of JPiano
+     */
     public JPiano() {
         super("Piano");
         notes = new ArrayList<>();

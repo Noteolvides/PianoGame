@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class JEvolution {
-    //TODO: En la view??
+    //JEvolution attributes, buttons and sockets for data retrieval
     private ServiceBBDDServer service;
     private JFrame evoPanel = new JFrame("Active Users Countage");
     private List<Integer> users;
@@ -25,7 +25,7 @@ public class JEvolution {
 
     public void JEvolution () throws IOException {
 
-
+        //Adding the icon to the Frame border
         ImageIcon icon = new ImageIcon("img/graphicicon.png");
         evoPanel.setIconImage(icon.getImage());
 
@@ -64,6 +64,10 @@ public class JEvolution {
         evoPanel.add(buttonsPanel, constraints);
     }
 
+
+    /*
+     * Creates the graph to be mapped in the JEvolution frame according to the parameters (Users connections)
+     */
     public JPanel showGraphic() {
         users = service.getLastWeekConnections();
 
@@ -114,7 +118,7 @@ public class JEvolution {
     }
 
 
-
+    //Sets the panel visible
     public void setEvoVisible(Boolean invisible) {
         evoPanel.setVisible(invisible);
         evoPanel.repaint();

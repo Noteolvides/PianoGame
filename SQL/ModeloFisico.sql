@@ -104,6 +104,7 @@ INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (3,'System','2019-05-01',
 INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (4,'System','2019-10-04',35);
 INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (5,'System','2019-10-06',38);
 INSERT INTO User (Name, userCode, Password, Email) VALUES ('josep','12345678J','roig','joseproig1999@gmail.com');
+INSERT INTO User (Name, userCode, Password, Email) VALUES ('admin','12345678A','admin','admin@gmail.com');
 INSERT INTO User (Name, userCode, Password, Email) VALUES ('pepe','12345678P','roig','peperoig1999@gmail.com');
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path, SystemID) VALUES ('pepe',12,'pepe',120,'pepe.mp3',1);
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path,Privacity, Author) VALUES ('todays class',12,'pepe',56,'pepe.mp3',TRUE,'pepe');
@@ -134,6 +135,12 @@ GRANT SELECT ON SmartPiano. * TO 'noAlias'@'%';
 GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser'@'%';
 GRANT EXECUTE ON PROCEDURE SmartPiano.databaseInitialization TO 'noAlias'@'%';
 FLUSH PRIVILEGES;
+
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('URSSONG',0,'URSSONG',0,'FilesBBDD/Public/admin/URRSSONG',FALSE,'admin');
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('URSSONG2',0,'URSSONG',0,'FilesBBDD/Public/admin/URRSSONG',FALSE,'admin');
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('URSSONG3',0,'URSSONG',0,'FilesBBDD/Public/admin/URRSSONG',FALSE,'admin');
+
+
 
 SELECT * FROM User;
 SELECT * FROM Song;

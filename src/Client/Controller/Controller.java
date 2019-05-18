@@ -8,6 +8,8 @@ import Client.View.View;
 import Model.Song;
 import Model.User;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import static Client.Network.ClientConnection.*;
@@ -334,6 +336,7 @@ public class Controller {
      */
     public void networkRequestSongResult(int petitionResult, String midi) {
         view.getSongView().requestPopUp(petitionResult);
+        view.getPianoView().getTopOption().getStop().setEnabled(true);
         pianoController.playSong(midi);
     }
 

@@ -45,6 +45,7 @@ public class PianoController {
     private PlayerSongPiano player;
     private int[] activado = new int[24];
     private boolean mute = false;
+    private Thread playSongKeys;
 
 
     public PianoController(View view, Controller controller) {
@@ -97,7 +98,7 @@ public class PianoController {
 
         for (int i = 0; i < 6; i++) {
             view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(keyBoardConfiguration[i].getKey()), keyBoardConfiguration[i].getKey());
-            int finalI = i;
+            int finalI = i+1;
             view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i].getKey(), new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -108,6 +109,7 @@ public class PianoController {
         }
 
         view.getPianoView().getTopOption().getMuteSoundPlaying().addActionListener(e -> {
+
             if (!mute) {
                 mute = true;
             } else {
@@ -115,6 +117,15 @@ public class PianoController {
             }
         });
 
+        view.getPianoView().getTopOption().getStop().addActionListener(e ->{
+            playSongKeys.stop();
+            for (JPanel jp:view.getPianoView().getNotes()) {
+                jp.setLocation(0,1000);
+            }
+            view.getPianoView().revalidate();
+            view.getPianoView().getNotes().clear();
+            view.getPianoView().getTopOption().getStop().setEnabled(false);
+        });
 
         //To get out
         view.getPianoView().getTopOption().getExitToMenu().addActionListener(e -> {
@@ -275,8 +286,7 @@ public class PianoController {
             player = new PlayerSongPiano(view.getPianoView(), pattern);
             Player play = new Player();
             RealtimePlayer realtimePlayer2 = new RealtimePlayer();
-
-            new Thread(() -> {
+            playSongKeys =  new Thread(() -> {
                 double time = 0;
                 int i = 0;
                 Note n;
@@ -316,7 +326,8 @@ public class PianoController {
                 }
                 view.getPianoView().getNotes().clear();
 
-            }).start();
+            });
+            playSongKeys.start();
             realtimePlayer2.close();
         } catch (MidiUnavailableException ex) {
             ex.printStackTrace();

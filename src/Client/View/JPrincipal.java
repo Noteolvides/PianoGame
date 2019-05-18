@@ -118,9 +118,6 @@ public class JPrincipal extends JFrame {
      * @param deleted Type of error.
      */
     public void deletedAccountPopUp(int deleted) {
-        if (deleted == OK) {
-            JOptionPane.showMessageDialog(this, "The account was successfully deleted!", "Account Delete Request",JOptionPane.INFORMATION_MESSAGE);
-        }
         if (deleted == KO) {
             JOptionPane.showMessageDialog(this, "Couldn't connect to the server.", "Error", JOptionPane.WARNING_MESSAGE);
         }
@@ -137,9 +134,6 @@ public class JPrincipal extends JFrame {
      * @param petitionResult Type of error.
      */
     public void logOutPopUp(int petitionResult) {
-        if (petitionResult == OK) {
-            JOptionPane.showMessageDialog(this, "LogOut successful!", "LogOut",JOptionPane.INFORMATION_MESSAGE);
-        }
         if (petitionResult == KO) {
             JOptionPane.showMessageDialog(this, "Couldn't connect to the server.", "Error", JOptionPane.WARNING_MESSAGE);
         }

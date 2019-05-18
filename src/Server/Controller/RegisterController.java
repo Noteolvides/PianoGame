@@ -33,6 +33,10 @@ public class RegisterController implements ActionListener {
                         JOptionPane.showMessageDialog( null, "This UserName already exists", "Error", JOptionPane.WARNING_MESSAGE);
                     }
                     System.out.println("Registered");
+                    view.getRegisterView().setUsernameRegister();
+                    view.getRegisterView().setEmailRegister();
+                    view.getRegisterView().setPasswordRegister();
+                    view.getRegisterView().setPasswordRegisterVerify();
                 }
             } else {
                 view.getRegisterView().errorPasswordPopUp();

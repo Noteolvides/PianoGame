@@ -86,6 +86,22 @@ public class JRegister extends JFrame {
         return passwordRegisterVerify.getPassword();
     }
 
+    public void setUsernameRegister() {
+        this.usernameRegister.setText("");
+    }
+
+    public void setEmailRegister() {
+        this.emailRegister.setText("");
+    }
+
+    public void setPasswordRegister() {
+        this.passwordRegister.setText("");
+    }
+
+    public void setPasswordRegisterVerify() {
+        this.passwordRegisterVerify.setText("");
+    }
+
     /**
      * Mapping the Register Controller to the Register View
      * @param controller: Controller

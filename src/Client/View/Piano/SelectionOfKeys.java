@@ -4,10 +4,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+
+/**
+ * Frame that contains all the posible keys that can be mapped in the piano
+ *
+ * @author  Gerard
+ * @author Gustavo
+ * @author Neil
+ * @author Jiahui
+ * @author Josep
+ * @version 1.0
+ * @since 2019-05-16
+ */
 public class SelectionOfKeys extends JFrame {
     private ArrayList<KeyConfigurationVisual> list;
     private JButton change;
 
+
+    /**
+     * Initialization
+     */
     public SelectionOfKeys() {
         setTitle("Change Keys");
         list = new ArrayList<>();
@@ -24,6 +40,9 @@ public class SelectionOfKeys extends JFrame {
         this.list = list;
     }
 
+    /**
+     * Actualization of keyConfiguration
+     */
     public void acctKeyConfiguration(){
         for (KeyConfigurationVisual i: list) {
             add(i);

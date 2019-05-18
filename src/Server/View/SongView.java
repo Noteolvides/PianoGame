@@ -15,6 +15,14 @@ public class SongView extends JPanel {
     private JLabel infoIcon;
     private boolean playing = false;
 
+    /**
+     * It formats how a songs is displayed in the main frame
+     * For instance, it is used in JTop 5 to show the TOP 5 Songs list
+     * with its image-buttons, description.
+     * @param idSong: Song ID
+     * @param title: Song Name - TItle
+     * @param description: Song Description
+     */
     public SongView (int idSong, String title, String description) {
         setLayout(new BorderLayout());
 
@@ -51,9 +59,6 @@ public class SongView extends JPanel {
                 musicIcon.setIcon(musicImage_scaled5);
                 break;
         }
-
-
-
 
         //Localizing the image in the project
         ImageIcon infoImage = new ImageIcon("img/info_1.png");
@@ -109,10 +114,11 @@ public class SongView extends JPanel {
         musicIcon.setIcon(play_scaled);
     }
 
-    /*
+    /**
      * Since we have 5 songs in JTop 5 Panel
      * It maps each song with its own icon
      * From Gold to Bronze and a Star for those below 3rd
+     * @param idSong: Song ID used for determine its position
      */
     public void resetMusicIcon(int idSong){
         switch (idSong + 1){

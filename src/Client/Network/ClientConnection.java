@@ -83,7 +83,6 @@ public class ClientConnection extends Thread {
 
         } catch (IOException e) {
             System.out.println("Error to set up connection with the server.");
-            e.printStackTrace();
         }
 
     }
@@ -126,6 +125,7 @@ public class ClientConnection extends Thread {
                     saveSong();
                     break;
                 case REQUEST_SONG:
+                    System.out.println("entro");
                     requestSong();
                     break;
                 case EXIT_PIANO:

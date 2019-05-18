@@ -125,7 +125,6 @@ public class ClientConnection extends Thread {
                     saveSong();
                     break;
                 case REQUEST_SONG:
-                    System.out.println("entro");
                     requestSong();
                     break;
                 case EXIT_PIANO:

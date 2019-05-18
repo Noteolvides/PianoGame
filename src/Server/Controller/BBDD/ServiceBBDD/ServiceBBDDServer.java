@@ -242,6 +242,12 @@ public class ServiceBBDDServer {
     //:::::::::::::::::::USER BBDD METHODS::::::::::::::::::::
 
     //Method to delete your user
+
+    /**
+     * This method allows the user to delete his own user.
+     * @param username It is the name of the current user, that is, the one we want to eliminate
+     * @throws BBDDException This exception occurs when the name entered by the user does not exist, and therefore the user can not be deleted.
+     */
     public void deleteUser (String username) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         dao.deleteUser(username);
@@ -249,16 +255,28 @@ public class ServiceBBDDServer {
     }
 
 
-    //Method to update the information of a user (the username mopdify is not valid in not valid in this method)
+
+
+    /**
+     * Method to update the information of a user, so when something changed in it, it is uptated in the database
+     * @param user The instance of user with the new user information loaded
+     * @throws BBDDException In this method, an exception occurs when the user's name or email does not exist and therefore the information can not be updated
+     */
     public void updateInformationUser (User user) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         dao.checkExistenceUserDatabaseWithoutPassword(user.getNameUser(),false);
+        dao.checkExistenceEmailDatabaseWithoutPassword(user.getEmail(),false);
         dao.updateUserTable(user);
-        //this metodh is useles
+        //This method ensure the bidirectionality of friendship (so if anyone does not have bidirectionality this method puts it)
         dao.recyprocityFriendship();
         ServerContextHolder.clear();
     }
 
+    /**
+     * This method allows the user to update the information of a particular song (in most cases it is used to update the reproductions of a particular song)
+     * @param song It's the instance of a song, with the new information uploaded
+     * @throws BBDDException This exception occurs when the name of the song or author has been modified, then it is not updated
+     */
     public void updateSong (Song song) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         if (song.getAuthor() != null) {
@@ -272,7 +290,14 @@ public class ServiceBBDDServer {
     }
 
 
-    //This is the method to search if a user exists, if exists we return it.
+
+
+    /**
+     * This is the method to search if a user exists passing it a  username, if exists we return it.
+     * @param usernameToSearch It's the name of the user that we want to search
+     * @return It returns the instance of the user searched
+     * @throws BBDDException This exception occurs when the searched user does not exist on the platform and therefore its instance can not be returned
+     */
     public User searchUserByUsername (String usernameToSearch) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         dao.checkExistenceUserDatabaseWithoutPassword(usernameToSearch,false);
@@ -281,6 +306,13 @@ public class ServiceBBDDServer {
         return user;
     }
 
+    /**
+     *  This is the method to search if a user exists passing it the alphanumeric code, if exists we return it.
+     *  This method is basically used to acquire the user that the user wants to add
+     * @param code It's the alphanumeric code of the user
+     * @return It returns the instance of the user searched.
+     * @throws BBDDException If the user does not exist, an exception is returned, because the user's instance can not be returned.
+     */
     public User searchUserByCode (String code) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         dao.checkExistenceCode(code);
@@ -291,6 +323,11 @@ public class ServiceBBDDServer {
 
 
     //Method to increase one connection to the syst
+
+    /**
+     * This method is the responsible to increase one connection to the system. Therefore, when a user is granted,
+     * this method will have to be called to increase the connections in one
+     */
     public void addConnection () {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         try {
@@ -303,6 +340,8 @@ public class ServiceBBDDServer {
             ServerContextHolder.clear();
         }
     }
+
+
 
     public void createUserFromNoUser (User user) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.noUserSmartPiano);

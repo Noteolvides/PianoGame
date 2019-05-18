@@ -427,15 +427,10 @@ public class ServiceBBDDServer {
     }
 
 
-    public Song getConcreteSongUser (String username, String songName) throws BBDDException {
+    public Song getConcreteSongUser (String username, String songName) throws Exception {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         List <Song> songsThatUserCanAccess = null;
-        try {
-            songsThatUserCanAccess = getSongsUser(username);
-        } catch (Exception e) {
-            ServerContextHolder.clear();
-            throw new BBDDException();
-        }
+        songsThatUserCanAccess = getSongsUser(username);
         int i  = 0;
         boolean found = false;
         while (!found && i < songsThatUserCanAccess.size()) {
@@ -446,17 +441,18 @@ public class ServiceBBDDServer {
         }
         if (found) {
             List <Song> song = dao.searchConcreteSong(songName);
-            ServerContextHolder.clear();
             int h = 0;
             while (!((song.get(h).getAuthor().getNameUser()).equals(username))) {
                 h++;
             }
+            ServerContextHolder.clear();
             return song.get(h);
         }
         else {
             ServerContextHolder.clear();
             throw new BBDDException();
         }
+
     }
 
     public List<Song> getSongsUser (String username) throws Exception{

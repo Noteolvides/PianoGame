@@ -4,6 +4,18 @@ package Client.View.Piano;
 import javax.swing.*;
 import java.util.ArrayList;
 
+
+/**
+ * Main view of the piano, class that contains other views of piano
+ *
+ * @author  Gerard
+ * @author Gustavo
+ * @author Neil
+ * @author Jiahui
+ * @author Josep
+ * @version 1.0
+ * @since 2019-05-16
+ */
 public class ViewPiano extends JLayeredPane {
 
     public static final int numberOfKeys = 14;
@@ -19,6 +31,11 @@ public class ViewPiano extends JLayeredPane {
 
     }
 
+
+    /**
+     * Create a piano with the select level
+     * @param level
+     */
     private void creationOfPiano(int level) {
         //Here we put all the white notes
         for (int i = 1; i <= numberOfKeys/2; i++) {
@@ -43,18 +60,32 @@ public class ViewPiano extends JLayeredPane {
         }
     }
 
+    /**
+     * Create a new blackKey in the asignated position and level in the octave
+     * @param i postition in the screen
+     * @param level Level of the octave
+     */
     private void createBlackKey(int i,int level) {
         BlackKey blackKey = new BlackKey(i,level);
         add(blackKey, 1, -1);
         keys.add(blackKey);
     }
 
+    /**
+     * Create a new whiteKey in the asignated position and level in the octave
+     * @param i postition in the screen
+     * @param level Level of the octave
+     */
     private void createWhiteKey(int i,int level) {
         WhiteKey whiteKey = new WhiteKey(i,level);
         add(whiteKey, 0, -1);
         keys.add(whiteKey);
     }
 
+    /**
+     * Change the level in the piano
+     * @param level level of the octave
+     */
     public void goOctave(int level) {
         int i= 0;
         for (Key k : keys){

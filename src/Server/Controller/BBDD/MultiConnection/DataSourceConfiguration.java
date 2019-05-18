@@ -17,10 +17,17 @@ import java.util.Map;
 
 //It is the method where we specify the different connections that may exist. We define it as a bean, because in
 // reality should be in the XML, but we do it through annotations.
+/**
+ * Class that takes care of loading all the configuration that is needed to connect
+ * to the database (contains hashmap of the different users ...)
+ */
 @Configuration
 public class DataSourceConfiguration {
 
-
+    /**
+     * This is the constructor that basically deals with obtaining the JSON information related to the database and interpreting it
+     * @return Returns the instance of the Datasource object, which will contain all the necessary information from the database
+     */
     @Bean(name = "dataSource")
     public DataSource clientDatasource() {
         //We define a hashmap where we will save the object together with its reference (her personal DNI that is an enumeration, so we can identify them)

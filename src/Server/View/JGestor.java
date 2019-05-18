@@ -97,7 +97,7 @@ public class JGestor extends JFrame {
         add(bottomPanel);
 
         //Default setting to the view
-        setSize(400,800);
+        setSize(400,600);
         setVisible(false);
         setResizable(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);

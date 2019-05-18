@@ -24,8 +24,11 @@ public class JGestor extends JFrame {
     private JPanel songsGroup;
     private JScrollPane scrollBar;
 
-    //TODO: Javadoc y hacer bonito
-
+    /**
+     * Song Manager View, it offers a friendly UI for the user to delete or add
+     * songs to the Server's Database
+     * @param songs: List of the songs that the view will contain
+     */
     public JGestor (List<Song> songs){
         //Inicialization of Layout
         setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
@@ -93,6 +96,7 @@ public class JGestor extends JFrame {
         refreshButton.setBorder(new EmptyBorder(5,5,5,5));
         add(bottomPanel);
 
+        //Default setting to the view
         setSize(400,1000);
         setVisible(false);
         setResizable(false);
@@ -100,6 +104,10 @@ public class JGestor extends JFrame {
 
     }
 
+    /**
+     * Registers the Song Manager Controller to the view
+     * @param gc: Controller
+     */
     public void registerController(GestorController gc){
         backButton.addMouseListener(gc);
         addButton.addMouseListener(gc);
@@ -110,6 +118,10 @@ public class JGestor extends JFrame {
         }
     }
 
+    /**
+     *  Adds and include all the songs retrieved from the data base
+     * @param songs : List that contains all the songs
+     */
     public void includeSongs(List <Song> songs) {
         //Adding a new array to not repeat different times the same songs, if we decide to refresh the window
         songsList = new ArrayList<>();
@@ -127,9 +139,10 @@ public class JGestor extends JFrame {
 
     }
 
-    /*
-     * With all the songs retrieved from the BBDD
+    /**
+     * With all the songs retrieved from the BBDD and further processed
      * It outputs all of them to the Panel's list
+     * @param songsViews List of the songs with its correct format, buttons and icons set
      */
     private void addAllTheSongs (List <SongFile> songsViews) {
         for (int i = 0; i < songsViews.size();i++) {

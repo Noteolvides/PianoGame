@@ -167,6 +167,9 @@ public class PianoController {
                     }
                     controller.setMidiToSave(songMidi.toString());
                     controller.openSaveSong();
+                } else {
+                    view.getPianoView().getTopOption().getRecord().setEnabled(true);
+                    view.getPianoView().getTopOption().getSave().setEnabled(false);
                 }
                 // HASTA AQUI
             });

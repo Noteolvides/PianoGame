@@ -479,7 +479,7 @@ public class ServiceBBDDServer {
 
     }
 
-
+    @Transactional
     public List<Song> getSongsUser (String username) throws Exception{
         if (!(username.equals("") || username.contains(" "))) {
             ServerContextHolder.set(AvaiableClients.UserRegistered);
@@ -521,6 +521,18 @@ public class ServiceBBDDServer {
                     return ((Integer)o2.getPlays()).compareTo(o1.getPlays());
                 }
             });
+            int i = 0;
+            //Code to evit the recursivity (the infinit bucle), because the exclude does not work in this case
+            while (i < songs.size()) {
+                if (songs.get(i).getAuthor() != null) {
+                    songs.get(i).getAuthor().setSongs(null);
+                    songs.get(i).getAuthor().setFollowing(null);
+                }
+                else {
+                    songs.get(i).getSystem().setSongs(null);
+                }
+                i++;
+            }
             ServerContextHolder.clear();
             return songs;
         }

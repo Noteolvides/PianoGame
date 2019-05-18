@@ -29,16 +29,18 @@ public class MainServer {
         server.startServer(config.getClientPort());
         ServerViews serverViews = new ServerViews();
 
-
+        //Inits Server view
         View view = new View();
         view.initRegisterView();
         RegisterController controller = new RegisterController(view,server.getServerService());
 
+        //Inits JEvolution View for a graphical representation of the Users connections to de Database
         JEvolution evolution = new JEvolution(server.getServerService());
         evolution.JEvolution();
         evolution.setEvoVisible(false);
         JEvolutionController evoController = new JEvolutionController(evolution);
 
+        //Inits JTop View for a TOP 5 Songs list of the Database
         JTop top = new JTop();
         top.JTop();
         JTopController topController = new JTopController(top, server.getServerService());
@@ -46,9 +48,11 @@ public class MainServer {
         topController.includeSongs(top.getSongs());
         topController.addAllTheSongs(top.getSongsList());
 
+        //Inits JGestor for managing BBDDD's Song
         GestorController gestorController = new GestorController(view, server.getServerService());
         view.getGestorView().registerController(gestorController);
 
+        //Main controller for the Server View Panel
         Controller control = new Controller(evoController, topController, controller, gestorController, top, evolution, view, serverViews);
         serverViews.registerController(control);
         control.actionManager(evolution, top, view);

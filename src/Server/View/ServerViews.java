@@ -8,7 +8,7 @@ import java.awt.*;
 public class ServerViews {
         private JButton serverGraph, topSongs, registerUser, gestor;
 
-        /*
+        /**
          * Server View, with 4 buttons for each functionality of the Server
          */
         public ServerViews(){
@@ -39,14 +39,26 @@ public class ServerViews {
                 serverFrame.setSize(300, 350);
                 serverFrame.setVisible(true);
         }
+
+    /**
+     * Resizing Icon Image
+     * @param icon: Icon to be resized
+     * @param resizedWidth: Width resize
+     * @param resizedHeight: Height resize
+     * @return the resized icon
+     */
         private static Icon resizeIcon(ImageIcon icon, int resizedWidth, int resizedHeight) {
                 Image img = icon.getImage();
                 Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);
                 return new ImageIcon(resizedImage);
         }
 
-        //Register each button of the Server View with each's controller
-        public void registerController(Controller controller){
+
+    /**
+     * Register each button of the Server View with each's controller
+     * @param controller: Controller
+     */
+    public void registerController(Controller controller){
             serverGraph.addMouseListener(controller);
             topSongs.addMouseListener(controller);
             registerUser.addMouseListener(controller);

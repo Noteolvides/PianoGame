@@ -20,6 +20,13 @@ public class SongFile extends JPanel {
                               //false -> public
     //TODO: Afegir author
 
+    /**
+     * The properties of a song
+     * @param title: Song's Title
+     * @param description: Song's Description
+     * @param author: Song's Creator
+     * @param privacity: Song's privacy
+     */
     public SongFile(String title, String description, String author, Boolean privacity) {
         setLayout(new BorderLayout());
 
@@ -88,6 +95,10 @@ public class SongFile extends JPanel {
 
     }
 
+    /**
+     * Registers the controller
+     * @param gc: Controller
+     */
     public void registerController(GestorController gc) {
         deleteButton.addMouseListener(gc);
         infoIcon.setToolTipText(description.getText());

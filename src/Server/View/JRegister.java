@@ -16,9 +16,11 @@ public class JRegister extends JFrame {
     public JRegister() {
         JPanel register = new JPanel();
 
+        //Adding the view's icon
         ImageIcon icon = new ImageIcon("img/registerIcon.png");
         setIconImage(icon.getImage());
 
+        //Adding all the Register form fields
         register.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         register.setLayout(new BoxLayout(register, BoxLayout.PAGE_AXIS));
         JPanel fields = new JPanel();
@@ -49,12 +51,14 @@ public class JRegister extends JFrame {
         fields.add(Box.createVerticalStrut(4));
         register.add(fields);
 
+        //Adding the Register button
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         buttonRegister = new JButton("Register");
         buttonPanel.add(buttonRegister);
         register.add(buttonPanel);
 
+        //General attributes of the View
         getContentPane().add(register);
         setSize(250, 300);
         setTitle("Register");
@@ -79,6 +83,7 @@ public class JRegister extends JFrame {
         return passwordRegisterVerify.getPassword();
     }
 
+    //Mapping the Register Controller to the Register View
     public void registerController(RegisterController controller) {
         buttonRegister.setActionCommand("REGISTER");
         buttonRegister.addActionListener(controller);
@@ -91,6 +96,9 @@ public class JRegister extends JFrame {
         setVisible(false);
     }
 
+    /*
+     * If the password doesn't match with the authentication pattern it shows a pop-up
+     */
     public void errorPasswordPopUp() {
         JOptionPane.showMessageDialog(this, "The password doesn't meet the requirements!", "Bad password", JOptionPane.WARNING_MESSAGE);
     }

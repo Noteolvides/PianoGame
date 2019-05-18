@@ -18,7 +18,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Main {
+public class MainServer {
     public static void main(String[] args) throws IOException {
         ApplicationContext context =  new ClassPathXmlApplicationContext("Server/Controller/BBDD/Resources/applicationContextService.xml");
         Server server = (Server)context.getBean("controllerJ2");

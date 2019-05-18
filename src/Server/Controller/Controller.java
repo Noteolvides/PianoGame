@@ -24,6 +24,7 @@ public class Controller implements MouseListener {
 
     private ServerViews serverViews;
 
+    //Generala controller for all the views of the Server Side
     public Controller(JEvolutionController jEvolutionController, JTopController jTopController, RegisterController registerController,
                         GestorController gestorController,
                         JTop jTop, JEvolution jEvolution, View view, ServerViews serverViews){
@@ -38,6 +39,7 @@ public class Controller implements MouseListener {
         this.serverViews = serverViews;
     }
 
+    //Adding each controller to its view from the Server
     public void actionManager(JEvolution jEvolution, JTop jTop, View view){
         jEvolution.registerController(jEvolutionController);
         jTop.registerController(jTopController);

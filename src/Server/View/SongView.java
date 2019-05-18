@@ -109,6 +109,11 @@ public class SongView extends JPanel {
         musicIcon.setIcon(play_scaled);
     }
 
+    /*
+     * Since we have 5 songs in JTop 5 Panel
+     * It maps each song with its own icon
+     * From Gold to Bronze and a Star for those below 3rd
+     */
     public void resetMusicIcon(int idSong){
         switch (idSong + 1){
             case 1:
@@ -138,10 +143,10 @@ public class SongView extends JPanel {
                 break;
         }
     }
+
     public JLabel getMusicIcon() {
         return musicIcon;
     }
-
 
     public JLabel getInfoIcon() {
         return infoIcon;
@@ -159,6 +164,7 @@ public class SongView extends JPanel {
         return description;
     }
 
+    //Determines whether the song is being played or not
     public boolean isPlaying() {
         return playing;
     }

@@ -83,7 +83,6 @@ public class ClientConnection extends Thread {
 
         } catch (IOException e) {
             System.out.println("Error to set up connection with the server.");
-            e.printStackTrace();
         }
 
     }
@@ -290,7 +289,6 @@ public class ClientConnection extends Thread {
         int trans_estate = KO;
 
         try {
-            //TODO: If i'm friend of the searched user, I CAN'T PRESS ADD USER -> CONTROL IT IN THE CONTROLLER
             //We sent to the server the current operation
             dOut.writeUTF(ADD_USER);
 

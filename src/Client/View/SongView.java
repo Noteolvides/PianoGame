@@ -86,6 +86,10 @@ public class SongView extends JPanel {
         return description;
     }
 
+    public JLabel getAuthor() {
+        return author;
+    }
+
     public JLabel getMusicIcon() {
         return musicIcon;
     }

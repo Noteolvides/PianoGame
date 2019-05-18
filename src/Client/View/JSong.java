@@ -151,6 +151,22 @@ public class JSong extends JPanel{
         }
         return title;
     }
+
+    public String searchAuthorSong(JLabel botoPlay) {
+        String author = "";
+        int j = 0;
+        boolean found = false;
+        //We try to discover what song comes from the play touched
+        while (j < songsList.size() && !found) {
+            if(songsList.get(j).getPlayButton() == botoPlay) {
+                found = true;
+                author = songsList.get(j).getAuthor().getText();
+            }
+            j++;
+        }
+        return author;
+    }
+
     public void updateControllersSongs (ControllerJSong controllerJSong) {
         int i = 0;
         //We put our controller in all the songs available

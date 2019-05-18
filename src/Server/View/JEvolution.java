@@ -23,6 +23,10 @@ public class JEvolution {
         this.service = service;
     }
 
+    /**
+     * JEvoltion View
+     * @throws IOException
+     */
     public void JEvolution () throws IOException {
 
         //Adding the icon to the Frame border
@@ -65,7 +69,7 @@ public class JEvolution {
     }
 
 
-    /*
+    /**
      * Creates the graph to be mapped in the JEvolution frame according to the parameters (Users connections)
      */
     public JPanel showGraphic() {
@@ -78,6 +82,10 @@ public class JEvolution {
         return graphics;
     }
 
+    /**
+     * Registering controller
+     * @param controller: Controller
+     */
     public void registerController(JEvolutionController controller){
         year.addActionListener(controller);
         week.addActionListener(controller);

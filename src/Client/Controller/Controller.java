@@ -140,7 +140,6 @@ public class Controller {
     public void closePiano() {
         view.getPianoView().setVisible(false);
         view.getPianoView().dispose();
-        network.setNextFunc(EXIT_PIANO);
     }
 
     /**
@@ -315,6 +314,7 @@ public class Controller {
      */
     public void networkSaveSongResult(int petitionResult) {
         view.getPianoView().savePopUp(petitionResult);
+        closeSaveSong();
     }
 
     /**
@@ -400,6 +400,14 @@ public class Controller {
         } else {
             view.getPrincipalView().logOutPopUp(petitionResult);
         }
+    }
+
+    /**
+     * Function that sets the next action to do for the ClientConnection as EXIT_PIANO
+     */
+    public void networkExitPiano() {
+        //network.setNextFunc(EXIT_PIANO);  //for some reason this doesn't work
+        network.exitPiano();
     }
 
     /**

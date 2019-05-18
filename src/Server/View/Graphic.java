@@ -24,7 +24,10 @@ public class Graphic extends JPanel {
         this.users = users;
     }
 
-
+    /**
+     * Painting the user graph to the panel in JEvolution
+     * @param g
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -103,11 +106,11 @@ public class Graphic extends JPanel {
 
 
         //Dibuixa els dos eixos de la gràfica
-        g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, padding + labelPadding, padding);                                      //Eix Y
+        g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, padding + labelPadding, padding);                                     //Eix Y
         g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, getWidth() - padding, getHeight() - padding - labelPadding);      //Eix X
 
         Stroke oldStroke = g2.getStroke();
-        g2.setColor(lineColor);                                                                                         /* Color de la unió dels punts */
+        g2.setColor(lineColor);                                                                                                                                      /* Color de la unió dels punts */
         g2.setStroke(GRAPH_STROKE);
 
         //Matches all the points together, painting lines from point to point (segement by segment)
@@ -147,7 +150,7 @@ public class Graphic extends JPanel {
         }
     }
 
-    /*
+    /**
      *Gets the lowest peak of users to determine the lowest number
      */
     private Integer getMinUsers() {
@@ -158,7 +161,7 @@ public class Graphic extends JPanel {
         return minUsers;
     }
 
-    /*
+    /**
      *Gets the peak number of users to determine the peak number
      */
     private Integer getMaxUsers() {

@@ -92,7 +92,11 @@ public class JSong extends JPanel{
         //We take the songs that we are going to show and we add them to our view
         songsList.clear();
         for (int i = 0;i < songs.size();i++) {
-            songsList.add(new SongView(songs.get(i).getTitle(),songs.get(i).getDescription()));
+            if (songs.get(i).getAuthor() == null) {
+                songsList.add(new SongView(songs.get(i).getTitle(),songs.get(i).getDescription(), " "));
+            } else {
+                songsList.add(new SongView(songs.get(i).getTitle(), songs.get(i).getDescription(), songs.get(i).getAuthor().getNameUser()));
+            }
             //We put a maximmum size of a song
             songsList.get(i).setMaximumSize(new Dimension(1000,70));
         }

@@ -113,8 +113,7 @@ INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path,Privacity, Author) VALUES ('pepeSong',12,'pepe',91,'pepe.mp3',TRUE,'josep');
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('FlamencoGitano',12,'pepe',57,'pepe.mp3',TRUE,'pepe');
 
-
-
+SET GLOBAL validate_password_policy=LOW;
 
 DROP USER IF EXISTS 'noAlias';
 DROP USER IF EXISTS 'normalUser';
@@ -142,10 +141,14 @@ INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author
 
 
 
+
 SELECT * FROM User;
 SELECT * FROM Song;
 SELECT * FROM Syst;
 SELECT * FROM Friendship;
-TRUNCATE Friendship;
+
+
+
+
 
 

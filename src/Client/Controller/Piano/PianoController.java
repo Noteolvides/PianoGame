@@ -8,31 +8,35 @@ import Client.View.View;
 import Model.ConfigurationPackage.Configuration;
 import Model.ConfigurationPackage.KeyConfiguration;
 import Model.KeyRecord;
-import Model.Song;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import org.jfugue.midi.MidiFileManager;
 import org.jfugue.pattern.Pattern;
 import org.jfugue.player.Player;
 import org.jfugue.realtime.RealtimePlayer;
 import org.jfugue.theory.Note;
 
-import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-
+/**
+ * Controller of piano this class implements all the controllers to the keys,playing and saving
+ *
+ * @author  Gerard
+ * @author Gustavo
+ * @author Neil
+ * @author Jiahui
+ * @author Josep
+ * @version 1.0
+ * @since 2019-05-16
+ */
 public class PianoController {
     private View view;
     private Controller controller;
@@ -47,7 +51,11 @@ public class PianoController {
     private boolean mute = false;
     private Thread playSongKeys;
 
-
+    /**
+     *
+     * @param view The main view with all the subviews
+     * @param controller The main Controller
+     */
     public PianoController(View view, Controller controller) {
         try {
             keys = new HashMap<>();
@@ -66,90 +74,28 @@ public class PianoController {
         }
     }
 
+    /**
+     * The inicializacion of all buttons in the views
+     */
     private void initController() {
         view.initPianoView();
-        view.getPianoView().getTopOption().getChangeKeys().addActionListener(e ->{
-            for (KeyConfigurationVisual k: selectionOfKeys.getList()) {
-                selectionOfKeys.remove(k);
-            }
-            selectionOfKeys.getList().clear();
-            for (KeyConfiguration k: keyBoardConfiguration) {
-                selectionOfKeys.getList().add(new KeyConfigurationVisual(k.getName(),k.getKey()));
-            }
-            selectionOfKeys.acctKeyConfiguration();
-            selectionOfKeys.setVisible(true);
-            selectionOfKeys.getChange().addActionListener(e1 -> {
-                int i = 0;
-                for (KeyConfigurationVisual l : selectionOfKeys.getList()) {
-                    if (!l.getKey().getText().isEmpty() || l.getKey().getText().charAt(0) == ' '){
-                        keyBoardConfiguration[i].setKey(l.getKey().getText().charAt(0));
-                    }
-                    i++;
-                }
-                view.getPianoView().getPiano().getIm().clear();
-                view.getPianoView().getPiano().getAm().clear();
-                view.getPianoView().setVisible(false);
-                view.getPianoView().dispose();
-                initController();
-                view.getPianoView().setVisible(true);
-                showPromt();
-            });
-        });
+        changeKeys();
+        mapKeysToOctaves();
+        muteButton();
+        stopButton();
+        exitToMenuButton();
+        selectSongButton();
+        RecordButton();
+        mapKeysPiano();
+    }
 
-        for (int i = 0; i < 6; i++) {
-            view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(keyBoardConfiguration[i].getKey()), keyBoardConfiguration[i].getKey());
-            int finalI = i+1;
-            view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i].getKey(), new AbstractAction() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    actualOctave = finalI;
-                    view.getPianoView().getPiano().goOctave(finalI);
-                }
-            });
-        }
-
-        view.getPianoView().getTopOption().getMuteSoundPlaying().addActionListener(e -> {
-
-            if (!mute) {
-                mute = true;
-            } else {
-                mute = false;
-            }
-        });
-
-        view.getPianoView().getTopOption().getStop().addActionListener(e ->{
-            playSongKeys.stop();
-            for (JPanel jp:view.getPianoView().getNotes()) {
-                jp.setLocation(0,1000);
-            }
-            view.getPianoView().revalidate();
-            view.getPianoView().getNotes().clear();
-            view.getPianoView().getTopOption().getStop().setEnabled(false);
-        });
-
-        //To get out
-        view.getPianoView().getTopOption().getExitToMenu().addActionListener(e -> {
-            controller.closePiano();
-            controller.openPrincipal();
-            controller.networkExitPiano();
-        });
-
-        //To go open a song
-        view.getPianoView().getTopOption().getSelectSongInSystem().addActionListener(e -> {
-            controller.openSong();
-        });
-
+    /**
+     * Map key function
+     */
+    private void mapKeysPiano() {
         try {
             realtimePlayer = new RealtimePlayer();
             controlKeys();
-
-            //Listener to record Song
-            view.getPianoView().getTopOption().getRecord().addActionListener(e -> {
-                view.getPianoView().getTopOption().getRecord().setEnabled(false);
-                keys.clear();
-                numberOFkeys = 0;
-                view.getPianoView().getTopOption().getSave().setEnabled(true);
-            });
 
             //Save song
             view.getPianoView().getTopOption().getSave().addActionListener(e -> {
@@ -195,6 +141,124 @@ public class PianoController {
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Record Button inicialization
+     */
+    private void RecordButton() {
+        //Listener to record Song
+        view.getPianoView().getTopOption().getRecord().addActionListener(e -> {
+            view.getPianoView().getTopOption().getRecord().setEnabled(false);
+            keys.clear();
+            numberOFkeys = 0;
+            view.getPianoView().getTopOption().getSave().setEnabled(true);
+        });
+    }
+
+    /**
+     * Select Song incialization
+     */
+    private void selectSongButton() {
+        //To go open a song
+        view.getPianoView().getTopOption().getSelectSongInSystem().addActionListener(e -> {
+            controller.openSong();
+        });
+    }
+
+    /**
+     * Exit to menu button incialization
+     */
+    private void exitToMenuButton() {
+        view.getPianoView().getTopOption().getExitToMenu().addActionListener(e -> {
+            controller.closePiano();
+            controller.openPrincipal();
+            controller.networkExitPiano();
+            if (playSongKeys != null){
+                playSongKeys.stop();
+            }
+        });
+    }
+
+    /**
+     * Stop button incialization
+     */
+    private void stopButton() {
+        view.getPianoView().getTopOption().getStop().addActionListener(e ->{
+            playSongKeys.stop();
+            for (JPanel jp:view.getPianoView().getNotes()) {
+                jp.setLocation(0,1000);
+            }
+            view.getPianoView().revalidate();
+            view.getPianoView().getNotes().clear();
+            view.getPianoView().getTopOption().getStop().setEnabled(false);
+        });
+    }
+
+
+    /**
+     * Mute button incialization
+     */
+    private void muteButton() {
+        view.getPianoView().getTopOption().getMuteSoundPlaying().addActionListener(e -> {
+
+            if (!mute) {
+                mute = true;
+            } else {
+                mute = false;
+            }
+        });
+    }
+
+    /**
+     * For incialization to map keys to octaves
+     */
+    private void mapKeysToOctaves() {
+        for (int i = 0; i < 6; i++) {
+            view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(keyBoardConfiguration[i].getKey()), keyBoardConfiguration[i].getKey());
+            int finalI = i+1;
+            view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i].getKey(), new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    actualOctave = finalI;
+                    view.getPianoView().getPiano().goOctave(finalI);
+                }
+            });
+        }
+    }
+
+
+    /**
+     * Acction Listener of button in order to changeKeys
+     */
+    private void changeKeys() {
+        view.getPianoView().getTopOption().getChangeKeys().addActionListener(e ->{
+            for (KeyConfigurationVisual k: selectionOfKeys.getList()) {
+                selectionOfKeys.remove(k);
+            }
+            selectionOfKeys.getList().clear();
+            for (KeyConfiguration k: keyBoardConfiguration) {
+                selectionOfKeys.getList().add(new KeyConfigurationVisual(k.getName(),k.getKey()));
+            }
+            selectionOfKeys.acctKeyConfiguration();
+            selectionOfKeys.setVisible(true);
+            selectionOfKeys.getChange().addActionListener(e1 -> {
+                int i = 0;
+                for (KeyConfigurationVisual l : selectionOfKeys.getList()) {
+                    if (!l.getKey().getText().isEmpty() || l.getKey().getText().charAt(0) == ' '){
+                        keyBoardConfiguration[i].setKey(l.getKey().getText().charAt(0));
+                    }
+                    i++;
+                }
+                view.getPianoView().getPiano().getIm().clear();
+                view.getPianoView().getPiano().getAm().clear();
+                view.getPianoView().setVisible(false);
+                view.getPianoView().dispose();
+                initController();
+                view.getPianoView().setVisible(true);
+                showPromt();
+            });
+        });
     }
 
     private void showPromt() {
@@ -266,6 +330,7 @@ public class PianoController {
         }
     }
 
+
     private void playKey(int finalI, Key k) {
         if (activado[finalI] == 0) {
             k.touch();
@@ -325,6 +390,7 @@ public class PianoController {
                         j.printStackTrace();
                     }
                 }
+                view.getPianoView().getTopOption().getStop().setEnabled(false);
                 view.getPianoView().getNotes().clear();
 
             });

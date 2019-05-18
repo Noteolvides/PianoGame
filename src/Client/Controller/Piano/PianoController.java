@@ -45,6 +45,7 @@ public class PianoController {
     private PlayerSongPiano player;
     private int[] activado = new int[24];
     private boolean mute = false;
+    private Thread playSongKeys;
 
 
     public PianoController(View view, Controller controller) {
@@ -97,7 +98,7 @@ public class PianoController {
 
         for (int i = 0; i < 6; i++) {
             view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(keyBoardConfiguration[i].getKey()), keyBoardConfiguration[i].getKey());
-            int finalI = i;
+            int finalI = i+1;
             view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i].getKey(), new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -108,6 +109,7 @@ public class PianoController {
         }
 
         view.getPianoView().getTopOption().getMuteSoundPlaying().addActionListener(e -> {
+
             if (!mute) {
                 mute = true;
             } else {
@@ -115,6 +117,15 @@ public class PianoController {
             }
         });
 
+        view.getPianoView().getTopOption().getStop().addActionListener(e ->{
+            playSongKeys.stop();
+            for (JPanel jp:view.getPianoView().getNotes()) {
+                jp.setLocation(0,1000);
+            }
+            view.getPianoView().revalidate();
+            view.getPianoView().getNotes().clear();
+            view.getPianoView().getTopOption().getStop().setEnabled(false);
+        });
 
         //To get out
         view.getPianoView().getTopOption().getExitToMenu().addActionListener(e -> {
@@ -150,6 +161,7 @@ public class PianoController {
                     StringBuilder songMidi = new StringBuilder();
                     temporalKeys.sort(Comparator.comparingInt(KeyRecord::getId));
                     KeyRecord lastKey = null;
+                    boolean isFirtTime = true;
                     for (KeyRecord k : temporalKeys) {
                         if (lastKey != null) {
                             if (k.getStart() - lastKey.getEnd() > 0) {
@@ -157,7 +169,13 @@ public class PianoController {
                                 rest.setDuration((double) (k.getStart() - lastKey.getEnd()) / (double) 1000);
                                 songMidi.append(rest.toString());
                                 songMidi.append(", ");
+                            }else{
+                                songMidi.append("@"+(float)k.getStart()/(float) 1000+", ");
                             }
+                        }
+                        if (isFirtTime){
+                            songMidi.append("@"+(float)k.getStart()/(float) 1000+", ");
+                            isFirtTime = false;
                         }
                         note = new Note(k.getKey());
                         note.setDuration((double) (k.getEnd() - k.getStart()) / (double) 1000);
@@ -269,13 +287,11 @@ public class PianoController {
             player = new PlayerSongPiano(view.getPianoView(), pattern);
             Player play = new Player();
             RealtimePlayer realtimePlayer2 = new RealtimePlayer();
-
-            new Thread(() -> {
+            playSongKeys =  new Thread(() -> {
                 double time = 0;
                 int i = 0;
                 Note n;
-                while (1 * time < 350 + (-player.getY())) {
-                    i = 0;
+                while (i != view.getPianoView().getNotes().size()) {
                     for (JPanel jf : view.getPianoView().getNotes()) {
                         Point p = jf.getLocation();
                         jf.setLocation(p.x, (int) (p.y + 1));
@@ -297,8 +313,8 @@ public class PianoController {
                         if (jf.getComponents().length != 0 && jf.getLocation().y > 350) {
                             jf.remove(jf.getComponent(0));
                             realtimePlayer2.stopNote(n);
+                            i++;
                         }
-                        i++;
                     }
                     view.getPianoView().revalidate();
                     view.getPianoView().repaint();
@@ -311,7 +327,8 @@ public class PianoController {
                 }
                 view.getPianoView().getNotes().clear();
 
-            }).start();
+            });
+            playSongKeys.start();
             realtimePlayer2.close();
         } catch (MidiUnavailableException ex) {
             ex.printStackTrace();

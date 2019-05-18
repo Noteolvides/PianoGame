@@ -6,8 +6,8 @@ import java.awt.*;
 public class TopPanel extends JMenuBar {
     private JMenu recordSong;
     private JMenuItem record;
-    private JMenuItem play;
     private JMenuItem save;
+    private JMenuItem stop;
     private JMenu playSong;
     private JMenuItem selectSongInSystem;
     private JMenuItem muteSoundPlaying;
@@ -23,8 +23,6 @@ public class TopPanel extends JMenuBar {
 
         record = new JMenuItem("Record");
         recordSong.add(record);
-        play = new JMenuItem("Play");
-        recordSong.add(play);
         save = new JMenuItem("Save");
         save.setEnabled(false);
         recordSong.add(save);
@@ -32,6 +30,9 @@ public class TopPanel extends JMenuBar {
         playSong = new JMenu("Play Song");
         selectSongInSystem = new JMenuItem("Select Song");
         playSong.add(selectSongInSystem);
+        stop = new JMenuItem("Stop song");
+        playSong.add(stop);
+        stop.setEnabled(false);
         muteSoundPlaying = new JMenuItem("Mute Song Playing");
         muteSoundPlaying.setEnabled(false);
         playSong.add(muteSoundPlaying);
@@ -68,10 +69,13 @@ public class TopPanel extends JMenuBar {
         return save;
     }
 
-    public JMenuItem getPlay() {
-        return play;
+    public JMenuItem getStop() {
+        return stop;
     }
 
+    public void setStop(JMenuItem stop) {
+        this.stop = stop;
+    }
 
     public JMenuItem getSelectSongInSystem() {
         return selectSongInSystem;

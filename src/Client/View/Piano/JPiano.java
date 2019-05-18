@@ -8,7 +8,7 @@ import static Client.Network.ClientConnection.*;
 
 
 /**
- * Main View that contains all the utilities of the piano
+ * MainServer View that contains all the utilities of the piano
  *
  * @author  Gerard
  * @author Gustavo

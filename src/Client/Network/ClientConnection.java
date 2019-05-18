@@ -83,7 +83,6 @@ public class ClientConnection extends Thread {
 
         } catch (IOException e) {
             System.out.println("Error to set up connection with the server.");
-            e.printStackTrace();
         }
 
     }

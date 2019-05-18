@@ -229,6 +229,7 @@ public class DedicatedServer extends Thread {
                 //Save a song into the BBDD played and composed by a user
                 case SAVE_SONG:
                     try {
+                        //TODO: Crear un arxiu txt i guardar la string del midi en ell
                         String song = dataInputStream.readUTF();
                         System.out.println("Llego aqui");
 
@@ -269,6 +270,8 @@ public class DedicatedServer extends Thread {
                 //Return the midi file of an specific song that the user wants to play
                 case REQUEST_SONG:
                     try {
+                        //TODO: Llegir el fitxer de text que correspon a la canço, ficarlo dins duna string i passarla
+                        // de volta a un usuari
                         String song = dataInputStream.readUTF();
                         //I return the song, so i can get the path i then i can get the song and pass it
                         Song songObtained = null;

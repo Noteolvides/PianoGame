@@ -337,6 +337,10 @@ public class Controller {
         pianoController.playSong(midi);
     }
 
+    public void networkExitPiano() {
+        network.exitPiano();
+    }
+
     /**
      * Function that sets the next action to do for the ClientConnection as SEARCH_USER
      */

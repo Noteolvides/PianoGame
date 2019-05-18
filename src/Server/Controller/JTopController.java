@@ -48,28 +48,13 @@ public class JTopController implements MouseListener {
                 //TODO: Add Thread to Play Music
                 jTop.getSongsList().get(i).setPlaying(true);
                 music.add(new playSong(songTitle, jTop.getSongsList().get(i), i));
-                //Thread playMusic = new Thread(music, jTop.getSongsList().get(i).getTitleSong().getText());
-                //playMusic.start();
                 music.get(music.size()-1).start();
 
-                //System.out.println("Thread created: " + playMusic.getName() +  "   " + playMusic.isAlive());
-                //setOfThread = Thread.getAllStackTraces().keySet();
-                //System.out.println("Thread created: " + music.getName() +  "   " + music.isAlive());
             }else{
                 if (jTop.getSongsList().get(i).getMusicIcon().equals(whichButton) && jTop.getSongsList().get(i).isPlaying()){
                     jTop.getSongsList().get(i).setPlaying(false);
 
                     jTop.getSongsList().get(i).resetMusicIcon(i);
-
-                    //Iterate over set to find yours
-                    /*for(Thread thread : setOfThread){
-                        if(thread.getName().equals(jTop.getSongsList().get(i).getTitleSong().getText())){
-                            //System.out.println(music.getSongTitle());
-                            music.get(music.size()-1).stopClip();
-                            //thread.stop();
-                            System.out.println("Thread stopped: " + thread + thread.isAlive());
-                        }
-                    }*/
                     for(int j = 0; j < music.size(); j++){
                         System.out.println( music.get(j).getName() + "     " + jTop.getSongsList().get(i).getTitleSong().getText());
                         if(music.get(j).getName().equals(jTop.getSongsList().get(i).getTitleSong().getText())){

@@ -5,6 +5,7 @@ import Model.Song;
 import java.util.List;
 
 public class View {
+    //Every view from the Server
     private Graphic graficView;
     private JEvolution evolutionView;
     private JGestor gestorView;
@@ -41,10 +42,12 @@ public class View {
         return songView;
     }
 
+    //Starts the Register View
     public void initRegisterView() {
             registerView = new JRegister();
     }
 
+    //Starts the Song Manager View
     public void initGestorView(List<Song> songs) {
         gestorView = new JGestor(songs);
     }

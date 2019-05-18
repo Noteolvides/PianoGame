@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class playSong extends Thread {
+    //A class to play the songs
     private Clip clip;
     private String songTitle;
     private AudioListener listener;
@@ -22,6 +23,13 @@ public class playSong extends Thread {
         this.idSong = idSong;
         listener = new AudioListener();
     }
+
+    /*
+     * Play the Song Preview when the song icon's clicked on the JTop 5 Panel
+     * Multithreading enabled to play multiple songs at the same time
+     * Whenever a Song is played its icon gets replaced by a Stop Button
+     * If the button is clicked again it stops the song
+     */
     public void run(){
         AudioInputStream audioInputStream;
         try {
@@ -43,9 +51,6 @@ public class playSong extends Thread {
                 e.printStackTrace();
             }
 
-            /*if (!Thread.currentThread().isAlive()) {
-                clip.stop();
-            }*/
         } catch (UnsupportedAudioFileException | LineUnavailableException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -57,6 +62,7 @@ public class playSong extends Thread {
         }
     }
 
+    //Stops the song from being played
     public void stopClip() {
          clip.stop();
          clip.close();

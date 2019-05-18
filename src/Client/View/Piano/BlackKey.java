@@ -3,7 +3,7 @@ package Client.View.Piano;
 import java.awt.*;
 
 /**
- * BlackKey is a extends of a Jpanel to show a blackKey in the pianoView
+ * BlackKey is a extends of a Key to show a blackKey in the pianoView
  *
  * @author  Gerard
  * @author Gustavo

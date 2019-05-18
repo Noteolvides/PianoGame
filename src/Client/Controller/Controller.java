@@ -203,7 +203,6 @@ public class Controller {
 
     public void openSaveSong() {
         view.getSaveSongView().setVisible(true);
-        network.setNextFunc(SAVE_SONG);
     }
 
     public void closeSaveSong() {

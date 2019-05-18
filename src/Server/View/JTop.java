@@ -14,6 +14,7 @@ import java.util.ArrayList;
 @Controller
 public class JTop {
     private JFrame frameTop = new JFrame("TOP 5 - Popular Songs");
+    JPanel panelTop = new JPanel();
     private JPanel songTop = new JPanel();
     private ArrayList<SongView> songsList;
     private JPanel songsGroup = new JPanel();
@@ -31,7 +32,6 @@ public class JTop {
 
         songTop.add(songsGroup);
 
-        JPanel panelTop = new JPanel();
         panelTop.add(songTop);
 
 
@@ -56,7 +56,7 @@ public class JTop {
         frameTop.setIconImage(icon.getImage());
 
         frameTop.setSize(390, 450);
-        frameTop.setResizable(false);
+        frameTop.setResizable(true);
         frameTop.setVisible(false);
         //frameTop.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameTop.add(panelTop);
@@ -104,5 +104,34 @@ public class JTop {
 
     public void setSongsGroup(JPanel songsGroup) {
         this.songsGroup = songsGroup;
+    }
+
+    public JFrame getFrameTop() {
+        return frameTop;
+    }
+
+    public void setFrameTop(JFrame frameTop) {
+        this.frameTop = frameTop;
+    }
+
+    public JPanel getPanelTop() {
+        return panelTop;
+    }
+
+    public void setPanelTop(JPanel panelTop) {
+        this.panelTop = panelTop;
+    }
+
+    public void setSongTop(JPanel songTop) {
+        this.songTop = songTop;
+    }
+
+    public void refreshSongs(int songToRemove){
+        if(!songs.isEmpty()){
+            songs.remove(songToRemove);
+            songsList.remove(songToRemove);
+            songTop.repaint();
+            songsGroup.repaint();
+        }
     }
 }

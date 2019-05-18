@@ -1,5 +1,6 @@
 package Server.Controller;
 
+import Model.Song;
 import Server.Controller.Gestor.GestorController;
 import Server.View.JEvolution;
 import Server.View.JTop;
@@ -9,6 +10,7 @@ import Server.View.View;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 public class Controller implements MouseListener {
     private JEvolutionController jEvolutionController;
@@ -51,6 +53,16 @@ public class Controller implements MouseListener {
             view.getRegisterView().setVisible();
         }
         if(serverViews.getTopSongs().equals(whichButton)){
+            /*for(int i = 0; i < 5; i++){
+                jTop.refreshSongs(0);
+            }*/
+            jTop.getFrameTop().dispose();
+            jTop.JTop();
+            jTop.setSongs((ArrayList<Song>)jTopController.getService().getTop5Songs());
+            /*jTopController.refresh(jTop.getSongs());
+            jTopController.addAllTheSongs(jTop.getSongsList());*/
+            //jTopController.refresh(jTop.getSongs());
+            jTop.getFrameTop().revalidate();
             jTop.setVisible();
         }
         if(serverViews.getServerGraph().equals(whichButton)){

@@ -120,7 +120,6 @@ public class PianoController {
         view.getPianoView().getTopOption().getExitToMenu().addActionListener(e -> {
             controller.closePiano();
             controller.openPrincipal();
-            controller.networkExitPiano();
         });
 
         //To go open a song

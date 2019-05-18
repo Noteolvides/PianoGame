@@ -127,6 +127,10 @@ public class JGestor extends JFrame {
 
     }
 
+    /*
+     * With all the songs retrieved from the BBDD
+     * It outputs all of them to the Panel's list
+     */
     private void addAllTheSongs (List <SongFile> songsViews) {
         for (int i = 0; i < songsViews.size();i++) {
             songsGroup.add(songsViews.get(i));

@@ -11,7 +11,7 @@ import com.google.gson.stream.JsonReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class Main {
+public class MainClient {
     public static void main(String[] args) throws FileNotFoundException {
         View view = new View();
         Controller controller = new Controller(view);

@@ -91,5 +91,9 @@ public class FinestraJSong extends JFrame{
         if (petitionResult == ERROR_OBJECT) {
             JOptionPane.showMessageDialog(this, "There was a problem saving the song.", "Error", JOptionPane.WARNING_MESSAGE);
         }
+        if  (petitionResult == ERROR_MIDI) {
+            JOptionPane.showMessageDialog(this, "There was a problem with the midi of the song.", "Error", JOptionPane.WARNING_MESSAGE);
+
+        }
     }
 }

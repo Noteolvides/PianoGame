@@ -126,4 +126,12 @@ public class JStart extends JFrame {
             }
         }
     }
+
+    public void logOutPopUp() {
+        JOptionPane.showMessageDialog(this, "LogOut successful!", "LogOut",JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void deletedAccountPopUp() {
+        JOptionPane.showMessageDialog(this, "The account was successfully deleted!", "Account Delete Request",JOptionPane.INFORMATION_MESSAGE);
+    }
 }

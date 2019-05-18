@@ -392,7 +392,11 @@ public class Controller {
      * @param petitionResult ClientConnection Transmission result code.
      */
     public void networkLogOutResult(int petitionResult) {
-        view.getPrincipalView().logOutPopUp(petitionResult);
+        if (petitionResult == OK) {
+            view.getStartView().logOutPopUp();
+        } else {
+            view.getPrincipalView().logOutPopUp(petitionResult);
+        }
     }
 
     /**
@@ -415,7 +419,11 @@ public class Controller {
      * @param petitionResult ClientConnection Transmission result code.
      */
     public void networkDeleteAccountResult(int petitionResult) {
-        view.getPrincipalView().deletedAccountPopUp(petitionResult);
+        if (petitionResult == OK) {
+            view.getStartView().deletedAccountPopUp();
+        } else {
+            view.getPrincipalView().deletedAccountPopUp(petitionResult);
+        }
     }
 
     /**

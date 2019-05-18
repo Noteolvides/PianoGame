@@ -5,6 +5,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+import static Client.Network.ClientConnection.*;
+
 public class SaveSong extends JFrame{
     private JCheckBox wannaPrivate;
     private JTextField addSongName;
@@ -58,6 +60,29 @@ public class SaveSong extends JFrame{
     public void registerController(ActionListener c) {
         okButton.setActionCommand("SAVE-SONG");
         okButton.addActionListener(c);
+    }
+
+    /**
+     * Function that shows a PopUp with the information of the adding a friend.
+     * @param petitionResult Type of error.
+     */
+    public void savePopUp(int petitionResult) {
+        if (petitionResult == OK) {
+            JOptionPane.showMessageDialog(this, "The song was saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if (petitionResult == KO) {
+            JOptionPane.showMessageDialog(this, "Couldn't connect to the server.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        if (petitionResult == ERROR_BBDD) {
+            JOptionPane.showMessageDialog(this, "There was a problem with the database.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        if (petitionResult == ERROR_OBJECT) {
+            JOptionPane.showMessageDialog(this, "There was a problem saving the song.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        if  (petitionResult == ERROR_MIDI) {
+            JOptionPane.showMessageDialog(this, "There was a problem with the midi of the song.", "Error", JOptionPane.WARNING_MESSAGE);
+
+        }
     }
 
     public JCheckBox getWannaPrivate() {

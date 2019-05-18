@@ -8,7 +8,7 @@ import java.awt.*;
 public class ServerViews {
         private JButton serverGraph, topSongs, registerUser, gestor;
 
-        /*
+        /**
          * Server View, with 4 buttons for each functionality of the Server
          */
         public ServerViews(){

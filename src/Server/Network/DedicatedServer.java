@@ -238,6 +238,9 @@ public class DedicatedServer extends Thread {
 
                         Song s = (Song) objectInputStream.readObject();
                         String direction;
+                        User u = new User();
+                        u.setNameUser(userSave);
+                        s.setAuthor(u);
 
                         //If privacity = true: song is private, else: song is public
                         if (s.getPrivacity()) {
@@ -268,7 +271,12 @@ public class DedicatedServer extends Thread {
                     try {
                         String song = dataInputStream.readUTF();
                         //I return the song, so i can get the path i then i can get the song and pass it
-                        Song songObtained = service.getConcreteSongUser(userSave,song);
+                        Song songObtained = null;
+                        try {
+                            songObtained = service.getConcreteSongUser(userSave,song);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         songObtained.setPlays(songObtained.getPlays() + 1);
                         service.updateSong(songObtained);
                         String pathSong = songObtained.getFilePath();

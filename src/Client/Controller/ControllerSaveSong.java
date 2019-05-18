@@ -20,6 +20,9 @@ public class ControllerSaveSong implements ActionListener {
             controller.setSongToSave();
             controller.networkSaveSong();
             controller.closeSaveSong();
+            view.getSaveSongView().getAddSongName().setText("");
+            view.getSaveSongView().getSongDescription().setText("");
+            view.getSaveSongView().getWannaPrivate().setSelected(false);
         }
     }
 }

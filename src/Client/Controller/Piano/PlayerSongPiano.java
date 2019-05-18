@@ -11,12 +11,24 @@ import java.awt.*;
 import java.util.ArrayList;
 
 
+/**
+ *  AuxiliarClass Of Controller Piano that puts the keys in the screen in order to play the song
+ *
+ * @author  Gerard
+ * @author Gustavo
+ * @author Neil
+ * @author Jiahui
+ * @author Josep
+ * @version 1.0
+ * @since 2019-05-16
+ */
 public class PlayerSongPiano extends Thread {
     private JPiano piano;
     private Pattern song;
     private double timeSong = 0;
     private int y = 0;
     private ArrayList<Note> notesOfPiano;
+
     public PlayerSongPiano(JPiano piano, Pattern song) {
         notesOfPiano = new ArrayList<>();
         this.piano = piano;
@@ -24,6 +36,9 @@ public class PlayerSongPiano extends Thread {
         initPlayer();
     }
 
+    /**
+     * Logical that thinks where to put the keys
+     */
     private void initPlayer() {
         int i = 0;
         String search;

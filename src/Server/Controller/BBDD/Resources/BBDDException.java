@@ -18,7 +18,7 @@ public class BBDDException extends Exception {
     public BBDDException(String message) { super(message); }
 
     /**
-     * It's a constructor that we can use in case that we want to show the cause and the message when there is a BBDDECEPTION
+     * It's a constructor that we can use in case that we want to show the cause and the message when there is a BBDDException
      * @param message Error message that we want to advert to the user of our program
      * @param cause The cause that have generated the database exception
      */

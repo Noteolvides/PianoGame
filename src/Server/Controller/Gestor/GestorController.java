@@ -4,15 +4,21 @@ import Server.Controller.BBDD.Resources.BBDDException;
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import Server.View.View;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.*;
+import java.util.Scanner;
 
 
 public class GestorController implements MouseListener {
     private View view;
     private ServiceBBDDServer service;
     private Point point;
+    private JFileChooser jFileChooser;
+    private StringBuilder path;
 
     /**
      * Controller of JGestor
@@ -38,23 +44,43 @@ public class GestorController implements MouseListener {
     //TODO: Fer que quan s'elimini una canço en la bbdd, tb s'elimini l'arxiu del servidor
     /**
      * WHen the mouse is released we watch at what button clicked the user
-     * @param e: event due to an interaction with an element of the screen
+     * @param event: event due to an interaction with an element of the screen
      */
     @Override
-    public void mouseReleased(MouseEvent e){
-        if (e.getSource() == view.getGestorView().getAddButton()) {
-            new java.awt.FileDialog((java.awt.Frame) null).setVisible(true);
+    public void mouseReleased(MouseEvent event){
+        if (event.getSource() == view.getGestorView().getAddButton()) {
 
-        } else if (e.getSource() == view.getGestorView().getBackButton()) {
+            JFileChooser selectedFile = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                    "Txt files", "txt");
+            selectedFile.setFileFilter(filter);
+
+            int returnVal = selectedFile.showOpenDialog(null);
+            if(returnVal == JFileChooser.APPROVE_OPTION) {
+                String direction =  "FilesBBDD/Public/ServerPC";
+                File directorio = new File(direction);
+                directorio.mkdir();
+                try {
+                    BufferedWriter writer = new BufferedWriter
+                            (new FileWriter(directorio + "/" + selectedFile.getSelectedFile().getName()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
+        } else if (event.getSource() == view.getGestorView().getBackButton()) {
             view.getGestorView().setVisible(false);
 
-        } else if (e.getSource() == view.getGestorView().getRefreshButton()) {
+        } else if (event.getSource() == view.getGestorView().getRefreshButton()) {
             refreshView();
 
         } else {
             for (int i = 0; i < view.getGestorView().getSongsList().size(); i++) {
-                if (e.getSource() == view.getGestorView().getSongsList().get(i).getDeleteButton()){
+                if (event.getSource() == view.getGestorView().getSongsList().get(i).getDeleteButton()){
                     try {
+
                         service.deleteSong(view.getGestorView().getSongsList().get(i).getTitleSong().getText(),
                                 view.getGestorView().getSongsList().get(i).getAuthor().getText());
                     } catch (BBDDException e1) {

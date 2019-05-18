@@ -95,4 +95,5 @@ public class Server extends Thread{
     public void setServerService(ServiceBBDDServer serverService) {
         this.serverService = serverService;
     }
+
 }

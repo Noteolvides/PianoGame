@@ -84,6 +84,12 @@ public class ServiceBBDDServer {
     }
 
     //:::::::::::::::::::Server BBDD Methods:::::::::::::::::::::::::::::::
+
+    /**
+     * This is a method that can be called if there is a problem with the CEST Time in the database.
+     * In principle, this method is obsolete, because now the communication is done through time in UTC always,
+     * but you can resort to it in case there is a problem.
+     */
     public void databaseInitialization () {
         ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
         dao.databaseInitialization();
@@ -91,12 +97,23 @@ public class ServiceBBDDServer {
     }
 
 
-    public void createUserFromSystem (String username, String password, String photoPath, String email) throws Exception {
+    /**
+     * This is a method that allows the system to create a user by passing all the necessary fields.
+     * @param username The username of the new user
+     * @param password The password of the new user
+     * @param alphanumericCode This is the alphanumeric code of the user
+     * @param email The email of the new user
+     * @throws Exception It can produce a FieldsNoValidException or a BBDDException, in the first case
+     * whenever we introduce some empty field or with spaces, and in the second if the name of the user
+     * or email already exists
+     */
+    public void createUserFromSystem (String username, String password, String alphanumericCode, String email) throws Exception {
 
         if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
-            dao.checkExistenceUserDatabase(username, password,true);
-            dao.insertUserTable(username, password, photoPath, email);
+            dao.checkExistenceUserDatabaseWithoutPassword(username,true);
+            dao.checkExistenceEmailDatabaseWithoutPassword(email,true);
+            dao.insertUserTable(username, password, alphanumericCode, email);
             ServerContextHolder.clear();
         }
         else {
@@ -105,7 +122,17 @@ public class ServiceBBDDServer {
         }
     }
 
-
+    /**
+     * This a method that allows the system to insert a song, by passing all her attributes
+     * @param name This is the name of the song that we want to create
+     * @param duration This is the duration of the song that we want to create
+     * @param description This is the description of the new song
+     * @param plays These are the total reproductions that a song has received
+     * @param filePath This is the address of the MIDI file inside the server.
+     * @param syst This is the instance of the system that created it
+     * @throws Exception This method can throw an exception (FieldNoValidException or BBDDException) in case an invalid field is entered
+     * (such as a space or an empty field) or if the song already exists in the database.
+     */
     public void insertSongFromSystem (String name, int duration, String description, int plays, String filePath, Syst syst) throws Exception {
         Song song = new Song(name, duration,description,plays,filePath, syst);
         if (name.equals("") || name.contains(" ") || filePath.equals("") || filePath.contains(" ")) {
@@ -120,7 +147,12 @@ public class ServiceBBDDServer {
     }
 
 
-    //Method to obtain all the songs Regardless of whether they are private or public
+
+
+    /**
+     * Method to obtain (in the server) all the songs regardless of whether they are private or public
+     * @return Returns the list of all songs available on the platform
+     */
     public List<Song> getListSongs () {
         ServerContextHolder.set(AvaiableClients.adminSmartPiano);
         List <Song> result = dao.getAllTheSongs();
@@ -128,6 +160,11 @@ public class ServiceBBDDServer {
         return result;
     }
 
+
+    /**
+     * This method is used to obtain the TOP 5 of the most played songs by users.
+     * @return Returns the 5 most played songs of our platform
+     */
     public List <Song> getTop5Songs () {
         ServerContextHolder.set(AvaiableClients.adminSmartPiano);
         List <Song> result = dao.getTop5Songs();
@@ -135,7 +172,10 @@ public class ServiceBBDDServer {
         return result;
     }
 
-
+    /**
+     * This method gets all the songs that were played every day of the last year.
+     * @return It returns a list with all the songs that were reproduced during the 365/366 days of last year.
+     */
     public List <Integer> getLastYear365Connections () {
         Calendar calendar = Calendar.getInstance();
         List<Integer> results = new ArrayList<Integer>();
@@ -147,6 +187,10 @@ public class ServiceBBDDServer {
         return results;
     }
 
+    /**
+     * This method deals with obtaining the total of reproductions that were during all the months of last year
+     * @return It returns a list of all the songs that were played during the 12 months of last year.
+     */
     public List <Integer> getLastYearConnections () {
         Calendar calendar = Calendar.getInstance();
         List<Integer> results = new ArrayList<Integer>();
@@ -165,6 +209,10 @@ public class ServiceBBDDServer {
         return results;
     }
 
+    /**
+     * This method is responsible for obtaining all the connections that were made during the past month
+     * @return Returns a list of all the reproductions that occurred during all the days of the last month
+     */
     public List<Integer> getLastMonthConnections () {
         Calendar calendar = Calendar.getInstance();
         Date dateIterator = getLastMonthFirstDay();
@@ -177,7 +225,10 @@ public class ServiceBBDDServer {
     }
 
 
-
+    /**
+     * This is the method that deals with obtaining all the connections that were made during the past week
+     * @return Returns a list that contains all the connections that were made during the past week (sorted by days of the week).
+     */
     public List <Integer> getLastWeekConnections () {
         Date dateIterator = getLastWeekMonday();
         List<Integer> results = new ArrayList<Integer>();
@@ -191,6 +242,12 @@ public class ServiceBBDDServer {
     //:::::::::::::::::::USER BBDD METHODS::::::::::::::::::::
 
     //Method to delete your user
+
+    /**
+     * This method allows the user to delete his own user.
+     * @param username It is the name of the current user, that is, the one we want to eliminate
+     * @throws BBDDException This exception occurs when the name entered by the user does not exist, and therefore the user can not be deleted.
+     */
     public void deleteUser (String username) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         dao.deleteUser(username);
@@ -198,16 +255,28 @@ public class ServiceBBDDServer {
     }
 
 
-    //Method to update the information of a user (the username mopdify is not valid in not valid in this method)
+
+
+    /**
+     * Method to update the information of a user, so when something changed in it, it is uptated in the database
+     * @param user The instance of user with the new user information loaded
+     * @throws BBDDException In this method, an exception occurs when the user's name or email does not exist and therefore the information can not be updated
+     */
     public void updateInformationUser (User user) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         dao.checkExistenceUserDatabaseWithoutPassword(user.getNameUser(),false);
+        dao.checkExistenceEmailDatabaseWithoutPassword(user.getEmail(),false);
         dao.updateUserTable(user);
-        //this metodh is useles
+        //This method ensure the bidirectionality of friendship (so if anyone does not have bidirectionality this method puts it)
         dao.recyprocityFriendship();
         ServerContextHolder.clear();
     }
 
+    /**
+     * This method allows the user to update the information of a particular song (in most cases it is used to update the reproductions of a particular song)
+     * @param song It's the instance of a song, with the new information uploaded
+     * @throws BBDDException This exception occurs when the name of the song or author has been modified, then it is not updated
+     */
     public void updateSong (Song song) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         if (song.getAuthor() != null) {
@@ -221,7 +290,14 @@ public class ServiceBBDDServer {
     }
 
 
-    //This is the method to search if a user exists, if exists we return it.
+
+
+    /**
+     * This is the method to search if a user exists passing it a  username, if exists we return it.
+     * @param usernameToSearch It's the name of the user that we want to search
+     * @return It returns the instance of the user searched
+     * @throws BBDDException This exception occurs when the searched user does not exist on the platform and therefore its instance can not be returned
+     */
     public User searchUserByUsername (String usernameToSearch) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         dao.checkExistenceUserDatabaseWithoutPassword(usernameToSearch,false);
@@ -230,6 +306,13 @@ public class ServiceBBDDServer {
         return user;
     }
 
+    /**
+     *  This is the method to search if a user exists passing it the alphanumeric code, if exists we return it.
+     *  This method is basically used to acquire the user that the user wants to add
+     * @param code It's the alphanumeric code of the user
+     * @return It returns the instance of the user searched.
+     * @throws BBDDException If the user does not exist, an exception is returned, because the user's instance can not be returned.
+     */
     public User searchUserByCode (String code) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         dao.checkExistenceCode(code);
@@ -240,6 +323,11 @@ public class ServiceBBDDServer {
 
 
     //Method to increase one connection to the syst
+
+    /**
+     * This method is the responsible to increase one connection to the system. Therefore, when a user is granted,
+     * this method will have to be called to increase the connections in one
+     */
     public void addConnection () {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         try {
@@ -253,6 +341,12 @@ public class ServiceBBDDServer {
         }
     }
 
+
+    /**
+     * This method insert a user (a crossing of the instance) in the user table, to make it avaiable
+     * @param user This is the instance of the new user created that we want to add in the database
+     * @throws BBDDException This exception is thrown when the username/email already exists in the database
+     */
     public void createUserFromNoUser (User user) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
         dao.checkExistenceUserDatabaseWithoutPassword(user.getNameUser(),true);
@@ -263,7 +357,13 @@ public class ServiceBBDDServer {
         ServerContextHolder.clear();
     }
 
-
+    /**
+     * This method insert a user (a crossing of the different attributes) in the user table, to make it avaible
+     * @param username This is the username of the new user
+     * @param password This is the password of the new user
+     * @param email This is the email taht the user puts on the new user
+     * @throws Exception This exception is thrown when the username/email already exists in the database
+     */
     public void createUserFromNoUser (String username, String password,String email) throws Exception {
         if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
             ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
@@ -281,6 +381,11 @@ public class ServiceBBDDServer {
     }
 
     //If the user wants to change his information (list of friends updated...), this method doesn't controll the change of username
+
+    /**
+     * This is called when we want to update the information of a user with the user register mysql account
+     * @param user The instance of the user with the information updated
+     */
     public void modifyInformationUser (User user){
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         dao.updateUserTable(user);
@@ -288,6 +393,13 @@ public class ServiceBBDDServer {
     }
 
 
+    /**
+     * This method is called when we want to get an instance of a user with his username and password
+     * @param username The username of the user that we want to get the instance
+     * @param password The password of the user thtat we want to get the instance
+     * @return It returns the instance of the username/password putted, when all goes right
+     * @throws BBDDException It throws an exception when the user and the password do not match, or the username doesn't exist
+     */
     public User getInstanceOfAUserByName (String username, String password) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
         dao.checkExistenceUserDatabase(username,password,false);
@@ -337,15 +449,10 @@ public class ServiceBBDDServer {
     }
 
 
-    public Song getConcreteSongUser (String username, String songName) throws BBDDException {
+    public Song getConcreteSongUser (String username, String songName) throws Exception {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         List <Song> songsThatUserCanAccess = null;
-        try {
-            songsThatUserCanAccess = getSongsUser(username);
-        } catch (Exception e) {
-            ServerContextHolder.clear();
-            throw new BBDDException();
-        }
+        songsThatUserCanAccess = getSongsUser(username);
         int i  = 0;
         boolean found = false;
         while (!found && i < songsThatUserCanAccess.size()) {
@@ -356,17 +463,18 @@ public class ServiceBBDDServer {
         }
         if (found) {
             List <Song> song = dao.searchConcreteSong(songName);
-            ServerContextHolder.clear();
             int h = 0;
             while (!((song.get(h).getAuthor().getNameUser()).equals(username))) {
                 h++;
             }
+            ServerContextHolder.clear();
             return song.get(h);
         }
         else {
             ServerContextHolder.clear();
             throw new BBDDException();
         }
+
     }
 
     public List<Song> getSongsUser (String username) throws Exception{

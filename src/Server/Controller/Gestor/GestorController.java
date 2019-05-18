@@ -3,6 +3,8 @@ package Server.Controller.Gestor;
 import Server.Controller.BBDD.Resources.BBDDException;
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import Server.View.View;
+
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -10,6 +12,7 @@ import java.awt.event.MouseListener;
 public class GestorController implements MouseListener {
     private View view;
     private ServiceBBDDServer service;
+    private Point point;
 
     /**
      * Controller of JGestor
@@ -46,10 +49,7 @@ public class GestorController implements MouseListener {
             view.getGestorView().setVisible(false);
 
         } else if (e.getSource() == view.getGestorView().getRefreshButton()) {
-            view.getGestorView().setVisible(false);
-            view.getGestorView().dispose();
-            view.initGestorView(service.getListSongs());
-            view.getGestorView().registerController(this);
+            refreshView();
 
         } else {
             for (int i = 0; i < view.getGestorView().getSongsList().size(); i++) {
@@ -61,11 +61,7 @@ public class GestorController implements MouseListener {
                         System.out.println("System song cannot be deleted");
                     }
                     view.getGestorView().getSongsList().remove(view.getGestorView().getSongsList().get(i));
-
-                    view.getGestorView().setVisible(false);
-                    view.getGestorView().dispose();
-                    view.initGestorView(service.getListSongs());
-                    view.getGestorView().registerController(this);
+                    refreshView();
 
                 }
             }
@@ -81,6 +77,16 @@ public class GestorController implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e){
 
+    }
+
+    private void refreshView() {
+        view.getGestorView().setVisible(false);
+        point = view.getGestorView().getLocation();
+        view.getGestorView().dispose();
+        view.initGestorView(service.getListSongs());
+        view.getGestorView().registerController(this);
+        view.getGestorView().setLocation(point);
+        view.getGestorView().setVisible(true);
     }
 
 }

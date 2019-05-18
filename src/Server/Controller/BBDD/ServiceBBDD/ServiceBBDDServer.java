@@ -20,6 +20,11 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.*;
 
+/**
+ * This is the class that allows the user to connect to the database. It should be noted that it is the outermost
+ * layer of the database that deals with combining different queries (whenever necessary) and / or treating and
+ * reviewing the data
+ */
 @Service
 public class ServiceBBDDServer {
     @Autowired
@@ -28,6 +33,13 @@ public class ServiceBBDDServer {
 
 
     //:::::::::::::::::::CommonMethods::::::::::::::::::::::::::
+
+    /**
+     * This is the method that allows us to delete a song by the administering user (that is, from the server)
+     * @param nameOfTheSong Name of the song that we want to delete
+     * @param author The author of the song, it should be noted that this field is necessary because the two songs can have the same name provided, always, by different authors
+     * @throws BBDDException This exception occurs when the name of the song already exists in the same user
+     */
     public void deleteSong (String nameOfTheSong, String author) throws BBDDException {
             ServerContextHolder.clear();
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
@@ -35,6 +47,12 @@ public class ServiceBBDDServer {
             dao.deleteSong (nameOfTheSong,author);
             ServerContextHolder.clear();
     }
+
+    /**
+     * This is the method that allows us to delete a user through its own object
+     * @param user This is the object of the user that we want to remove from the database.
+     * @throws Exception A FieldsNoValidException and a BBDDException can occur, either by passing a null user or because the user entered does not exist
+     */
     public void deleteUserByObject (User user) throws Exception {
         if (user != null) {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
@@ -47,6 +65,12 @@ public class ServiceBBDDServer {
         }
     }
 
+    /**
+     * This method allows us to eliminate the user from the database using his username
+     * @param username It is the name of the user that we want to delete
+     * @throws Exception This method can throw a FieldsNoValidException or a BBDDException, in the first case because the user has entered an invalid name and in the second case because the user
+     * that has been introduced to eliminate has not been found
+     */
     public void deleteUserByName (String username) throws Exception{
         if (!(username.equals("") || username.contains(" "))) {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);

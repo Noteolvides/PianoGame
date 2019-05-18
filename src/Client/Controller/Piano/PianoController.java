@@ -46,7 +46,6 @@ public class PianoController {
     private static int numberOFkeys = 0;
     private HashMap<Integer, KeyRecord> keys;
     private SelectionOfKeys selectionOfKeys;
-    private PlayerSongPiano player;
     private int[] activado = new int[24];
     private boolean mute = false;
     private Thread playSongKeys;
@@ -98,31 +97,36 @@ public class PianoController {
             controlKeys();
 
             //Save song
+            // Here we create the string that has all the information need to play it the format is acording to JFughe string format see jfughe.org
             view.getPianoView().getTopOption().getSave().addActionListener(e -> {
                 if (view.getPianoView().saveConfirmation()) {
                     view.getPianoView().getTopOption().getRecord().setEnabled(true);
                     ArrayList<KeyRecord> temporalKeys = new ArrayList<KeyRecord>(keys.values());
-                    Note rest = null;
-                    Note note = null;
-                    StringBuilder songMidi = new StringBuilder();
+                    Note rest = null;//Rest if key is not presed
+                    Note note = null;//Note in this time
+                    StringBuilder songMidi = new StringBuilder(); //Final song
                     temporalKeys.sort(Comparator.comparingInt(KeyRecord::getId));
-                    KeyRecord lastKey = null;
+                    KeyRecord lastKey = null; //Last key to kwnow the time
                     boolean isFirtTime = true;
                     for (KeyRecord k : temporalKeys) {
                         if (lastKey != null) {
+                            //Creation of rest if no key is presed
                             if (k.getStart() - lastKey.getEnd() > 0) {
                                 rest = new Note("R");
                                 rest.setDuration((double) (k.getStart() - lastKey.getEnd()) / (double) 1000);
                                 songMidi.append(rest.toString());
                                 songMidi.append(", ");
                             }else{
+                                // if two key are played at the same time
                                 songMidi.append("@"+(float)k.getStart()/(float) 1000+", ");
                             }
                         }
+                        //If is firt time
                         if (isFirtTime){
                             songMidi.append("@"+(float)k.getStart()/(float) 1000+", ");
                             isFirtTime = false;
                         }
+                        //In any case we have to put he key in the string
                         note = new Note(k.getKey());
                         note.setDuration((double) (k.getEnd() - k.getStart()) / (double) 1000);
                         songMidi.append(note.toString());
@@ -130,13 +134,13 @@ public class PianoController {
                         lastKey = k;
                         view.getPianoView().getTopOption().getSave().setEnabled(false);
                     }
+                    //We sennd the information
                     controller.setMidiToSave(songMidi.toString());
                     controller.openSaveSong();
                 } else {
                     view.getPianoView().getTopOption().getRecord().setEnabled(true);
                     view.getPianoView().getTopOption().getSave().setEnabled(false);
                 }
-                // HASTA AQUI
             });
         } catch (MidiUnavailableException e) {
             e.printStackTrace();
@@ -170,6 +174,7 @@ public class PianoController {
      * Exit to menu button Initialization
      */
     private void exitToMenuButton() {
+        //Go back to menu
         view.getPianoView().getTopOption().getExitToMenu().addActionListener(e -> {
             controller.closePiano();
             controller.openPrincipal();
@@ -186,10 +191,12 @@ public class PianoController {
     private void stopButton() {
         view.getPianoView().getTopOption().getStop().addActionListener(e ->{
             playSongKeys.stop();
+            //Hide the notes
             for (JPanel jp:view.getPianoView().getNotes()) {
                 jp.setLocation(0,1000);
             }
             view.getPianoView().revalidate();
+            //Clear all the notes
             view.getPianoView().getNotes().clear();
             view.getPianoView().getTopOption().getStop().setEnabled(false);
         });
@@ -215,8 +222,10 @@ public class PianoController {
      */
     private void mapKeysToOctaves() {
         for (int i = 0; i < 6; i++) {
+            //Map the keys to change octave
             view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(keyBoardConfiguration[i].getKey()), keyBoardConfiguration[i].getKey());
             int finalI = i+1;
+            //Send the information to the view
             view.getPianoView().getPiano().getAm().put(keyBoardConfiguration[i].getKey(), new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -233,6 +242,7 @@ public class PianoController {
      */
     private void changeKeys() {
         view.getPianoView().getTopOption().getChangeKeys().addActionListener(e ->{
+            //Remove all the actual keyMapp
             for (KeyConfigurationVisual k: selectionOfKeys.getList()) {
                 selectionOfKeys.remove(k);
             }
@@ -242,6 +252,7 @@ public class PianoController {
             }
             selectionOfKeys.acctKeyConfiguration();
             selectionOfKeys.setVisible(true);
+            //Get the new information and add it
             selectionOfKeys.getChange().addActionListener(e1 -> {
                 int i = 0;
                 for (KeyConfigurationVisual l : selectionOfKeys.getList()) {
@@ -253,6 +264,7 @@ public class PianoController {
                 view.getPianoView().getPiano().getIm().clear();
                 view.getPianoView().getPiano().getAm().clear();
                 view.getPianoView().setVisible(false);
+                //Recreate the screen
                 view.getPianoView().dispose();
                 initController();
                 view.getPianoView().setVisible(true);
@@ -273,6 +285,7 @@ public class PianoController {
     private void controlKeys() {
         int i = 6;
         for (Key k : view.getPianoView().getPiano().getKeys()) {
+            //Mapp of all the keys
             view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke(keyBoardConfiguration[i].getKey()), keyBoardConfiguration[i].getKey());
             view.getPianoView().getPiano().getIm().put(KeyStroke.getKeyStroke("released " + keyBoardConfiguration[i].getKey()), keyBoardConfiguration[i].getKey() + " released");
             int finalI = i - 6;
@@ -288,6 +301,7 @@ public class PianoController {
                     unPlayKey(finalI, k);
                 }
             });
+            //Need a Mouse listener but only use 2 methods ... :(
             k.addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -312,6 +326,7 @@ public class PianoController {
                 public void mouseExited(MouseEvent e) {
 
                 }
+
             });
             i++;
         }
@@ -346,21 +361,27 @@ public class PianoController {
 
     public void playSong(String songMidi) {
         try {
+            //First whe ask for song
             controller.networkRequestSong();
+            //Make abaliable play the mute button
             view.getPianoView().getTopOption().getMuteSoundPlaying().setEnabled(true);
+            //Create a patter to play the notes
             Pattern pattern = new Pattern(songMidi);
-            player = new PlayerSongPiano(view.getPianoView(), pattern);
-            Player play = new Player();
+            //We put the notes in the screen with playerSongPiano
+            PlayerSongPiano player = new PlayerSongPiano(view.getPianoView(), pattern);
             RealtimePlayer realtimePlayer2 = new RealtimePlayer();
+
+            //Create the main thread that moves the theys in the crees each 10ms
             playSongKeys =  new Thread(() -> {
-                double time = 0;
                 int i = 0;
                 Note n;
                 while (i != view.getPianoView().getNotes().size()) {
                     for (JPanel jf : view.getPianoView().getNotes()) {
                         Point p = jf.getLocation();
+                        //Increase the localization by 1
                         jf.setLocation(p.x, (int) (p.y + 1));
                         n = new Note(jf.getName());
+                        //If we are in the piano play the key
                         if (n.getOctave() == actualOctave || n.getOctave() == (actualOctave + 1)) {
                             if (jf.getLocation().y + jf.getSize().height > 350 && jf.getComponents().length == 0 && jf.getLocation().y < 350) {
                                 JTextField flag = new JTextField("Yes");
@@ -369,14 +390,14 @@ public class PianoController {
                                 if (!mute) {
                                     realtimePlayer2.startNote(n);
                                 }
-                            } else {
-                                jf.setVisible(true);
                             }
                         } else {
                             jf.setVisible(false);
                         }
+                        // If the key has ended stop the key and hide it
                         if (jf.getComponents().length != 0 && jf.getLocation().y > 350) {
                             jf.remove(jf.getComponent(0));
+                            jf.setVisible(false);
                             realtimePlayer2.stopNote(n);
                             i++;
                         }
@@ -384,7 +405,6 @@ public class PianoController {
                     view.getPianoView().revalidate();
                     view.getPianoView().repaint();
                     try {
-                        time++;
                         Thread.sleep(10);
                     } catch (InterruptedException j) {
                         j.printStackTrace();

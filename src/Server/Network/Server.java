@@ -24,12 +24,19 @@ public class Server extends Thread{
     private boolean running;
 
 
-
+    /**
+     * Creation of a server containing a dedicatedServer for each host
+     */
     public Server(){
         dedicatedServers = new LinkedList<>();
         running = false;
     }
 
+    /**
+     * It starts the server
+     * @param portConnexioBBDD: Socket port number
+     * @throws IOException
+     */
     public void startServer(int portConnexioBBDD) throws IOException{
         this.port = portConnexioBBDD;
         serverSocket = new ServerSocket(portConnexioBBDD);
@@ -37,6 +44,9 @@ public class Server extends Thread{
         super.start();
     }
 
+    /**
+     * Stops the server
+     */
     public void stopServer(){
         running = false;
         this.interrupt();
@@ -50,6 +60,11 @@ public class Server extends Thread{
         }
     }
 
+    /**
+     * Run method of the thread, it waits for a new host connection
+     * After receiving a connection it creates a new DedicatedServer
+     * for the host
+     */
     @Override
     public void run() {
         while (running){

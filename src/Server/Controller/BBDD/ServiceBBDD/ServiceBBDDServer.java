@@ -84,6 +84,12 @@ public class ServiceBBDDServer {
     }
 
     //:::::::::::::::::::Server BBDD Methods:::::::::::::::::::::::::::::::
+
+    /**
+     * This is a method that can be called if there is a problem with the CEST Time in the database.
+     * In principle, this method is obsolete, because now the communication is done through time in UTC always,
+     * but you can resort to it in case there is a problem.
+     */
     public void databaseInitialization () {
         ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
         dao.databaseInitialization();
@@ -91,12 +97,23 @@ public class ServiceBBDDServer {
     }
 
 
-    public void createUserFromSystem (String username, String password, String photoPath, String email) throws Exception {
+    /**
+     * This is a method that allows the system to create a user by passing all the necessary fields.
+     * @param username The username of the new user
+     * @param password The password of the new user
+     * @param alphanumericCode This is the alphanumeric code of the user
+     * @param email The email of the new user
+     * @throws Exception It can produce a FieldsNoValidException or a BBDDException, in the first case
+     * whenever we introduce some empty field or with spaces, and in the second if the name of the user
+     * or email already exists
+     */
+    public void createUserFromSystem (String username, String password, String alphanumericCode, String email) throws Exception {
 
         if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
-            dao.checkExistenceUserDatabase(username, password,true);
-            dao.insertUserTable(username, password, photoPath, email);
+            dao.checkExistenceUserDatabaseWithoutPassword(username,true);
+            dao.checkExistenceEmailDatabaseWithoutPassword(email,true);
+            dao.insertUserTable(username, password, alphanumericCode, email);
             ServerContextHolder.clear();
         }
         else {
@@ -105,7 +122,17 @@ public class ServiceBBDDServer {
         }
     }
 
-
+    /**
+     * This a method that allows the system to insert a song, by passing all her attributes
+     * @param name This is the name of the song that we want to create
+     * @param duration This is the duration of the song that we want to create
+     * @param description This is the description of the new song
+     * @param plays These are the total reproductions that a song has received
+     * @param filePath This is the address of the MIDI file inside the server.
+     * @param syst This is the instance of the system that created it
+     * @throws Exception This method can throw an exception (FieldNoValidException or BBDDException) in case an invalid field is entered
+     * (such as a space or an empty field) or if the song already exists in the database.
+     */
     public void insertSongFromSystem (String name, int duration, String description, int plays, String filePath, Syst syst) throws Exception {
         Song song = new Song(name, duration,description,plays,filePath, syst);
         if (name.equals("") || name.contains(" ") || filePath.equals("") || filePath.contains(" ")) {
@@ -120,7 +147,12 @@ public class ServiceBBDDServer {
     }
 
 
-    //Method to obtain all the songs Regardless of whether they are private or public
+
+
+    /**
+     * Method to obtain (in the server) all the songs regardless of whether they are private or public
+     * @return Returns the list of all songs available on the platform
+     */
     public List<Song> getListSongs () {
         ServerContextHolder.set(AvaiableClients.adminSmartPiano);
         List <Song> result = dao.getAllTheSongs();
@@ -128,6 +160,11 @@ public class ServiceBBDDServer {
         return result;
     }
 
+
+    /**
+     * This method is used to obtain the TOP 5 of the most played songs by users.
+     * @return Returns the 5 most played songs of our platform
+     */
     public List <Song> getTop5Songs () {
         ServerContextHolder.set(AvaiableClients.adminSmartPiano);
         List <Song> result = dao.getTop5Songs();
@@ -135,7 +172,10 @@ public class ServiceBBDDServer {
         return result;
     }
 
-
+    /**
+     * This method gets all the songs that were played every day of the last year.
+     * @return It returns a list with all the songs that were reproduced during the 365/366 days of last year.
+     */
     public List <Integer> getLastYear365Connections () {
         Calendar calendar = Calendar.getInstance();
         List<Integer> results = new ArrayList<Integer>();
@@ -147,6 +187,10 @@ public class ServiceBBDDServer {
         return results;
     }
 
+    /**
+     * This method deals with obtaining the total of reproductions that were during all the months of last year
+     * @return It returns a list of all the songs that were played during the 12 months of last year.
+     */
     public List <Integer> getLastYearConnections () {
         Calendar calendar = Calendar.getInstance();
         List<Integer> results = new ArrayList<Integer>();
@@ -165,6 +209,10 @@ public class ServiceBBDDServer {
         return results;
     }
 
+    /**
+     * This method is responsible for obtaining all the connections that were made during the past month
+     * @return Returns a list of all the reproductions that occurred during all the days of the last month
+     */
     public List<Integer> getLastMonthConnections () {
         Calendar calendar = Calendar.getInstance();
         Date dateIterator = getLastMonthFirstDay();
@@ -177,7 +225,10 @@ public class ServiceBBDDServer {
     }
 
 
-
+    /**
+     * This is the method that deals with obtaining all the connections that were made during the past week
+     * @return Returns a list that contains all the connections that were made during the past week (sorted by days of the week).
+     */
     public List <Integer> getLastWeekConnections () {
         Date dateIterator = getLastWeekMonday();
         List<Integer> results = new ArrayList<Integer>();

@@ -24,10 +24,9 @@ public class User implements Serializable {
     @Expose
     @Column(name="Password")
     private String password;
-    @OneToMany(mappedBy="author", cascade= CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="author", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Song> songs;
-    @Expose
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name="Friendship", joinColumns={@JoinColumn(name="Name1")}, inverseJoinColumns={@JoinColumn(name="Name2")})
     private List <User> following;
 

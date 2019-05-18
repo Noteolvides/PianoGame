@@ -93,7 +93,7 @@ public class JSong extends JPanel{
         songsList.clear();
         for (int i = 0;i < songs.size();i++) {
             if (songs.get(i).getAuthor() == null) {
-                songsList.add(new SongView(songs.get(i).getTitle(),songs.get(i).getDescription(), " "));
+                songsList.add(new SongView(songs.get(i).getTitle(),songs.get(i).getDescription(), "System"));
             } else {
                 songsList.add(new SongView(songs.get(i).getTitle(), songs.get(i).getDescription(), songs.get(i).getAuthor().getNameUser()));
             }

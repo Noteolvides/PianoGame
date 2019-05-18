@@ -10,9 +10,11 @@ import Server.Controller.BBDD.Resources.FieldsNoValidException;
 import Model.Song;
 import Model.User;
 import Model.Syst;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -477,11 +479,12 @@ public class ServiceBBDDServer {
 
     }
 
+
     public List<Song> getSongsUser (String username) throws Exception{
         if (!(username.equals("") || username.contains(" "))) {
             ServerContextHolder.set(AvaiableClients.UserRegistered);
             dao.checkExistenceUserDatabaseWithoutPassword(username,false);
-            List <Song> songs = new ArrayList<Song>();
+            List <Song> songs = null;
             List <Song> songsSystem  = dao.getSystemSongs();
             songs = dao.getSomeoneSongs(username);
             for (int i = 0; i < songsSystem.size();i++) {

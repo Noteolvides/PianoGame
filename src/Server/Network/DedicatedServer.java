@@ -219,6 +219,18 @@ public class DedicatedServer extends Thread {
                     try {
                         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
                         List<Song> songs = service.getSongsUser(userSave);
+                        int i = 0;
+                        //Code to evit the recursivity (the infinit bucle), because the exclude does not work in this case
+                        while (i < songs.size()) {
+                            if (songs.get(i).getAuthor() != null) {
+                                songs.get(i).getAuthor().setSongs(null);
+                                songs.get(i).getAuthor().setFollowing(null);
+                            }
+                            else {
+                                songs.get(i).getSystem().setSongs(null);
+                            }
+                            i++;
+                        }
                         String songsJson = gson.toJson(songs);
                         dataOutputStream.writeUTF(songsJson);
                         dataOutputStream.writeInt(CONFIRMATION);

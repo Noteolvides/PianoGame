@@ -270,7 +270,7 @@ public class DAOServer extends HibernateDaoSupport {
 
     @Transactional (readOnly = true)
     public List<Song> getSomeoneSongs (final String username) {
-        List list = getHibernateTemplate().find("FROM " + Song.class.getName() + " AS s WHERE s.author='" + username + "'");
+        List list = getHibernateTemplate().find("FROM " + Song.class.getName() + " AS s LEFT JOIN FETCH s.author WHERE s.author='" + username + "'");
         return (List<Song>) list;
     }
 

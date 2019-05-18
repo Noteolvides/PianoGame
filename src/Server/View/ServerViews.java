@@ -8,10 +8,14 @@ import java.awt.*;
 public class ServerViews {
         private JButton serverGraph, topSongs, registerUser, gestor;
 
+        /*
+         * Server View, with 4 buttons for each functionality of the Server
+         */
         public ServerViews(){
                 JFrame serverFrame = new JFrame("Server Functionalities");
                 serverFrame.setLayout(new GridLayout(4, 1));
 
+                //Adding icons and title to the buttons
                 registerUser = new JButton("Register User");
                 ImageIcon iconRegister = new ImageIcon("img/registerIcon.png");
                 registerUser.setIcon(resizeIcon(iconRegister, iconRegister.getIconWidth()/8, iconRegister.getIconHeight()/8));
@@ -30,6 +34,7 @@ public class ServerViews {
                 serverFrame.add(gestor);
                 serverFrame.add(serverGraph);
 
+                //Server's View default settings
                 serverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 serverFrame.setSize(300, 350);
                 serverFrame.setVisible(true);
@@ -40,6 +45,7 @@ public class ServerViews {
                 return new ImageIcon(resizedImage);
         }
 
+        //Register each button of the Server View with each's controller
         public void registerController(Controller controller){
             serverGraph.addMouseListener(controller);
             topSongs.addMouseListener(controller);

@@ -252,8 +252,9 @@ public class DedicatedServer extends Thread {
                         File directorio = new File(direction);
                         boolean dirCreated = directorio.mkdirs();
 
-
-                        MidiFileManager.savePatternToMidi(new Pattern(song), new File(directorio + "/" + s.getTitle()));
+                        BufferedWriter writer = new BufferedWriter(new FileWriter(directorio + "/" + s.getTitle()));
+                        writer.write(song);
+                        writer.close();
                         s.setFilePath(directorio + "/" + s.getTitle());
                         service.insertSongFromUser(s);
                         System.out.println("He guardat: " + s.toString() + " ------- " + song);
@@ -280,16 +281,15 @@ public class DedicatedServer extends Thread {
                         songObtained.setPlays(songObtained.getPlays() + 1);
                         service.updateSong(songObtained);
                         String pathSong = songObtained.getFilePath();
-                        Pattern pattern = MidiFileManager.loadPatternFromMidi(new File(pathSong));
-                        dataOutputStream.writeUTF(pattern.toString());
+                        File file = new File(pathSong);
+                        BufferedReader br = new BufferedReader(new FileReader(file));
+                        dataOutputStream.writeUTF(br.readLine());
 
                         dataOutputStream.writeInt(CONFIRMATION);
                     } catch (IOException e) {
                         dataOutputStream.writeInt(ERROR);
                     } catch (BBDDException e) {
                         dataOutputStream.writeInt(ERROR_BBDD);
-                    } catch (InvalidMidiDataException e) {
-                        dataOutputStream.writeInt(ERROR_MIDI);   //Error amb l'arxiu MIDI
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

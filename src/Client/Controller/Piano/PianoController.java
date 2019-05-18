@@ -156,6 +156,8 @@ public class PianoController {
                                 rest.setDuration((double) (k.getStart() - lastKey.getEnd()) / (double) 1000);
                                 songMidi.append(rest.toString());
                                 songMidi.append(", ");
+                            }else{
+                                songMidi.append("@"+(float)k.getStart()/(float) 10000+", ");
                             }
                         }
                         note = new Note(k.getKey());
@@ -270,8 +272,7 @@ public class PianoController {
                 double time = 0;
                 int i = 0;
                 Note n;
-                while (1 * time < 350 + (-player.getY())) {
-                    i = 0;
+                while (i != view.getPianoView().getNotes().size()) {
                     for (JPanel jf : view.getPianoView().getNotes()) {
                         Point p = jf.getLocation();
                         jf.setLocation(p.x, (int) (p.y + 1));
@@ -293,8 +294,8 @@ public class PianoController {
                         if (jf.getComponents().length != 0 && jf.getLocation().y > 350) {
                             jf.remove(jf.getComponent(0));
                             realtimePlayer2.stopNote(n);
+                            i++;
                         }
-                        i++;
                     }
                     view.getPianoView().revalidate();
                     view.getPianoView().repaint();

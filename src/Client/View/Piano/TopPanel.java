@@ -6,7 +6,6 @@ import java.awt.*;
 public class TopPanel extends JMenuBar {
     private JMenu recordSong;
     private JMenuItem record;
-    private JMenuItem play;
     private JMenuItem save;
     private JMenu playSong;
     private JMenuItem selectSongInSystem;
@@ -23,8 +22,6 @@ public class TopPanel extends JMenuBar {
 
         record = new JMenuItem("Record");
         recordSong.add(record);
-        play = new JMenuItem("Play");
-        recordSong.add(play);
         save = new JMenuItem("Save");
         save.setEnabled(false);
         recordSong.add(save);
@@ -68,9 +65,7 @@ public class TopPanel extends JMenuBar {
         return save;
     }
 
-    public JMenuItem getPlay() {
-        return play;
-    }
+
 
 
     public JMenuItem getSelectSongInSystem() {

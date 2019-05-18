@@ -1,13 +1,12 @@
 package Client.View;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-import static Client.Network.ClientConnection.*;
 
 public class SaveSong extends JFrame{
+    //View for saving a song, attributes
     private JCheckBox wannaPrivate;
     private JTextField addSongName;
     private JButton okButton;
@@ -16,16 +15,17 @@ public class SaveSong extends JFrame{
     private JLabel songDesc;
 
     public SaveSong() {
+        //Adding all the labels and names of the attributes
         wannaPrivate = new JCheckBox("Enable Song Privacy");
         okButton = new JButton("Save Song");
         addSongName = new JTextField();
         songDescription = new JTextArea();
         songDescription.setBorder(BorderFactory.createLineBorder(Color.RED));
-
         songDesc = new JLabel("Add Description");
         songName = new JLabel("Add Song Title");
 
 
+        //Adding all the panels and boxes to the main frame with a GridBagLayout
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -49,6 +49,7 @@ public class SaveSong extends JFrame{
         constraints.gridy = 5;
         add(okButton, constraints);
 
+        //Frame attributes
         setSize(400, 300);
         setTitle("Register");
         setLocationRelativeTo(null);
@@ -57,6 +58,8 @@ public class SaveSong extends JFrame{
         setVisible(false);
     }
 
+
+    //Register the correspondent controller to the view
     public void registerController(ActionListener c) {
         okButton.setActionCommand("SAVE-SONG");
         okButton.addActionListener(c);

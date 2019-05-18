@@ -5,6 +5,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+import static Client.Network.ClientConnection.*;
+
 public class SaveSong extends JFrame{
     private JCheckBox wannaPrivate;
     private JTextField addSongName;

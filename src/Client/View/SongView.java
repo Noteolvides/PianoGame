@@ -11,10 +11,11 @@ public class SongView extends JPanel {
     private JPanel groupTitleDescription;
     private JLabel titleSong;
     private JLabel description;
+    private JLabel author;
     private JLabel musicIcon;
     private JLabel playButton;
     private JLabel infoIcon;
-    public SongView (String title, String description) {
+    public SongView (String title, String description, String author) {
         setLayout(new BorderLayout());
 
         //To obtain the resource directly without the full path
@@ -54,12 +55,15 @@ public class SongView extends JPanel {
         titleSong.setFont(new Font("Sans Serif",Font.BOLD,14));
         this.description = new JLabel (description);
         this.description.setFont(new Font("Sans Serif",Font.PLAIN,10));
+        this.author = new JLabel(author);
+        this.author.setFont(new Font("Sans Serif",Font.PLAIN,10));
 
         //We create a panel to add the title and her description
         groupTitleDescription = new JPanel();
         groupTitleDescription.setLayout(new BoxLayout(groupTitleDescription,BoxLayout.Y_AXIS));
         groupTitleDescription.add(titleSong);
         groupTitleDescription.add(this.description);
+        groupTitleDescription.add(this.author);
         //We make an empty border to down the group of elements
         groupTitleDescription.setBorder(BorderFactory.createEmptyBorder(7,7,7,7));
 
@@ -80,6 +84,10 @@ public class SongView extends JPanel {
 
     public JLabel getDescription() {
         return description;
+    }
+
+    public JLabel getAuthor() {
+        return author;
     }
 
     public JLabel getMusicIcon() {

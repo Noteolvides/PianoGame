@@ -328,6 +328,10 @@ public class Controller {
         return controllerJSong.getActualSong();
     }
 
+    public String getSongUserToPlay() {
+        return  controllerJSong.getActualAuthor();
+    }
+
     /**
      * Functions that depending of the result of the ClientConnection transmission
      * of requesting a song, notifies if the song was correctly acquired.

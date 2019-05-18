@@ -379,6 +379,7 @@ public class ClientConnection extends Thread {
         try {
             dOut.writeUTF(REQUEST_SONG);
             String song = controller.getSongToPlay();
+            String author = controller.getSongUserToPlay();
 
             dOut.writeUTF(song);
             String midi =  dIn.readUTF();

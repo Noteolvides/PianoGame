@@ -150,6 +150,7 @@ public class PianoController {
                     StringBuilder songMidi = new StringBuilder();
                     temporalKeys.sort(Comparator.comparingInt(KeyRecord::getId));
                     KeyRecord lastKey = null;
+                    boolean isFirtTime = true;
                     for (KeyRecord k : temporalKeys) {
                         if (lastKey != null) {
                             if (k.getStart() - lastKey.getEnd() > 0) {
@@ -158,8 +159,12 @@ public class PianoController {
                                 songMidi.append(rest.toString());
                                 songMidi.append(", ");
                             }else{
-                                songMidi.append("@"+(float)k.getStart()/(float) 10000+", ");
+                                songMidi.append("@"+(float)k.getStart()/(float) 1000+", ");
                             }
+                        }
+                        if (isFirtTime){
+                            songMidi.append("@"+(float)k.getStart()/(float) 1000+", ");
+                            isFirtTime = false;
                         }
                         note = new Note(k.getKey());
                         note.setDuration((double) (k.getEnd() - k.getStart()) / (double) 1000);

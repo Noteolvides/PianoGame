@@ -32,17 +32,15 @@ public class PlayerSongPiano extends Thread {
         JPanel k;
         boolean flag = false;
         double timeSinature = 0.0;
-        int leftOrRight = 0;
         double offset = 0;
         boolean isFirkey = true;
-        System.out.println(song.toString());
+        String aux;
         for (Token t : song.getTokens()) {
             if (t.getType() == Token.TokenType.NOTE) {
-                Note n = new Note(t.toString());
-                if(isFirkey){
-                        offset=n.getDuration();
-                        isFirkey=false;
+                if (isFirkey){
+                    isFirkey = false;
                 }
+                Note n = new Note(t.toString());
                 height = (int) (n.getDuration() * 70);
                 if (!flag){
                     y = (int) (35 - 80 * timeSong) - height;
@@ -102,10 +100,15 @@ public class PlayerSongPiano extends Thread {
                 }
             }
             if (t.getType() == Token.TokenType.TRACK_TIME_BOOKMARK){
-                String aux = t.toString().replace('@','0').replace(',','0');
-                timeSinature = Double.parseDouble(aux);
-                timeSinature -= offset;
-                flag = true;
+                aux = t.toString().replace('@','0').replace(',','0');
+                if(isFirkey){
+                    offset=Double.parseDouble(aux);
+                    isFirkey=false;
+                }else{
+                    timeSinature = Double.parseDouble(aux);
+                    timeSinature -= offset;
+                    flag = true;
+                }
             }
         }
         piano.revalidate();

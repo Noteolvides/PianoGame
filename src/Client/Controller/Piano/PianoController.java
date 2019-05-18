@@ -75,7 +75,7 @@ public class PianoController {
     }
 
     /**
-     * The inicializacion of all buttons in the views
+     * The Initialization of all buttons in the views
      */
     private void initController() {
         view.initPianoView();
@@ -144,7 +144,7 @@ public class PianoController {
     }
 
     /**
-     * Record Button inicialization
+     * Record Button Initialization
      */
     private void RecordButton() {
         //Listener to record Song
@@ -157,7 +157,7 @@ public class PianoController {
     }
 
     /**
-     * Select Song incialization
+     * Select Song Initialization
      */
     private void selectSongButton() {
         //To go open a song
@@ -167,7 +167,7 @@ public class PianoController {
     }
 
     /**
-     * Exit to menu button incialization
+     * Exit to menu button Initialization
      */
     private void exitToMenuButton() {
         view.getPianoView().getTopOption().getExitToMenu().addActionListener(e -> {
@@ -181,7 +181,7 @@ public class PianoController {
     }
 
     /**
-     * Stop button incialization
+     * Stop button Initialization
      */
     private void stopButton() {
         view.getPianoView().getTopOption().getStop().addActionListener(e ->{
@@ -197,7 +197,7 @@ public class PianoController {
 
 
     /**
-     * Mute button incialization
+     * Mute button Initialization
      */
     private void muteButton() {
         view.getPianoView().getTopOption().getMuteSoundPlaying().addActionListener(e -> {
@@ -211,7 +211,7 @@ public class PianoController {
     }
 
     /**
-     * For incialization to map keys to octaves
+     * For Initialization to map keys to octaves
      */
     private void mapKeysToOctaves() {
         for (int i = 0; i < 6; i++) {
@@ -229,7 +229,7 @@ public class PianoController {
 
 
     /**
-     * Acction Listener of button in order to changeKeys
+     * Action Listener of button in order to changeKeys
      */
     private void changeKeys() {
         view.getPianoView().getTopOption().getChangeKeys().addActionListener(e ->{

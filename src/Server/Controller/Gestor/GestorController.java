@@ -31,6 +31,8 @@ public class GestorController implements MouseListener {
 
     }
 
+    //TODO: Fer que es guardi una canço en el servidor i en la BBDD. -> Ficar finestra de Jiahui aquí tb
+    //TODO: Fer que quan s'elimini una canço en la bbdd, tb s'elimini l'arxiu del servidor
     /**
      * WHen the mouse is released we watch at what button clicked the user
      * @param e: event due to an interaction with an element of the screen

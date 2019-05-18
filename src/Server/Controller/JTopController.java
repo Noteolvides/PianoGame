@@ -33,12 +33,14 @@ public class JTopController implements MouseListener {
     public void mouseClicked(MouseEvent event) {
         JLabel whichButton = (JLabel) event.getSource();
 
+        //Shows which song is currently playing
         for (int i = 0; i < jTop.getSongsList().size(); i++) {
             if (jTop.getSongsList().get(i).getPlayButton().equals(whichButton)) {
                 System.out.println("Playing: " + jTop.getSongsList().get(i).getTitleSong().getText());
             }
         }
 
+        //Determines which song to be played when the its icon is clicked, or paused if it's already playing
         for (int i = 0; i < jTop.getSongsList().size(); i++) {
             if (jTop.getSongsList().get(i).getMusicIcon().equals(whichButton) && !jTop.getSongsList().get(i).isPlaying()) {
                 System.out.println(jTop.getSongsList().get(i).getTitleSong().getText() + ":   " + jTop.getSongsList().get(i).getDescription().getText());
@@ -65,7 +67,7 @@ public class JTopController implements MouseListener {
             }
         }
 
-
+        //Shows each song's description
         for(int i = 0; i < jTop.getSongsList().size(); i++){
             if(jTop.getSongsList().get(i).getInfoIcon().equals(whichButton)){
                 System.out.println(jTop.getSongsList().get(i).getDescription().getText());
@@ -113,6 +115,7 @@ public class JTopController implements MouseListener {
         this.service = service;
     }
 
+    //For further use to refresh the Top 5 Songs if the top changes in the BBDD
     public void refresh(ArrayList<Song> refreshedSongs){
         jTop.getFrameTop().dispose();
         includeSongs(refreshedSongs);

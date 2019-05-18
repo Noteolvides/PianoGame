@@ -42,7 +42,6 @@ public class GestorController implements MouseListener {
 
         } else if (e.getSource() == view.getGestorView().getBackButton()) {
             view.getGestorView().setVisible(false);
-            view.getGestorView().dispose();
 
         } else if (e.getSource() == view.getGestorView().getRefreshButton()) {
             view.getGestorView().setVisible(false);

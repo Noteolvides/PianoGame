@@ -25,7 +25,7 @@ public class playSong extends Thread {
     public void run(){
         AudioInputStream audioInputStream;
         try {
-            audioInputStream = AudioSystem.getAudioInputStream(new File("songTemp/" + songTitle + ".wav").getAbsoluteFile());
+            audioInputStream = AudioSystem.getAudioInputStream(new File("songTemp/" + songTitle + ".mid").getAbsoluteFile());
             clip = AudioSystem.getClip();
             clip.addLineListener(listener);
             clip.open(audioInputStream);

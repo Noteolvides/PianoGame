@@ -26,6 +26,9 @@ public class JTop {
     public JTop(){
     }
 
+    /**
+     * JTop Creation
+     */
     public void JTop(){
 
         //Adding layouts and all the containing panels
@@ -63,11 +66,12 @@ public class JTop {
         frameTop.add(panelTop);
     }
 
-    /*
+    /**
     * Register the controller, mapping each button or image with its function
     * playButton - Play Song
     * infoButton - Shows Song Info
     * musicIcon - Plays a demo of the song
+    * @param controller: Controller
     */
     public void registerController(JTopController controller){
         for(int i = 0; i < songsList.size(); i++){

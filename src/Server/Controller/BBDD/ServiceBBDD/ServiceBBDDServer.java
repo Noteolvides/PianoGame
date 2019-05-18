@@ -342,7 +342,11 @@ public class ServiceBBDDServer {
     }
 
 
-
+    /**
+     * This method insert a user (a crossing of the instance) in the user table, to make it avaiable
+     * @param user This is the instance of the new user created that we want to add in the database
+     * @throws BBDDException This exception is thrown when the username/email already exists in the database
+     */
     public void createUserFromNoUser (User user) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
         dao.checkExistenceUserDatabaseWithoutPassword(user.getNameUser(),true);
@@ -353,7 +357,13 @@ public class ServiceBBDDServer {
         ServerContextHolder.clear();
     }
 
-
+    /**
+     * This method insert a user (a crossing of the different attributes) in the user table, to make it avaible
+     * @param username This is the username of the new user
+     * @param password This is the password of the new user
+     * @param email This is the email taht the user puts on the new user
+     * @throws Exception This exception is thrown when the username/email already exists in the database
+     */
     public void createUserFromNoUser (String username, String password,String email) throws Exception {
         if (!(username.equals("") || username.contains(" ") || password.contains(" ") || password.equals(""))) {
             ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
@@ -371,6 +381,11 @@ public class ServiceBBDDServer {
     }
 
     //If the user wants to change his information (list of friends updated...), this method doesn't controll the change of username
+
+    /**
+     * This is called when we want to update the information of a user with the user register mysql account
+     * @param user The instance of the user with the information updated
+     */
     public void modifyInformationUser (User user){
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         dao.updateUserTable(user);
@@ -378,6 +393,13 @@ public class ServiceBBDDServer {
     }
 
 
+    /**
+     * This method is called when we want to get an instance of a user with his username and password
+     * @param username The username of the user that we want to get the instance
+     * @param password The password of the user thtat we want to get the instance
+     * @return It returns the instance of the username/password putted, when all goes right
+     * @throws BBDDException It throws an exception when the user and the password do not match, or the username doesn't exist
+     */
     public User getInstanceOfAUserByName (String username, String password) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
         dao.checkExistenceUserDatabase(username,password,false);

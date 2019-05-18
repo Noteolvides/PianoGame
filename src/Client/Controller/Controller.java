@@ -312,7 +312,7 @@ public class Controller {
      * @param petitionResult ClientConnection Transmission result code.
      */
     public void networkSaveSongResult(int petitionResult) {
-        view.getSaveSongView().savePopUp(petitionResult);
+        view.getPianoView().savePopUp(petitionResult);
     }
 
     /**

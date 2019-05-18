@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static Client.Network.ClientConnection.*;
+
 
 /**
  * Main View that contains all the utilities of the piano
@@ -63,6 +65,28 @@ public class JPiano extends JFrame {
 
     public ArrayList<JPanel> getNotes() {
         return notes;
+    }
+
+    /**
+     * Function that shows a PopUp with the information of the adding a friend.
+     * @param petitionResult Type of error.
+     */
+    public void savePopUp(int petitionResult) {
+        if (petitionResult == OK) {
+            JOptionPane.showMessageDialog(this, "The song was saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+        }
+        if (petitionResult == KO) {
+            JOptionPane.showMessageDialog(this, "Couldn't connect to the server.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        if (petitionResult == ERROR_BBDD) {
+            JOptionPane.showMessageDialog(this, "There was a problem with the database.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        if (petitionResult == ERROR_OBJECT) {
+            JOptionPane.showMessageDialog(this, "There was a problem saving the song.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+        if  (petitionResult == ERROR_MIDI) {
+            JOptionPane.showMessageDialog(this, "There was a problem with the midi of the song.", "Error", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     /**

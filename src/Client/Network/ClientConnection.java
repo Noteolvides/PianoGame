@@ -209,7 +209,7 @@ public class ClientConnection extends Thread {
             }
 
         } catch (IOException e) {
-            controller.networkLogInResult(KO);
+            controller.networkRegisterResult(KO);
         }
     }
 

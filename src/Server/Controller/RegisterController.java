@@ -26,11 +26,23 @@ public class RegisterController implements ActionListener {
     private View view;
     private ServiceBBDDServer serviceBBDDServer;
 
+    /**
+     * Constructor of the Register View
+     * It assigns a controller to the register button
+     * @param view
+     * @param serviceBBDDServer
+     */
     public RegisterController(View view, ServiceBBDDServer serviceBBDDServer) {
         this.view = view;
         this.serviceBBDDServer = serviceBBDDServer;
     }
 
+    /**
+     * When the register button is clicked
+     * it retrieves all the data, checks whether the format is correct or not
+     * and after all the processing it sends it to the database
+     * @param e: Action button clicked
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("REGISTER")) {

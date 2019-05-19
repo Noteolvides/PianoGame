@@ -5,8 +5,23 @@ import javax.swing.*;
 
 import static Client.Network.ClientConnection.*;
 
+/**
+ * Class that creates the Frame of the Social view.
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ */
 public class FinestraJSocial extends JFrame {
     private JSocial jSocial;
+
+    /**
+     * Constructor that creates and shows the frame of the Social view.
+     */
     public FinestraJSocial () {
         jSocial = new JSocial();
         setSize(400,405);

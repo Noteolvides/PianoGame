@@ -34,6 +34,11 @@ public class JTopController implements MouseListener {
     private Set<Thread> setOfThread;
     private ArrayList<PlaySong> music = new ArrayList<>();
 
+    /**
+     * Constructor of the JTop Controller
+     * @param jTop: JTop View
+     * @param service: Service to retrieve information
+     */
     public JTopController(JTop jTop, ServiceBBDDServer service) {
         this.jTop = jTop;
         this.service = service;
@@ -143,7 +148,10 @@ public class JTopController implements MouseListener {
         this.service = service;
     }
 
-    //For further use to refresh the Top 5 Songs if the top changes in the BBDD
+    /**
+     * For further use to refresh the Top 5 Songs if the top changes in the BBDD
+     * @param refreshedSongs: New Arraylist of Songs
+     */
     public void refresh(ArrayList<Song> refreshedSongs){
         jTop.getFrameTop().dispose();
         includeSongs(refreshedSongs);

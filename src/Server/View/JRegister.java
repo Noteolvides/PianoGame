@@ -123,6 +123,14 @@ public class JRegister extends JFrame {
      * If the password doesn't match with the authentication pattern it shows a pop-up
      */
     public void errorPasswordPopUp() {
-        JOptionPane.showMessageDialog(this, "The password doesn't meet the requirements!", "Bad password", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "The password doesn't meet the requirements or the confirm doesn't match!" +
+                "\n\t\t\t\t\t\tThe password must at least be 8 caracters long." +
+                "\n\t\t\t\t\t\tCan not contain your username." +
+                "\n\t\t\t\t\t\tAnd at least have 2 of these:" +
+                "\n\t\t\t\t\t\t\t\t\t\t\t\tLower case characters, " +
+                "Upper case characters, " +
+                "\n\t\t\t\t\t\t\t\t\t\t\t\tSpecial characters or " +
+                "Numbers", "Bad password", JOptionPane.WARNING_MESSAGE);
     }
+
 }

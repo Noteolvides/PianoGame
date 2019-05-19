@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class ClientConnection extends Thread {
     //Connection const.
     private int port = 5000;
-    private static final String IP = "localhost";
+    private String IP = "localhost";
 
     public static final int OK = 0;
     public static final int KO = -1;
@@ -74,10 +74,11 @@ public class ClientConnection extends Thread {
      * @param controller The main controller
      * @param clientPort port of the conection
      */
-    public ClientConnection(Controller controller, int clientPort) {
+    public ClientConnection(Controller controller, int clientPort,String ip) {
         port = clientPort;
         this.controller = controller;
         nextFunc = "";
+        this.IP = ip;
     }
 
     /**

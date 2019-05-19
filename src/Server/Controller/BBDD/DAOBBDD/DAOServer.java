@@ -523,6 +523,10 @@ public class DAOServer extends HibernateDaoSupport {
         return (Syst) list.get(0);
     }
 
+    /**
+     * Method that deletes all the user relationships
+     * @param username Username that we want to delete the relationships
+     */
     @Transactional
     public void deleteRelationships(String username) {
         getHibernateTemplate().execute(new HibernateCallback<Object>() {

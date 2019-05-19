@@ -64,7 +64,7 @@ public class FinestraJSocial extends JFrame {
             JOptionPane.showMessageDialog(this, "Couldn't connect to the server.", "Error", JOptionPane.WARNING_MESSAGE);
         }
         if (petitionResult == ERROR_BBDD) {
-            JOptionPane.showMessageDialog(this, "There was a problem with the database.", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "User not found in the database!", "Error", JOptionPane.WARNING_MESSAGE);
         }
         if (petitionResult == ERROR_OBJECT) {
             JOptionPane.showMessageDialog(this, "The searched parameter is not correct!", "Warning", JOptionPane.WARNING_MESSAGE);

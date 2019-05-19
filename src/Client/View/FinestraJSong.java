@@ -8,9 +8,21 @@ import java.util.ArrayList;
 
 import static Client.Network.ClientConnection.*;
 
+/**
+ * Class that creates the Frame of the Song view.
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ */
 public class FinestraJSong extends JFrame{
     private ComboSongView comboSongView;
 
+    /**
+     * Method that initialize the song view with some specific charcateristics
+     */
     public FinestraJSong () {
         comboSongView = new ComboSongView(new JSong(),new JLabel());
         add(comboSongView);
@@ -24,6 +36,11 @@ public class FinestraJSong extends JFrame{
         return comboSongView.getjSong();
     }
 
+
+    /**
+     * Method to update all the songs that we can see on the screen
+     * @param arrayList Arraylist that contains all the information of all the songs that we are going to show on the screen
+     */
     public void updateSongs (ArrayList<Song> arrayList) {
         comboSongView.updateSongs(arrayList);
     }

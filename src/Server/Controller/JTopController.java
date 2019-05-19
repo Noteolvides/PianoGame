@@ -14,6 +14,20 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Set;
 
+/**
+ * Controller for the Top 5 View
+ * It maps every icon of the panel to its function
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ *
+ */
 public class JTopController implements MouseListener {
     private ServiceBBDDServer service;
     private JTop jTop;
@@ -29,6 +43,10 @@ public class JTopController implements MouseListener {
 
     }
 
+    /**
+     * It determines what button is clicked: Play Songs, display the Description
+     * @param event: Which button is clicked
+     */
     @Override
     public void mouseClicked(MouseEvent event) {
         JLabel whichButton = (JLabel) event.getSource();
@@ -75,6 +93,10 @@ public class JTopController implements MouseListener {
         }
     }
 
+    /**
+     *  Adds and include all the songs retrieved from the data base
+     * @param songs : List that contains all the songs
+     */
     public void includeSongs (ArrayList <Song> songs) {
         //Adding a new array to not repeat different times the same songs, if we decide to refresh the window
         jTop.setSongsList(new ArrayList<>());
@@ -86,6 +108,12 @@ public class JTopController implements MouseListener {
             jTop.getSongsList().get(i).setMaximumSize(new Dimension(1000,1000));
         }
     }
+
+    /**
+     * With all the songs retrieved from the BBDD and further processed
+     * It outputs all of them to the Panel's list
+     * @param songsViews List of the songs with its correct format, buttons and icons set
+     */
     public void addAllTheSongs (ArrayList <SongView> songsViews) {
         for (int i = 0; i < songsViews.size();i++) {
             jTop.getSongsGroup().add(songsViews.get(i));

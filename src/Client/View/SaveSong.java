@@ -4,7 +4,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-
+/**
+ * View for registering a song, when a user wants to
+ * save his/her song that hsa just been recorded
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ *
+ */
 public class SaveSong extends JFrame{
     //View for saving a song, attributes
     private JCheckBox wannaPrivate;

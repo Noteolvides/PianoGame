@@ -33,6 +33,10 @@ public class JEvolution {
     private JButton week;
     private Graphic graphic;
 
+    /**
+     * Receives the service to retrieve information
+     * @param service: Service
+     */
     public JEvolution(ServiceBBDDServer service){
         this.service = service;
     }

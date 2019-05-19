@@ -27,6 +27,13 @@ public class SongView extends JPanel {
     private JLabel musicIcon;
     private JLabel playButton;
     private JLabel infoIcon;
+
+    /**
+     * Constructor, it creates and adds all the jComponents and adds them to a jPanel. (Bassically it have all the initialization of SongViews class)
+     * @param title Title of the song that it's going to be shown
+     * @param description Description of the song that it's going to be shown
+     * @param author Author of the song that it's going to be shown
+     */
     public SongView (String title, String description, String author) {
         setLayout(new BorderLayout());
 
@@ -90,6 +97,16 @@ public class SongView extends JPanel {
 
     }
 
+    /**
+     * Registers the controller to the buttons of the view
+     * @param controllerJSong This is the controller of JSong
+     */
+    public void registerButtonController (ControllerJSong controllerJSong) {
+        playButton.addMouseListener(controllerJSong);
+        //Now, we add the tool tip text too
+        infoIcon.setToolTipText(description.getText());
+    }
+
     public JLabel getTitleSong() {
         return titleSong;
     }
@@ -114,13 +131,4 @@ public class SongView extends JPanel {
         return infoIcon;
     }
 
-    /**
-     * Registers the controller to the buttons of the view
-     * @param controllerJSong This is the controller of JSong
-     */
-    public void registerButtonController (ControllerJSong controllerJSong) {
-        playButton.addMouseListener(controllerJSong);
-        //Now, we add the tool tip text too
-        infoIcon.setToolTipText(description.getText());
-    }
 }

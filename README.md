@@ -26,3 +26,10 @@ Above these the alphanumeric code of the user you have log in with is shown.
 
 
 **Server**
+
+Once the server opens, 4 buttons are displayed:
+
+* Register User: where the server administrator can add as many users as desired.
+* Top 5 Songs: A window that shows a top of the 5 most listened songs.
+* Song Manager: This window allows you to delete songs that are not from the server, add new ones and see what's in the entire system.
+* User Graph: Graph that shows the activity of the different connections of users to the server.

@@ -188,11 +188,12 @@ public class JGestor extends JFrame {
     }
 
     public void cantSaveMsg() {
-        JOptionPane.showMessageDialog(this, "Error saving the song into the server", "Warning", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Error saving the song into the server.\n" +
+                "Song can't contain spaces in the name", "Warning", JOptionPane.WARNING_MESSAGE);
     }
 
     public void cantDeleteMsg() {
-        JOptionPane.showMessageDialog(this, "System song cannot be deleted", "Warning", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "This system song can not be deleted", "Warning", JOptionPane.WARNING_MESSAGE);
     }
 
     public void deletedMsg() {

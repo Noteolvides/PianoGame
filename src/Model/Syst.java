@@ -10,6 +10,17 @@ import java.util.List;
 
 import static javax.persistence.FetchType.EAGER;
 
+/**
+ * Class that saves the information of the System.
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ */
 @Entity
 @Table(name="Syst")
 public class Syst implements Serializable {
@@ -29,11 +40,20 @@ public class Syst implements Serializable {
     @OneToMany(mappedBy="system", cascade= CascadeType.ALL, fetch=EAGER)
     private List<Song> songs;
 
+    /**
+     * Constructor that creates an empty System.
+     */
     public Syst() {
         nameSyst = "default";
         songs = new ArrayList<Song>();
     }
 
+    /**
+     * Constructor that creates a System with the parameters received.
+     * @param name System name.
+     * @param date Date of the system.
+     * @param totalUsers Total users in the system.
+     */
     public Syst(String name, Date date, int totalUsers) {
         this.nameSyst = name;
         this.date = date;

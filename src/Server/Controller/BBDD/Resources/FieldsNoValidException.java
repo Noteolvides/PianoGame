@@ -3,11 +3,6 @@ package Server.Controller.BBDD.Resources;
 /**
  * This is the class that controls the noon-desired introductions to the database, it is like a third layer to prevent the user from inserting
  * invalid fields (such as the user's name with spaces ...)
- */
-
-/**
- * This is the class that controls the noon-desired introductions to the database, it is like a third layer to prevent the user from inserting
- * invalid fields (such as the user's name with spaces ...)
  *
  * @version 1.0
  * @since 2019-05-19

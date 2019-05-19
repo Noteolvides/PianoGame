@@ -258,7 +258,7 @@ public class DedicatedServer extends Thread {
                         writer.close();
                         s.setFilePath(directorio + "/" + s.getTitle());
                         service.insertSongFromUser(s);
-                        System.out.println("He guardat: " + s.toString() + " ------- " + song);
+
                         dataOutputStream.writeInt(CONFIRMATION);
                     } catch (IOException e) {
                         dataOutputStream.writeInt(ERROR);   //Error al connectar amb el servidor
@@ -271,12 +271,17 @@ public class DedicatedServer extends Thread {
                 //Return the midi file of an specific song that the user wants to play
                 case REQUEST_SONG:
                     try {
-                        //TODO: Llegir el fitxer de text que correspon a la canço, ficarlo dins duna string i passarla
-                        // de volta a un usuari
                         String song = dataInputStream.readUTF();
+                        String author = dataInputStream.readUTF();
+
                         //I return the song, so i can get the path i then i can get the song and pass it
                         Song songObtained = null;
-                        songObtained = service.getConcreteSongUser(userSave,song);
+                        try {
+                            songObtained = service.getConcreteSongUser(author, song);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
                         songObtained.setPlays(songObtained.getPlays() + 1);
                         service.updateSong(songObtained);
                         String pathSong = songObtained.getFilePath();
@@ -353,7 +358,6 @@ public class DedicatedServer extends Thread {
                 case SEARCH_USER:
                     //This will be the object to read and
                     friendSave = dataInputStream.readUTF();
-
                     //Then we want to check if the object Exist in the database
                     try {
                         User userTosend = service.searchUserByCode(friendSave,userSave);
@@ -407,7 +411,12 @@ public class DedicatedServer extends Thread {
         this.server = server;
     }
 
+    public String getUserSave() {
+        return userSave;
+    }
 
-    //TODO: QUAN ENTRES A PIANO I TOQUES UN PLAY I GUARDES, NO FUNCIONA
-    //TODO: QUAN REPRODEIXES CANÇÓ I TORNES A REPRODUIR-LO NO S'AFEGEIX MÉS VISITES
+    public void setUserSave(String userSave) {
+        this.userSave = userSave;
+    }
+
 }

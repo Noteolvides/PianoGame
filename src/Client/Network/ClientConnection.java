@@ -380,11 +380,12 @@ public class ClientConnection extends Thread {
             dOut.writeUTF(REQUEST_SONG);
             String song = controller.getSongToPlay();
             String author = controller.getSongUserToPlay();
-
             dOut.writeUTF(song);
-            String midi =  dIn.readUTF();
-            trans_estate = dIn.readInt();
+            dOut.writeUTF(author);
 
+            String midi =  dIn.readUTF();
+
+            trans_estate = dIn.readInt();
             controller.networkRequestSongResult(trans_estate, midi);
 
         } catch (IOException e) {

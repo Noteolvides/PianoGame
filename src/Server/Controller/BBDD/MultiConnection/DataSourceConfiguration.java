@@ -14,13 +14,20 @@ import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
 /**
  * Class that takes care of loading all the configuration that is needed to connect
  * to the database (contains hashmap of the different users ...). Simply, it is the
  * method where we specify the different connections that may exist. We define it
  * as a bean, because in reality should be in the XML, but we do it through annotations.
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
  */
 @Configuration
 public class DataSourceConfiguration {

@@ -4,6 +4,20 @@ package Server.Controller.BBDD.Resources;
  * This is the class that controls the noon-desired introductions to the database, it is like a third layer to prevent the user from inserting
  * invalid fields (such as the user's name with spaces ...)
  */
+
+/**
+ * This is the class that controls the noon-desired introductions to the database, it is like a third layer to prevent the user from inserting
+ * invalid fields (such as the user's name with spaces ...)
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ */
 public class FieldsNoValidException extends Exception {
     /**
      * Basic constructor to generate the exception (without an own message, and the cause of the excpetion)

@@ -33,6 +33,11 @@ public class Graphic extends JPanel {
     private List<Integer> users;
     private int padding = 30;                                                                                           //Quantitat de farcida esquerra i dreta
 
+    /**
+     * Receives the list of users to determine the height of the graphic
+     * and also to draw and plot the points to the graphic
+     * @param users
+     */
     public Graphic(List<Integer> users) {
         this.users = users;
     }

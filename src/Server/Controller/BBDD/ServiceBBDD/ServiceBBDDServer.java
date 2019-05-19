@@ -95,6 +95,14 @@ public class ServiceBBDDServer {
     }
 
     //:::::::::::::::::::Server BBDD Methods:::::::::::::::::::::::::::::::
+    public Syst getInstanceOfSystem () {
+        ServerContextHolder.set(AvaiableClients.adminSmartPiano);
+        Syst s = dao.getFirstSystem();
+        ServerContextHolder.clear();
+        return s;
+    }
+
+
 
     /**
      * This is a method that can be called if there is a problem with the CEST Time in the database.

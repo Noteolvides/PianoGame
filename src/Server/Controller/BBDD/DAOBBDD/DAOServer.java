@@ -472,4 +472,10 @@ public class DAOServer extends HibernateDaoSupport {
             }
         });
     }
+
+    @Transactional
+    public Syst getFirstSystem () {
+        List list = getHibernateTemplate().find ("FROM " + Syst.class.getName() + " AS s WHERE s.ID = " + 1);
+        return (Syst) list.get(0);
+    }
 }

@@ -274,8 +274,12 @@ public class ClientConnection extends Thread {
 
             //We wait for response if the operation is completed correctly
             trans_estate = dIn.readInt();
-
-            User userToController = (User) obIn.readObject();
+            User userToController;
+            if (trans_estate == OK) {
+                userToController = (User) obIn.readObject();
+            } else {
+                userToController = null;
+            }
             controller.networkSearchSocialResult(trans_estate, userToController);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

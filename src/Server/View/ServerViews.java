@@ -5,6 +5,19 @@ import Server.Controller.Controller;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Server Graphical View Class (4 buttons for control)
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ *
+ */
 public class ServerViews {
         private JButton serverGraph, topSongs, registerUser, gestor;
 

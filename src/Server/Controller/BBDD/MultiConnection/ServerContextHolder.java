@@ -1,10 +1,17 @@
 package Server.Controller.BBDD.MultiConnection;
 
-
-
 /**
  * In this case we are in front of the class that deals with managing the connection topic, it has a Thread reserved
  * to perform this communication with the database.
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
  */
 public class ServerContextHolder {
     //And why is Thread local? The reason is clear and is that only this thread can access the ClientDatabase object, any thread can access it (In this way, in my opinion

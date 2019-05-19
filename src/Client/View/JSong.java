@@ -141,7 +141,7 @@ public class JSong extends JPanel{
 
     /**
      * This is the method to register the controller of the general things (not the concrete things) of the panel (for example, the back button, the refresh button...)
-     * @param controllerJSong
+     * @param controllerJSong Register the controllerJson
      */
     public void registerControllers (ControllerJSong controllerJSong) {
         backButton.addMouseListener(controllerJSong);

@@ -35,7 +35,7 @@ public class PlaySong extends Thread {
      * Constructor, it creates and adds all the jComponents and adds them to a jPanel. (Bassically it have all the initialization of PlaySong class)
      * @param songTitle The song title that it's going to be shown
      * @param songView The view that contains all the information of the song
-     * @param idSong The id of the song
+     * @param idSong The id of the song that we are referenciating
      */
     public PlaySong(String songTitle, SongView songView, int idSong){
         this.songTitle = songTitle;

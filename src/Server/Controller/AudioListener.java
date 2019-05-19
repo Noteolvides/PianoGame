@@ -5,7 +5,7 @@ import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
 
 /**
- * Class that complements with playSong Class
+ * Class that complements with PlaySong Class
  * It determines whether a song should be played
  * or stopped
  *

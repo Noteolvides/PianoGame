@@ -23,7 +23,7 @@ import java.io.IOException;
  * @author Jiahui Xie
  *
  */
-public class playSong extends Thread {
+public class PlaySong extends Thread {
     //A class to play the songs
     private Clip clip;
     private String songTitle;
@@ -31,7 +31,7 @@ public class playSong extends Thread {
     private SongView songView;
     private int idSong;
 
-    public playSong(String songTitle, SongView songView, int idSong){
+    public PlaySong(String songTitle, SongView songView, int idSong){
         this.songTitle = songTitle;
         this.setName(songTitle);
         this.songView = songView;

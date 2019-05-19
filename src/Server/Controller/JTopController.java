@@ -1,7 +1,7 @@
 package Server.Controller;
 
+import Model.PlaySong;
 import Model.Song;
-import Model.playSong;
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import Server.View.JTop;
 import Server.View.SongView;
@@ -32,7 +32,7 @@ public class JTopController implements MouseListener {
     private ServiceBBDDServer service;
     private JTop jTop;
     private Set<Thread> setOfThread;
-    private ArrayList<playSong> music = new ArrayList<>();
+    private ArrayList<PlaySong> music = new ArrayList<>();
 
     public JTopController(JTop jTop, ServiceBBDDServer service) {
         this.jTop = jTop;
@@ -67,7 +67,7 @@ public class JTopController implements MouseListener {
 
                 //TODO: Add Thread to Play Music
                 jTop.getSongsList().get(i).setPlaying(true);
-                music.add(new playSong(songTitle, jTop.getSongsList().get(i), i));
+                music.add(new PlaySong(songTitle, jTop.getSongsList().get(i), i));
                 music.get(music.size()-1).start();
 
             }else{

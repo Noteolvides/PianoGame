@@ -34,6 +34,9 @@ public class JPrincipal extends JFrame {
     private JButton buttonAmics;
     private JButton buttonSignOut;
     private JButton buttonDeleteAccount;
+    private JLabel userCodePanel;
+
+    private String userCode;
 
     private JPanel imagePanel;
 
@@ -114,6 +117,10 @@ public class JPrincipal extends JFrame {
 
         buttonDeleteAccount.setActionCommand(DELETE_ACCOUNT);
         buttonDeleteAccount.addActionListener(pc);
+    }
+
+    public void setUserCode(String userCode) {
+        userCodePanel.setText(userCode);
     }
 
     /**

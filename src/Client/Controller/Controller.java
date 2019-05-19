@@ -36,6 +36,7 @@ public class Controller {
     private ControllerJSocial controllerJSocial;
     private ControllerJSong controllerJSong;
     private ControllerSaveSong controllerSaveSong;
+    private User actualUser;
     private String songMidi;
     private Song song;
 
@@ -270,8 +271,9 @@ public class Controller {
      * of the login, makes the program to login and go to the principal screen or show an error popup.
      * @param petitionResult ClientConnection Transmission result code.
      */
-    public void networkLogInResult(int petitionResult) {
+    public void networkLogInResult(int petitionResult, User actualUser) {
         if (petitionResult == OK) {
+            view.getPrincipalView().setUserCode(actualUser.getUserCode());
             openPrincipal();
             closeStart();
         } else {

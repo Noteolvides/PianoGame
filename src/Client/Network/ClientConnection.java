@@ -73,6 +73,7 @@ public class ClientConnection extends Thread {
      * Inicialization of the client
      * @param controller The main controller
      * @param clientPort port of the conection
+     * @param ip the ip of the server
      */
     public ClientConnection(Controller controller, int clientPort,String ip) {
         port = clientPort;

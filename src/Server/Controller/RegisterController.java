@@ -29,8 +29,8 @@ public class RegisterController implements ActionListener {
     /**
      * Constructor of the Register View
      * It assigns a controller to the register button
-     * @param view
-     * @param serviceBBDDServer
+     * @param view And neeed the main view
+     * @param serviceBBDDServer Adds the servide
      */
     public RegisterController(View view, ServiceBBDDServer serviceBBDDServer) {
         this.view = view;

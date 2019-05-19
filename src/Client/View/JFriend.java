@@ -5,6 +5,17 @@ import Client.Controller.ControllerJSocial;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Class that creates the panel for the user information.
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ */
 public class JFriend extends JPanel {
     //In this attribute we are going to show the photo of the friend that we find
     private JLabel profileImageFriend;
@@ -14,6 +25,11 @@ public class JFriend extends JPanel {
     private JLabel buttonAddFriend;
     private JLabel notFoundIm;
     private JLabel text;
+
+    /**
+     * Constructor that creates an empty user.
+     * @param inicializacion String with an initialization.
+     */
     public JFriend (String inicializacion) {
         text = new JLabel();
         setLayout(new FlowLayout());
@@ -22,6 +38,12 @@ public class JFriend extends JPanel {
         add(text);
     }
 
+    /**
+     * Constructor that creates a panel with the information of a User.
+     * @param name Name of the User.
+     * @param nombreImagen Name of the path of the User.
+     * @param isFriend Boolean stating if the user is friend.
+     */
     public JFriend (String name, String nombreImagen, Boolean isFriend) {
         //Initialization of the Layout
         setLayout(new GridBagLayout());
@@ -42,8 +64,6 @@ public class JFriend extends JPanel {
         //We scale the image because it's too big
         ImageIcon foto_perfil_scaled = new ImageIcon(foto_perfil.getImage().getScaledInstance(foto_perfil.getIconWidth()/5, foto_perfil.getIconHeight() / 5, Image.SCALE_SMOOTH));
         profileImageFriend.setIcon(foto_perfil_scaled);
-
-
 
 
         //Then, we put the button to add this friend
@@ -76,8 +96,11 @@ public class JFriend extends JPanel {
 
 
     }
-    //Controller that is called when the user doesn't find anyone
-    public  JFriend () {
+
+    /**
+     * Constructor that creates a panel with an error information.
+     */
+    public JFriend () {
         setLayout(new FlowLayout());
         setPreferredSize(new Dimension(390,125));
         notFoundIm = new JLabel();
@@ -102,6 +125,11 @@ public class JFriend extends JPanel {
 
     }
 
+    /**
+     * Function that makes a panel with a user.
+     * @param isFriend Boolean that states if is friend or not.
+     * @return Panel of the friend.
+     */
     private JPanel adquirirJPanel (boolean isFriend) {
         JPanel panel = new JPanel ();
         panel.setLayout(new FlowLayout());
@@ -128,6 +156,11 @@ public class JFriend extends JPanel {
         }
         return panel;
     }
+
+    /**
+     * Function that assings the controller to the panel.
+     * @param controllerJSocial Social controller.
+     */
     public void registerController (ControllerJSocial controllerJSocial) {
         if (buttonAddFriend != null) {
             buttonAddFriend.addMouseListener(controllerJSocial);

@@ -7,7 +7,6 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
  * For example, when you change the connection specified in the ContextHolder class, it takes care to establish
  * the new connection
  *
- *
  * @version 1.0
  * @since 2019-05-19
  *

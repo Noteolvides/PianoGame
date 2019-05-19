@@ -18,6 +18,19 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Main Server Class
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ *
+ */
 public class MainServer {
     public static void main(String[] args) throws IOException {
         ApplicationContext context =  new ClassPathXmlApplicationContext("Server/Controller/BBDD/Resources/applicationContextService.xml");
@@ -57,6 +70,5 @@ public class MainServer {
         serverViews.registerController(control);
         control.actionManager(evolution, top, view);
 
-        //TODO: Delete this
     }
 }

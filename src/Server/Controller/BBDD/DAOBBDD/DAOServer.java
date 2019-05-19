@@ -522,4 +522,15 @@ public class DAOServer extends HibernateDaoSupport {
         List list = getHibernateTemplate().find ("FROM " + Syst.class.getName() + " AS s WHERE s.ID = " + 1);
         return (Syst) list.get(0);
     }
+
+    @Transactional
+    public void deleteRelationships(String username) {
+        getHibernateTemplate().execute(new HibernateCallback<Object>() {
+            public Object doInHibernate(Session session) throws HibernateException {
+                Query query = session.createSQLQuery("DELETE FROM Friendship WHERE Name1 = '" + username + "' OR Name2 = '" + username + "'");
+                query.executeUpdate();
+                return null;
+            }
+        });
+    }
 }

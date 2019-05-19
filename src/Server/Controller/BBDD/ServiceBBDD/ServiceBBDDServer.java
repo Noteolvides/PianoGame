@@ -274,6 +274,8 @@ public class ServiceBBDDServer {
      */
     public void deleteUser (String username) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
+        int i = 0;
+        dao.deleteRelationships (username);
         dao.deleteUser(username);
         ServerContextHolder.clear();
     }
@@ -517,7 +519,7 @@ public class ServiceBBDDServer {
         if (found) {
             List<Song> song = dao.searchConcreteSong(songName);
             int h = 0;
-            while (h < song.size() &&(!(song.get(h).getAuthor() != null && ((song.get(h).getAuthor().getNameUser()).equals(username))) && (!(song.get(h).getAuthor() == null && song.get(h).getSystem().getName().equals(username))))) {
+            while (h < song.size() &&(!(song.get(h).getAuthor() != null && ((song.get(h).getAuthor().getNameUser()).equals(username))) && (! (song.get(h).getAuthor() == null && song.get(h).getSystem().getName().equals(username))))) {
                 h++;
             }
             ServerContextHolder.clear();

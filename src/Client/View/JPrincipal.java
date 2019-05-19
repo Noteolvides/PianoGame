@@ -54,7 +54,6 @@ public class JPrincipal extends JFrame {
             add(imagePanel, BorderLayout.NORTH);
 
         } catch (IOException ex) {
-            ex.printStackTrace();
             System.out.println("Error, no 'sha pogut accedir a la imatge interna");
         }
         JPanel vButtons = new JPanel();

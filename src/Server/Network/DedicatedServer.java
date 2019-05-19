@@ -386,7 +386,6 @@ public class DedicatedServer extends Thread {
                         objectOutputStream.writeObject(userTosend);
                     } catch (BBDDException e) {
                         dataOutputStream.writeInt(ERROR_BBDD);
-                        System.out.println("Se fue a la puta");
                     }
                     break;
                 //Add the searched user

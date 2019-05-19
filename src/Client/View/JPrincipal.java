@@ -36,8 +36,6 @@ public class JPrincipal extends JFrame {
     private JButton buttonDeleteAccount;
     private JLabel userCodePanel;
 
-    private String userCode;
-
     private JPanel imagePanel;
 
     /**
@@ -90,6 +88,9 @@ public class JPrincipal extends JFrame {
         vOut.setBorder(BorderFactory.createEmptyBorder(10,0,0,0));
 
         vButtons.add(vOut);
+        userCodePanel = new JLabel("Your code: ");
+        vButtons.add(userCodePanel);
+
         add(vButtons, BorderLayout.CENTER);
 
         vApp.setBackground(Color.WHITE);
@@ -120,7 +121,8 @@ public class JPrincipal extends JFrame {
     }
 
     public void setUserCode(String userCode) {
-        userCodePanel.setText(userCode);
+        System.out.println(userCode);
+        userCodePanel.setText("Your code: " + userCode);
     }
 
     /**

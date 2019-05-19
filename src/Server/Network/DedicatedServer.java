@@ -163,7 +163,6 @@ public class DedicatedServer extends Thread {
                 case CHECK_USUARIO:
                     //This will be the object to read and
                     User user = (User) objectInputStream.readObject();
-
                     //Then we want to check if the object Exist in the database
                     try {
                         //Determines whether the user has introduced a login name or a mail to log in
@@ -175,11 +174,11 @@ public class DedicatedServer extends Thread {
                             service.getInstanceOfAUserByName(user.getNameUser(),user.getPassword());
                             service.addConnection();
                         }
-
+                        User userToClient = service.getInstanceOfAUserByName(user.getNameUser(), user.getPassword());
                         //If the query return true
                         dataOutputStream.writeInt(CONFIRMATION);
                         userSave = user.getNameUser();
-                        objectOutputStream.writeObject(user);
+                        objectOutputStream.writeObject(userToClient);
                         //Else
                     } catch (BBDDException e) {
                         dataOutputStream.writeInt(ERROR);

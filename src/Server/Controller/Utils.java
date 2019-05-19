@@ -1,8 +1,22 @@
 package Server.Controller;
 
-import Model.User;
 
-
+/**
+ * Utils Class purpose's to offer Regular Expressions (Regex)
+ * for the log-in & register functions. It determines whether
+ * whether the information introduced by the user is its correct
+ * format or no
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ *
+ */
 public class Utils {
     /**
      * Determines whether the password entered by user is valid or not

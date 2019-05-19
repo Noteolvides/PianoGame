@@ -75,7 +75,7 @@ public class ClientConnection extends Thread {
      * @param clientPort port of the conection
      * @param ip the ip of the server
      */
-    public ClientConnection(Controller controller, int clientPort,String ip) {
+    public ClientConnection(Controller controller, int clientPort, String ip) {
         port = clientPort;
         this.controller = controller;
         nextFunc = "";
@@ -353,7 +353,6 @@ public class ClientConnection extends Thread {
 
             trans_estate = dIn.readInt();
             controller.networkSelectSongResult(trans_estate, songs);
-
         } catch (IOException e) {
             controller.networkSelectSongResult(KO, null);
         }
@@ -363,7 +362,7 @@ public class ClientConnection extends Thread {
     /**
      * The user wants to save a song that has created
      */
-    private void saveSong(/*String songFile, Song song*/) {
+    private void saveSong() {
         int trans_estate = KO;
         try {
             String songFile = controller.getSongMidi();
@@ -374,7 +373,6 @@ public class ClientConnection extends Thread {
 
             trans_estate = dIn.readInt();
             controller.networkSaveSongResult(trans_estate);
-
         } catch (IOException e) {
             controller.networkSaveSongResult(KO);
         }
@@ -396,7 +394,6 @@ public class ClientConnection extends Thread {
 
             trans_estate = dIn.readInt();
             controller.networkRequestSongResult(trans_estate, midi);
-
         } catch (IOException e) {
             controller.networkRequestSongResult(KO, null);
         }

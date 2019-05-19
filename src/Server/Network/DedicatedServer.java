@@ -212,7 +212,6 @@ public class DedicatedServer extends Thread {
      * @throws IOException: If there is any error related to connections throws exception
      */
     private void deleteAccount() throws IOException{
-        System.out.println("Deleting user");
         try{
             service.deleteUser(userSave);
             dataOutputStream.writeInt(CONFIRMATION);
@@ -229,6 +228,7 @@ public class DedicatedServer extends Thread {
      */
     private void pianoComunication() throws IOException {
         boolean goBack = false;
+
         while (!goBack){
             switch (dataInputStream.readUTF()){
                 //Return all the songs that the user has access to
@@ -239,6 +239,7 @@ public class DedicatedServer extends Thread {
                         String songsJson = gson.toJson(songs);
                         dataOutputStream.writeUTF(songsJson);
                         dataOutputStream.writeInt(CONFIRMATION);
+
                     } catch (Exception e) {
                         dataOutputStream.writeInt(ERROR);   //Error al recuperar les cançons
                     }
@@ -292,10 +293,7 @@ public class DedicatedServer extends Thread {
                         //I return the song, so i can get the path i then i can get the song and pass it
                         Song songObtained = null;
 
-
-                        songObtained = service.getConcreteSongUser(userSave,author, song);
-
-
+                        songObtained = service.getConcreteSongUser(userSave, author, song);
 
                         songObtained.setPlays(songObtained.getPlays() + 1);
                         service.updateSong(songObtained);
@@ -310,7 +308,7 @@ public class DedicatedServer extends Thread {
                     } catch (BBDDException e) {
                         dataOutputStream.writeInt(ERROR_BBDD);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        dataOutputStream.writeInt(ERROR_BBDD);
                     }
                     break;
                 //The user has exit the piano view

@@ -79,7 +79,6 @@ public class GestorController implements MouseListener {
                     writer.write(songFile);
                     writer.close();
 
-                    System.out.println(path.substring(0, path.lastIndexOf('.')) + " " + "FilesBBDD/Public/System/" + path.substring(0, path.lastIndexOf('.')) + service.getInstanceOfSystem());
                     service.insertSongFromSystem(path.substring(0, path.lastIndexOf('.')), 12, " ",
                             0, "FilesBBDD/Public/System/" + path.substring(0, path.lastIndexOf('.')),
                             service.getInstanceOfSystem());
@@ -92,6 +91,8 @@ public class GestorController implements MouseListener {
                     view.getGestorView().cantSaveMsg();
                 }
             }
+
+            refreshView();
 
         } else if (event.getSource() == view.getGestorView().getBackButton()) {
             view.getGestorView().setVisible(false);

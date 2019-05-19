@@ -360,7 +360,6 @@ public class ClientConnection extends Thread {
             controller.networkSelectSongResult(trans_estate, songs);
 
         } catch (IOException e) {
-            //e.printStackTrace();
             System.out.println("Error with the GSON songs");
         }
 
@@ -377,7 +376,6 @@ public class ClientConnection extends Thread {
             dOut.writeUTF(SAVE_SONG);
             dOut.writeUTF(songFile);
             obOut.writeObject(song);
-            System.out.println("He guardat: " + songFile + " " + song.toString());
 
             trans_estate = dIn.readInt();
             controller.networkSaveSongResult(trans_estate);
@@ -405,7 +403,6 @@ public class ClientConnection extends Thread {
             controller.networkRequestSongResult(trans_estate, midi);
 
         } catch (IOException e) {
-            e.printStackTrace();
             System.out.println("Error trying to access the song");
         }
     }

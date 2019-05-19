@@ -38,13 +38,28 @@ public class FinestraJSocial extends JFrame {
     public void setjSocial(JSocial jSocial) {
         this.jSocial = jSocial;
     }
+
+    /**
+     * Method to put the JSocial Controller in all the avaiable elements in the JSocial panel
+     * @param controllerJSocial Controller that we want to register
+     */
     public void registerController (ControllerJSocial controllerJSocial) {
         jSocial.registerController(controllerJSocial);
     }
 
+    /**
+     * Method to show the result of the search in the JSocial view
+     * @param name Name of the user that we want to show
+     * @param imageFile The image file that we want to show in the result
+     * @param isFriend Boolean that indicates if the actual user and the user searched are friends
+     */
     public void showUserSearch (String name, String imageFile,boolean isFriend) {
         jSocial.showUserSearch(name,imageFile,isFriend);
     }
+
+    /**
+     * Method we resort to when the searched user has not been found
+     */
     public void showUserNotFound () {
         jSocial.showUserNotFound();
     }

@@ -32,7 +32,7 @@ public class JSocial extends JPanel {
     private JLabel backButton;
 
     /**
-     * Constructor, it creates and adds all the jComponents and adds them to a jPanel.
+     * Constructor, it creates and adds all the jComponents and adds them to a jPanel. (Bassically it have all the initialization of JSocial)
      */
     public JSocial () {
         //Initialization of the Layout
@@ -185,6 +185,21 @@ public class JSocial extends JPanel {
         backButton.addMouseListener(controllerJSocial);
     }
 
+    /**
+     * Method to delete the text of the search bar in JSocial
+     */
+    public void deleteText() {
+        //We don't put anything in the textfield text
+        squareSeachFriend.setText("");
+    }
+
+    /**
+     * Method to close the JSocial panel
+     */
+    public void closePanel () {
+        setVisible(false);
+    }
+
     public JLabel getSearchButton() {
         return searchButton;
     }
@@ -205,11 +220,5 @@ public class JSocial extends JPanel {
         return panelFriend;
     }
 
-    public void deleteText() {
-        //We don't put anything in the textfield text
-        squareSeachFriend.setText("");
-    }
-    public void closePanel () {
-        setVisible(false);
-    }
+
 }

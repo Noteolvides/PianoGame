@@ -1,6 +1,7 @@
 package Model;
 
 import Server.Controller.AudioListener;
+import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import Server.View.JTop;
 import Server.View.SongView;
 import org.jfugue.realtime.RealtimePlayer;
@@ -35,7 +36,8 @@ public class PlaySong extends Thread {
     private AudioListener listener;
     private SongView songView;
     private int idSong;
-    RealtimePlayer player;
+    private RealtimePlayer player;
+    private String path;
 
     /**
      * Constructor, it creates and adds all the jComponents and adds them to a jPanel. (Bassically it have all the initialization of PlaySong class)
@@ -43,11 +45,12 @@ public class PlaySong extends Thread {
      * @param songView The view that contains all the information of the song
      * @param idSong The id of the song that we are referenciating
      */
-    public PlaySong(String songTitle, SongView songView, int idSong){
+    public PlaySong(String songTitle, SongView songView, int idSong, String path){
         this.songTitle = songTitle;
         this.setName(songTitle);
         this.songView = songView;
         this.idSong = idSong;
+        this.path = path;
         listener = new AudioListener();
     }
 
@@ -60,7 +63,7 @@ public class PlaySong extends Thread {
     public void run(){
         AudioInputStream audioInputStream;
         try {
-            File file = new File("FilesBBDD/Public/System/" + songTitle + "/");
+            File file = new File(path);
             BufferedReader br = new BufferedReader(new FileReader(file));
             Pattern p = new Pattern(br.readLine());
             player = new RealtimePlayer();
@@ -85,11 +88,9 @@ public class PlaySong extends Thread {
                 e.printStackTrace();
             }
 
-        } catch (MidiUnavailableException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
+        } finally {
             player.close();
             songView.setPlaying(false);
             songView.resetMusicIcon(idSong);

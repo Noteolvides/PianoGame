@@ -72,7 +72,8 @@ public class JTopController implements MouseListener {
 
                 //TODO: Add Thread to Play Music
                 jTop.getSongsList().get(i).setPlaying(true);
-                music.add(new PlaySong(songTitle, jTop.getSongsList().get(i), i));
+                music.add(new PlaySong(songTitle, jTop.getSongsList().get(i), i, jTop.getSongs().get(i).getFilePath()));
+                System.out.println(jTop.getSongs().get(i).getFilePath());
                 music.get(music.size()-1).start();
 
             }else{
@@ -157,4 +158,7 @@ public class JTopController implements MouseListener {
         includeSongs(refreshedSongs);
         addAllTheSongs(jTop.getSongsList());
     }
+
+
+
 }

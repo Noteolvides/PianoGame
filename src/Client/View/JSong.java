@@ -8,6 +8,18 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
+
+/**
+ * Class that creates the Songs Panel, containing all the songs that the user can access
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ */
 public class JSong extends JPanel{
     //Basic elements of the JSongs Class
     //This is the View where we are going to show the songs
@@ -23,7 +35,9 @@ public class JSong extends JPanel{
 
     private JScrollPane scrollBar;
 
-
+    /**
+     * Constructor, it creates and adds all the jComponents and adds them to a jPanel. (Bassically it have all the initialization of JSong)
+     */
     public JSong () {
         //Inicialization of Layout
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
@@ -83,10 +97,18 @@ public class JSong extends JPanel{
 
     }
 
+    /**
+     * This method is the responsible to make the JSong visible
+     */
     public void makePanelVisible () {
         setVisible(true);
     }
 
+
+    /**
+     * This method is the responsible to update the information that is going to be shown on the screen
+     * @param songs It's the array with the songs that we are going to show on the screen
+     */
     public void includeSongs (ArrayList<Song> songs) {
         //Adding a new array to not repeat different times the same songs, if we decide to refresh the window
         //We take the songs that we are going to show and we add them to our view
@@ -102,6 +124,11 @@ public class JSong extends JPanel{
         }
 
     }
+
+    /**
+     * It's the method that update the information of the screen, and clear the old information
+     * @param songsViews We pass to this method the different particular views of the songs that we are going to show
+     */
     public void addAllTheSongs (ArrayList <SongView> songsViews) {
         //We delete all the songs that we have
         songsGroup.removeAll();
@@ -112,6 +139,69 @@ public class JSong extends JPanel{
         repaint();
     }
 
+    /**
+     * This is the method to register the controller of the general things (not the concrete things) of the panel (for example, the back button, the refresh button...)
+     * @param controllerJSong
+     */
+    public void registerControllers (ControllerJSong controllerJSong) {
+        backButton.addMouseListener(controllerJSong);
+        refreshButton.addMouseListener(controllerJSong);
+        //The controller of the songs is put when the songs are updated
+    }
+
+
+    /**
+     * This method is the responsible to say in which song they have touched the play button
+     * @param botoPlay Play button that have been touched
+     * @return We return an string with the title of the song touched
+     */
+    public String searchNameSong(JLabel botoPlay) {
+        String title = "";
+        int j = 0;
+        boolean found = false;
+        //We try to discover what song comes from the play touched
+        while (j < songsList.size() && !found) {
+            if(songsList.get(j).getPlayButton() == botoPlay) {
+                found = true;
+                title = songsList.get(j).getTitleSong().getText();
+            }
+            j++;
+        }
+        return title;
+    }
+
+    /**
+     * This method is the responsible to say the author of the song that they have touched
+     * @param botoPlay Play button that have been touched
+     * @return We return an string with the title of the author of the song that have been touched
+     */
+    public String searchAuthorSong(JLabel botoPlay) {
+        String author = "";
+        int j = 0;
+        boolean found = false;
+        //We try to discover what song comes from the play touched
+        while (j < songsList.size() && !found) {
+            if(songsList.get(j).getPlayButton() == botoPlay) {
+                found = true;
+                author = songsList.get(j).getAuthor().getText();
+            }
+            j++;
+        }
+        return author;
+    }
+
+    /**
+     * This is the resposible to update the controller of every song that it's on the screen
+     * @param controllerJSong We pass the controller that we are going to register in every play button
+     */
+    public void updateControllersSongs (ControllerJSong controllerJSong) {
+        int i = 0;
+        //We put our controller in all the songs available
+        while (i < songsList.size()) {
+            songsList.get(i).registerButtonController(controllerJSong);
+            i++;
+        }
+    }
 
 
     public ArrayList<SongView> getSongsList() {
@@ -131,49 +221,5 @@ public class JSong extends JPanel{
         return refreshButton;
     }
 
-    public void registerControllers (ControllerJSong controllerJSong) {
-        backButton.addMouseListener(controllerJSong);
-        refreshButton.addMouseListener(controllerJSong);
-        //The controller of the songs is put when the songs are updated
-    }
-
-    public String searchNameSong(JLabel botoPlay) {
-        String title = "";
-        int j = 0;
-        boolean found = false;
-        //We try to discover what song comes from the play touched
-        while (j < songsList.size() && !found) {
-            if(songsList.get(j).getPlayButton() == botoPlay) {
-                found = true;
-                title = songsList.get(j).getTitleSong().getText();
-            }
-            j++;
-        }
-        return title;
-    }
-
-    public String searchAuthorSong(JLabel botoPlay) {
-        String author = "";
-        int j = 0;
-        boolean found = false;
-        //We try to discover what song comes from the play touched
-        while (j < songsList.size() && !found) {
-            if(songsList.get(j).getPlayButton() == botoPlay) {
-                found = true;
-                author = songsList.get(j).getAuthor().getText();
-            }
-            j++;
-        }
-        return author;
-    }
-
-    public void updateControllersSongs (ControllerJSong controllerJSong) {
-        int i = 0;
-        //We put our controller in all the songs available
-        while (i < songsList.size()) {
-            songsList.get(i).registerButtonController(controllerJSong);
-            i++;
-        }
-    }
 
 }

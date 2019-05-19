@@ -25,6 +25,14 @@ import java.util.List;
 /**
  * This is the last layer, which allows us to communicate directly with the database and
  * therefore is used exclusively by the ServiceBBDDServer.
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
  */
 @Repository
 public class DAOServer extends HibernateDaoSupport {
@@ -445,7 +453,7 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
     /**
-     * Method that allows us to make the relation with the other users bidireccional
+     * Method that allows us to make the relation with the other users bidireccional (when someone adds another, this adds the other too)
      */
     @Transactional
     public void recyprocityFriendship () {
@@ -459,22 +467,41 @@ public class DAOServer extends HibernateDaoSupport {
 
     }
 
+    /**
+     * This method allows us to search the different songs that have one concrete title
+     * @param songName This is the name of the song that we want to get the different instances
+     * @return We return a list which have all the songs with this title
+     */
     @Transactional (readOnly = true)
     public List<Song> searchConcreteSong (final String songName) {
         List list = getHibernateTemplate().find("FROM " + Song.class.getName() + " AS s WHERE s.title ='" + songName + "'");
         return (List<Song>) list;
     }
+
+    /**
+     * This method allows us to search a concrete song with one specific ID
+     * @param id The id of the song that we want to search
+     * @return We return a list that contains all the songs that have this specific ID
+     */
     public List<Song> searchConcreteSongWithId (final int id) {
         List list = getHibernateTemplate().find("FROM " + Song.class.getName() + " AS s WHERE s.id ='" + id + "'");
         return (List<Song>) list;
     }
 
+
+    /**
+     * This method allows us to search all the public songs that are avaiable on the platform
+     * @return We return a list with all the public songs that are in the database
+     */
     @Transactional (readOnly = true)
     public List<Song> searchPublicSongs () {
         List list = getHibernateTemplate().find("FROM " + Song.class.getName() + " AS s LEFT JOIN FETCH s.author WHERE s.privacity = FALSE ");
         return (List<Song>) list;
     }
 
+    /**
+     * This is the old method that allows us to set the specific time of the database (now we do this passing it in the url)
+     */
     @Transactional
     public void databaseInitialization () {
         getHibernateTemplate().execute(new HibernateCallback<Object>() {
@@ -486,6 +513,10 @@ public class DAOServer extends HibernateDaoSupport {
         });
     }
 
+    /**
+     * This method allows us to get the instance of the predefined system
+     * @return We return the instance of the system that have the id: 1
+     */
     @Transactional
     public Syst getFirstSystem () {
         List list = getHibernateTemplate().find ("FROM " + Syst.class.getName() + " AS s WHERE s.ID = " + 1);

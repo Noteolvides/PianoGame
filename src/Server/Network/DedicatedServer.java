@@ -253,10 +253,10 @@ public class DedicatedServer extends Thread {
                         File directorio = new File(direction);
                         boolean dirCreated = directorio.mkdirs();
 
-                        BufferedWriter writer = new BufferedWriter(new FileWriter(directorio + "/" + s.getTitle()));
+                        BufferedWriter writer = new BufferedWriter(new FileWriter(directorio + "/" + s.getTitle().replace(" ","_")));
                         writer.write(song);
                         writer.close();
-                        s.setFilePath(directorio + "/" + s.getTitle());
+                        s.setFilePath(directorio + "/" + s.getTitle().replace(" ","_"));
                         service.insertSongFromUser(s);
 
                         dataOutputStream.writeInt(CONFIRMATION);

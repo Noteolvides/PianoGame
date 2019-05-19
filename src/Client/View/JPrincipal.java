@@ -121,7 +121,6 @@ public class JPrincipal extends JFrame {
     }
 
     public void setUserCode(String userCode) {
-        System.out.println(userCode);
         userCodePanel.setText("Your code: " + userCode);
     }
 

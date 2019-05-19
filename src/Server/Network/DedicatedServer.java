@@ -167,17 +167,18 @@ public class DedicatedServer extends Thread {
                     //This will be the object to read and
                     User user = (User) objectInputStream.readObject();
                     //Then we want to check if the object Exist in the database
+                    User userToClient = null;
                     try {
                         //Determines whether the user has introduced a login name or a mail to log in
-                        if(utils.confirmEmail(user.getNameUser())){
-                            service.getInstanceOfAUserByEmail(user.getNameUser(), user.getPassword());
+                        if(user.getNameUser().equals("") && utils.confirmEmail(user.getEmail())){
+                            userToClient = service.getInstanceOfAUserByEmail(user.getEmail(), user.getPassword());
                             service.addConnection();
                         }else{
                             //Here we make a  query to de database
-                            service.getInstanceOfAUserByName(user.getNameUser(),user.getPassword());
+                            userToClient = service.getInstanceOfAUserByName(user.getNameUser(),user.getPassword());
                             service.addConnection();
+
                         }
-                        User userToClient = service.getInstanceOfAUserByName(user.getNameUser(), user.getPassword());
                         //If the query return true
                         dataOutputStream.writeInt(CONFIRMATION);
                         userSave = user.getNameUser();

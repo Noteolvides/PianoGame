@@ -43,18 +43,15 @@ public class StartController implements ActionListener, WindowListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("SIGN-IN")){
-            System.out.println("Sing in");
             controller.networkLogIn();
         }
         if (e.getActionCommand().equals("GO-REGISTER")){
-            System.out.println("Register");
             controller.openRegister();
         }
         if (e.getActionCommand().equals("REGISTER")) {
             String password = new String(view.getRegisterView().getPassword());
             String confirmPassword = new String(view.getRegisterView().getPasswordVerify());
             if (confirmPassword(password, confirmPassword, view.getRegisterView().getUsername()) && confirmEmail(view.getRegisterView().getEmail())) {
-                System.out.println("Registered");
                 controller.networkRegister();
             } else {
                 view.getRegisterView().errorPasswordPopUp();

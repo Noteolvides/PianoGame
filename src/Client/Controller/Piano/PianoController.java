@@ -26,16 +26,19 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+
 /**
  * Controller of piano this class implements all the controllers to the keys,playing and saving
  *
- * @author  Gerard
- * @author Gustavo
- * @author Neil
- * @author Jiahui
- * @author Josep
  * @version 1.0
  * @since 2019-05-16
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ *
  */
 public class PianoController {
     private View view;

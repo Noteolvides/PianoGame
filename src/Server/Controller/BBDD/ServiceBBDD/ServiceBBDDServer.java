@@ -662,7 +662,10 @@ public class ServiceBBDDServer {
         }
     }
 
-
+    /**
+     * Method to obtain the first day of last year
+     * @return In this case, we return (in date format) which was the first day in last year
+     */
     private Date getLastYearFirstDay () {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_YEAR,1);
@@ -670,20 +673,35 @@ public class ServiceBBDDServer {
         return calendar.getTime();
     }
 
-
+    /**
+     * It's a method that indicates if we are in the first day of a month
+     * @param date Date that we want to check
+     * @return We return true if the date is the first day of the month or false if not
+     */
     private boolean changeOfMonth (Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar.get(Calendar.DAY_OF_MONTH) == 1;
     }
 
-    //This method says if a change of year have been produced or not
+
+
+    /**
+     * This method says if a change of year have been produced or not
+     * @param date Date that we want to check the change of the year
+     * @return We return true if the date is the first day of the year, and false if not
+     */
     private boolean changeOfYear (Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return calendar.get(Calendar.DAY_OF_YEAR) == 1;
     }
 
+    /**
+     * Method to increment one day to a concrete date
+     * @param dateToIncr This is the date that we want to increase one day
+     * @return We return the date putted incremented by one day
+     */
     private Date incrementDay (Date dateToIncr) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateToIncr);
@@ -691,6 +709,10 @@ public class ServiceBBDDServer {
         return calendar.getTime();
     }
 
+    /**
+     * It's a method to calculate the alphanumeric code of the user and introduce it in the user object
+     * @param user The user which we want to calculate his code
+     */
     private void userCodeCalculate (User user) {
         long now = Instant.now().toEpochMilli()/1000;
         String conversion = String.valueOf(now);

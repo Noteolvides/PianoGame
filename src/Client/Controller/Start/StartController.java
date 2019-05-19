@@ -43,8 +43,6 @@ public class StartController implements ActionListener, WindowListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("SIGN-IN")){
-            System.out.println(view.getStartView().getLogin());
-            System.out.println(view.getStartView().getPassword());
             System.out.println("Sing in");
             controller.networkLogIn();
         }

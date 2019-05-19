@@ -232,10 +232,16 @@ public class Controller {
      */
     public User getLogin() {
         StringBuilder password = new StringBuilder();
+        User user;
         for (int i = 0; i < view.getStartView().getPassword().length; i++) {
             password.append(view.getStartView().getPassword()[i]);
         }
-        return new User(view.getStartView().getLogin(), password.toString());
+        if (startController.confirmEmail(view.getStartView().getLogin())) {
+            user = new User("", password.toString(), view.getStartView().getLogin());
+        } else {
+            user =  new User(view.getStartView().getLogin(), password.toString());
+        }
+        return user;
     }
 
     /**

@@ -10,17 +10,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-
 /**
- *  AuxiliarClass Of Controller Piano that puts the keys in the screen in order to play the song
+ * AuxiliarClass Of Controller Piano that puts the keys in the screen in order to play the song
  *
- * @author  Gerard
- * @author Gustavo
- * @author Neil
- * @author Jiahui
- * @author Josep
  * @version 1.0
  * @since 2019-05-16
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ *
  */
 public class PlayerSongPiano extends Thread {
     private JPiano piano;
@@ -29,6 +30,11 @@ public class PlayerSongPiano extends Thread {
     private int y = 0;
     private ArrayList<Note> notesOfPiano;
 
+    /**
+     * PayerSongPiano constructor
+     * @param piano: Piano view
+     * @param song: Keys
+     */
     public PlayerSongPiano(JPiano piano, Pattern song) {
         notesOfPiano = new ArrayList<>();
         this.piano = piano;

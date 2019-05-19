@@ -159,14 +159,14 @@ public class ServiceBBDDServer {
      */
     public void insertSongFromSystem (String name, int duration, String description, int plays, String filePath, Syst syst) throws Exception {
         Song song = new Song(name, duration,description,plays,filePath, syst);
-        if (name.equals("") || name.contains(" ") || filePath.equals("") || filePath.contains(" ")) {
+        if (name.contains(" ") || filePath.contains(" ")) {
+            throw new FieldsNoValidException();
+        }
+        else {
             ServerContextHolder.set(AvaiableClients.adminSmartPiano);
             dao.checkSongExistence(name,syst.getName(),true,true);
             dao.insertSong(song);
             ServerContextHolder.clear();
-        }
-        else {
-            throw new FieldsNoValidException();
         }
     }
 

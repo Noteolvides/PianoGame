@@ -6,3 +6,5 @@ It's prefered to be executed with a Windows or Ubuntu OS due to MacOS Swing chan
 
 * To run the software you must have run the SQL Database file, creating the database.
 * Then you will run the MainServer starting the Server, and then the MainCient to start the Client.
+
+There's the option of using the ConfigurationCreation main in order to autogenerate a config.json, adding the setting you wish and the configuration of keys of the piano you prefer.

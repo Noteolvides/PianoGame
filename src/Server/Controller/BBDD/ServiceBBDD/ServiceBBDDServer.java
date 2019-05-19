@@ -521,6 +521,7 @@ public class ServiceBBDDServer {
                     return ((Integer)o2.getPlays()).compareTo(o1.getPlays());
                 }
             });
+
             int i = 0;
             //Code to evit the recursivity (the infinit bucle), because the exclude does not work in this case
             while (i < songs.size()) {

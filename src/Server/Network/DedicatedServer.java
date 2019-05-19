@@ -276,11 +276,11 @@ public class DedicatedServer extends Thread {
 
                         //I return the song, so i can get the path i then i can get the song and pass it
                         Song songObtained = null;
-                        try {
-                            songObtained = service.getConcreteSongUser(author, song);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+
+
+                        songObtained = service.getConcreteSongUser(userSave,author, song);
+
+
 
                         songObtained.setPlays(songObtained.getPlays() + 1);
                         service.updateSong(songObtained);

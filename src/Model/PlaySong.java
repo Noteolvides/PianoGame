@@ -3,9 +3,14 @@ package Model;
 import Server.Controller.AudioListener;
 import Server.View.JTop;
 import Server.View.SongView;
+import org.jfugue.realtime.RealtimePlayer;
+import org.jfugue.pattern.*;
 
+import javax.sound.midi.MidiUnavailableException;
 import javax.sound.sampled.*;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 
 /**
@@ -30,6 +35,7 @@ public class PlaySong extends Thread {
     private AudioListener listener;
     private SongView songView;
     private int idSong;
+    RealtimePlayer player;
 
     public PlaySong(String songTitle, SongView songView, int idSong){
         this.songTitle = songTitle;
@@ -48,14 +54,21 @@ public class PlaySong extends Thread {
     public void run(){
         AudioInputStream audioInputStream;
         try {
-            audioInputStream = AudioSystem.getAudioInputStream(new File("songTemp/" + songTitle + ".mid").getAbsoluteFile());
+            File file = new File("FilesBBDD/Public/System/" + songTitle + "/");
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            Pattern p = new Pattern(br.readLine());
+            player = new RealtimePlayer();
+
+
+            /*audioInputStream = AudioSystem.getAudioInputStream(new File("FilesBBDD/Public/System/" + songTitle + ".mid").getAbsoluteFile());
             clip = AudioSystem.getClip();
             clip.addLineListener(listener);
-            clip.open(audioInputStream);
+            clip.open(audioInputStream);*/
 
             //clip.loop(Clip.LOOP_CONTINUOUSLY);
             try {
-                clip.start();
+                player.play(p.toString());
+                //clip.start();
                 try {
                     sleep(2000);
                 } catch (InterruptedException e) {
@@ -66,12 +79,12 @@ public class PlaySong extends Thread {
                 e.printStackTrace();
             }
 
-        } catch (UnsupportedAudioFileException | LineUnavailableException e) {
+        } catch (MidiUnavailableException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
-            clip.close();
+            player.close();
             songView.setPlaying(false);
             songView.resetMusicIcon(idSong);
         }
@@ -79,9 +92,10 @@ public class PlaySong extends Thread {
 
     //Stops the song from being played
     public void stopClip() {
-         clip.stop();
+        player.close();
+         /*clip.stop();
          clip.close();
-         this.stop();
+         this.stop();*/
     }
 
     public void setClip(Clip clip) {

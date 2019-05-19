@@ -8,6 +8,21 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Class that permits a song to be played.
+ * It used threads to handle all the songs
+ * that is currently playing
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ *
+ */
 public class playSong extends Thread {
     //A class to play the songs
     private Clip clip;

@@ -75,8 +75,10 @@ public class SaveSong extends JFrame{
     }
 
 
+
     /**
      * Register the correspondent controller to the view
+     * @param c Listener that we are going to put in the save button
      */
     public void registerController(ActionListener c) {
         okButton.setActionCommand("SAVE-SONG");

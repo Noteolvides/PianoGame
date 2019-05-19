@@ -40,19 +40,16 @@ public class ControllerJSocial implements MouseListener {
     public void mousePressed(MouseEvent e) {
         if (e.getSource() instanceof JLabel) {
             if (e.getSource() == view.getSocialView().getjSocial().getSearchButton()) {
-                System.out.println("You are trying to find someone...");
                 controller.networkSearchSocial();
             }
             else {
                 if (e.getSource() == view.getSocialView().getjSocial().getBackButton()) {
-                    System.out.println("Going back to the previous menu...");
                     controller.networkExitSocial();
                     controller.closeSocial();
                     controller.openPrincipal();
                 }
                 else {
                     controller.networkAddSocial();
-                    System.out.println("You have tried to add a new friend");
                 }
             }
         }

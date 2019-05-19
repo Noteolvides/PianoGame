@@ -36,7 +36,7 @@ public class Graphic extends JPanel {
     /**
      * Receives the list of users to determine the height of the graphic
      * and also to draw and plot the points to the graphic
-     * @param users
+     * @param users needs array of user to know the height of the graphic
      */
     public Graphic(List<Integer> users) {
         this.users = users;

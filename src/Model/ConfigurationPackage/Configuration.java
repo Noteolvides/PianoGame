@@ -2,6 +2,18 @@ package Model.ConfigurationPackage;
 
 import java.util.List;
 
+/**
+ * This is the class that will contain all the information avaiable on the configuration JSON class
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ */
 public class Configuration {
     private int portConnexioBBDD;
     private String ip;

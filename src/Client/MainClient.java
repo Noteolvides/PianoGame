@@ -33,7 +33,7 @@ public class MainClient {
         json = new JsonReader(new FileReader("configFiles/config.json"));
         Configuration config = gson.fromJson(json, Configuration.class);
         //Config read enn
-        ClientConnection network = new ClientConnection(controller,config.getClientPort());
+        ClientConnection network = new ClientConnection(controller,config.getClientPort(), config.getIp());
         controller.registerNetwork(network);
         network.run();
     }

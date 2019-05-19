@@ -76,16 +76,19 @@ public class DedicatedServer extends Thread {
     public static final String SAVE_SONG = "save_song";
     public static final String REQUEST_SONG = "request_song";
 
+
     /**
      * Server sockets thread controller
+     * @param service Puts the service that it is going to be used
      */
     public DedicatedServer(ServiceBBDDServer service){
         this.service = service;
     }
 
+
     /**
      * Establish the connection with user
-     * @throws IOException: In case that the Streams couldn't be made, the function throws an exception
+     * @throws IOException In case that the Streams couldn't be made, the function throws an exception
      */
     public void startDedicatedServer() throws IOException {
         objectInputStream = new ObjectInputStream(socket.getInputStream());

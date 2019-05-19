@@ -329,6 +329,7 @@ public class ServiceBBDDServer {
      *  This is the method to search if a user exists passing it the alphanumeric code, if exists we return it.
      *  This method is basically used to acquire the user that the user wants to add
      * @param code It's the alphanumeric code of the user
+     * @param username It's userName
      * @return It returns the instance of the user searched.
      * @throws BBDDException If the user does not exist, an exception is returned, because the user's instance can not be returned.
      */

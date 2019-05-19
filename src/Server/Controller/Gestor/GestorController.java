@@ -31,6 +31,7 @@ public class GestorController implements MouseListener {
     /**
      * Controller of JGestor
      * @param view: JGestor View
+     * @param service: Service that allows comunication with bbdd
      */
     public GestorController(View view, ServiceBBDDServer service) {
         this.view = view;

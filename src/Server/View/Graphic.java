@@ -39,7 +39,7 @@ public class Graphic extends JPanel {
 
     /**
      * Painting the user graph to the panel in JEvolution
-     * @param g
+     * @param g Component that it must be painted
      */
     @Override
     protected void paintComponent(Graphics g) {

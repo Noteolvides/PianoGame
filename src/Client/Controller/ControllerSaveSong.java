@@ -15,8 +15,8 @@ public class ControllerSaveSong implements ActionListener {
 
     /**
      * SaveSong Controller constructor, it assigns the view and the father controller
-     * @param view
-     * @param controller
+     * @param view View Mother of all views
+     * @param controller Main Controller
      */
     public ControllerSaveSong(View view, Controller controller) {
         this.view = view;

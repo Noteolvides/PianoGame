@@ -393,6 +393,8 @@ public class PianoController {
                                 if (!mute) {
                                     realtimePlayer2.startNote(n);
                                 }
+                            }else{
+                                jf.setVisible(true);
                             }
                         } else {
                             jf.setVisible(false);

@@ -31,6 +31,12 @@ public class PlaySong extends Thread {
     private SongView songView;
     private int idSong;
 
+    /**
+     * Constructor, it creates and adds all the jComponents and adds them to a jPanel. (Bassically it have all the initialization of PlaySong class)
+     * @param songTitle The song title that it's going to be shown
+     * @param songView The view that contains all the information of the song
+     * @param idSong The id of the song
+     */
     public PlaySong(String songTitle, SongView songView, int idSong){
         this.songTitle = songTitle;
         this.setName(songTitle);
@@ -39,7 +45,7 @@ public class PlaySong extends Thread {
         listener = new AudioListener();
     }
 
-    /*
+    /**
      * Play the Song Preview when the song icon's clicked on the JTop 5 Panel
      * Multithreading enabled to play multiple songs at the same time
      * Whenever a Song is played its icon gets replaced by a Stop Button
@@ -77,7 +83,11 @@ public class PlaySong extends Thread {
         }
     }
 
-    //Stops the song from being played
+
+
+    /**
+     * Stops the song from being played
+     */
     public void stopClip() {
          clip.stop();
          clip.close();

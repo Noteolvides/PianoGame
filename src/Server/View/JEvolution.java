@@ -9,6 +9,20 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * JEvolution View refers to the graphic of the graphical
+ * representation of the users connection to the game
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ *
+ */
 public class JEvolution {
     //JEvolution attributes, buttons and sockets for data retrieval
     private ServiceBBDDServer service;

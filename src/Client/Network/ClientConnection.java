@@ -5,12 +5,24 @@ import Model.Song;
 import Model.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.jfugue.pattern.Pattern;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * This class use Sockets to connect with the server.
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ *
+ */
 public class ClientConnection extends Thread {
     //Connection const.
     private int port = 5000;

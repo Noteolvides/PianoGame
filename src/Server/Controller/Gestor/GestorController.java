@@ -1,9 +1,13 @@
 package Server.Controller.Gestor;
 
+import Model.Song;
 import Server.Controller.BBDD.Resources.BBDDException;
 import Server.Controller.BBDD.ServiceBBDD.ServiceBBDDServer;
 import Server.View.View;
+import org.jfugue.midi.MidiFileManager;
+import org.jfugue.pattern.Pattern;
 
+import javax.sound.midi.InvalidMidiDataException;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
@@ -56,23 +60,35 @@ public class GestorController implements MouseListener {
     @Override
     public void mouseReleased(MouseEvent event){
         if (event.getSource() == view.getGestorView().getAddButton()) {
-
             JFileChooser selectedFile = new JFileChooser();
             FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                    "Txt files", "txt");
+                    "Midi files", "mid");
             selectedFile.setFileFilter(filter);
 
             int returnVal = selectedFile.showOpenDialog(null);
             if(returnVal == JFileChooser.APPROVE_OPTION) {
-                String direction =  "FilesBBDD/Public/ServerPC";
+                String direction =  "FilesBBDD/Public/System";
                 File directorio = new File(direction);
-                directorio.mkdir();
+                directorio.mkdirs();
+                String path = selectedFile.getSelectedFile().getName();
                 try {
+                    Pattern pattern = MidiFileManager.loadPatternFromMidi(selectedFile.getSelectedFile());
                     BufferedWriter writer = new BufferedWriter
-                            (new FileWriter(directorio + "/" + selectedFile.getSelectedFile().getName()));
+                            (new FileWriter(directorio + "/" + path.substring(0, path.lastIndexOf('.'))));
+                    String songFile = pattern.toString();
+                    writer.write(songFile);
                     writer.close();
 
+                    System.out.println(path.substring(0, path.lastIndexOf('.')) + " " + "FilesBBDD/Public/System/" + path.substring(0, path.lastIndexOf('.')) + service.getInstanceOfSystem());
+                    service.insertSongFromSystem(path.substring(0, path.lastIndexOf('.')), 12, " ",
+                            0, "FilesBBDD/Public/System/" + path.substring(0, path.lastIndexOf('.')),
+                            service.getInstanceOfSystem());
+
                 } catch (IOException e) {
+                    view.getGestorView().cantSaveMsg();
+                } catch (InvalidMidiDataException e) {
+                    view.getGestorView().cantSaveMsg();
+                } catch (Exception e) {
                     view.getGestorView().cantSaveMsg();
                 }
             }
@@ -102,8 +118,6 @@ public class GestorController implements MouseListener {
 
                         if (deleted) {
                             view.getGestorView().deletedMsg();
-                        } else {
-                            view.getGestorView().cantDeleteMsg();
                         }
 
                     } catch (BBDDException e1) {

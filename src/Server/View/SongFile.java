@@ -5,7 +5,19 @@ import Server.Controller.Gestor.GestorController;
 import javax.swing.*;
 import java.awt.*;
 
-
+/**
+ * Class that creates the view of a song inside the Songs Manager (JGestor Class)
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ *
+ */
 public class SongFile extends JPanel {
     //Atributes of the SongFile class
     private JPanel panelPlayInfo;
@@ -18,7 +30,6 @@ public class SongFile extends JPanel {
     private JLabel infoIcon;
     private JLabel privacity; //true -> private
                               //false -> public
-    //TODO: Afegir author
 
     /**
      * The properties of a song
@@ -48,7 +59,6 @@ public class SongFile extends JPanel {
 
 
         //We make a button to Delete the song
-        //TODO: IF PRIVACITY == NULL -> DELETE BUTTON DELETE SONG 'CAUSE IS A PUBLIC PERMANENT SONG
         deleteButton = new JLabel ();
         ImageIcon deleteImage = new ImageIcon("img/delete_button.png");
         //We scale the image because it's too big

@@ -285,6 +285,9 @@ public class PianoController {
         view.getPianoView().revalidate();
     }
 
+    /**
+     * Add control to all keys in piano
+     */
     private void controlKeys() {
         int i = 6;
         for (Key k : view.getPianoView().getPiano().getKeys()) {
@@ -336,6 +339,11 @@ public class PianoController {
     }
 
 
+    /**
+     *
+     * @param finalI if the key is presed
+     * @param k the key to unplay
+     */
     private void unPlayKey(int finalI, Key k) {
         if (keys.get(activado[finalI]) != null) {
             keys.get(activado[finalI]).setEnd(realtimePlayer.getCurrentTime());
@@ -349,6 +357,11 @@ public class PianoController {
     }
 
 
+    /**
+     *
+     * @param finalI position to check if is presed
+     * @param k the key to play
+     */
     private void playKey(int finalI, Key k) {
         if (activado[finalI] == 0) {
             k.touch();
@@ -362,6 +375,11 @@ public class PianoController {
         }
     }
 
+
+    /**
+     * Plays the sring given
+     * @param songMidi Strings that follows jughe format
+     */
     public void playSong(String songMidi) {
         try {
             //First whe ask for song

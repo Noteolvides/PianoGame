@@ -116,7 +116,7 @@ public class SongView extends JPanel {
 
     /**
      * Registers the controller to the buttons of the view
-     * @param controllerJSong
+     * @param controllerJSong This is the controller of JSong
      */
     public void registerButtonController (ControllerJSong controllerJSong) {
         playButton.addMouseListener(controllerJSong);

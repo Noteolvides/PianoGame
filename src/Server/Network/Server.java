@@ -49,7 +49,7 @@ public class Server extends Thread{
     /**
      * It starts the server
      * @param portConnexioBBDD: Socket port number
-     * @throws IOException
+     * @throws IOException Throws exception
      */
     public void startServer(int portConnexioBBDD) throws IOException{
         this.port = portConnexioBBDD;

@@ -39,7 +39,17 @@ public class Controller implements MouseListener {
 
     private ServerViews serverViews;
 
-    //Generala controller for all the views of the Server Side
+    /**
+     * Generates the controller for all the views of the Server Side
+     * @param jEvolutionController: Controller
+     * @param jTopController: Controller
+     * @param registerController: Controller
+     * @param gestorController: Controller
+     * @param jTop: View
+     * @param jEvolution: View
+     * @param view: View
+     * @param serverViews: View
+     */
     public Controller(JEvolutionController jEvolutionController, JTopController jTopController, RegisterController registerController,
                         GestorController gestorController,
                         JTop jTop, JEvolution jEvolution, View view, ServerViews serverViews){
@@ -54,7 +64,12 @@ public class Controller implements MouseListener {
         this.serverViews = serverViews;
     }
 
-    //Adding each controller to its view from the Server
+    /**
+     * Adding each controller to its view from the Server
+     * @param jEvolution: Veiw
+     * @param jTop: View
+     * @param view: View
+     */
     public void actionManager(JEvolution jEvolution, JTop jTop, View view){
         jEvolution.registerController(jEvolutionController);
         jTop.registerController(jTopController);
@@ -62,6 +77,10 @@ public class Controller implements MouseListener {
         view.getGestorView().registerController(gestorController);
     }
 
+    /**
+     * Action, shows and pops the panel to be displayed
+     * @param event: Which button is clicked
+     */
     @Override
     public void mouseClicked(MouseEvent event){
         JButton whichButton = (JButton) event.getSource();

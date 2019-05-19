@@ -33,13 +33,17 @@ public class JEvolution {
     private JButton week;
     private Graphic graphic;
 
+    /**
+     * Receives the service to retrieve information
+     * @param service: Service
+     */
     public JEvolution(ServiceBBDDServer service){
         this.service = service;
     }
 
     /**
      * JEvoltion View
-     * @throws IOException
+     * @throws IOException Throws exception
      */
     public void JEvolution () throws IOException {
 
@@ -85,6 +89,7 @@ public class JEvolution {
 
     /**
      * Creates the graph to be mapped in the JEvolution frame according to the parameters (Users connections)
+     * @return Return the jPanel with the graphics
      */
     public JPanel showGraphic() {
         users = service.getLastWeekConnections();

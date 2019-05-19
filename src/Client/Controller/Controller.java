@@ -270,6 +270,7 @@ public class Controller {
      * Functions that depending of the result of the ClientConnection transmission
      * of the login, makes the program to login and go to the principal screen or show an error popup.
      * @param petitionResult ClientConnection Transmission result code.
+     * @param actualUser User that we are going to set
      */
     public void networkLogInResult(int petitionResult, User actualUser) {
         if (petitionResult == OK) {

@@ -329,6 +329,7 @@ public class ServiceBBDDServer {
      *  This is the method to search if a user exists passing it the alphanumeric code, if exists we return it.
      *  This method is basically used to acquire the user that the user wants to add
      * @param code It's the alphanumeric code of the user
+     * @param username It's userName
      * @return It returns the instance of the user searched.
      * @throws BBDDException If the user does not exist, an exception is returned, because the user's instance can not be returned.
      */
@@ -577,13 +578,18 @@ public class ServiceBBDDServer {
 
             int i = 0;
             //Code to evit the recursivity (the infinit bucle), because the exclude does not work in this case
+            ArrayList <Song> songsAux = new ArrayList<>();
             while (i < songs.size()) {
                 if (songs.get(i).getAuthor() != null) {
-                    songs.get(i).getAuthor().setSongs(null);
-                    songs.get(i).getAuthor().setFollowing(null);
+                    //songs.get(i).getAuthor().setSongs(null);
+                    //songs.get(i).getAuthor().setFollowing(null);
+                    User userAdapted = songs.get(i).getAuthor();
+                    songsAux.add(new Song(songs.get(i).getTitle(), songs.get(i).getDuration(), songs.get(i).getDescription(),songs.get(i).getPlays(), songs.get(i).getFilePath(),songs.get(i).getPrivacity(),new User(userAdapted.getNameUser(),userAdapted.getPassword(), userAdapted.getUserCode(), userAdapted.getEmail())));
                 }
                 else {
-                    songs.get(i).getSystem().setSongs(null);
+                    //songs.get(i).getSystem().setSongs(null);
+                    Syst syst = songs.get(i).getSystem();
+                    songsAux.add(new Song(songs.get(i).getTitle(), songs.get(i).getDuration(), songs.get(i).getDescription(),songs.get(i).getPlays(), songs.get(i).getFilePath(),new Syst(syst.getName(),syst.getDate(),syst.getTotalUsers())));
                 }
                 i++;
             }

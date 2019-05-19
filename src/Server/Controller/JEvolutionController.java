@@ -26,6 +26,11 @@ public class JEvolutionController implements ActionListener {
     private JEvolution jEvolution;
     private ServiceBBDDServer service;
 
+    /**
+     * Controller for the JEvolution
+     * Maps each button to its graphic to be shown
+     * @param jEvolution: JEvolution View
+     */
     public JEvolutionController(JEvolution jEvolution){
         this.jEvolution = jEvolution;
         this.service = jEvolution.getService();

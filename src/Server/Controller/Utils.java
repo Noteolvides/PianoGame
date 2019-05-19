@@ -3,7 +3,7 @@ package Server.Controller;
 
 /**
  * Utils Class purpose's to offer Regular Expressions (Regex)
- * for the log-in & register functions. It determines whether
+ * for the log-in and register functions. It determines whether
  * whether the information introduced by the user is its correct
  * format or no
  *
@@ -66,7 +66,7 @@ public class Utils {
     /**
      * Regex that determines whether the format of the email is correct or not
      * @param email: Email entered by the user
-     * @return
+     * @return a boolean if the email is confirm
      */
     public boolean confirmEmail(String email){
         if(email.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")){

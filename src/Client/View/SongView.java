@@ -4,7 +4,19 @@ import Client.Controller.ControllerJSong;
 import javax.swing.*;
 import java.awt.*;
 
-
+/**
+ * Class that formats the display of each song in the list
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ *
+ */
 public class SongView extends JPanel {
     //Atributes of the SongView class
     private JPanel panelPlayInfo;
@@ -102,6 +114,10 @@ public class SongView extends JPanel {
         return infoIcon;
     }
 
+    /**
+     * Registers the controller to the buttons of the view
+     * @param controllerJSong
+     */
     public void registerButtonController (ControllerJSong controllerJSong) {
         playButton.addMouseListener(controllerJSong);
         //Now, we add the tool tip text too

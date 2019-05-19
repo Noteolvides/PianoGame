@@ -177,14 +177,14 @@ public class ClientConnection extends Thread {
             obOut.writeObject(controller.getLogin());
             //We wait for response if the information was correct
             trans_estate = dIn.readInt();
-
-            controller.networkLogInResult(trans_estate);
+            User actualUser = (User) obIn.readObject();
+            controller.networkLogInResult(trans_estate, actualUser);
             if (trans_estate == OK) {
                 dOut.writeUTF(GO_BACK);
             }
 
-        } catch (IOException e) {
-            controller.networkLogInResult(trans_estate);
+        } catch (IOException | ClassNotFoundException e) {
+            controller.networkLogInResult(trans_estate, null);
         }
 
     }

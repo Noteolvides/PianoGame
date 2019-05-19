@@ -174,12 +174,12 @@ public class DedicatedServer extends Thread {
                             //Here we make a  query to de database
                             service.getInstanceOfAUserByName(user.getNameUser(),user.getPassword());
                             service.addConnection();
-
                         }
 
                         //If the query return true
                         dataOutputStream.writeInt(CONFIRMATION);
                         userSave = user.getNameUser();
+                        objectOutputStream.writeObject(user);
                         //Else
                     } catch (BBDDException e) {
                         dataOutputStream.writeInt(ERROR);

@@ -95,6 +95,11 @@ public class ServiceBBDDServer {
     }
 
     //:::::::::::::::::::Server BBDD Methods:::::::::::::::::::::::::::::::
+
+    /**
+     * This method allows us to get the instance of the system in the controller
+     * @return We return the system that is the responsible to add the songs of the system
+     */
     public Syst getInstanceOfSystem () {
         ServerContextHolder.set(AvaiableClients.adminSmartPiano);
         Syst s = dao.getFirstSystem();

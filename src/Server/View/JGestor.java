@@ -173,5 +173,17 @@ public class JGestor extends JFrame {
     public void setVisible(){
         setVisible(true);
     }
+
+    public void cantSaveMsg() {
+        JOptionPane.showMessageDialog(this, "Error saving the song into the server", "Warning", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void cantDeleteMsg() {
+        JOptionPane.showMessageDialog(this, "System song cannot be deleted", "Warning", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void deletedMsg() {
+        JOptionPane.showMessageDialog(this, "Song deleted", "Information", JOptionPane.INFORMATION_MESSAGE);
+    }
 }
 

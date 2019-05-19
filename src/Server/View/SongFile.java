@@ -67,9 +67,9 @@ public class SongFile extends JPanel {
         this.description = new JLabel (description);
         this.description.setFont(new Font("Sans Serif", Font.PLAIN,10));
         if (privacity == null || !privacity) {
-            this.privacity = new JLabel("[public]");
+            this.privacity = new JLabel("Public");
         } else {
-            this.privacity = new JLabel("[private]");
+            this.privacity = new JLabel("Private");
         }
         this.privacity.setFont(new Font("Sans Serif", Font.PLAIN,10));
 

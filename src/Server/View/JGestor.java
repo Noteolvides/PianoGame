@@ -9,6 +9,19 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Manager Songs View
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ *
+ */
 public class JGestor extends JFrame {
     //Basic elements of the JSongs Class
     //This is the ViewServer where we are going to show the songs

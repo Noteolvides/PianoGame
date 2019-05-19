@@ -315,12 +315,19 @@ public class ServiceBBDDServer {
      * @return It returns the instance of the user searched.
      * @throws BBDDException If the user does not exist, an exception is returned, because the user's instance can not be returned.
      */
-    public User searchUserByCode (String code) throws BBDDException {
+    public User searchUserByCode (String code, String username) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         dao.checkExistenceCode(code);
-        User user = dao.getUserByCode(code);
-        ServerContextHolder.clear();
-        return user;
+        User u = dao.getUserByCode(code);
+        if (!u.getNameUser().equals(username)) {
+            User user = dao.getUserByCode(code);
+            ServerContextHolder.clear();
+            return user;
+        }
+        else {
+            ServerContextHolder.clear();
+            throw new BBDDException();
+        }
     }
 
 
@@ -410,6 +417,14 @@ public class ServiceBBDDServer {
         return user;
     }
 
+
+    /**
+     * This is the method allows us to obtain the instance of a user by his email
+     * @param email Email of the user that we want to get the instance
+     * @param password Password of the user that we want to get the instance
+     * @return We return the complete instance of the user passed
+     * @throws BBDDException This method throws an exception when the email and the password doesn't match
+     */
     public User getInstanceOfAUserByEmail (String email, String password) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.noUserSmartPiano);
         dao.checkExistenceEmailDatabase(email,password,false);
@@ -419,7 +434,17 @@ public class ServiceBBDDServer {
     }
 
 
-    //If the user wants to add a song (the id is assigned by the database because it's serial
+    /**
+     * Method called when the user wants to add a song (the id is assigned by the database because it's serial) with the user registered mysql user
+     * @param name This is the name of the song that we want to add to the platform
+     * @param duration Duration of the song (Optional, it's not mandatory)
+     * @param description This is the description that we want to add in our song
+     * @param author This is the user that have created the song
+     * @param plays This is the number of plays that a song have suffered
+     * @param filePath This is the path of the song in the server (where the server have the midi)
+     * @param privacity This boolean indicates if the songs it's private (true) or not (false)
+     * @throws Exception This Exception it's thrown when: 1)Some of the fields contain spaces or are null 2) The songs of the user already exists
+     */
     public void insertSongFromUser (String name, int duration, String description, User author, int plays, String filePath, boolean privacity) throws Exception {
         Song song  = new Song(name,duration,description,plays,filePath,privacity,author);
         if (duration == 0 || author == null || filePath.equals("") || filePath.contains(" ")) {
@@ -431,6 +456,12 @@ public class ServiceBBDDServer {
         }
     }
 
+
+    /**
+     * This method allows the user to insert a new song into the database
+     * @param song Song that the user wants to insert
+     * @throws BBDDException This exception is thrown when the song already exists in the user songs
+     */
     public void insertSongFromUser(Song song) throws BBDDException {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         dao.checkSongExistence(song.getTitle(),song.getAuthor().getNameUser(),false,true);
@@ -438,19 +469,15 @@ public class ServiceBBDDServer {
         ServerContextHolder.clear();
     }
 
-    public void incrementPlays (int id) throws BBDDException{
-        ServerContextHolder.set(AvaiableClients.UserRegistered);
-        //TODO: Para pepe: Donde se usa searchconcretesong
-        List<Song> songs = dao.searchConcreteSongWithId(id);
-        if (songs == null) {
-            throw new BBDDException();
-        }
-        else {
-            songs.get(0).setPlays(songs.get(0).getPlays()+1);
-        }
-    }
 
-
+    /**
+     * It's a method to obtain an specific song from the user
+     * @param username The username of the song author that we want to search
+     * @param songName The name of the song that we want to search
+     * @return We return the instance of the song that match with the parameters, if all goes good.
+     * @throws Exception This exception is thrown when the song of the user passed does not exists or when the song parameter is
+     * null or with an space
+     */
     public Song getConcreteSongUser (String username, String songName) throws Exception {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         List <Song> songsThatUserCanAccess = null;
@@ -479,6 +506,12 @@ public class ServiceBBDDServer {
 
     }
 
+    /**
+     * This method allows the server to obtain all the songs of a concrete user
+     * @param username The username that we want to obtain all the songs
+     * @return We return the list of the different songs that the user have created
+     * @throws Exception This exception is thrown when the username contains an space or when it's null, or when the user does not exists
+     */
     @Transactional
     public List<Song> getSongsUser (String username) throws Exception{
         if (!(username.equals("") || username.contains(" "))) {
@@ -542,7 +575,12 @@ public class ServiceBBDDServer {
         }
     }
 
-    //With this method you can check if two users are already friends
+    /**
+     * With this method you can check if two users are already friends
+     * @param username1 Username of the first user that you want to check if it's friend
+     * @param username2 Username of the user that you want to check the relation
+     * @return We return a boolean that indicate if they are friends or not
+     */
     public boolean checkUserRelationship (String username1, String username2) {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         List <User> friendsUser = dao.getSomeoneFriends(username1);
@@ -559,7 +597,11 @@ public class ServiceBBDDServer {
 
     //:::::::::::::::::::::::::::::::::Private Methods (used only in internal methods):::::::::::::::::
 
-    //It returns the number of connections that there were in different dates
+    /**
+     * It returns the number of connections that we have in one concrete date
+     * @param date We pass to the method the date that we want to check the connection
+     * @return We return the number of connections that we have in the passed day
+     */
     private int getDayConnection (Date date) {
         ServerContextHolder.set(AvaiableClients.adminSmartPiano);
         int result;
@@ -583,6 +625,10 @@ public class ServiceBBDDServer {
     }
 
 
+    /**
+     * Method to obtain the date of the last week's monday
+     * @return It returns the monday of last week
+     */
     private Date getLastWeekMonday () {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
@@ -598,7 +644,10 @@ public class ServiceBBDDServer {
     }
 
 
-
+    /**
+     * Method to obtain the date of the last month's first day
+     * @return We return in a Date format the first day of the past month
+     */
     private Date getLastMonthFirstDay () {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.DAY_OF_MONTH,1);

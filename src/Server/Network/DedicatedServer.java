@@ -356,7 +356,7 @@ public class DedicatedServer extends Thread {
 
                     //Then we want to check if the object Exist in the database
                     try {
-                        User userTosend = service.searchUserByCode(friendSave);
+                        User userTosend = service.searchUserByCode(friendSave,userSave);
                         friendSave = userTosend.getNameUser();
                         if (service.checkUserRelationship(userSave,friendSave)){
                             userTosend.setPassword("YES");

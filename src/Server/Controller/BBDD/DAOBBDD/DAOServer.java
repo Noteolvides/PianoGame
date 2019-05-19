@@ -415,6 +415,10 @@ public class DAOServer extends HibernateDaoSupport {
         return (List<Song>) list;
     }
 
+    /**
+     * Method that allows us to get all the songs that are created by the system
+     * @return It returns a list of songs with all the songs that the system have created
+     */
     @Transactional (readOnly = true)
     public List<Song> getSystemSongs () {
         List list = getHibernateTemplate().find ("SELECT s.nameSyst FROM "+ Syst.class.getName() +" AS s");
@@ -427,6 +431,12 @@ public class DAOServer extends HibernateDaoSupport {
         }
     }
 
+
+    /**
+     * Method that allows us to get the friends of one concrete user
+     * @param usernameToGetFriends This is the username of the user that we want to search his friends
+     * @return We return a list with all the users that are friends of the specified user
+     */
     @Transactional (readOnly = true)
     public List <User> getSomeoneFriends (final String usernameToGetFriends) {
         List list = getHibernateTemplate().find("SELECT u.following FROM " + User.class.getName() + " AS u WHERE u.nameUser = '" + usernameToGetFriends + "'");
@@ -434,6 +444,9 @@ public class DAOServer extends HibernateDaoSupport {
 
     }
 
+    /**
+     * Method that allows us to make the relation with the other users bidireccional
+     */
     @Transactional
     public void recyprocityFriendship () {
         getHibernateTemplate().execute(new HibernateCallback<Object>() {

@@ -108,12 +108,7 @@ INSERT INTO User (Name, userCode, Password, Email) VALUES ('pepe','12345678P','r
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path, SystemID) VALUES ('URSS Anthem',12,'The URSS Anthem in Piano version!!!',120,'FilesBBDD/Public/System/URSSAnthem',1);
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path, SystemID) VALUES ('SystemDefaultSong',12,'Song simple but perfect to practice!!!',120,'FilesBBDD/Public/System/SystemDefaultSong',1);
 INSERT INTO Song (Name, Duration, Description,Plays, File_Path, SystemID) VALUES ('SystemDefaultSong_2',12,'Simply wonderful!!!',120,'FilesBBDD/Public/System/SystemDefaultSong_2',1);
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, SystemID) VALUES ('song_1',12,'pepe',120,'pepe.mp3',1);
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path,Privacity, Author) VALUES ('song_2',12,'pepe',56,'pepe.mp3',TRUE,'pepe');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('song_3',12,'pepe',89,'pepe.mp3',FALSE,'pepe');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('song_4',12,'pepe',91,'pepe.mp3',FALSE,'josep');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path,Privacity, Author) VALUES ('song_5',12,'pepe',91,'pepe.mp3',TRUE,'josep');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('song_6',12,'pepe',57,'pepe.mp3',TRUE,'pepe');
+
 
 
 # SET GLOBAL validate_password_policy=LOW;

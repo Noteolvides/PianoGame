@@ -512,7 +512,7 @@ public class ServiceBBDDServer {
         if (found) {
             List<Song> song = dao.searchConcreteSong(songName);
             int h = 0;
-            while ((!(song.get(h).getAuthor() != null && ((song.get(h).getAuthor().getNameUser()).equals(username))) && (!(song.get(h).getAuthor() == null && !song.get(h).getSystem().getName().equals(username))))) {
+            while (h < song.size() &&(!(song.get(h).getAuthor() != null && ((song.get(h).getAuthor().getNameUser()).equals(username))) && (!(song.get(h).getAuthor() == null && !song.get(h).getSystem().getName().equals(username))))) {
                 h++;
             }
             ServerContextHolder.clear();

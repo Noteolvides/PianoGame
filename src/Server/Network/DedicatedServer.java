@@ -23,6 +23,20 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * This class, that is a thread created by Sever Class, use Sockets to connect with the user
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ *
+ */
 @Controller
 public class DedicatedServer extends Thread {
     private Socket socket;
@@ -229,9 +243,7 @@ public class DedicatedServer extends Thread {
                 //Save a song into the BBDD played and composed by a user
                 case SAVE_SONG:
                     try {
-                        //TODO: Crear un arxiu txt i guardar la string del midi en ell
                         String song = dataInputStream.readUTF();
-                        System.out.println("Llego aqui");
 
                         //En el server guardaremos todas las canciones, de esta forma, tendremos una carpeta con todas las canciones
                         //o aun mejor, una carpeta y dentro de esa carpeta varias subcarpetas con las canciones de cada usuario, y que dentro

@@ -179,9 +179,7 @@ public class ClientConnection extends Thread {
             trans_estate = dIn.readInt();
 
             controller.networkLogInResult(trans_estate);
-            if (trans_estate == KO) {
-                System.out.println("Error, you couldn't login to the server");
-            } else {
+            if (trans_estate == OK) {
                 dOut.writeUTF(GO_BACK);
             }
 
@@ -206,14 +204,12 @@ public class ClientConnection extends Thread {
             //We wait for response if the information was correct
             trans_estate = dIn.readInt();
             controller.networkRegisterResult(trans_estate);
-            if (trans_estate == ERROR_BBDD) {
-                System.out.println("Error couldn't register");
-            } else {
+            if (trans_estate == OK) {
                 dOut.writeUTF(GO_BACK);
             }
 
         } catch (IOException e) {
-            controller.networkLogInResult(trans_estate);
+            controller.networkLogInResult(KO);
         }
     }
 
@@ -227,14 +223,12 @@ public class ClientConnection extends Thread {
 
             trans_estate = dIn.readInt();
             controller.networkLogOutResult(trans_estate);
-            if (trans_estate == KO) {
-                System.out.println("Couldn't logOut from server");
-            } else {
+            if (trans_estate == OK) {
                 dOut.writeUTF(GO_BACK);
             }
 
         } catch (IOException e) {
-            System.out.println("Error trying to log out");
+            controller.networkLogOutResult(KO);
         }
     }
 
@@ -248,13 +242,11 @@ public class ClientConnection extends Thread {
 
             trans_estate = dIn.readInt();
             controller.networkDeleteAccountResult(trans_estate);
-            if (trans_estate == KO) {
-                System.out.println("Couldn't delete the user");
-            } else {
+            if (trans_estate == OK) {
                 dOut.writeUTF(GO_BACK);
             }
         } catch (IOException e) {
-            System.out.println("Error trying to delete account.");
+            controller.networkDeleteAccountResult(KO);
         }
     }
     //END Login/Register Functions
@@ -294,7 +286,7 @@ public class ClientConnection extends Thread {
             }
             controller.networkSearchSocialResult(trans_estate, userToController);
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            controller.networkSearchSocialResult(KO, null);
         }
     }
 
@@ -311,9 +303,8 @@ public class ClientConnection extends Thread {
             //We wait for response if the operation is completed correctly
             trans_estate = dIn.readInt();
             controller.networkAddSocialResult(trans_estate);
-
         } catch (IOException e) {
-            e.printStackTrace();
+            controller.networkAddSocialResult(KO);
         }
     }
 
@@ -360,7 +351,7 @@ public class ClientConnection extends Thread {
             controller.networkSelectSongResult(trans_estate, songs);
 
         } catch (IOException e) {
-            System.out.println("Error with the GSON songs");
+            controller.networkSelectSongResult(KO, null);
         }
 
     }
@@ -381,7 +372,7 @@ public class ClientConnection extends Thread {
             controller.networkSaveSongResult(trans_estate);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            controller.networkSaveSongResult(KO);
         }
     }
 
@@ -403,7 +394,7 @@ public class ClientConnection extends Thread {
             controller.networkRequestSongResult(trans_estate, midi);
 
         } catch (IOException e) {
-            System.out.println("Error trying to access the song");
+            controller.networkRequestSongResult(KO, null);
         }
     }
 
@@ -431,6 +422,3 @@ public class ClientConnection extends Thread {
 
 
 }
-
-
-

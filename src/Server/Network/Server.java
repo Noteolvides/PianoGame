@@ -14,6 +14,20 @@ import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
 
+
+/**
+ * Class dedicated to create the different threads for each new client
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ *
+ */
 public class Server extends Thread{
     private List<DedicatedServer> dedicatedServers;
 

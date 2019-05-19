@@ -58,16 +58,22 @@ public class ComboSongView extends JLayeredPane {
     }
 
     /**
-     *
-     * @param arrayList
+     * This method is used to update the information that it's avaiable on the screen (reload all the songs)
+     * @param arrayList We pass to the method, all the songs that have to be seen on the screen
      */
     public void updateSongs(ArrayList<Song> arrayList) {
         jSong.includeSongs(arrayList);
         jSong.addAllTheSongs(jSong.getSongsList());
     }
+
+    /**
+     * Method to load the controllers of the JSong's panel (one for each song)
+     * @param controllerJSong Controller that we want to put to the panel
+     */
     public void updateControllersSongs (ControllerJSong controllerJSong) {
         jSong.updateControllersSongs(controllerJSong);
     }
+
 
     public JSong getjSong() {
         return jSong;

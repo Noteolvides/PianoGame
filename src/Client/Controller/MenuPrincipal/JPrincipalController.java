@@ -9,17 +9,39 @@ import java.awt.event.ActionListener;
 
 import static Client.View.JPrincipal.*;
 
+/**
+ * Controller of piano this class implements all the controllers to the keys,playing and saving
+ *
+ * @version 1.0
+ * @since 2019-05-16
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ *
+ */
 public class JPrincipalController implements ActionListener {
     private View view;
     private Controller controller;
 
+    /**
+     * Main menu controller
+     * @param view: Main menu view
+     * @param controller: Parent controller
+     */
     public JPrincipalController(View view, Controller controller) {
         this.view = view;
         this.controller = controller;
     }
 
+    /**
+     * Depending the button selected this functions activates different functionalities
+     * @param e: event of the button
+     */
     public void actionPerformed(ActionEvent e) {
-        //Obtenim el missatge de comanda d'acció per saber quina ha estat l'acció realitzada
+        //We get the action command message to know what action has been done
         String action = e.getActionCommand();
 
         if (action.equals(JPIANO)) {

@@ -15,7 +15,7 @@ public class LoadingThread extends Thread{
     public void run () {
         finestraJSong.showLoading();
         try {
-            Thread.sleep(1000);
+            Thread.sleep(1500);
             //We try to put a similar array (with one new song), to see what happens when touch the refresh
             //finestraJSong.updateSongs(simulationOfArray_2());
 

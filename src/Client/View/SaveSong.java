@@ -27,6 +27,9 @@ public class SaveSong extends JFrame{
     private JLabel songName;
     private JLabel songDesc;
 
+    /**
+     * Constructor, it creates and adds all the jComponents and adds them to a jPanel. (Bassically it have all the initialization of SaveSong frame)
+     */
     public SaveSong() {
         //Adding all the labels and names of the attributes
         wannaPrivate = new JCheckBox("Enable Song Privacy");
@@ -72,7 +75,9 @@ public class SaveSong extends JFrame{
     }
 
 
-    //Register the correspondent controller to the view
+    /**
+     * Register the correspondent controller to the view
+     */
     public void registerController(ActionListener c) {
         okButton.setActionCommand("SAVE-SONG");
         okButton.addActionListener(c);

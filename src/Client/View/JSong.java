@@ -36,7 +36,7 @@ public class JSong extends JPanel{
     private JScrollPane scrollBar;
 
     /**
-     * Constructor, it creates and adds all the jComponents and adds them to a jPanel. (Bassically it have all the initialization of JSocial)
+     * Constructor, it creates and adds all the jComponents and adds them to a jPanel. (Bassically it have all the initialization of JSong)
      */
     public JSong () {
         //Inicialization of Layout

@@ -22,16 +22,31 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
+/**
+ * This is the last layer, which allows us to communicate directly with the database and
+ * therefore is used exclusively by the ServiceBBDDServer.
+ */
 @Repository
 public class DAOServer extends HibernateDaoSupport {
 
 
+    /**
+     * It's the method to get the hibernate's session (it is remarkable that this is done automatically thanks to the autowired)
+     * @param sessionFactory Session factory that we want to inject to the DAO
+     */
     @Autowired
     public DAOServer (SessionFactory sessionFactory) {
         super.setSessionFactory(sessionFactory);
     }
 
+    /**
+     * It's the method to check the user existence in the database, but checking also if the password match with the username
+     * @param username Username that we want to check the existence in the database
+     * @param password Password that we want to check if it matches the username
+     * @param existException This is a boolean is passing to the server the responsability to decide to throw an exception
+     *                       when the user not exist or when the user already exist
+     * @throws BBDDException
+     */
     @Transactional(readOnly = true)
     public void checkExistenceUserDatabase ( String username, String password, boolean existException) throws BBDDException {
         List list = getHibernateTemplate().find("SELECT COUNT(*) FROM "+ User.class.getName() +" AS u WHERE u.nameUser ='"+ username +"' AND u.password ='" + password + "'");
@@ -47,7 +62,14 @@ public class DAOServer extends HibernateDaoSupport {
         }
     }
 
-
+    /**
+     * This method is used to check the user existence in the database, only passing the username
+     * @param username The username that we want to check the existence in the database
+     * @param existException This is a boolean is passing to the server the responsability to decide to throw an exception
+     *                       when the user not exist or when the user already exist
+     *
+     * @throws BBDDException
+     */
     @Transactional (readOnly = true)
     public void checkExistenceUserDatabaseWithoutPassword (String username, boolean existException) throws BBDDException{
         List list = getHibernateTemplate().find ("SELECT COUNT(*) FROM " + User.class.getName() + " AS u WHERE u.nameUser = '" + username + "'");
@@ -151,7 +173,7 @@ public class DAOServer extends HibernateDaoSupport {
             list = getHibernateTemplate().find("SELECT COUNT(*) FROM " + Song.class.getName() + " AS s WHERE s.title = '"+ songName + "' AND (s.author.nameUser = '" + author + "')");
         }
         else {
-            list = getHibernateTemplate().find("SELECT COUNT(*) FROM " + Song.class.getName() + " AS s WHERE s.title = '" + songName + "' AND (s.syst.ID = '" + author + "')");
+            list = getHibernateTemplate().find("SELECT COUNT(*) FROM " + Song.class.getName() + " AS s WHERE s.title = '" + songName + "' AND (s.system.nameSyst = '" + author + "')");
         }
         Boolean b = ((Long) list.get(0) == 0);
         if (existException) {

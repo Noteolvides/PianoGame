@@ -472,17 +472,18 @@ public class ServiceBBDDServer {
 
     /**
      * It's a method to obtain an specific song from the user
+     * @param userInterested User that wants to obtain a concrete song
      * @param username The username of the song author that we want to search
      * @param songName The name of the song that we want to search
      * @return We return the instance of the song that match with the parameters, if all goes good.
      * @throws Exception This exception is thrown when the song of the user passed does not exists or when the song parameter is
      * null or with an space
      */
-    public Song getConcreteSongUser (String username, String songName) throws Exception {
+    public Song getConcreteSongUser (String userInterested, String username, String songName) throws Exception {
         ServerContextHolder.set(AvaiableClients.UserRegistered);
         List <Song> songsThatUserCanAccess = null;
-        songsThatUserCanAccess = getSongsUser(username);
-        int i  = 0;
+        songsThatUserCanAccess = getSongsUser(userInterested);
+        int i = 0;
         boolean found = false;
         while (!found && i < songsThatUserCanAccess.size()) {
             if (songName.equals(songsThatUserCanAccess.get(i).getTitle())) {
@@ -491,20 +492,22 @@ public class ServiceBBDDServer {
             i++;
         }
         if (found) {
-            List <Song> song = dao.searchConcreteSong(songName);
+            List<Song> song = dao.searchConcreteSong(songName);
             int h = 0;
-            while (!((song.get(h).getAuthor().getNameUser()).equals(username))) {
+            while ((!(song.get(h).getAuthor() != null && ((song.get(h).getAuthor().getNameUser()).equals(username))) && (!(song.get(h).getAuthor() == null && !song.get(h).getSystem().getName().equals(username))))) {
                 h++;
             }
             ServerContextHolder.clear();
             return song.get(h);
-        }
-        else {
+        } else {
             ServerContextHolder.clear();
             throw new BBDDException();
         }
-
     }
+
+
+
+
 
     /**
      * This method allows the server to obtain all the songs of a concrete user

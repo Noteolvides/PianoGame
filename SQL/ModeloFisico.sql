@@ -104,16 +104,20 @@ INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (3,'System','2019-05-01',
 INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (4,'System','2019-10-04',35);
 INSERT INTO Syst (ID, Name, Date, TotalOfUsers) VALUES (5,'System','2019-10-06',38);
 INSERT INTO User (Name, userCode, Password, Email) VALUES ('josep','12345678J','roig','joseproig1999@gmail.com');
-INSERT INTO User (Name, userCode, Password, Email) VALUES ('admin','12345678A','admin','admin@gmail.com');
 INSERT INTO User (Name, userCode, Password, Email) VALUES ('pepe','12345678P','roig','peperoig1999@gmail.com');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, SystemID) VALUES ('pepe',12,'pepe',120,'pepe.mp3',1);
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path,Privacity, Author) VALUES ('todays class',12,'pepe',56,'pepe.mp3',TRUE,'pepe');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('josepsSong',12,'pepe',89,'pepe.mp3',FALSE,'pepe');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('classo',12,'pepe',91,'pepe.mp3',FALSE,'josep');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path,Privacity, Author) VALUES ('pepeSong',12,'pepe',91,'pepe.mp3',TRUE,'josep');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('FlamencoGitano',12,'pepe',57,'pepe.mp3',TRUE,'pepe');
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, SystemID) VALUES ('URSS Anthem',12,'The URSS Anthem in Piano version!!!',120,'FilesBBDD/Public/System/URSSAnthem',1);
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, SystemID) VALUES ('SystemDefaultSong',12,'Song simple but perfect to practice!!!',120,'FilesBBDD/Public/System/SystemDefaultSong',1);
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, SystemID) VALUES ('SystemDefaultSong_2',12,'Simply wonderful!!!',120,'FilesBBDD/Public/System/SystemDefaultSong_2',1);
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, SystemID) VALUES ('song_1',12,'pepe',120,'pepe.mp3',1);
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path,Privacity, Author) VALUES ('song_2',12,'pepe',56,'pepe.mp3',TRUE,'pepe');
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('song_3',12,'pepe',89,'pepe.mp3',FALSE,'pepe');
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('song_4',12,'pepe',91,'pepe.mp3',FALSE,'josep');
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path,Privacity, Author) VALUES ('song_5',12,'pepe',91,'pepe.mp3',TRUE,'josep');
+INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('song_6',12,'pepe',57,'pepe.mp3',TRUE,'pepe');
 
--- SET GLOBAL validate_password_policy=LOW;
+
+# SET GLOBAL validate_password_policy=LOW;
+
 
 DROP USER IF EXISTS 'noAlias';
 DROP USER IF EXISTS 'normalUser';
@@ -135,17 +139,15 @@ GRANT EXECUTE ON PROCEDURE SmartPiano.updateFriends TO 'normalUser'@'%';
 GRANT EXECUTE ON PROCEDURE SmartPiano.databaseInitialization TO 'noAlias'@'%';
 FLUSH PRIVILEGES;
 
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('URSSONG',0,'URSSONG',0,'FilesBBDD/Public/admin/URRSSONG',FALSE,'admin');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('URSSONG2',0,'URSSONG',0,'FilesBBDD/Public/admin/URRSSONG',FALSE,'admin');
-INSERT INTO Song (Name, Duration, Description,Plays, File_Path, Privacity,Author) VALUES ('URSSONG3',0,'URSSONG',0,'FilesBBDD/Public/admin/URRSSONG',FALSE,'admin');
-
-
-
-
 SELECT * FROM User;
 SELECT * FROM Song;
 SELECT * FROM Syst;
 SELECT * FROM Friendship;
+TRUNCATE Friendship;
+
+
+
+
 
 
 

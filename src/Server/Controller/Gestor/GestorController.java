@@ -10,15 +10,12 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.*;
-import java.util.Scanner;
 
 
 public class GestorController implements MouseListener {
     private View view;
     private ServiceBBDDServer service;
     private Point point;
-    private JFileChooser jFileChooser;
-    private StringBuilder path;
 
     /**
      * Controller of JGestor
@@ -40,8 +37,6 @@ public class GestorController implements MouseListener {
 
     }
 
-    //TODO: Fer que es guardi una canço en el servidor i en la BBDD. -> Ficar finestra de Jiahui aquí tb
-    //TODO: Fer que quan s'elimini una canço en la bbdd, tb s'elimini l'arxiu del servidor
     /**
      * WHen the mouse is released we watch at what button clicked the user
      * @param event: event due to an interaction with an element of the screen
@@ -63,12 +58,12 @@ public class GestorController implements MouseListener {
                 try {
                     BufferedWriter writer = new BufferedWriter
                             (new FileWriter(directorio + "/" + selectedFile.getSelectedFile().getName()));
+                    writer.close();
+
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    view.getGestorView().cantSaveMsg();
                 }
             }
-
-
 
         } else if (event.getSource() == view.getGestorView().getBackButton()) {
             view.getGestorView().setVisible(false);
@@ -80,11 +75,27 @@ public class GestorController implements MouseListener {
             for (int i = 0; i < view.getGestorView().getSongsList().size(); i++) {
                 if (event.getSource() == view.getGestorView().getSongsList().get(i).getDeleteButton()){
                     try {
-
+                        //Deleted of the BBDD
                         service.deleteSong(view.getGestorView().getSongsList().get(i).getTitleSong().getText(),
                                 view.getGestorView().getSongsList().get(i).getAuthor().getText());
+
+                        //Deleted of server
+                        String direction =  "FilesBBDD/"
+                                + view.getGestorView().getSongsList().get(i).getPrivacity().getText() + "/"
+                                + view.getGestorView().getSongsList().get(i).getAuthor().getText() + "/"
+                                + view.getGestorView().getSongsList().get(i).getTitleSong().getText();
+
+                        File file = new File(direction);
+                        boolean deleted = file.delete();
+
+                        if (deleted) {
+                            view.getGestorView().deletedMsg();
+                        } else {
+                            view.getGestorView().cantDeleteMsg();
+                        }
+
                     } catch (BBDDException e1) {
-                        System.out.println("System song cannot be deleted");
+                        view.getGestorView().cantDeleteMsg();
                     }
                     view.getGestorView().getSongsList().remove(view.getGestorView().getSongsList().get(i));
                     refreshView();

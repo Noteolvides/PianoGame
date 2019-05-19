@@ -211,12 +211,25 @@ public class DAOServer extends HibernateDaoSupport {
         getHibernateTemplate().save(newUser);
     }
 
+    /**
+     * This method have the responsability to insert a user in the user table
+     * @param user The instance of the user that we want to introduce to the platform
+     */
     @Transactional
     public void insertUserTable (User user) {
         getHibernateTemplate().save(user);
     }
 
 
+    /**
+     * This method is the responsible to check the existence of one concrete song on the plaftorm, passing the song and the author
+     * @param songName The name of the song that we want to check the existence
+     * @param author The name of the author that have he song entered
+     * @param system We indicate to the method if the name of the author is a username or is the name of the system
+     * @param existException The service have the responsability decide to throw an exception if the song exist (putting this boolean to true) or
+     *                       if it does not exist
+     * @throws BBDDException This exception is thrown when the song exist  (in case that existException is true), and when the song not exist (in case that existException is false)
+     */
     @Transactional (readOnly = true)
     public void checkSongExistence (final String songName, final String author,boolean system,boolean existException) throws BBDDException{
         List list;
@@ -239,6 +252,11 @@ public class DAOServer extends HibernateDaoSupport {
         }
     }
 
+    /**
+     * This method allows us to insert one concrete song by passing the instance of it
+     * @param song Instance song that we want to insert
+     * @throws BBDDException If the song passed it's null, we throw a BBDDException
+     */
     @Transactional
     public void insertSong (Song song) throws BBDDException {
         if (song != null) {
@@ -249,6 +267,11 @@ public class DAOServer extends HibernateDaoSupport {
         }
     }
 
+    /**
+     * This method it's used to delete a song by passing the name of the song and the author of the song
+     * @param songName This is the name of the song that we want to delete
+     * @param author This is the name of the author of the song that we want to delete
+     */
     @Transactional
     public void deleteSong (final String songName, String author) {
         //TODO: Borrar referencias con amigos
@@ -256,6 +279,10 @@ public class DAOServer extends HibernateDaoSupport {
         getHibernateTemplate().delete((Song) list.get(0));
     }
 
+    /**
+     * Mehtod to obtain all the songs that are avaiable on the database
+     * @return We return the list of the songs of the platform
+     */
     @Transactional (readOnly = true)
     public List <Song> getAllTheSongs () {
         List query = getHibernateTemplate().find("FROM " + Song.class.getName());
@@ -266,6 +293,10 @@ public class DAOServer extends HibernateDaoSupport {
         return resultat;
     }
 
+    /**
+     * Method to obtain the top 5 songs of the platform
+     * @return We return a list of songs ordered by plays
+     */
     @Transactional (readOnly = true)
     public List <Song> getTop5Songs () {
         List list = getHibernateTemplate().find("SELECT s FROM " + Song.class.getName() + " AS s ORDER BY (s.plays) DESC");
@@ -281,12 +312,22 @@ public class DAOServer extends HibernateDaoSupport {
         return result;
     }
 
+    /**
+     * Method to obtain a concrete date connections
+     * @param dateToSearch Date that we want to know how many users have been connected
+     * @return We return an int that indicates the user connections in the dateToSearch
+     */
     @Transactional(readOnly = true)
     public int getDayConnection (String dateToSearch) {
         List list = getHibernateTemplate().find ("SELECT s.totalUsers FROM "+ Syst.class.getName() + " AS s WHERE s.date = '" + dateToSearch + "'");
         return (Integer) list.get(0);
     }
 
+    /**
+     * Method that checks if one date have connections
+     * @param dateToCheck The concrete date that we want to check the number of connections
+     * @throws BBDDException In case there is no row in the system with this specific date, the server is informed to create a specific one or manage it in some way
+     */
     @Transactional(readOnly = true)
     public void CheckDateExists (String dateToCheck) throws BBDDException {
 
@@ -296,6 +337,9 @@ public class DAOServer extends HibernateDaoSupport {
         }
     }
 
+    /**
+     * Method to add a new connection to the actual date
+     */
     @Transactional
     public void addConnection () {
         List list = getHibernateTemplate().find("SELECT s FROM "+ Syst.class.getName()+ " AS s WHERE s.date = DATE(NOW())");
@@ -304,6 +348,11 @@ public class DAOServer extends HibernateDaoSupport {
         getHibernateTemplate().update(s);
     }
 
+    /**
+     * Method to search a user by his username, and return the instance of it.
+     * @param username Username of the user that we want to obtain the instance
+     * @return We return the instance of the user related with the username passed
+     */
     @Transactional
     public User searchUser (final String username) {
         List list = getHibernateTemplate().find("SELECT u FROM " + User.class.getName() +" AS u WHERE u.nameUser = '" + username + "'");
@@ -312,7 +361,9 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
 
-
+    /**
+     * Method to create a new row with the actual date associated, and with 1 connection
+     */
     @Transactional
     public void createSystemToActualDate () {
         Calendar c = Calendar.getInstance();
@@ -320,6 +371,10 @@ public class DAOServer extends HibernateDaoSupport {
         getHibernateTemplate().save(system);
     }
 
+    /**
+     * This method check the existence of the actual date in our database
+     * @throws BBDDException In case there is no row in the system with the actual date, the server is informed to create a new one or manage it in some way
+     */
     @Transactional
     public void checkDateExistenceInSystem () throws BBDDException{
         List list = getHibernateTemplate().find ("SELECT COUNT(*) FROM " + Syst.class.getName() +" AS s WHERE s.date = DATE(NOW())");
@@ -330,17 +385,30 @@ public class DAOServer extends HibernateDaoSupport {
     }
 
 
+    /**
+     * This method is the responsible to update the information of the user in the database
+     * @param userModified We pass to the method the instance of the user with the modified information
+     */
     @Transactional
     public void updateUserTable (User userModified) {
         getHibernateTemplate().merge(userModified);
     }
 
 
+    /**
+     * This method is the responsible to update the song information in the database
+     * @param s We pass to the method the instance of the song with the modified information
+     */
     @Transactional
     public void updateSong (Song s) {
         getHibernateTemplate().update(s);
     }
 
+    /**
+     * This method is the responsible to obtain the songs that one concrete user can access
+     * @param username  We pass the username associated to the user that we want to obtain the songs that can access
+     * @return It returns a list with all the songs that the user associated with the username can access
+     */
     @Transactional (readOnly = true)
     public List<Song> getSomeoneSongs (final String username) {
         List list = getHibernateTemplate().find("FROM " + Song.class.getName() + " AS s LEFT JOIN FETCH s.author WHERE s.author='" + username + "'");

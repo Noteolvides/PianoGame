@@ -1,17 +1,24 @@
 package Model;
 
-import com.google.gson.*;
 import com.google.gson.annotations.Expose;
-
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.lang.reflect.Type;
 
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
 
-
+/**
+ * Class that saves the information of the Song.
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ */
 @Entity
 @Table(name="Song")
 public class Song implements Serializable {
@@ -46,15 +53,24 @@ public class Song implements Serializable {
     @JoinColumn(name="SystemID")
     private Syst system;
 
+    /**
+     * Constructor that creates an empty Song.
+     */
     public Song () {
         title = "default";
         duration = 0;
         description = "default";
     }
 
-
-
-
+    /**
+     * Constructor that creates a Song from the system with the parameters recieved.
+     * @param name Name of the song.
+     * @param duration Duration of the song.
+     * @param description Description of the song.
+     * @param plays Number of times played the song.
+     * @param filePath File path of the song.
+     * @param syst ID of the system.
+     */
     public Song(String name, int duration, String description,int plays, String filePath, Syst syst) {
         this.title = name;
         this.duration = duration;
@@ -64,6 +80,16 @@ public class Song implements Serializable {
         this.system = syst;
     }
 
+    /**
+     * Constructor that creates a Song from a User with the parameters recieved.
+     * @param name Name of the song.
+     * @param duration Duration of the song.
+     * @param description Description of the song.
+     * @param plays Number of times played the song.
+     * @param filePath File path of the song.
+     * @param privacity Privacy of the song.
+     * @param autor User author of the song.
+     */
     public Song(String name, int duration, String description,int plays, String filePath,boolean privacity, User autor) {
         this.title = name;
         this.duration = duration;

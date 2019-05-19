@@ -8,6 +8,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that saves the information of the user.
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ */
 @Entity
 @Table(name="User")
 public class User implements Serializable {
@@ -33,6 +44,9 @@ public class User implements Serializable {
     //@ManyToMany(mappedBy="following")
     //private List<User> followedBy = new ArrayList<User>();
 
+    /**
+     * Constructor that creates a empty user.
+     */
     public User () {
         nameUser = "default";
         password = "default";
@@ -41,7 +55,13 @@ public class User implements Serializable {
         songs = new ArrayList<Song>();
     }
 
-
+    /**
+     * Constructor that creates a user with the all parameters received.
+     * @param name Name of the user.
+     * @param password Password of the user.
+     * @param userCode Alphanumeric Code of the user.
+     * @param email Email of the user.
+     */
     public User(String name,String password, String userCode, String email) {
         this.nameUser = name;
         this.password = password;
@@ -49,19 +69,33 @@ public class User implements Serializable {
         this.userCode = userCode;
     }
 
+    /**
+     * Constructor that creates a user with some parameters received.
+     * @param name Name of the user.
+     * @param password Password of the user.
+     * @param email Email of the user.
+     */
     public User(String name,String password, String email) {
         this.nameUser = name;
         this.password = password;
         this.email = email;
     }
 
+    /**
+     * Constructor that creates a user with a few parameters received.
+     * @param name Name of the user.
+     * @param password Password of the user.
+     */
     public User(String name, String password) {
         this.nameUser = name;
         this.password = password;
     }
 
 
-
+    /**
+     * Constructor that creates a user with a parameter received.
+     * @param name Name if tge user.
+     */
     public User(String name) {
         this.nameUser = name;
     }

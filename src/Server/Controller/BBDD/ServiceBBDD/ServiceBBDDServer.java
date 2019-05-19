@@ -95,6 +95,14 @@ public class ServiceBBDDServer {
     }
 
     //:::::::::::::::::::Server BBDD Methods:::::::::::::::::::::::::::::::
+    public Syst getInstanceOfSystem () {
+        ServerContextHolder.set(AvaiableClients.adminSmartPiano);
+        Syst s = dao.getFirstSystem();
+        ServerContextHolder.clear();
+        return s;
+    }
+
+
 
     /**
      * This is a method that can be called if there is a problem with the CEST Time in the database.
@@ -569,13 +577,18 @@ public class ServiceBBDDServer {
 
             int i = 0;
             //Code to evit the recursivity (the infinit bucle), because the exclude does not work in this case
+            ArrayList <Song> songsAux = new ArrayList<>();
             while (i < songs.size()) {
                 if (songs.get(i).getAuthor() != null) {
-                    songs.get(i).getAuthor().setSongs(null);
-                    songs.get(i).getAuthor().setFollowing(null);
+                    //songs.get(i).getAuthor().setSongs(null);
+                    //songs.get(i).getAuthor().setFollowing(null);
+                    User userAdapted = songs.get(i).getAuthor();
+                    songsAux.add(new Song(songs.get(i).getTitle(), songs.get(i).getDuration(), songs.get(i).getDescription(),songs.get(i).getPlays(), songs.get(i).getFilePath(),songs.get(i).getPrivacity(),new User(userAdapted.getNameUser(),userAdapted.getPassword(), userAdapted.getUserCode(), userAdapted.getEmail())));
                 }
                 else {
-                    songs.get(i).getSystem().setSongs(null);
+                    //songs.get(i).getSystem().setSongs(null);
+                    Syst syst = songs.get(i).getSystem();
+                    songsAux.add(new Song(songs.get(i).getTitle(), songs.get(i).getDuration(), songs.get(i).getDescription(),songs.get(i).getPlays(), songs.get(i).getFilePath(),new Syst(syst.getName(),syst.getDate(),syst.getTotalUsers())));
                 }
                 i++;
             }

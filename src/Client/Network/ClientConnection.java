@@ -70,7 +70,9 @@ public class ClientConnection extends Thread {
     String nextFunc;
 
     /**
-     * Client sockets controller
+     * Inicialization of the client
+     * @param controller The main controller
+     * @param clientPort port of the conection
      */
     public ClientConnection(Controller controller, int clientPort) {
         port = clientPort;

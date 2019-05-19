@@ -123,6 +123,8 @@ DROP USER IF EXISTS 'noAlias';
 DROP USER IF EXISTS 'normalUser';
 DROP USER IF EXISTS 'admin';
 
+SET GLOBAL validate_password_policy=LOW;
+
 CREATE USER 'noAlias'@'%' IDENTIFIED BY 'password1999';
 CREATE USER 'normalUser'@'%' IDENTIFIED BY 'normalUserPassword1999';
 CREATE USER 'admin'@'%' IDENTIFIED BY 'adminPassword1999';

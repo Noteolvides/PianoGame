@@ -45,7 +45,7 @@ public class DAOServer extends HibernateDaoSupport {
      * @param password Password that we want to check if it matches the username
      * @param existException This is a boolean is passing to the server the responsability to decide to throw an exception
      *                       when the user not exist or when the user already exist
-     * @throws BBDDException
+     * @throws BBDDException Exception Of with the eror
      */
     @Transactional(readOnly = true)
     public void checkExistenceUserDatabase ( String username, String password, boolean existException) throws BBDDException {

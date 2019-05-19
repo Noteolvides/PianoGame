@@ -43,7 +43,7 @@ public class JEvolution {
 
     /**
      * JEvoltion View
-     * @throws IOException
+     * @throws IOException Throws exception
      */
     public void JEvolution () throws IOException {
 
@@ -89,6 +89,7 @@ public class JEvolution {
 
     /**
      * Creates the graph to be mapped in the JEvolution frame according to the parameters (Users connections)
+     * @return Return the jPanel with the graphics
      */
     public JPanel showGraphic() {
         users = service.getLastWeekConnections();

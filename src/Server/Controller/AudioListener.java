@@ -38,7 +38,7 @@ public class AudioListener implements LineListener {
 
     /**
      * Waits until the song is finished
-     * @throws InterruptedException
+     * @throws InterruptedException thorws a error
      */
     public synchronized void waitUntilDone() throws InterruptedException {
         while (!done) { wait(); }

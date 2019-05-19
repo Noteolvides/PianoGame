@@ -4,6 +4,17 @@ import Client.Controller.ControllerJSocial;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Class that creates the Social Panel, containing the friends.
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ */
 public class JSocial extends JPanel {
     //This attribute is the title of the frame
     private JLabel panelTitle;
@@ -20,6 +31,9 @@ public class JSocial extends JPanel {
     //This is the button to go back to another frame
     private JLabel backButton;
 
+    /**
+     * Constructor, it creates and adds all the jComponents and adds them to a jPanel.
+     */
     public JSocial () {
         //Initialization of the Layout
         setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -61,8 +75,6 @@ public class JSocial extends JPanel {
         searchAndAnswerPanel.setLayout(new BorderLayout());
         searchAndAnswerPanel.add(searchPanel,BorderLayout.PAGE_START);
 
-
-
         showStartUserSearch();
 
         ImageIcon backButton = new ImageIcon("img/back.png");
@@ -78,12 +90,22 @@ public class JSocial extends JPanel {
 
 
     }
+
+    /**
+     * Function that adds and shows a welcoming panel to the view..
+     */
     public void showStartUserSearch() {
         //Text to display when the screen is first run
         panelFriend = new JFriend("Bienvenido al panel Social!! Introduce un usuario a buscar :)");
         searchAndAnswerPanel.add(panelFriend,BorderLayout.CENTER);
     }
 
+    /**
+     * Function that adds and shows a panel of the found user to the view.
+     * @param name Name of the found user.
+     * @param photoFilename Name of the file where the photo of the found user is located.
+     * @param isFriend Boolean that states if the found user is your friend.
+     */
     public void showUserSearch (String name, String photoFilename,Boolean isFriend) {
         //We have to reinitialize the panel to display the new information (the information of the user)
         panelFriend = new JFriend (name,photoFilename,isFriend);
@@ -93,6 +115,10 @@ public class JSocial extends JPanel {
         //We repaint the panel with the new information
         repaintPanelFriend();
     }
+
+    /**
+     * Function that adds and shows a panel informing that the user wasn't found.
+     */
     public void showUserNotFound () {
         //We have to reinitialize the panel to display the new information, in this case we only show the error message
         panelFriend = new JFriend();
@@ -103,6 +129,9 @@ public class JSocial extends JPanel {
         repaintPanelFriend();
     }
 
+    /**
+     * Function that updates things showed in the panel.
+     */
     public void repaintPanelFriend () {
         searchAndAnswerPanel.add(panelFriend,BorderLayout.CENTER);
         add(searchAndAnswerPanel);
@@ -113,6 +142,9 @@ public class JSocial extends JPanel {
         repaint();
     }
 
+    /**
+     * Function that resets the contents of the view.
+     */
     public void createAndRemoveSearchAndAnswer () {
         //We remove the search bar and the JFriedn's panel
         searchAndAnswerPanel.removeAll();
@@ -122,6 +154,10 @@ public class JSocial extends JPanel {
         searchAndAnswerPanel.add(searchPanel,BorderLayout.PAGE_START);
     }
 
+    /**
+     * Function that assings a controller to the components of the view.
+     * @param controllerJSocial Controller of the social view.
+     */
     public void registerController(ControllerJSocial controllerJSocial) {
         //We have to register all the controllers in  our buttons
         squareSeachFriend.addMouseListener(controllerJSocial);
@@ -132,10 +168,19 @@ public class JSocial extends JPanel {
         }
         registerControllerBackButton (controllerJSocial);
     }
+
+    /**
+     * Function that assigns a controller to the specific found friend add button.
+     * @param controllerJSocial Controller of the Social view.
+     */
     public void registerControllerAddFriend (ControllerJSocial controllerJSocial) {
         panelFriend.registerController(controllerJSocial);
     }
 
+    /**
+     * Function that assigns a controller to the back button.
+     * @param controllerJSocial Controller of the Social view.
+     */
     public void registerControllerBackButton (ControllerJSocial controllerJSocial) {
         backButton.addMouseListener(controllerJSocial);
     }

@@ -12,6 +12,21 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+/**
+ * The Biggest controller fot the server
+ * It controls the views from the server
+ * and it maps with each function
+ *
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
+ *
+ */
 public class Controller implements MouseListener {
     private JEvolutionController jEvolutionController;
     private JTopController jTopController;

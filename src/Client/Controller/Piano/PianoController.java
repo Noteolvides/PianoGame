@@ -169,7 +169,7 @@ public class PianoController {
     private void selectSongButton() {
         //To go open a song
         view.getPianoView().getTopOption().getSelectSongInSystem().addActionListener(e -> {
-            controller.openSong();
+            controller.networkSelectSong();
         });
     }
 

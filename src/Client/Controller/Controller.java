@@ -200,7 +200,6 @@ public class Controller {
      */
     public void openSong() {
         view.getSongView().setVisible(true);
-        network.setNextFunc(SELECT_SONG);
     }
 
     /**
@@ -300,6 +299,10 @@ public class Controller {
         view.getStartView().errorPopUp("register", petitionResult);
     }
 
+    public void networkSelectSong() {
+        network.setNextFunc(SELECT_SONG);
+    }
+
     /**
      * Functions that depending of the result of the ClientConnection transmission
      * of getting the song from the database, makes the program to updates the songs in the view or show an error popup.
@@ -308,6 +311,7 @@ public class Controller {
      */
     public void networkSelectSongResult(int petitionResult, ArrayList<Song> songs) {
         if (petitionResult == OK) {
+            openSong();
             view.getSongView().updateSongs(songs);
             view.getSongView().updateControllersSongs(controllerJSong);
         } else {

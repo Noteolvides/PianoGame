@@ -68,7 +68,7 @@ public class DAOServer extends HibernateDaoSupport {
      * @param existException This is a boolean is passing to the server the responsability to decide to throw an exception
      *                       when the user not exist or when the user already exist
      *
-     * @throws BBDDException
+     * @throws BBDDException This exception is thrown when the user exist (in case that existException is true), and when the user not exist (in case that existException is false)
      */
     @Transactional (readOnly = true)
     public void checkExistenceUserDatabaseWithoutPassword (String username, boolean existException) throws BBDDException{
@@ -86,6 +86,13 @@ public class DAOServer extends HibernateDaoSupport {
         }
     }
 
+    /**
+     * This method check the user existence only using an email, without any password
+     * @param email Email that we want to check his existence
+     * @param existException This is a boolean is passing to the server the responsability to decide to throw an exception
+     *                       when the user not exist or when the user already exist
+     * @throws BBDDException This exception is thrown when the user exist (in case that existException is true), and when the user not exist (in case that existException is false)
+     */
     @Transactional
     public void checkExistenceEmailDatabaseWithoutPassword (String email,boolean existException) throws BBDDException {
         List list = getHibernateTemplate().find ("SELECT COUNT(*) FROM " + User.class.getName() + " AS u WHERE u.email = '" + email + "'");
@@ -101,6 +108,15 @@ public class DAOServer extends HibernateDaoSupport {
         }
     }
 
+    /**
+     * This method check the user existence with the email and also checkes the match of the email with the password
+     * @param email The email that we want to check the existence
+     * @param password The password that we are going to check the match with the email
+     * @param existException This is a boolean is passing to the server the responsability to decide to throw an exception
+     *                       when the user not exist (or the password and the email don't match) or when the user already
+     *                       exist
+     * @throws BBDDException This exception is thrown when the user exist and the password match (in case that existException is true), and when the user not exist or the username and the password does not match (in case that existException is false)
+     */
     @Transactional(readOnly = true)
     public void checkExistenceEmailDatabase (String email, String password, boolean existException) throws BBDDException {
         List list = getHibernateTemplate().find ("SELECT COUNT(*) FROM " + User.class.getName() + " AS u WHERE u.email = '" + email + "' AND u.password = '" + password + "'");
@@ -116,30 +132,52 @@ public class DAOServer extends HibernateDaoSupport {
         }
     }
 
+    /**
+     * This method returns the instance of a user by passing it the username
+     * @param username The username that we want to get the instance
+     * @return We return the specific instance of user associeated with the passed username
+     */
     @Transactional (readOnly = true)
     public User getUser (String username) {
         List list = getHibernateTemplate().find("FROM " + User.class.getName() + " AS u WHERE u.nameUser = '" + username +"'");
         return (User) list.get(0);
     }
 
+    /**
+     * This method returns the instance of a user by passing it the email
+     * @param email The email that we want to get the instance
+     * @return We return the specific instance of the user associated with the passed email
+     */
     @Transactional (readOnly = true)
     public User getUserByEmail (String email) {
         List list = getHibernateTemplate().find("FROM " + User.class.getName() + " AS u WHERE u.email = '" + email +"'");
         return (User) list.get(0);
     }
 
+    /**
+     * This method allows us to delete the user by passing the instance of the user
+     * @param user Instance of the user that we want to delete
+     */
     @Transactional
     public void deleteUserByObject (User user) {
         getHibernateTemplate().delete(user);
     }
 
+    /**
+     * This method allows us to delete the user by passing the username of the user
+     * @param username Username of the user that we want to delete
+     */
     @Transactional
     public void deleteUser (final String username) {
         List list = getHibernateTemplate().find("SELECT u FROM " + User.class.getName()+ " AS u WHERE u.nameUser = '"+ username+"'" );
         getHibernateTemplate().delete((User) list.get(0));
     }
 
-
+    /**
+     * This method allows us to check the existence of the alphanumeric code associated with a concrete user
+     * @param codeToSearch This is the code that we want to check the existence
+     * @throws BBDDException This exception is thrown when the code does not exist in the platform
+     */
     @Transactional (readOnly = true)
     public void checkExistenceCode (String codeToSearch) throws BBDDException {
         List list = getHibernateTemplate().find("SELECT COUNT(*) FROM " + User.class.getName() + " AS u WHERE u.userCode = '" + codeToSearch + "'" );
@@ -148,12 +186,25 @@ public class DAOServer extends HibernateDaoSupport {
         }
     }
 
+    /**
+     * This method returns the instance of a user passing only the alphanumeric code associated with a concrete user
+     * @param codeToSearch The alphanumeric code that we want to obtain the user existence
+     * @return We return the instance of the user assoaciated with the alphanumeric code
+     */
     @Transactional(readOnly = true)
-    public User getUserByCode (String codeToSearch) throws BBDDException {
+    public User getUserByCode (String codeToSearch)  {
         List list = getHibernateTemplate().find("FROM " + User.class.getName() + " AS u WHERE u.userCode = '" + codeToSearch + "'" );
         return (User) list.get(0);
     }
 
+
+    /**
+     * This method insert a user in the table, passing only some attributes
+     * @param username The username of the user that we want to introduce
+     * @param password The password of the user that we want to introduce
+     * @param userCode The user alphanumeric code  of the user that we want to introduce
+     * @param email The email of the user that we want to introduce
+     */
     @Transactional
     public void insertUserTable (String username, String password, String userCode, String email) {
         User newUser = new User(username,userCode,password,email);

@@ -13,6 +13,14 @@ import static Client.Network.ClientConnection.*;
 
 /**
  * Class that creates the start view with the login and to enter the register.
+ * @version 1.0
+ * @since 2019-05-19
+ *
+ * @author Gustavo Gómez
+ * @author Gerard Melgares
+ * @author Josep Roig
+ * @author Neil Torrero
+ * @author Jiahui Xie
  */
 public class JStart extends JFrame {
     private JTextField emailLogin;

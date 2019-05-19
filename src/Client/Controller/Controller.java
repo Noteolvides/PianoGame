@@ -26,7 +26,6 @@ import static Client.Network.ClientConnection.*;
  * @author Josep Roig
  * @author Neil Torrero
  * @author Jiahui Xie
- *
  */
 public class Controller {
     private View view;
